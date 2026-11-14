@@ -30,10 +30,10 @@ export function LevelSelect({
   onContinue: () => void;
 }) {
   const { t } = useGT();
-  const niveis: { l: Level; icon: string }[] = [
-    { l: "cadete", icon: "🧒" },
-    { l: "piloto", icon: "🧑‍🚀" },
-    { l: "comandante", icon: "👩‍🚀" },
+  const niveis: { l: Level; estrelas: number }[] = [
+    { l: "cadete", estrelas: 1 },
+    { l: "piloto", estrelas: 2 },
+    { l: "comandante", estrelas: 3 },
   ];
   return (
     <div className="flex h-full flex-col items-center gap-3 overflow-y-auto p-4">
@@ -47,22 +47,43 @@ export function LevelSelect({
         {t("ui.nivel.titulo")}
       </h1>
       <div className="grid w-full max-w-xl gap-3">
-        {niveis.map(({ l, icon }) => (
+        {niveis.map(({ l, estrelas }) => (
           <button
             key={l}
             type="button"
             disabled={loading}
             onClick={() => onStart(l)}
-            className="flex min-h-20 items-center gap-4 rounded-3xl border-4 border-border bg-card p-4 text-left text-card-foreground shadow-chunky-sand transition hover:border-primary active:translate-y-1 active:shadow-none disabled:opacity-50"
+            className="relative flex min-h-20 items-stretch gap-2 border-4 border-[#c4581f] bg-[#fbe6c8] p-1.5 text-left text-[#3a2015] shadow-[0_6px_0_#7a2f12] transition hover:brightness-105 active:translate-y-1 active:shadow-none disabled:opacity-50"
           >
-            <span className="text-5xl" aria-hidden>
-              {icon}
+            {[
+              "left-0.5 top-0.5",
+              "right-0.5 top-0.5",
+              "left-0.5 bottom-0.5",
+              "right-0.5 bottom-0.5",
+            ].map((c) => (
+              <span
+                key={c}
+                className={`absolute ${c} h-2 w-2 rounded-full bg-[#f2a33a] ring-1 ring-[#7a2f12]`}
+                aria-hidden
+              />
+            ))}
+            <span className="flex flex-1 flex-col justify-center px-3 py-1">
+              <span className="block font-display text-2xl font-bold">{t(`nivel.${l}`)}</span>
+              <span className="block text-[#5a3424]">{t(`ui.nivel.${l}`)}</span>
             </span>
-            <span>
-              <span className="block font-display text-2xl font-bold text-secondary">
-                {t(`nivel.${l}`)}
-              </span>
-              <span className="block text-muted-foreground">{t(`ui.nivel.${l}`)}</span>
+            <span
+              className="flex w-24 shrink-0 items-center justify-center gap-0.5 border-4 border-[#e8c39c] bg-[#c99a72] sm:w-28"
+              aria-hidden
+            >
+              {Array.from({ length: estrelas }, (_, i) => (
+                <img
+                  key={i}
+                  src="/assets/ui/estrela.png"
+                  alt=""
+                  className="h-7 w-7 sm:h-8 sm:w-8"
+                  style={{ imageRendering: "pixelated" }}
+                />
+              ))}
             </span>
           </button>
         ))}
@@ -336,7 +357,10 @@ export function Report({
           </h2>
           {d.momentos.length === 0 && <p>{t("ui.relatorio.sem_decisoes")}</p>}
           {d.momentos.map((m) => (
-            <div key={`${m.sol}-${m.eventId}-${m.choiceId}`} className="rounded-2xl bg-muted p-3 text-card-foreground">
+            <div
+              key={`${m.sol}-${m.eventId}-${m.choiceId}`}
+              className="rounded-2xl bg-muted p-3 text-card-foreground"
+            >
               <p className="text-sm font-bold text-muted-foreground">
                 {t("ui.relatorio.sol", { sol: m.sol })}
               </p>

@@ -72,6 +72,8 @@ export interface Choice {
   schedule?: ScheduleRef[];
   /** custo vem DEPOIS (via schedule). O validador exige: efeito negativo OU deferredCost. */
   deferredCost?: boolean;
+  /** horas do relógio do sol que esta escolha gasta (padrão: 1). "Perder o dia" = várias horas. */
+  horas?: number;
 }
 
 export interface GameEvent {

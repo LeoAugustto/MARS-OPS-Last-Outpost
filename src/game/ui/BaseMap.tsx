@@ -1,21 +1,22 @@
-// Mapa da base, visto de cima, com o astronauta andando.
-// - Celular: toque no chão → anda; toque num lugar → anda até ele e abre.
-// - PC: clique, ou setas/WASD (ao chegar perto de um ❗ ele abre sozinho).
+// Mapa da base, visto de cima, com o astronauta andando SÓ pelas estradas (src/game/ui/walk.ts).
+// - Celular: toque no chão → anda pela estrada até o ponto mais perto; toque numa construção → vai até a porta.
+// - PC: clique, ou setas/WASD (desliza pelas bordas da estrada).
+// - Chegar na porta de um lugar abre o lugar (alerta, se houver; senão, informações).
 // Arte: src/game/ui/art.ts (mapa pixel art + astronauta em 8 direções). Sem arte pronta, usa formas + emoji.
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import type { Alert, PlaceId } from "@/game/engine";
 import { PLACE_POS, useGT } from "./shared";
 import { ART, dirFrom, type Dir8, type Periodo } from "./art";
 import { usePlayer } from "./player";
+import { INICIO, PORTAS, RAIO_SAIDA, caminho, maisPerto, podePisar, portaPerto } from "./walk";
 
 /** quadros da caminhada: 0, 1, 2, 1 */
 const PASSOS = [0, 1, 2, 1];
 
-const SPEED = 38; // % do mapa por segundo
-const RAIO = 8; // distância (%) para "chegar" num lugar
+const SPEED = 30; // % do mapa por segundo
 
-/** Tamanho do astronauta: 12% do lado do mapa (quadrado). A posição é a dos PÉS. */
-const SPRITE = 0.12;
+/** Tamanho do astronauta: 9% do lado do mapa (quadrado). A posição é a dos PÉS. */
+const SPRITE = 0.09;
 // Limites da posição dos pés para o desenho inteiro caber no mapa (que corta o que sai, overflow-hidden):
 // na horizontal sobra meio sprite de cada lado; em cima cabe o sprite inteiro + a sombra.
 const X_MIN = (SPRITE * 100) / 2 + 1;
@@ -40,6 +41,8 @@ interface Props {
   periodo?: Periodo;
   /** avisos desenhados por cima do mapa (posição em % do mapa) */
   children?: ReactNode;
+  /** saiu deste lugar: começa na porta dele */
+  saiuDe?: PlaceId | null;
 }
 
 export function BaseMap({
@@ -51,6 +54,7 @@ export function BaseMap({
   onFirstMove,
   periodo = "dia",
   children,
+  saiuDe,
 }: Props) {
   const background = ART.map.ready ? ART.map.src : undefined;
   const { t } = useGT();
@@ -58,13 +62,16 @@ export function BaseMap({
   const [quadro, setQuadro] = useState(0);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState(320);
-  const [pos, setPos] = useState({ x: 50, y: 58 });
+  const [pos, setPos] = useState(() =>
+    saiuDe ? { x: PORTAS[saiuDe][0], y: PORTAS[saiuDe][1] } : { x: INICIO[0], y: INICIO[1] },
+  );
   const [flip, setFlip] = useState(false);
   const [dir, setDir] = useState<Dir8>("s");
   const [walking, setWalking] = useState(false);
-  const target = useRef<{ x: number; y: number; place?: PlaceId } | null>(null);
+  /** caminho em andamento: pontos de passagem pela estrada e, se for o caso, o lugar no fim */
+  const target = useRef<{ pts: [number, number][]; place?: PlaceId } | null>(null);
   const keys = useRef(new Set<string>());
-  const perto = useRef<PlaceId | null>(null);
+  const perto = useRef<PlaceId | null>(saiuDe ?? null); // saiu pela porta: não entra de novo na hora
   const posRef = useRef(pos);
   const movedOnce = useRef(false);
   const mapRef = useRef<HTMLDivElement>(null);
@@ -141,69 +148,87 @@ export function BaseMap({
     const step = (now: number) => {
       const dt = Math.min(0.12, (now - last) / 1000); // tolera celular lento
       last = now;
-      const { paused: pausado, onPlace: abrir, pendentes: pend, moved: mexeu } = live.current;
+      const { paused: pausado, onPlace: abrir, moved: mexeu } = live.current;
       if (pausado) return;
       const p = posRef.current;
+      const k = keys.current;
+      let nx = p.x;
+      let ny = p.y;
       let dx = 0;
       let dy = 0;
-      const k = keys.current;
+      let chegou: PlaceId | undefined;
       if (k.size) {
+        // teclado: só anda onde é estrada; se bater na borda, desliza no outro eixo
         if (k.has("ArrowLeft") || k.has("a")) dx -= 1;
         if (k.has("ArrowRight") || k.has("d")) dx += 1;
         if (k.has("ArrowUp") || k.has("w")) dy -= 1;
         if (k.has("ArrowDown") || k.has("s")) dy += 1;
-        if (dx || dy) target.current = null;
+        target.current = null;
+        const len = Math.hypot(dx, dy) || 1;
+        const passo = SPEED * dt;
+        const tx = p.x + (dx / len) * passo;
+        const ty = p.y + (dy / len) * passo;
+        if (podePisar(tx, ty)) [nx, ny] = [tx, ty];
+        else if (dx && podePisar(p.x + Math.sign(dx) * passo, p.y))
+          nx = p.x + Math.sign(dx) * passo;
+        else if (dy && podePisar(p.x, p.y + Math.sign(dy) * passo))
+          ny = p.y + Math.sign(dy) * passo;
       } else if (target.current) {
-        dx = target.current.x - p.x;
-        dy = target.current.y - p.y;
-      }
-      const dist = Math.hypot(dx, dy);
-      if (dist <= 0.01) {
-        if (andando) {
-          andando = false;
-          setWalking(false);
+        // segue os pontos de passagem do caminho pela estrada
+        let resta = SPEED * dt;
+        const t0 = target.current;
+        while (resta > 0 && t0.pts.length) {
+          const [wx, wy] = t0.pts[0]!;
+          const d = Math.hypot(wx - nx, wy - ny);
+          dx = wx - nx;
+          dy = wy - ny;
+          if (d <= resta) {
+            nx = wx;
+            ny = wy;
+            resta -= d;
+            t0.pts.shift();
+          } else {
+            nx += (dx / d) * resta;
+            ny += (dy / d) * resta;
+            resta = 0;
+          }
         }
-        return;
+        if (!t0.pts.length) {
+          chegou = t0.place;
+          target.current = null;
+        }
       }
-      const passo = Math.min(SPEED * dt, k.size ? SPEED * dt : dist);
-      const { x: nx, y: ny } = limitar(p.x + (dx / dist) * passo, p.y + (dy / dist) * passo);
-      // alvo fora dos limites (toque bem na borda): para onde der, em vez de andar sem parar
-      if (!k.size && target.current && nx === p.x && ny === p.y) {
-        const place = target.current.place;
-        target.current = null;
+      const mexeuAgora = nx !== p.x || ny !== p.y;
+      if (mexeuAgora) {
+        if (Math.abs(dx) > 0.2) setFlip(dx < 0);
+        if (dx || dy) setDir(dirFrom(dx, dy));
+        posRef.current = { x: nx, y: ny };
+        setPos(posRef.current);
+        if (!andando) {
+          andando = true;
+          setWalking(true);
+        }
+        mexeu();
+      } else if (andando) {
         andando = false;
         setWalking(false);
-        if (place) abrir(place);
-        return;
       }
-      if (Math.abs(dx) > 0.2) setFlip(dx < 0);
-      setDir(dirFrom(dx, dy));
-      posRef.current = { x: nx, y: ny };
-      setPos(posRef.current);
-      if (!andando) {
-        andando = true;
-        setWalking(true);
+      // portas: chegou no destino do toque → abre; no teclado, passar pela porta já abre
+      if (perto.current) {
+        const [px, py] = PORTAS[perto.current];
+        if (Math.hypot(px - nx, py - ny) > RAIO_SAIDA) perto.current = null;
       }
-      mexeu();
-      // chegou no alvo
-      if (
-        !k.size &&
-        target.current &&
-        Math.hypot(target.current.x - nx, target.current.y - ny) < 0.6
-      ) {
-        const place = target.current.place;
-        target.current = null;
+      if (chegou) {
+        perto.current = chegou;
         andando = false;
         setWalking(false);
-        if (place) abrir(place);
-      }
-      // teclado: chegar perto de um ❗ abre sozinho
-      if (k.size) {
-        const near = (Object.keys(PLACE_POS) as PlaceId[]).find(
-          (pl) => Math.hypot(PLACE_POS[pl].x - nx, PLACE_POS[pl].y + 6 - ny) < RAIO,
-        );
-        if (near && near !== perto.current && pend.has(near)) abrir(near);
-        perto.current = near ?? null;
+        abrir(chegou);
+      } else if (k.size && mexeuAgora) {
+        const porta = portaPerto(nx, ny);
+        if (porta && porta !== perto.current) {
+          perto.current = porta;
+          abrir(porta);
+        }
       }
     };
     const loop = (now: number) => {
@@ -246,8 +271,19 @@ export function BaseMap({
 
   const goTo = (x: number, y: number, place?: PlaceId) => {
     if (paused) return;
-    const alvo = limitar(x, y);
-    target.current = place ? { ...alvo, place } : alvo;
+    const de: [number, number] = [posRef.current.x, posRef.current.y];
+    if (place) {
+      const porta = PORTAS[place];
+      // já está na porta: abre direto
+      if (Math.hypot(porta[0] - de[0], porta[1] - de[1]) < 1.5) {
+        perto.current = place;
+        onPlace(place);
+        return;
+      }
+      target.current = { pts: caminho(de, porta), place };
+    } else {
+      target.current = { pts: caminho(de, maisPerto(x, y)) };
+    }
   };
 
   const onGround = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -299,7 +335,7 @@ export function BaseMap({
               type="button"
               onPointerDown={(e) => {
                 e.stopPropagation();
-                goTo(p.x, Math.min(94, p.y + 6), pl);
+                goTo(p.x, p.y, pl);
               }}
               className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center focus-visible:outline-none"
               style={{ left: `${p.x}%`, top: `${p.y}%`, width: size * (background ? 0.24 : 0.2) }}
@@ -403,7 +439,10 @@ export function BaseMap({
               🧑‍🚀
             </span>
           )}
-          <span className="mx-auto block h-1.5 w-2/3 rounded-full bg-black/25" />
+          <span
+            className="absolute -bottom-0.5 left-1/2 h-1.5 w-1/2 -translate-x-1/2 rounded-full bg-black/30"
+            aria-hidden
+          />
         </div>
         {children}
       </div>

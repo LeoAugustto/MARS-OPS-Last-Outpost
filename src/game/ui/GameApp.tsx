@@ -9,6 +9,7 @@ import {
   canSleep,
   choose,
   endSol,
+  findEvent,
   newMission,
   openAlert,
   rewindTo,
@@ -18,6 +19,7 @@ import {
   type PlaceId,
 } from "@/game/engine";
 import { BaseMap } from "./BaseMap";
+import { Interior } from "./Interior";
 import { EventCard } from "./EventCard";
 import { BottomBar, TopHud } from "./Hud";
 import { EnergyPanel, GameMenu, Glossary, MorningModal, NightModal, PlaceInfo } from "./Panels";
@@ -98,6 +100,9 @@ function GameInner({
   const [seen, setSeen] = useState<string[]>([]);
   const [card, setCard] = useState<string | null>(null);
   const [place, setPlace] = useState<PlaceId | null>(null);
+  /** lugar em que a criança entrou (interior); null = está no mapa */
+  const [inside, setInside] = useState<PlaceId | null>(null);
+  const [saiuDe, setSaiuDe] = useState<PlaceId | null>(null);
   const [overlay, setOverlay] = useState<Overlay>(null);
   const [pool, setPool] = useState<DonkiPool | null>(null);
   const [loading, setLoading] = useState(true);
@@ -200,6 +205,15 @@ function GameInner({
   const onPlace = useCallback(
     (pl: PlaceId) => {
       if (!game || card || overlay) return;
+      setInside(pl);
+    },
+    [game, card, overlay],
+  );
+
+  /** computador do interior: abre o alerta do lugar, se houver; senão, as informações */
+  const abrirTerminal = useCallback(
+    (pl: PlaceId) => {
+      if (!game || card || overlay) return;
       const a = game.alerts.find((x) => x.place === pl && !x.done);
       if (a) {
         setGame((g) => (g ? openAlert(g, a.id) : g));
@@ -231,6 +245,7 @@ function GameInner({
     stopSpeaking();
     setPlace(null);
     setGame(endSol(game, undefined, { forcado }));
+    setInside(null);
     setPhase("noite");
   };
 
@@ -260,12 +275,7 @@ function GameInner({
     return () => clearInterval(id);
   }, [relogioRodando, segundosPorSol]);
 
-  // acabou o dia (21:00): a tripulação vai dormir sozinha, com ou sem os alertas resolvidos
-  const sleepRef = useRef(sleep);
-  sleepRef.current = sleep;
-  useEffect(() => {
-    if (relogio >= 1 && relogioRodando) sleepRef.current();
-  }, [relogio, relogioRodando]);
+  // 21:00: o relógio PARA e espera a criança ir dormir na casa (não vira o dia sozinho)
 
   // ---------------------------------------------------------------- telas sem mapa
   const tela = "h-dvh w-full overflow-hidden bg-mars text-foreground";
@@ -347,29 +357,48 @@ function GameInner({
         periodo={periodo}
       />
       <div className="relative min-h-0 flex-1 p-2">
-        <BaseMap
-          alerts={game.alerts}
-          solar={game.solar}
-          escudo={game.escudo}
-          onPlace={onPlace}
-          paused={algoAberto}
-          onFirstMove={() => setTut((x) => (x === 0 ? 1 : x))}
-          periodo={periodo}
-        >
-          {/* no caminho de cima, entre os painéis e a antena: não cobre nenhum ❗ */}
-          {aviso && (
-            <div
-              role="status"
-              className={`pointer-events-none absolute left-1/2 top-[3%] z-10 w-[40%] -translate-x-1/2 border-4 px-2 py-1.5 text-center text-xs font-bold leading-snug shadow-[0_4px_0_#4a2615] sm:text-sm ${
-                noite
-                  ? "border-[#ffe9a8] bg-[#2b2350] text-[#ffe9a8]"
-                  : "border-[#4a2615] bg-[#ffd9a0] text-[#3a1f10]"
-              }`}
-            >
-              {aviso}
-            </div>
-          )}
-        </BaseMap>
+        {inside ? (
+          <Interior
+            key={inside}
+            place={inside}
+            alerts={game.alerts}
+            paused={algoAberto}
+            noite={noite}
+            onTerminal={() => abrirTerminal(inside)}
+            onEnergy={() => setOverlay("energia")}
+            onSleep={sleep}
+            onExit={() => {
+              setSaiuDe(inside);
+              setInside(null);
+            }}
+          />
+        ) : (
+          <BaseMap
+            key={"mapa-" + game.sol}
+            saiuDe={saiuDe}
+            alerts={game.alerts}
+            solar={game.solar}
+            escudo={game.escudo}
+            onPlace={onPlace}
+            paused={algoAberto}
+            onFirstMove={() => setTut((x) => (x === 0 ? 1 : x))}
+            periodo={periodo}
+          >
+            {/* no caminho de cima, entre os painéis e a antena: não cobre nenhum ❗ */}
+            {aviso && (
+              <div
+                role="status"
+                className={`pointer-events-none absolute left-1/2 top-[3%] z-10 w-[40%] -translate-x-1/2 border-4 px-2 py-1.5 text-center text-xs font-bold leading-snug shadow-[0_4px_0_#4a2615] sm:text-sm ${
+                  noite
+                    ? "border-[#ffe9a8] bg-[#2b2350] text-[#ffe9a8]"
+                    : "border-[#4a2615] bg-[#ffd9a0] text-[#3a1f10]"
+                }`}
+              >
+                {aviso}
+              </div>
+            )}
+          </BaseMap>
+        )}
         {showTut && (
           <div className={card ? "fixed inset-x-0 top-2 z-50" : ""}>
             <TutorialBubble
@@ -402,7 +431,14 @@ function GameInner({
             const k = game.alerts.find((a) => a.id === card)?.real?.kind;
             return !!k && !seen.includes(k);
           })()}
-          onChoose={(choiceId) => setGame((g) => (g ? choose(g, card, choiceId) : g))}
+          onChoose={(choiceId) => {
+            setGame((g) => (g ? choose(g, card, choiceId) : g));
+            // cada escolha gasta horas do sol (07:00–21:00 = 14 h); "perder o dia" gasta várias
+            const a = game.alerts.find((x) => x.id === card);
+            const c = a ? findEvent(a.eventId).choices?.find((x) => x.id === choiceId) : undefined;
+            const horas = c ? (c.horas ?? 1) : 0;
+            if (horas) setRelogio((r) => Math.min(1, r + horas / 14));
+          }}
           onClose={closeCard}
         />
       )}

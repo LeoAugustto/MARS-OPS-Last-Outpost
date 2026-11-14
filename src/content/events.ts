@@ -29,7 +29,7 @@ export const EVENTS: GameEvent[] = [
     icon: "🚀",
     source: "marstrek",
     choices: [
-      { id: "explorar", effects: { ar: -6, ciencia: 2 } },
+      { id: "explorar", horas: 2, effects: { ar: -6, ciencia: 2 } },
       { id: "arrumar", effects: { energia: -3, escudo: 1 } },
     ],
   },
@@ -90,7 +90,7 @@ export const EVENTS: GameEvent[] = [
       return { saude: -Math.round(dose) };
     },
     choices: [
-      { id: "ficar", effects: { energia: -2 }, clearFlags: ["abrigo_pronto"] },
+      { id: "ficar", horas: 5, effects: { energia: -2 }, clearFlags: ["abrigo_pronto"] },
       { id: "trabalhar", effects: { saude: -4, ciencia: 2 }, clearFlags: ["abrigo_pronto"] },
     ],
   },
@@ -107,7 +107,7 @@ export const EVENTS: GameEvent[] = [
     weight: 1,
     canHappen: (s) => s.sol >= 2,
     choices: [
-      { id: "correr", effects: { energia: -1, ciencia: -1 } },
+      { id: "correr", horas: 3, effects: { energia: -1, ciencia: -1 } },
       {
         id: "terminar",
         effects: { saude: -2, ciencia: 2 },
@@ -169,7 +169,7 @@ export const EVENTS: GameEvent[] = [
     onlyScheduled: true,
     onOpen: () => ({ solar: -0.4 }),
     choices: [
-      { id: "limpar", effects: { ar: -6, saude: -2, solar: 0.4 } },
+      { id: "limpar", horas: 2, effects: { ar: -6, saude: -2, solar: 0.4 } },
       {
         id: "esperar",
         effects: {},
@@ -243,7 +243,7 @@ export const EVENTS: GameEvent[] = [
         setFlags: ["sem_reserva"],
         available: (s) => s.flags["sem_reserva"] === undefined,
       },
-      { id: "limpar", effects: { energia: -3, ciencia: -1 } },
+      { id: "limpar", horas: 4, effects: { energia: -3, ciencia: -1 } },
       { id: "deixar", effects: { ar: -12 } },
     ],
   },
@@ -260,7 +260,7 @@ export const EVENTS: GameEvent[] = [
     choices: [
       { id: "robo", effects: { energia: -3, ciencia: 3 } },
       {
-        id: "astronauta",
+        id: "astronauta", horas: 3,
         effects: { ar: -8, saude: -3, ciencia: 4 },
         schedule: [{ eventId: "laboratorio", inSols: [1, 2] }],
       },
@@ -286,7 +286,7 @@ export const EVENTS: GameEvent[] = [
     cooldown: 3,
     weight: (s) => (s.sol >= 3 ? 1.5 : 0.5),
     choices: [
-      { id: "treinar", effects: { energia: -1, comida: -3, saude: 4 } },
+      { id: "treinar", horas: 2, effects: { energia: -1, comida: -3, saude: 4 } },
       { id: "pular", effects: { saude: -3, ciencia: 1 } },
     ],
   },
@@ -402,7 +402,7 @@ export const EVENTS: GameEvent[] = [
     cooldown: 5,
     canHappen: (s) => s.sol >= 2 && s.sol + 3 <= s.totalSols,
     choices: [
-      { id: "procurar", effects: { energia: -3 } },
+      { id: "procurar", horas: 3, effects: { energia: -3 } },
       {
         id: "remendo",
         effects: { energia: -1 },
@@ -471,7 +471,7 @@ export const EVENTS: GameEvent[] = [
     cooldown: 5,
     canHappen: (s) => s.sol >= 3,
     choices: [
-      { id: "cortar", effects: { comida: -4 } },
+      { id: "cortar", horas: 2, effects: { comida: -4 } },
       { id: "ventilar", effects: { energia: -2, comida: -1 } },
     ],
   },
@@ -621,7 +621,7 @@ export const EVENTS: GameEvent[] = [
     cooldown: UMA_VEZ,
     canHappen: (s) => s.sol >= 2 && s.sol <= s.totalSols - 2,
     choices: [
-      { id: "treinar", effects: { energia: -2, ciencia: -1 } },
+      { id: "treinar", horas: 2, effects: { energia: -2, ciencia: -1 } },
       {
         id: "adiar",
         effects: { ciencia: 2 },
@@ -678,7 +678,7 @@ export const EVENTS: GameEvent[] = [
     canHappen: (s) =>
       s.lastSeen["poeira_vem"] !== undefined || s.lastSeen["redemoinho"] !== undefined,
     choices: [
-      { id: "astronauta", effects: { ar: -5, saude: -1 } },
+      { id: "astronauta", horas: 2, effects: { ar: -5, saude: -1 } },
       { id: "robo", effects: { energia: -3 } },
     ],
   },
@@ -693,7 +693,7 @@ export const EVENTS: GameEvent[] = [
     cooldown: 5,
     canHappen: (s) => s.sol >= 3,
     choices: [
-      { id: "descansar", effects: { saude: 4 }, setFlags: ["radio_mudo"], deferredCost: true },
+      { id: "descansar", horas: 4, effects: { saude: 4 }, setFlags: ["radio_mudo"], deferredCost: true },
       { id: "luzes", effects: { energia: -2, saude: 2 } },
     ],
   },
@@ -706,7 +706,7 @@ export const EVENTS: GameEvent[] = [
     cooldown: UMA_VEZ,
     canHappen: (s) => s.sol >= Math.ceil(s.totalSols / 2),
     choices: [
-      { id: "folga", effects: { comida: -4, saude: 4 } },
+      { id: "folga", horas: 4, effects: { comida: -4, saude: 4 } },
       { id: "plantas", effects: { energia: -2, saude: 3 } },
     ],
   },
@@ -754,7 +754,7 @@ export const EVENTS: GameEvent[] = [
         deferredCost: true,
         schedule: [{ eventId: "rover_atolou", inSols: 1 }],
       },
-      { id: "estudar", effects: { energia: -2, ciencia: 1 } },
+      { id: "estudar", horas: 2, effects: { energia: -2, ciencia: 1 } },
     ],
   },
   {
