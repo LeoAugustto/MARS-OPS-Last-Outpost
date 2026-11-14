@@ -42,6 +42,7 @@ export function LevelSelect({
   onContinue: () => void;
 }) {
   const { t } = useGT();
+  const [nivel, setNivel] = useState<Level>("cadete");
   const niveis: { l: Level; estrelas: number }[] = [
     { l: "cadete", estrelas: 1 },
     { l: "piloto", estrelas: 2 },
@@ -58,14 +59,20 @@ export function LevelSelect({
       <h1 className="text-center font-display text-3xl font-bold text-[#ffd23f]">
         {t("ui.nivel.titulo")}
       </h1>
-      <div className="grid w-full max-w-xl gap-3">
+      <div className="grid w-full max-w-xl gap-3" role="radiogroup" aria-label={t("ui.nivel.titulo")}>
         {niveis.map(({ l, estrelas }) => (
           <button
             key={l}
             type="button"
+            role="radio"
+            aria-checked={nivel === l}
             disabled={loading}
-            onClick={() => onStart(l)}
-            className="relative flex min-h-20 items-stretch gap-2 border-4 border-[#c4581f] bg-[#fbe6c8] p-1.5 text-left text-[#3a2015] shadow-[0_6px_0_#7a2f12] transition hover:brightness-105 active:translate-y-1 active:shadow-none disabled:opacity-50"
+            onClick={() => setNivel(l)}
+            className={`relative flex min-h-20 items-stretch gap-2 border-4 p-1.5 text-left text-[#3a2015] shadow-[0_6px_0_#7a2f12] transition hover:brightness-105 active:translate-y-1 active:shadow-none disabled:opacity-50 ${
+              nivel === l
+                ? "border-[#e2672b] bg-[#ffe9cc] ring-4 ring-[#ffd23f]"
+                : "border-[#c4581f] bg-[#fbe6c8]"
+            }`}
           >
             {[
               "left-0.5 top-0.5",
@@ -80,7 +87,10 @@ export function LevelSelect({
               />
             ))}
             <span className="flex flex-1 flex-col justify-center px-3 py-1">
-              <span className="block font-display text-2xl font-bold">{t(`nivel.${l}`)}</span>
+              <span className="flex items-center gap-2 font-display text-2xl font-bold">
+                {t(`nivel.${l}`)}
+                {nivel === l && <PixelIcon name="ok" size={22} />}
+              </span>
               <span className="block text-[#5a3424]">{t(`ui.nivel.${l}`)}</span>
             </span>
             <span
@@ -99,11 +109,6 @@ export function LevelSelect({
             </span>
           </button>
         ))}
-        {saveSol !== null && (
-          <Button variant="chunkySand" size="tap" className="w-full text-lg" onClick={onContinue}>
-            <PixelIcon name="play" /> {t("ui.continuar", { sol: saveSol })}
-          </Button>
-        )}
       </div>
       <fieldset className="w-full max-w-xl border-4 border-[#c4581f] bg-[#fbe6c8] p-3 text-[#3a2015] shadow-[0_6px_0_#7a2f12]">
         <legend className="bg-[#fbe6c8] px-2 font-display text-lg font-bold">
@@ -147,6 +152,23 @@ export function LevelSelect({
           </div>
         )}
       </fieldset>
+
+      {/* embaixo da fonte dos dados: continuar a missão salva ou começar uma nova */}
+      <div className="grid w-full max-w-xl gap-3 sm:grid-cols-2">
+        {saveSol !== null && (
+          <Button variant="chunkySand" size="tap" className="w-full" onClick={onContinue}>
+            <PixelIcon name="play" /> {t("ui.continuar", { sol: saveSol })}
+          </Button>
+        )}
+        <Button
+          variant="chunky"
+          size="tap"
+          className={`w-full ${saveSol === null ? "sm:col-span-2" : ""}`}
+          onClick={() => onStart(nivel)}
+        >
+          <PixelIcon name="foguete" /> {t("ui.iniciar")}
+        </Button>
+      </div>
       <p className="text-center text-sm text-foreground/80" aria-live="polite">
         {loading ? <><PixelIcon name="ampulheta" size={20} /> {t("ui.carregando")}</> : nasaInfo}
       </p>
