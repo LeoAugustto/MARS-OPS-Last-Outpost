@@ -152,6 +152,8 @@ export function NightModal({ state, onNext }: { state: GameState; onNext: () => 
       ? t("ui.noite.falta", { lista: n.faltou.map((k) => t(`modulo.${k}`)).join(", ") })
       : "",
     n.critico ? t("ui.noite.critico") : "",
+    n.perdidos ? t("ui.noite.perdidos", { n: n.perdidos, dano: n.danoPerdidos ?? 0 }) : "",
+    n.perdidos ? t("ui.noite.sono") : "",
     t("ui.noite.bateria", { n: n.bateria }),
   ].filter(Boolean);
   const titulo = t("ui.noite.titulo", { sol: n.sol });
@@ -188,15 +190,19 @@ export function PlaceInfo({
   onClose,
   onEnergy,
   onSleep,
+  noite = false,
 }: {
   state: GameState;
   place: PlaceId;
   onClose: () => void;
   onEnergy: () => void;
   onSleep: () => void;
+  /** já é noite: pode dormir mesmo com alerta aberto (perde saúde) */
+  noite?: boolean;
 }) {
   const { t } = useGT();
   const faltam = state.alerts.filter((a) => !a.done).length;
+  const dano = faltam * BALANCE.SAUDE_POR_ALERTA_PERDIDO;
   return (
     <Modal label={t(`lugar.${place}`)} onClose={onClose}>
       <div className="flex flex-col gap-3">
@@ -209,9 +215,9 @@ export function PlaceInfo({
           </Button>
         )}
         {place === "habitat" &&
-          (faltam === 0 ? (
+          (faltam === 0 || noite ? (
             <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onSleep}>
-              {t("ui.dormir")}
+              {faltam ? t("ui.dormir_custo", { dano }) : t("ui.dormir")}
             </Button>
           ) : (
             <p className="rounded-xl bg-accent p-3 font-bold">

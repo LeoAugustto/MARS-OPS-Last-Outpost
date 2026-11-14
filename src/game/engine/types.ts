@@ -140,6 +140,10 @@ export interface NightReport {
   /** módulos que receberam menos energia do que a divisão pedia */
   faltou: ModuleKey[];
   critico: boolean;
+  /** alertas que ficaram sem resposta quando a noite chegou (dormiu sem terminar) */
+  perdidos?: number;
+  /** saúde perdida por causa deles */
+  danoPerdidos?: number;
   delta: Effect;
 }
 

@@ -94,6 +94,18 @@ const pt = {
   "ui.noite.critico": "😟 Ar ou comida muito baixos cansaram a tripulação.",
   "ui.noite.acordar": "Acordar · Sol {sol}",
   "ui.noite.fim": "Ver o fim da missão",
+  "ui.relogio": "Hora do dia",
+  "ui.periodo.dia": "Dia",
+  "ui.periodo.entardecer": "Fim de tarde",
+  "ui.periodo.noite": "Noite",
+  "ui.entardecer.aviso": "🌇 O Sol está se pondo. Termine os alertas antes da noite!",
+  "ui.noite.aviso":
+    "🌙 Anoiteceu! Hora de dormir. Cada alerta sem resposta cansa a equipe: −{dano} ❤️.",
+  "ui.dormir_custo": "Dormir 🛏️ (−{dano} ❤️)",
+  "ui.noite.perdidos":
+    "😴 {n} alertas ficaram sem resposta. A equipe dormiu preocupada: −{dano} ❤️.",
+  "ui.noite.sono":
+    "Dormir bem também é trabalho de astronauta. A NASA estuda o sono das tripulações, porque cansaço causa erros.",
 
   "ui.relatorio.ver": "Ver relatório",
   "ui.relatorio.titulo": "Relatório da missão de {nome}",
@@ -239,6 +251,17 @@ const en: UiDict = {
   "ui.noite.critico": "😟 Very low air or food made the crew tired.",
   "ui.noite.acordar": "Wake up · Sol {sol}",
   "ui.noite.fim": "See the end of the mission",
+  "ui.relogio": "Time of day",
+  "ui.periodo.dia": "Day",
+  "ui.periodo.entardecer": "Sunset",
+  "ui.periodo.noite": "Night",
+  "ui.entardecer.aviso": "🌇 The Sun is setting. Finish the alerts before night!",
+  "ui.noite.aviso":
+    "🌙 Night has come! Time to sleep. Each alert left undone makes the crew tired: −{dano} ❤️.",
+  "ui.dormir_custo": "Sleep 🛏️ (−{dano} ❤️)",
+  "ui.noite.perdidos": "😴 {n} alerts were left undone. The crew went to bed worried: −{dano} ❤️.",
+  "ui.noite.sono":
+    "Sleeping well is part of an astronaut’s job. NASA studies how crews sleep, because being tired causes mistakes.",
 
   "ui.relatorio.ver": "See report",
   "ui.relatorio.titulo": "{nome}'s mission report",
@@ -383,6 +406,18 @@ const es: UiDict = {
   "ui.noite.critico": "😟 Muy poco aire o comida cansaron a la tripulación.",
   "ui.noite.acordar": "Despertar · Sol {sol}",
   "ui.noite.fim": "Ver el final de la misión",
+  "ui.relogio": "Hora del día",
+  "ui.periodo.dia": "Día",
+  "ui.periodo.entardecer": "Atardecer",
+  "ui.periodo.noite": "Noche",
+  "ui.entardecer.aviso": "🌇 El Sol se está poniendo. ¡Termina las alertas antes de la noche!",
+  "ui.noite.aviso":
+    "🌙 ¡Se hizo de noche! Hora de dormir. Cada alerta sin respuesta cansa al equipo: −{dano} ❤️.",
+  "ui.dormir_custo": "Dormir 🛏️ (−{dano} ❤️)",
+  "ui.noite.perdidos":
+    "😴 {n} alertas quedaron sin respuesta. El equipo durmió preocupado: −{dano} ❤️.",
+  "ui.noite.sono":
+    "Dormir bien también es trabajo de astronauta. La NASA estudia el sueño de las tripulaciones, porque el cansancio causa errores.",
 
   "ui.relatorio.ver": "Ver informe",
   "ui.relatorio.titulo": "Informe de la misión de {nome}",
@@ -531,6 +566,18 @@ const fr: UiDict = {
   "ui.noite.critico": "😟 Trop peu d’air ou de nourriture a fatigué l’équipage.",
   "ui.noite.acordar": "Se réveiller · Sol {sol}",
   "ui.noite.fim": "Voir la fin de la mission",
+  "ui.relogio": "Heure de la journée",
+  "ui.periodo.dia": "Jour",
+  "ui.periodo.entardecer": "Coucher de soleil",
+  "ui.periodo.noite": "Nuit",
+  "ui.entardecer.aviso": "🌇 Le Soleil se couche. Termine les alertes avant la nuit !",
+  "ui.noite.aviso":
+    "🌙 La nuit est tombée ! C’est l’heure de dormir. Chaque alerte sans réponse fatigue l’équipe : −{dano} ❤️.",
+  "ui.dormir_custo": "Dormir 🛏️ (−{dano} ❤️)",
+  "ui.noite.perdidos":
+    "😴 {n} alertes sont restées sans réponse. L’équipe s’est couchée inquiète : −{dano} ❤️.",
+  "ui.noite.sono":
+    "Bien dormir fait aussi partie du travail d’astronaute. La NASA étudie le sommeil des équipages, car la fatigue cause des erreurs.",
 
   "ui.relatorio.ver": "Voir le rapport",
   "ui.relatorio.titulo": "Rapport de mission de {nome}",
@@ -679,6 +726,18 @@ const it: UiDict = {
   "ui.noite.critico": "😟 Troppa poca aria o cibo hanno stancato l’equipaggio.",
   "ui.noite.acordar": "Sveglia · Sol {sol}",
   "ui.noite.fim": "Vedi la fine della missione",
+  "ui.relogio": "Ora del giorno",
+  "ui.periodo.dia": "Giorno",
+  "ui.periodo.entardecer": "Tramonto",
+  "ui.periodo.noite": "Notte",
+  "ui.entardecer.aviso": "🌇 Il Sole sta tramontando. Finisci gli allarmi prima della notte!",
+  "ui.noite.aviso":
+    "🌙 È arrivata la notte! Ora di dormire. Ogni allarme senza risposta stanca la squadra: −{dano} ❤️.",
+  "ui.dormir_custo": "Dormire 🛏️ (−{dano} ❤️)",
+  "ui.noite.perdidos":
+    "😴 {n} allarmi sono rimasti senza risposta. La squadra è andata a letto preoccupata: −{dano} ❤️.",
+  "ui.noite.sono":
+    "Dormire bene fa parte del lavoro di un astronauta. La NASA studia il sonno degli equipaggi, perché la stanchezza causa errori.",
 
   "ui.relatorio.ver": "Vedi il rapporto",
   "ui.relatorio.titulo": "Rapporto della missione di {nome}",
