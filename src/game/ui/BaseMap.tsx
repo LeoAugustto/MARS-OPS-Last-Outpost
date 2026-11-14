@@ -8,7 +8,16 @@ import type { Alert, PlaceId } from "@/game/engine";
 import { PLACE_POS, useGT } from "./shared";
 import { ART, dirFrom, type Dir8, type Periodo } from "./art";
 import { usePlayer } from "./player";
-import { INICIO, PORTAS, RAIO_SAIDA, caminho, maisPerto, podePisar, portaPerto } from "./walk";
+import {
+  INICIO,
+  PORTAS,
+  RAIO_SAIDA,
+  bateuNaPorta,
+  caminho,
+  maisPerto,
+  podePisar,
+  predioEm,
+} from "./walk";
 
 /** quadros da caminhada: 0, 1, 2, 1 */
 const PASSOS = [0, 1, 2, 1];
@@ -160,8 +169,10 @@ export function BaseMap({
       let dx = 0;
       let dy = 0;
       let chegou: PlaceId | undefined;
+      let bateu: PlaceId | null = null;
       if (k.size) {
-        // teclado: só anda onde é estrada; se bater na borda, desliza no outro eixo
+        // teclado: anda em qualquer chão; prédio é parede (desliza no outro eixo).
+        // Andar contra o prédio bem na frente da porta = entrar.
         if (k.has("ArrowLeft") || k.has("a")) dx -= 1;
         if (k.has("ArrowRight") || k.has("d")) dx += 1;
         if (k.has("ArrowUp") || k.has("w")) dy -= 1;
@@ -172,10 +183,12 @@ export function BaseMap({
         const tx = p.x + (dx / len) * passo;
         const ty = p.y + (dy / len) * passo;
         if (podePisar(tx, ty)) [nx, ny] = [tx, ty];
-        else if (dx && podePisar(p.x + Math.sign(dx) * passo, p.y))
-          nx = p.x + Math.sign(dx) * passo;
-        else if (dy && podePisar(p.x, p.y + Math.sign(dy) * passo))
-          ny = p.y + Math.sign(dy) * passo;
+        else {
+          bateu = bateuNaPorta(p.x, p.y, tx, ty);
+          if (dx && podePisar(p.x + Math.sign(dx) * passo, p.y)) nx = p.x + Math.sign(dx) * passo;
+          else if (dy && podePisar(p.x, p.y + Math.sign(dy) * passo))
+            ny = p.y + Math.sign(dy) * passo;
+        }
       } else if (target.current) {
         // segue os pontos de passagem do caminho pela estrada
         let resta = SPEED * dt;
@@ -227,12 +240,12 @@ export function BaseMap({
         andando = false;
         setWalking(false);
         abrir(chegou);
-      } else if (k.size && mexeuAgora) {
-        const porta = portaPerto(nx, ny);
-        if (porta && porta !== perto.current) {
-          perto.current = porta;
-          abrir(porta);
-        }
+      } else if (k.size && bateu && bateu !== perto.current) {
+        // empurrou a porta: entra
+        perto.current = bateu;
+        andando = false;
+        setWalking(false);
+        abrir(bateu);
       }
     };
     const loop = (now: number) => {
@@ -339,7 +352,14 @@ export function BaseMap({
               type="button"
               onPointerDown={(e) => {
                 e.stopPropagation();
-                goTo(p.x, p.y, pl);
+                // o botão é maior que o prédio: tocar no chão em volta (onde fica o "!") só anda até
+                // ali; tocar no prédio ou no "!" vai até a porta e entra
+                const r = mapRef.current?.getBoundingClientRect();
+                const x = r ? ((e.clientX - r.left) / r.width) * 100 : p.x;
+                const y = r ? ((e.clientY - r.top) / r.height) * 100 : p.y;
+                const noAviso = (e.target as HTMLElement).closest("[data-aviso]");
+                if (noAviso || predioEm(x, y) === pl) goTo(p.x, p.y, pl);
+                else goTo(x, y);
               }}
               className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center focus-visible:outline-none"
               style={{ left: `${p.x}%`, top: `${p.y}%`, width: size * (background ? 0.24 : 0.2) }}
@@ -384,6 +404,7 @@ export function BaseMap({
                     const at = badgeAt[pl] ?? { left: lado - B + 8, top: -12 };
                     return (
                       <span
+                        data-aviso
                         className={`absolute grid animate-bounce place-items-center border-2 border-[#4a2615] font-black shadow-[0_3px_0_#4a2615] ${
                           urgente ? "bg-destructive text-white" : "bg-[#ffd23f] text-[#4a2615]"
                         }`}
