@@ -245,16 +245,18 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
               aria-label={t(`lugar.${pl}`) + (alerta ? " ❗" : "")}
             >
               <span
-                className={`relative grid aspect-square w-full place-items-center ${
-                  background ? "border-4 border-dashed" : "border-4 bg-secondary/90 shadow-lg"
-                } ${
-                  urgente
-                    ? "animate-pulse border-destructive"
-                    : alerta
-                      ? "border-[#fff1dc]/90"
-                      : background
-                        ? "border-transparent"
-                        : "border-border"
+                // com a arte pronta o alerta é só o "!" (sem moldura tracejada); a borda invisível
+                // mantém o tamanho do botão. Na arte provisória (emoji) a moldura continua.
+                className={`relative grid aspect-square w-full place-items-center border-4 ${
+                  background
+                    ? `border-transparent ${urgente ? "animate-pulse" : ""}`
+                    : `bg-secondary/90 shadow-lg ${
+                        urgente
+                          ? "animate-pulse border-destructive"
+                          : alerta
+                            ? "border-[#fff1dc]/90"
+                            : "border-border"
+                      }`
                 }`}
                 style={{ fontSize: size * 0.085 }}
               >
