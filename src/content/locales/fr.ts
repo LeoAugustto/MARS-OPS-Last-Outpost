@@ -1,0 +1,223 @@
+// Français. Mêmes clés que pt.ts. Phrases courtes, mots simples.
+import type { Dict } from "./pt";
+
+export const fr: Dict = {
+  "jogo.titulo": "Opération Mars : Dernière Base",
+  "recurso.ar": "Air",
+  "recurso.comida": "Nourriture",
+  "recurso.saude": "Santé",
+  "recurso.energia": "Énergie",
+  "recurso.bateria": "Batterie",
+  "recurso.ciencia": "Science",
+  "recurso.escudo": "Bouclier",
+  "modulo.ar": "Fabrique d'air",
+  "modulo.estufa": "Serre",
+  "modulo.ciencia": "Laboratoire",
+  "modulo.escudo": "Robot à sable",
+  "nivel.cadete": "Cadet (facile)",
+  "nivel.piloto": "Pilote (moyen)",
+  "nivel.comandante": "Commandant (difficile)",
+
+  "hud.sol": "Sol {sol} sur {total}",
+  "hud.distribuir": "Partage l'énergie du jour : {energia} ⚡",
+  "hud.sobra": "L'énergie qui reste est gardée dans la batterie.",
+  "hud.dormir": "Dormir et finir le sol",
+  "botao.ok": "OK !",
+  "botao.porque": "Pourquoi ?",
+  "botao.voltar_sol": "Revenir au sol {sol}",
+  "botao.nova_missao": "Nouvelle mission",
+  "selo.ao_vivo": "📡 Donnée de la NASA en direct",
+  "selo.real": "📚 Événement réel du {data}",
+
+  "fonte.donki": "NASA DONKI — météo de l’espace",
+  "fonte.osdr": "NASA OSDR — santé des astronautes",
+  "fonte.radlab": "NASA RadLab — radiations mesurées dans l’espace",
+  "fonte.marstrek": "NASA Mars Trek — cartes de Mars",
+  "fonte.csa": "Agence spatiale canadienne — nourriture dans l’espace",
+  "fonte.nasa-fato": "Fait tiré des missions de la NASA",
+
+  "glossario.sol": "Sol = un jour sur Mars. Il dure 24 heures et 40 minutes.",
+  "glossario.radiacao":
+    "Radiation = une énergie invisible qui vient du Soleil et de l’espace. Trop de radiations, c’est mauvais pour le corps.",
+  "glossario.tempestade":
+    "Tempête solaire = quand le Soleil lance une explosion de lumière et de particules très rapides.",
+
+  "fim.vitoria.title": "Mission accomplie ! 🎉",
+  "fim.vitoria.body": "Ton équipage va bien et a fait beaucoup de science. La NASA est fière !",
+  "fim.parcial.title": "Tout le monde est rentré !",
+  "fim.parcial.body":
+    "L'équipage est en sécurité, mais il manquait un peu de science. Tu essaies une autre stratégie ?",
+  "fim.resgate.title": "La Terre a envoyé chercher l'équipage",
+  "fim.resgate.body":
+    "Personne n'est blessé : le Contrôle de mission a décidé de ramener tout le monde. On regarde ce qui s'est passé ?",
+  "causa.ar":
+    "L'air s'est épuisé. On respire tout le temps, et la fabrique d'air a besoin d'énergie à chaque sol.",
+  "causa.comida":
+    "La nourriture s’est épuisée. La serre a besoin de lumière (énergie) et les plantes mettent du temps à pousser.",
+  "causa.saude":
+    "La santé est trop basse. Les radiations, la faim et le manque d’air fatiguent le corps.",
+  "dica.ar": "Astuce : garde au moins 3 ⚡ à chaque sol pour la fabrique d'air.",
+  "dica.comida":
+    "Astuce : plante tôt ! Ce que tu plantes aujourd’hui ne devient de la nourriture que quelques sols plus tard.",
+  "dica.saude":
+    "Astuce : construis le bouclier tôt et cache-toi dans l’abri quand le Soleil est agité.",
+  "fato.reabastecimento":
+    "Le savais-tu ? Un vaisseau venu de la Terre ne peut arriver sur Mars qu’environ tous les 26 mois. Voilà pourquoi bien prévoir est essentiel !",
+  "fato.marte_2017":
+    "En septembre 2017, une tempête solaire a atteint Mars, a fait briller son ciel d’aurores et a augmenté les radiations mesurées par le robot Curiosity.",
+  "fato.marte_2024":
+    "En mai 2024, une explosion du Soleil a atteint Mars. Le robot Curiosity a mesuré autant de radiations qu’environ 30 radios d’un coup !",
+
+  "ev.chegada.title": "Bienvenue sur Mars !",
+  "ev.chegada.body":
+    "Vous avez atterri ! La base est petite et tout a besoin d’énergie. Que faire en premier ?",
+  "ev.chegada.explorar.label": "Explorer le cratère",
+  "ev.chegada.explorar.outcome":
+    "Vous avez trouvé des roches incroyables, mais la combinaison a utilisé de l’air.",
+  "ev.chegada.explorar.lesson":
+    "Dehors, on ne peut pas respirer : l’air de Mars est presque tout du dioxyde de carbone. Chaque sortie utilise l’air de la combinaison.",
+  "ev.chegada.arrumar.label": "Couvrir la base de sable",
+  "ev.chegada.arrumar.outcome":
+    "Le robot a mis du sable sur la base. Elle protège mieux maintenant !",
+  "ev.chegada.arrumar.lesson":
+    "Une épaisse couche de sable ou de roche bloque une partie des radiations. Les scientifiques prévoient des bases comme ça.",
+
+  "ev.sol_agitado.title": "Alerte : le Soleil est agité !",
+  "ev.sol_agitado.body":
+    "La Terre a prévenu : le Soleil a lancé une forte explosion (classe {classe}, force {estrelas}). Elle peut arriver demain !",
+  "ev.sol_agitado.abrigo.label": "Préparer l’abri",
+  "ev.sol_agitado.abrigo.outcome":
+    "L’abri est prêt. Ça a utilisé de l’énergie, mais vous êtes protégés.",
+  "ev.sol_agitado.abrigo.lesson":
+    "Sur la Station spatiale, quand le Soleil s’agite, les astronautes vont dans la partie la mieux protégée.",
+  "ev.sol_agitado.pesquisar.label": "Continuer la recherche",
+  "ev.sol_agitado.pesquisar.outcome":
+    "Vous avez fait plus de science aujourd’hui... mais la tempête arrive.",
+  "ev.sol_agitado.pesquisar.lesson":
+    "La lumière de l’explosion arrive en quelques minutes, mais les particules dangereuses peuvent mettre des heures ou des jours. Ce temps sert à se protéger.",
+
+  "ev.tempestade_chega.title": "La tempête solaire est là !",
+  "ev.tempestade_chega.body":
+    "Des particules du Soleil traversent Mars. Mars n’a pas de bouclier magnétique fort comme la Terre.",
+  "ev.tempestade_chega.ficar.label": "Rester dans l’abri toute la journée",
+  "ev.tempestade_chega.ficar.outcome":
+    "Vous êtes restés en sécurité, mais le chauffage de l’abri a utilisé de l’énergie.",
+  "ev.tempestade_chega.ficar.lesson":
+    "Se protéger a un prix : pas de travail dehors, et l’abri utilise de l’énergie.",
+  "ev.tempestade_chega.trabalhar.label": "Sortir travailler quand même",
+  "ev.tempestade_chega.trabalhar.outcome":
+    "Vous avez fait de la science, mais reçu plus de radiations.",
+  "ev.tempestade_chega.trabalhar.lesson":
+    "La Terre a un champ magnétique qui dévie les particules du Soleil. Mars n’en a presque pas, donc il y a plus de radiations.",
+
+  "ev.poeira_vem.title": "Un nuage de poussière arrive",
+  "ev.poeira_vem.body":
+    "Le vent de Mars a soulevé de la poussière. Elle peut couvrir les panneaux solaires.",
+  "ev.poeira_vem.guardar.label": "Garder de l’énergie dans la batterie",
+  "ev.poeira_vem.guardar.outcome": "Vous avez gardé de l’énergie pour les jours sombres.",
+  "ev.poeira_vem.guardar.lesson":
+    "Les batteries gardent l’énergie du soleil pour quand il n’y en a pas. Mais ce qui va dans la batterie ne sert pas aujourd’hui.",
+  "ev.poeira_vem.ignorar.label": "Continuer à travailler",
+  "ev.poeira_vem.ignorar.outcome": "Un petit peu plus de science aujourd’hui.",
+  "ev.poeira_vem.ignorar.lesson":
+    "En 2018, une énorme tempête de poussière a couvert les panneaux du robot Opportunity et il n’a plus eu d’énergie.",
+
+  "ev.painel_sujo.title": "Les panneaux sont couverts de poussière",
+  "ev.painel_sujo.body":
+    "Avec de la poussière, les panneaux solaires produisent beaucoup moins d’énergie.",
+  "ev.painel_sujo.limpar.label": "Sortir les nettoyer",
+  "ev.painel_sujo.limpar.outcome":
+    "Les panneaux brillent à nouveau ! Mais la sortie a utilisé de l’air et vous a exposés aux radiations.",
+  "ev.painel_sujo.limpar.lesson":
+    "Chaque sortie est une sortie dans l’espace : elle utilise l’air de la combinaison et expose davantage aux radiations.",
+  "ev.painel_sujo.esperar.label": "Attendre que le vent les nettoie",
+  "ev.painel_sujo.esperar.outcome":
+    "Vous économisez de l’air, mais vous aurez peu d’énergie pendant quelques sols.",
+  "ev.painel_sujo.esperar.lesson":
+    "C’est vraiment arrivé : des coups de vent ont nettoyé les panneaux des robots Spirit et Opportunity !",
+
+  "ev.vento_limpa.title": "Le vent a nettoyé les panneaux !",
+  "ev.vento_limpa.body": "Un coup de vent a soufflé la poussière. L’énergie est revenue !",
+
+  "ev.broto.title": "Les pommes de terre ont germé !",
+  "ev.broto.body": "Les petites plantes de la serre poussent, mais elles ont besoin de lumière.",
+  "ev.broto.luz.label": "Donner plus de lumière",
+  "ev.broto.luz.outcome":
+    "Les lampes de la serre ont utilisé de l’énergie. Les plantes ont adoré !",
+  "ev.broto.luz.lesson":
+    "Les plantes ont besoin de lumière pour pousser. Loin de la Terre, cette lumière vient de lampes qui utilisent de l’énergie.",
+  "ev.broto.economizar.label": "Économiser la lumière",
+  "ev.broto.economizar.outcome":
+    "Il reste de l’énergie aujourd’hui, mais les plantes pousseront peu.",
+  "ev.broto.economizar.lesson":
+    "Économiser aujourd’hui peut manquer demain : une récolte dépend des soins de plusieurs jours.",
+
+  "ev.colheita_boa.title": "Belle récolte ! 🥔",
+  "ev.colheita_boa.body": "Avec beaucoup de lumière, la serre a donné plein de pommes de terre.",
+  "ev.colheita_fraca.title": "Petite récolte",
+  "ev.colheita_fraca.body": "Avec peu de lumière, les plantes ont peu poussé.",
+
+  "ev.filtro_entupido.title": "Le filtre à air est bouché !",
+  "ev.filtro_entupido.body": "La fine poussière de Mars est entrée dans la fabrique d'air.",
+  "ev.filtro_entupido.peca.label": "Utiliser la pièce de rechange",
+  "ev.filtro_entupido.peca.outcome":
+    "Réparé en un clin d’œil ! Mais il n’y a plus de pièce de rechange.",
+  "ev.filtro_entupido.peca.lesson":
+    "Il n’y a pas de magasin sur Mars : chaque pièce vient de la Terre. Quand il n’y en a plus, c’est fini.",
+  "ev.filtro_entupido.limpar.label": "Le nettoyer avec soin",
+  "ev.filtro_entupido.limpar.outcome":
+    "Ça a marché, mais ça a pris toute la journée et de l’énergie.",
+  "ev.filtro_entupido.limpar.lesson":
+    "Les astronautes passent beaucoup de temps à réparer. C’est du temps en moins pour la science.",
+  "ev.filtro_entupido.deixar.label": "Le laisser comme ça",
+  "ev.filtro_entupido.deixar.outcome": "La fabrique d'air fait moins d'air.",
+  "ev.filtro_entupido.deixar.lesson":
+    "Le système de survie permet à tout le monde de respirer. Le laisser cassé est dangereux.",
+
+  "ev.rocha.title": "Une roche bizarre !",
+  "ev.rocha.body": "Le robot a vu une roche aux couleurs étranges à 2 km de la base.",
+  "ev.rocha.robo.label": "Envoyer seulement le robot",
+  "ev.rocha.robo.outcome":
+    "Le robot est allé lentement et a utilisé sa batterie, mais il a rapporté des données.",
+  "ev.rocha.robo.lesson":
+    "Les robots n’ont pas besoin de respirer, mais ils ont besoin d’énergie et sont plus lents que les humains.",
+  "ev.rocha.astronauta.label": "Y aller avec un astronaute",
+  "ev.rocha.astronauta.outcome":
+    "Quelle découverte ! Mais la sortie a coûté de l’air et de la santé.",
+  "ev.rocha.astronauta.lesson":
+    "Les humains découvrent plus vite, mais chaque sortie utilise de l’air et expose aux radiations.",
+
+  "ev.laboratorio.title": "Résultats du laboratoire !",
+  "ev.laboratorio.body":
+    "La roche avait des traces d’eau d’il y a très longtemps ! Le robot Perseverance cherche ce genre de roches sur Mars.",
+
+  "ev.exercicio.title": "L’heure du sport",
+  "ev.exercicio.body":
+    "Sur Mars, le corps pèse seulement un peu plus d’un tiers de son poids sur Terre. Avec peu de poids, les os et les muscles s’affaiblissent.",
+  "ev.exercicio.treinar.label": "S’entraîner 2 heures",
+  "ev.exercicio.treinar.outcome":
+    "Des corps forts ! Mais le tapis de course a utilisé de l’énergie et tout le monde a faim.",
+  "ev.exercicio.treinar.lesson":
+    "Sur la Station spatiale, les astronautes font environ 2 heures de sport par jour pour que leurs os ne s’affaiblissent pas.",
+  "ev.exercicio.pular.label": "Sauter l’entraînement aujourd’hui",
+  "ev.exercicio.pular.outcome": "Plus de temps pour la science, mais le corps l’a senti.",
+  "ev.exercicio.pular.lesson":
+    "Des études de la NASA montrent qu’avec peu de gravité, les os perdent de la force si le corps ne fait pas de sport.",
+
+  "ev.contato_terra.title": "Appel vers la Terre",
+  "ev.contato_terra.body":
+    "Un message met de 4 à 24 minutes pour aller de Mars à la Terre. Impossible de discuter en direct !",
+  "ev.contato_terra.conselho.label": "Demander un conseil pour la serre",
+  "ev.contato_terra.conselho.outcome": "Message envoyé ! La réponse arrive demain.",
+  "ev.contato_terra.conselho.lesson":
+    "À cause du délai, l’équipage sur Mars doit résoudre beaucoup de problèmes tout seul.",
+  "ev.contato_terra.fotos.label": "Envoyer des photos aux scientifiques",
+  "ev.contato_terra.fotos.outcome":
+    "Les scientifiques ont adoré les photos ! L’antenne a utilisé beaucoup d’énergie.",
+  "ev.contato_terra.fotos.lesson":
+    "Envoyer des données si loin demande une antenne puissante, qui utilise beaucoup d’énergie.",
+
+  "ev.resposta_terra.title": "La Terre a répondu !",
+  "ev.resposta_terra.body":
+    "Les scientifiques ont envoyé un conseil pour mieux utiliser la lumière de la serre. Elle a donné plus de nourriture !",
+};

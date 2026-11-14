@@ -1,0 +1,218 @@
+// Português (idioma de referência). Dono dos textos: Bruno.
+// Regras de escrita: docs/STYLE_GUIDE.md — frases curtas, palavras simples, termo científico sempre explicado.
+// Ao adicionar uma chave aqui, adicione nos 5 idiomas (o TypeScript e os testes acusam se faltar).
+
+export const pt = {
+  // ---------------------------------------------------------------- recursos e módulos
+  "jogo.titulo": "Operação Marte: Última Base",
+  "recurso.ar": "Ar",
+  "recurso.comida": "Comida",
+  "recurso.saude": "Saúde",
+  "recurso.energia": "Energia",
+  "recurso.bateria": "Bateria",
+  "recurso.ciencia": "Ciência",
+  "recurso.escudo": "Escudo",
+  "modulo.ar": "Fábrica de ar",
+  "modulo.estufa": "Estufa",
+  "modulo.ciencia": "Laboratório",
+  "modulo.escudo": "Robô de areia",
+  "nivel.cadete": "Cadete (fácil)",
+  "nivel.piloto": "Piloto (médio)",
+  "nivel.comandante": "Comandante (difícil)",
+
+  // ---------------------------------------------------------------- HUD e botões
+  "hud.sol": "Sol {sol} de {total}",
+  "hud.distribuir": "Divida a energia de hoje: {energia} ⚡",
+  "hud.sobra": "A energia que sobrar fica guardada na bateria.",
+  "hud.dormir": "Dormir e terminar o sol",
+  "botao.ok": "OK!",
+  "botao.porque": "Por quê?",
+  "botao.voltar_sol": "Voltar ao sol {sol}",
+  "botao.nova_missao": "Nova missão",
+  "selo.ao_vivo": "📡 Dado ao vivo da NASA",
+  "selo.real": "📚 Evento real de {data}",
+
+  // ---------------------------------------------------------------- fontes
+  "fonte.donki": "NASA DONKI — clima espacial",
+  "fonte.osdr": "NASA OSDR — saúde de astronautas",
+  "fonte.radlab": "NASA RadLab — radiação medida no espaço",
+  "fonte.marstrek": "NASA Mars Trek — mapas de Marte",
+  "fonte.csa": "Agência Espacial Canadense — comida no espaço",
+  "fonte.nasa-fato": "Fato de missões da NASA",
+
+  // ---------------------------------------------------------------- glossário
+  "glossario.sol": "Sol = um dia em Marte. Dura 24 horas e 40 minutos.",
+  "glossario.radiacao":
+    "Radiação = uma energia invisível que vem do Sol e do espaço. Muita radiação faz mal ao corpo.",
+  "glossario.tempestade":
+    "Tempestade solar = quando o Sol solta uma explosão de luz e partículas muito rápidas.",
+
+  // ---------------------------------------------------------------- fim da missão (nunca "game over")
+  "fim.vitoria.title": "Missão cumprida! 🎉",
+  "fim.vitoria.body": "Sua tripulação ficou bem e fez muita ciência. A NASA está orgulhosa!",
+  "fim.parcial.title": "Todos voltaram bem!",
+  "fim.parcial.body":
+    "A tripulação está segura, mas faltou um pouco de ciência. Que tal tentar outra estratégia?",
+  "fim.resgate.title": "A Terra mandou buscar a tripulação",
+  "fim.resgate.body":
+    "Ninguém se machucou: o Controle de Missão decidiu trazer todos de volta. Vamos entender o que aconteceu?",
+  "causa.ar":
+    "O ar acabou. Cada pessoa respira o tempo todo, e a fábrica de ar precisa de energia todo sol.",
+  "causa.comida":
+    "A comida acabou. A estufa precisa de luz (energia) e as plantas demoram para crescer.",
+  "causa.saude": "A saúde ficou baixa demais. Radiação, fome e falta de ar cansam o corpo.",
+  "dica.ar": "Dica: guarde pelo menos 3 ⚡ por sol para a fábrica de ar.",
+  "dica.comida": "Dica: plante cedo! O que você planta hoje só vira comida daqui a alguns sóis.",
+  "dica.saude": "Dica: construa o escudo cedo e se esconda no abrigo quando o Sol estiver agitado.",
+  "fato.reabastecimento":
+    "Você sabia? Uma nave da Terra só consegue chegar a Marte mais ou menos a cada 26 meses. Por isso planejar é tudo!",
+  "fato.marte_2017":
+    "Em setembro de 2017, uma tempestade solar chegou a Marte, fez o céu brilhar com auroras e aumentou a radiação medida pelo robô Curiosity.",
+  "fato.marte_2024":
+    "Em maio de 2024, uma explosão do Sol chegou a Marte. O robô Curiosity mediu radiação parecida com uns 30 raios-X de uma vez!",
+
+  // ---------------------------------------------------------------- eventos
+  "ev.chegada.title": "Bem-vindos a Marte!",
+  "ev.chegada.body":
+    "Vocês pousaram! A base é pequena, e cada coisa precisa de energia. O que fazer primeiro?",
+  "ev.chegada.explorar.label": "Explorar a cratera",
+  "ev.chegada.explorar.outcome": "Vocês acharam pedras incríveis, mas o traje gastou ar.",
+  "ev.chegada.explorar.lesson":
+    "Fora da base não dá para respirar: o ar de Marte é quase todo gás carbônico. Todo passeio gasta o ar do traje.",
+  "ev.chegada.arrumar.label": "Cobrir a base com areia",
+  "ev.chegada.arrumar.outcome": "O robô jogou areia em cima da base. Agora ela protege mais!",
+  "ev.chegada.arrumar.lesson":
+    "Uma camada grossa de areia ou rocha bloqueia parte da radiação. Cientistas planejam bases assim.",
+
+  "ev.sol_agitado.title": "Alerta: o Sol está agitado!",
+  "ev.sol_agitado.body":
+    "A Terra avisou: o Sol soltou uma explosão forte (classe {classe}, força {estrelas}). Ela pode chegar amanhã!",
+  "ev.sol_agitado.abrigo.label": "Preparar o abrigo",
+  "ev.sol_agitado.abrigo.outcome":
+    "O abrigo está pronto. Usou energia, mas vocês estão protegidos.",
+  "ev.sol_agitado.abrigo.lesson":
+    "Na Estação Espacial, quando o Sol fica agitado, os astronautas vão para a parte mais protegida da nave.",
+  "ev.sol_agitado.pesquisar.label": "Continuar a pesquisa",
+  "ev.sol_agitado.pesquisar.outcome": "Vocês fizeram mais ciência hoje... mas a tempestade vem aí.",
+  "ev.sol_agitado.pesquisar.lesson":
+    "A luz da explosão chega em minutos, mas as partículas perigosas podem levar horas ou dias. Esse tempo serve para se proteger.",
+
+  "ev.tempestade_chega.title": "A tempestade solar chegou!",
+  "ev.tempestade_chega.body":
+    "Partículas do Sol estão passando por Marte. Marte não tem um escudo magnético forte como a Terra.",
+  "ev.tempestade_chega.ficar.label": "Ficar no abrigo o dia todo",
+  "ev.tempestade_chega.ficar.outcome":
+    "Vocês ficaram seguros, mas o aquecedor do abrigo gastou energia.",
+  "ev.tempestade_chega.ficar.lesson":
+    "Ficar protegido custa: não dá para trabalhar lá fora e o abrigo usa energia.",
+  "ev.tempestade_chega.trabalhar.label": "Sair para trabalhar mesmo assim",
+  "ev.tempestade_chega.trabalhar.outcome": "Vocês fizeram ciência, mas tomaram mais radiação.",
+  "ev.tempestade_chega.trabalhar.lesson":
+    "A Terra tem um campo magnético que desvia as partículas do Sol. Marte quase não tem, por isso a radiação lá é maior.",
+
+  "ev.poeira_vem.title": "Uma nuvem de poeira vem aí",
+  "ev.poeira_vem.body": "O vento de Marte levantou poeira. Ela pode cobrir os painéis solares.",
+  "ev.poeira_vem.guardar.label": "Guardar energia na bateria",
+  "ev.poeira_vem.guardar.outcome": "Vocês guardaram energia para os dias escuros.",
+  "ev.poeira_vem.guardar.lesson":
+    "Baterias guardam energia do sol para quando não tem sol. Mas o que vai para a bateria não pode ser usado hoje.",
+  "ev.poeira_vem.ignorar.label": "Continuar trabalhando",
+  "ev.poeira_vem.ignorar.outcome": "Mais um pouquinho de ciência hoje.",
+  "ev.poeira_vem.ignorar.lesson":
+    "Em 2018, uma tempestade de poeira enorme cobriu os painéis do robô Opportunity e ele ficou sem energia.",
+
+  "ev.painel_sujo.title": "Os painéis estão cobertos de poeira",
+  "ev.painel_sujo.body": "Com poeira, os painéis solares fazem bem menos energia.",
+  "ev.painel_sujo.limpar.label": "Sair para limpar",
+  "ev.painel_sujo.limpar.outcome":
+    "Painéis brilhando de novo! Mas o passeio gastou ar e expôs vocês à radiação.",
+  "ev.painel_sujo.limpar.lesson":
+    "Cada saída da base é um passeio espacial: gasta ar do traje e deixa a pessoa mais exposta à radiação.",
+  "ev.painel_sujo.esperar.label": "Esperar o vento limpar",
+  "ev.painel_sujo.esperar.outcome":
+    "Vocês vão economizar ar, mas terão pouca energia por alguns sóis.",
+  "ev.painel_sujo.esperar.lesson":
+    "Isso aconteceu de verdade: rajadas de vento limparam os painéis dos robôs Spirit e Opportunity!",
+
+  "ev.vento_limpa.title": "O vento limpou os painéis!",
+  "ev.vento_limpa.body": "Uma rajada de vento soprou a poeira. A energia voltou!",
+
+  "ev.broto.title": "As batatas brotaram!",
+  "ev.broto.body": "As plantinhas da estufa estão crescendo, mas precisam de luz.",
+  "ev.broto.luz.label": "Dar mais luz",
+  "ev.broto.luz.outcome": "As lâmpadas da estufa gastaram energia. As plantas adoraram!",
+  "ev.broto.luz.lesson":
+    "Plantas precisam de luz para crescer. Longe da Terra, essa luz vem de lâmpadas, que usam energia.",
+  "ev.broto.economizar.label": "Economizar luz",
+  "ev.broto.economizar.outcome": "Sobrou energia hoje, mas as plantas vão crescer pouco.",
+  "ev.broto.economizar.lesson":
+    "Economizar hoje pode faltar amanhã: a colheita depende do cuidado de vários dias.",
+
+  "ev.colheita_boa.title": "Colheita boa! 🥔",
+  "ev.colheita_boa.body": "Com bastante luz, a estufa deu muitas batatas.",
+  "ev.colheita_fraca.title": "Colheita pequena",
+  "ev.colheita_fraca.body": "Com pouca luz, as plantas cresceram pouco.",
+
+  "ev.filtro_entupido.title": "O filtro de ar entupiu!",
+  "ev.filtro_entupido.body": "A poeira fina de Marte entrou na fábrica de ar.",
+  "ev.filtro_entupido.peca.label": "Usar a peça reserva",
+  "ev.filtro_entupido.peca.outcome": "Consertado rapidinho! Mas agora não tem mais peça reserva.",
+  "ev.filtro_entupido.peca.lesson":
+    "Em Marte não tem loja: cada peça veio da Terra. Quando acaba, acabou.",
+  "ev.filtro_entupido.limpar.label": "Limpar com cuidado",
+  "ev.filtro_entupido.limpar.outcome": "Deu certo, mas levou o dia todo e gastou energia.",
+  "ev.filtro_entupido.limpar.lesson":
+    "Astronautas passam muito tempo fazendo manutenção. Isso é tempo a menos para a ciência.",
+  "ev.filtro_entupido.deixar.label": "Deixar como está",
+  "ev.filtro_entupido.deixar.outcome": "A fábrica de ar está fazendo menos ar.",
+  "ev.filtro_entupido.deixar.lesson":
+    "O suporte à vida é o que mantém todos respirando. Deixar quebrado é perigoso.",
+
+  "ev.rocha.title": "Uma rocha diferente!",
+  "ev.rocha.body": "O robô viu uma rocha com cores estranhas a 2 km da base.",
+  "ev.rocha.robo.label": "Mandar só o robô",
+  "ev.rocha.robo.outcome": "O robô foi devagar e gastou bateria, mas trouxe dados.",
+  "ev.rocha.robo.lesson":
+    "Robôs não precisam respirar, mas precisam de energia e são mais lentos que pessoas.",
+  "ev.rocha.astronauta.label": "Ir com um astronauta",
+  "ev.rocha.astronauta.outcome": "Que descoberta! Mas o passeio gastou ar e saúde.",
+  "ev.rocha.astronauta.lesson":
+    "Pessoas descobrem coisas mais rápido, mas cada passeio gasta ar e expõe à radiação.",
+
+  "ev.laboratorio.title": "Resultado do laboratório!",
+  "ev.laboratorio.body":
+    "A rocha tinha sinais de água de muito tempo atrás! O robô Perseverance procura rochas assim em Marte.",
+
+  "ev.exercicio.title": "Hora do exercício",
+  "ev.exercicio.body":
+    "Em Marte o corpo pesa só um pouco mais de um terço do que pesa na Terra. Com pouco peso, ossos e músculos ficam fracos.",
+  "ev.exercicio.treinar.label": "Treinar 2 horas",
+  "ev.exercicio.treinar.outcome":
+    "Corpo forte! Mas a esteira gastou energia e todo mundo ficou com fome.",
+  "ev.exercicio.treinar.lesson":
+    "Na Estação Espacial, astronautas se exercitam umas 2 horas por dia para os ossos não enfraquecerem.",
+  "ev.exercicio.pular.label": "Pular o treino hoje",
+  "ev.exercicio.pular.outcome": "Sobrou tempo para a ciência, mas o corpo sentiu.",
+  "ev.exercicio.pular.lesson":
+    "Estudos da NASA mostram que, com pouca gravidade, os ossos perdem força se o corpo não se exercitar.",
+
+  "ev.contato_terra.title": "Ligação para a Terra",
+  "ev.contato_terra.body":
+    "Uma mensagem leva de 4 a 24 minutos para ir de Marte à Terra. Não dá para conversar ao vivo!",
+  "ev.contato_terra.conselho.label": "Pedir uma dica para a estufa",
+  "ev.contato_terra.conselho.outcome": "Mensagem enviada! A resposta chega amanhã.",
+  "ev.contato_terra.conselho.lesson":
+    "Por causa do atraso, a tripulação em Marte precisa resolver muita coisa sozinha.",
+  "ev.contato_terra.fotos.label": "Mandar fotos para os cientistas",
+  "ev.contato_terra.fotos.outcome":
+    "Os cientistas adoraram as fotos! A antena gastou bastante energia.",
+  "ev.contato_terra.fotos.lesson":
+    "Mandar dados para tão longe precisa de uma antena forte, e ela usa muita energia.",
+
+  "ev.resposta_terra.title": "A Terra respondeu!",
+  "ev.resposta_terra.body":
+    "Os cientistas mandaram uma dica para usar melhor a luz da estufa. Ela rendeu mais comida!",
+} as const;
+
+export type LocaleKey = keyof typeof pt;
+export type Dict = Record<LocaleKey, string>;
