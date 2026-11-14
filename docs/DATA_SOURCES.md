@@ -64,6 +64,36 @@ Referências para as lições das cartas. As linhas com ⚠️ ainda precisam de
 | Até hoje nenhum fóssil foi encontrado em Marte                                                                       | `fossil`                 | NASA                                                                                          | ⚠️     |
 | O Perseverance guarda amostras de rocha em tubos para um dia serem estudadas na Terra | `fossil` | [NASA: amostras de rocha do Perseverance](https://science.nasa.gov/mission/mars-2020-perseverance/mars-rock-samples/) | ⚠️ |
 
+### Fatos do lote 2 de eventos por lugar (conferidos em 14/11/2026)
+| Fato no jogo | Evento | Fonte a citar | Status |
+|---|---|---|---|
+| Mai/1979: a Viking 2 fotografou uma camada fininha de gelo no chão de Marte (Utopia Planitia) | `geada` | [NASA/JPL PIA00571](https://photojournal.jpl.nasa.gov/catalog/PIA00571) | ✅ |
+| Abr/2022: o Perseverance filmou Fobos passando na frente do Sol (eclipse de ~40 s); Marte tem 2 luas | `eclipse_fobos` | [NASA/JPL PIA25179](https://www.jpl.nasa.gov/images/pia25179-perseverances-mastcam-z-captures-a-phobos-solar-eclipse) | ✅ |
+| Mai/2021: a InSight soltou areia no vento perto dos painéis e ganhou energia | `truque_areia` | [NASA/JPL: InSight gets a power boost](https://www.jpl.nasa.gov/news/nasas-insight-mars-lander-gets-a-power-boost) | ✅ |
+| A ISS tem máquinas que tiram o gás carbônico do ar | `filtro_co2` | NASA, ECLSS | ⚠️ |
+| 1970: a tripulação da Apolo 13 montou um filtro improvisado com fita adesiva | `filtro_co2` | NASA, Apollo 13 | ⚠️ |
+| A ISS faz oxigênio separando a água com eletricidade (eletrólise) | `eletrolise` | NASA, ECLSS (Oxygen Generation System) | ⚠️ |
+| Astronautas da Apolo disseram que a poeira da Lua grudava em tudo e cheirava a pólvora | `poeira_dentro` | NASA, Apollo | ⚠️ |
+| A poeira de Marte é muito fina e tem sais (percloratos) que fazem mal ao corpo | `poeira_dentro` | NASA (Phoenix, 2008) | ⚠️ |
+| As plantas da ISS crescem com LEDs vermelhos e azuis (estufa cor-de-rosa) | `luz_rosa` | NASA, Veggie | ⚠️ |
+| 2021: pimentas colhidas na ISS (Plant Habitat-04), astronautas fizeram tacos; o experimento durou 137 dias | `pimentas` | [NASA: Plant Habitat-04](https://www.nasa.gov/humans-in-space/peppers-grown-in-space/) · NPR (02/11/2021) | ✅ |
+| A Agência Espacial Europeia estuda reciclar restos para produzir comida e ar (MELiSSA) | `adubo` | ESA, MELiSSA | ⚠️ |
+| 2005: o Opportunity achou um meteorito em Marte (o primeiro achado em outro planeta) | `meteorito` | NASA/JPL, "Heat Shield Rock" | ⚠️ |
+| Ago/2021: o 1º tubo de amostra do Perseverance voltou vazio, a rocha virou pó | `tubo_amostra` | NASA/JPL (ago/2021) · Space.com | ✅ |
+| 2021: o Curiosity fotografou nuvens brilhando após o pôr do sol, feitas de gelo seco; a maioria das nuvens é de gelo de água | `nuvens` | NASA/JPL (mai/2021) · Astronomy | ✅ |
+| A NASA fez um concurso de casas impressas em 3D com materiais locais (3D-Printed Habitat Challenge) | `tijolos` | NASA Centennial Challenges | ⚠️ |
+| A InSight detectou 1.319 tremores em Marte; o maior (magnitude 4,7) foi em 04/05/2022 | `tremor` | NASA/JPL · AGU (GRL, 2023) | ✅ |
+| ~A cada 2 anos o Sol fica entre a Terra e Marte (conjunção) e a NASA para de mandar comandos por ~2 semanas | `conjuncao` | NASA, Mars solar conjunction | ⚠️ |
+| A maior parte dos dados dos robôs em Marte vem por satélites em órbita (ex.: MRO) | `satelite` | NASA/JPL, Mars Relay Network | ⚠️ |
+| No tempo dos ônibus espaciais, o Controle de Missão acordava a tripulação com músicas | `musica` | NASA, wake-up calls | ⚠️ |
+| "Cansaço do cardápio": a NASA estuda como manter a comida gostosa em viagens longas | `cardapio` | NASA HRP (food) | ⚠️ |
+| Astronautas da ISS escreveram diários para um estudo da NASA sobre isolamento (Journals) | `diario` | NASA, ISS "Journals" | ⚠️ |
+| Antes de ir ao espaço, astronautas ficam uns dias em quarentena | `resfriado` | NASA, Health Stabilization Program | ⚠️ |
+| Robôs em Marte usam aquecedores para proteger peças e baterias nas noites geladas | `noite_gelada` | NASA/JPL | ⚠️ |
+| O Ingenuity voou 72 vezes (2021–2024); foi feito para 5 voos | `drone` | NASA/JPL (jan/2024) | ✅ |
+
+Simplificações do lote 2 (🎮): "meteorito de ferro" é história do jogo; a água para fazer ar sai da comida (a estufa), porque o jogo não tem barra de água; os prazos (pimentas, adubo) e os estragos das continuações são regras da simulação.
+
 Simplificações dos eventos por lugar (🎮): os custos e ganhos (energia, ar, comida, saúde, ciência, luz dos painéis) são de jogo; "praga" virou mofo (o caso real da ISS); a água recuperada entra como comida (água para a estufa), porque o jogo não tem barra de água. Os prazos das colheitas, a perda de 2 de energia na limpeza da mesa e o rendimento do laboratório pela metade são regras da simulação.
 
 ## Números de jogo (🎮 — simplificados, não são dados da NASA)

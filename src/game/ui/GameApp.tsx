@@ -12,6 +12,7 @@ import {
   findEvent,
   newMission,
   openAlert,
+  recentesDepois,
   rewindTo,
   setAllocation,
   type GameState,
@@ -56,6 +57,25 @@ function readSave(): SaveData | null {
   const row = loadSave<SaveData>(SLOT);
   const d = row?.state;
   return d && d.v === 2 && d.game?.version === 2 ? d : null;
+}
+
+// Eventos das últimas missões deste aparelho: a próxima missão prefere outros (mais variedade).
+// Guarda só ids de eventos (nada sobre a criança), sempre com try/catch.
+const RECENTES_KEY = "marsops:recentes";
+function lerRecentes(): string[] {
+  try {
+    const v = JSON.parse(localStorage.getItem(RECENTES_KEY) ?? "[]") as unknown;
+    return Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : [];
+  } catch {
+    return [];
+  }
+}
+function gravarRecentes(ids: string[]): void {
+  try {
+    localStorage.setItem(RECENTES_KEY, JSON.stringify(ids));
+  } catch {
+    /* sem storage: só perde a variedade entre missões */
+  }
 }
 
 /** Camada de fora: perfil da criança (nome + personagem) e tema pixel art do jogo. */
@@ -166,7 +186,15 @@ function GameInner({
 
   const start = (p: Player) => {
     onPlayer(p);
-    const g = newMission({ level: nivel, ...(pool ? { donkiPool: pool.events } : {}) });
+    // a missão anterior (a desta tela ou a do save) entra na lista de "vistos há pouco"
+    const anterior = game ?? readSave()?.game;
+    const recentes = anterior ? recentesDepois(anterior, lerRecentes()) : lerRecentes();
+    gravarRecentes(recentes);
+    const g = newMission({
+      level: nivel,
+      recentes,
+      ...(pool ? { donkiPool: pool.events } : {}),
+    });
     setGame(g);
     setRelogio(0);
     setTut(0);

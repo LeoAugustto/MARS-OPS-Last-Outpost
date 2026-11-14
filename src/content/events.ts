@@ -792,4 +792,391 @@ export const EVENTS: GameEvent[] = [
     onlyScheduled: true,
     onOpen: () => ({ ciencia: 4 }),
   },
+
+  // ============================================================ MAIS EVENTOS POR LUGAR (lote 2)
+  // Dono: Bruno. Mesmas regras do lote 1. Números = jogo. Fontes em docs/DATA_SOURCES.md.
+
+  // ------------------------------------------------------------ ☀️ painéis solares
+  {
+    id: "geada",
+    chain: "paineis",
+    place: "paineis",
+    icon: "🧊",
+    source: "nasa-fato",
+    cooldown: 6,
+    canHappen: (s) => s.sol >= 2,
+    choices: [
+      { id: "esperar", effects: { energia: -3 } },
+      { id: "raspar", effects: { ar: -4, saude: -1 } },
+    ],
+  },
+  {
+    id: "eclipse_fobos",
+    chain: "ceu",
+    place: "paineis",
+    icon: "🌑",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 2,
+    choices: [
+      { id: "filmar", effects: { energia: -2, ciencia: 2 } },
+      { id: "guardar", effects: { bateria: 2 }, setFlags: ["radio_mudo"], deferredCost: true },
+    ],
+  },
+  {
+    // painel com poeira: o truque da InSight (jogar areia no vento) ou escovar lá fora
+    id: "truque_areia",
+    chain: "poeira",
+    place: "paineis",
+    icon: "🪣",
+    source: "nasa-fato",
+    cooldown: 5,
+    canHappen: (s) => s.solar < 1,
+    weight: 1.5,
+    choices: [
+      { id: "areia", effects: { energia: -1, solar: 0.2 } },
+      { id: "escovar", effects: { ar: -5, solar: 0.4 } },
+    ],
+  },
+
+  // ------------------------------------------------------------ 💨 fábrica de ar
+  {
+    id: "filtro_co2",
+    chain: "ar",
+    place: "ar",
+    icon: "🫧",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 3,
+    choices: [
+      {
+        id: "reserva",
+        effects: { energia: -1 },
+        setFlags: ["sem_reserva"],
+        available: (s) => s.flags["sem_reserva"] === undefined,
+      },
+      { id: "improvisar", effects: { ar: -4, energia: -1 } },
+    ],
+  },
+  {
+    id: "eletrolise",
+    chain: "ar",
+    place: "ar",
+    icon: "⚗️",
+    source: "nasa-fato",
+    cooldown: 5,
+    canHappen: (s) => s.sol >= 2 && s.resources.ar < 85,
+    weight: (s) => (s.resources.ar < 50 ? 2 : 1),
+    choices: [
+      { id: "fazer_ar", effects: { comida: -4, ar: 8 } },
+      { id: "guardar_agua", effects: { ar: -3, comida: 2 } },
+    ],
+  },
+  {
+    id: "poeira_dentro",
+    chain: "ar",
+    place: "ar",
+    icon: "🧹",
+    source: "nasa-fato",
+    cooldown: 6,
+    canHappen: (s) => s.sol >= 2,
+    choices: [
+      { id: "aspirar", effects: { energia: -2 } },
+      { id: "depois", effects: { saude: -3 } },
+    ],
+  },
+
+  // ------------------------------------------------------------ 🌱 estufa
+  {
+    id: "luz_rosa",
+    chain: "estufa",
+    place: "estufa",
+    icon: "💡",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 2,
+    choices: [
+      { id: "rosa", effects: { energia: -1, comida: 3 } },
+      { id: "branca", effects: { energia: -3, comida: 4, saude: 1 } },
+    ],
+  },
+  {
+    id: "pimentas",
+    chain: "estufa",
+    place: "estufa",
+    icon: "🫑",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    // folga para a colheita (2 sóis) chegar antes do fim da missão
+    canHappen: (s) => s.sol >= 2 && s.sol <= s.totalSols - 3,
+    choices: [
+      { id: "verdes", effects: { energia: -1, comida: 4 } },
+      {
+        id: "vermelhas",
+        effects: { energia: -1 },
+        schedule: [{ eventId: "pimentas_vermelhas", inSols: 2 }],
+      },
+    ],
+  },
+  {
+    id: "pimentas_vermelhas",
+    chain: "estufa",
+    place: "estufa",
+    icon: "🌶️",
+    source: "nasa-fato",
+    onlyScheduled: true,
+    onOpen: () => ({ comida: 8 }),
+  },
+  {
+    id: "adubo",
+    chain: "estufa",
+    place: "estufa",
+    icon: "🪱",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 2 && s.sol <= s.totalSols - 3,
+    choices: [
+      {
+        id: "compostar",
+        effects: { energia: -1 },
+        schedule: [{ eventId: "adubo_pronto", inSols: 2 }],
+      },
+      { id: "jogar_fora", effects: { saude: -2, comida: 1 } },
+    ],
+  },
+  {
+    id: "adubo_pronto",
+    chain: "estufa",
+    place: "estufa",
+    icon: "🌿",
+    source: "nasa-fato",
+    onlyScheduled: true,
+    onOpen: () => ({ comida: 6 }),
+  },
+
+  // ------------------------------------------------------------ 🔬 laboratório
+  {
+    id: "meteorito",
+    chain: "ciencia",
+    place: "lab",
+    icon: "☄️",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 2 && s.sol < s.totalSols,
+    choices: [
+      { id: "analisar", effects: { energia: -2, ciencia: 3 } },
+      { id: "foto", effects: { energia: -1, ciencia: 1 } },
+    ],
+  },
+  {
+    id: "tubo_amostra",
+    chain: "ciencia",
+    place: "lab",
+    icon: "🧪",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 3 && s.sol < s.totalSols,
+    choices: [
+      { id: "cuidado", effects: { energia: -2, ciencia: 2 } },
+      {
+        id: "rapido",
+        effects: { ciencia: 2 },
+        deferredCost: true,
+        schedule: [{ eventId: "amostra_vazia", inSols: [1, 2] }],
+      },
+    ],
+  },
+  {
+    id: "amostra_vazia",
+    chain: "ciencia",
+    place: "lab",
+    icon: "🫙",
+    source: "nasa-fato",
+    onlyScheduled: true,
+    onOpen: () => ({ ciencia: -3 }),
+  },
+  {
+    id: "nuvens",
+    chain: "ceu",
+    place: "lab",
+    icon: "☁️",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 2,
+    choices: [
+      { id: "noite", effects: { saude: -2, ciencia: 3 } },
+      { id: "uma_foto", effects: { energia: -1, ciencia: 1 } },
+    ],
+  },
+
+  // ------------------------------------------------------------ 🛡️ abrigo
+  {
+    id: "tijolos",
+    chain: "abrigo",
+    place: "abrigo",
+    icon: "🧱",
+    source: "nasa-fato",
+    cooldown: 6,
+    canHappen: (s) => s.sol >= 2 && s.escudo < 4,
+    choices: [
+      { id: "imprimir", effects: { energia: -3, escudo: 1 } },
+      { id: "sacos", effects: { ar: -4, saude: -1, escudo: 1 } },
+    ],
+  },
+  {
+    id: "tremor",
+    chain: "abrigo",
+    place: "abrigo",
+    icon: "🫨",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 2 && s.sol < s.totalSols,
+    choices: [
+      { id: "conferir", effects: { energia: -2 } },
+      {
+        id: "seguir",
+        effects: { ciencia: 1 },
+        deferredCost: true,
+        schedule: [{ eventId: "tremor_estrago", inSols: 1 }],
+      },
+    ],
+  },
+  {
+    id: "tremor_estrago",
+    chain: "abrigo",
+    place: "abrigo",
+    icon: "🔩",
+    source: "nasa-fato",
+    onlyScheduled: true,
+    onOpen: () => ({ energia: -2, saude: -1 }),
+  },
+
+  // ------------------------------------------------------------ 📡 antena
+  {
+    id: "conjuncao",
+    chain: "comunicacao",
+    place: "antena",
+    icon: "☀️",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 3 && !hoje(s, "radio_mudo"),
+    choices: [
+      { id: "mandar_tudo", effects: { energia: -2, ciencia: 2 } },
+      { id: "silencio", effects: { saude: -2, bateria: 2 } },
+    ],
+  },
+  {
+    id: "satelite",
+    chain: "comunicacao",
+    place: "antena",
+    icon: "🛰️",
+    source: "nasa-fato",
+    cooldown: 5,
+    canHappen: (s) => s.sol >= 2 && !hoje(s, "radio_mudo"),
+    choices: [
+      { id: "satelite", effects: { energia: -1, ciencia: 2 } },
+      { id: "direto", effects: { energia: -3, ciencia: 3 } },
+    ],
+  },
+  {
+    id: "musica",
+    chain: "comunicacao",
+    place: "antena",
+    icon: "🎵",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 2,
+    choices: [
+      { id: "tocar", effects: { energia: -1, saude: 3 } },
+      { id: "dormir_mais", effects: { saude: 1 }, setFlags: ["radio_mudo"], deferredCost: true },
+    ],
+  },
+
+  // ------------------------------------------------------------ 🛏️ casa (habitat)
+  {
+    id: "cardapio",
+    chain: "saude",
+    place: "habitat",
+    icon: "🍲",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 3,
+    choices: [
+      { id: "tempero", effects: { comida: -3, saude: 3 } },
+      { id: "de_sempre", effects: { saude: -2 } },
+    ],
+  },
+  {
+    id: "diario",
+    chain: "saude",
+    place: "habitat",
+    icon: "📓",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 2,
+    choices: [
+      { id: "escrever", effects: { saude: 2 }, setFlags: ["radio_mudo"], deferredCost: true },
+      { id: "trabalhar", effects: { saude: -2, ciencia: 1 } },
+    ],
+  },
+  {
+    id: "resfriado",
+    chain: "saude",
+    place: "habitat",
+    icon: "🤧",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 3,
+    choices: [
+      { id: "isolar", effects: { saude: 2 }, setFlags: ["radio_mudo"], deferredCost: true },
+      { id: "seguir", effects: { saude: -4, ciencia: 1 } },
+    ],
+  },
+
+  // ------------------------------------------------------------ 🚙 rover
+  {
+    id: "noite_gelada",
+    chain: "rover",
+    place: "rover",
+    icon: "🥶",
+    source: "nasa-fato",
+    cooldown: 6,
+    canHappen: (s) => s.sol >= 2 && s.sol < s.totalSols,
+    choices: [
+      { id: "aquecer", effects: { energia: -2 } },
+      {
+        id: "deixar",
+        effects: {},
+        deferredCost: true,
+        schedule: [{ eventId: "rover_frio", inSols: 1 }],
+      },
+    ],
+  },
+  {
+    id: "rover_frio",
+    chain: "rover",
+    place: "rover",
+    icon: "🔋",
+    source: "nasa-fato",
+    onlyScheduled: true,
+    onOpen: () => ({ energia: -3 }),
+  },
+  {
+    id: "drone",
+    chain: "rover",
+    place: "rover",
+    icon: "🚁",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 2 && s.sol < s.totalSols - 1,
+    choices: [
+      { id: "voar", effects: { energia: -3, ciencia: 2 } },
+      {
+        id: "sem_olhar",
+        effects: { ciencia: 1 },
+        deferredCost: true,
+        schedule: [{ eventId: "rover_atolou", inSols: 1 }],
+      },
+    ],
+  },
 ];

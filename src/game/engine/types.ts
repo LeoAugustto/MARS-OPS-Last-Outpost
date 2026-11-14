@@ -186,6 +186,8 @@ export interface GameState {
   vars: Record<string, string | number>;
   scheduled: { eventId: string; sol: number; vars?: Record<string, string | number> }[];
   lastSeen: Record<string, number>;
+  /** eventos que apareceram nas últimas missões deste aparelho: o sorteio prefere os outros */
+  recentes?: string[];
   alerts: Alert[];
   /** eventos do Sol disponíveis nesta missão (ao vivo + históricos) */
   donkiPool: SolarEvent[];

@@ -498,4 +498,307 @@ export const en: Dict = {
   "ev.fossil_resultado.title": "Just a rock... but that's science!",
   "ev.fossil_resultado.body":
     "It wasn't a fossil, just an ordinary rock. But finding that out is science too: now we know more about Mars rocks!",
+
+  // ================================================================ events by place (batch 2)
+  // ☀️ solar panels
+  "ev.geada.title": "Ice on the panels!",
+  "ev.geada.body": "The night was so cold that a very thin layer of ice covered the solar panels.",
+  "ev.geada.esperar.label": "Wait for the Sun to melt it",
+  "ev.geada.esperar.outcome":
+    "The ice melted by itself, but the panels made less energy in the morning.",
+  "ev.geada.esperar.lesson":
+    "In 1979, the Viking 2 lander photographed a very thin layer of ice on the ground on Mars.",
+  "ev.geada.raspar.label": "Go out and scrape the ice",
+  "ev.geada.raspar.outcome": "Clean panels in no time! But the trip used spacesuit air.",
+  "ev.geada.raspar.lesson":
+    "Outside, every job uses spacesuit air. Sometimes waiting is safer than going out.",
+
+  "ev.eclipse_fobos.title": "A moon passed in front of the Sun!",
+  "ev.eclipse_fobos.body":
+    "Phobos, one of the two moons of Mars, will pass in front of the Sun. For a moment, the panels will get less light.",
+  "ev.eclipse_fobos.filmar.label": "Film the eclipse",
+  "ev.eclipse_fobos.filmar.outcome": "What an amazing video! The camera and telescope used energy.",
+  "ev.eclipse_fobos.filmar.lesson":
+    "In 2022, the Perseverance rover filmed Phobos passing in front of the Sun. The eclipse lasted about 40 seconds!",
+  "ev.eclipse_fobos.guardar.label": "Save energy in the battery",
+  "ev.eclipse_fobos.guardar.outcome":
+    "The battery is fuller, but the lab had no energy and only works at half today.",
+  "ev.eclipse_fobos.guardar.lesson":
+    "Mars has two small moons, Phobos and Deimos. When Phobos passes in front of the Sun, less light arrives for a moment.",
+
+  "ev.truque_areia.title": "Dusty panels",
+  "ev.truque_areia.body":
+    "The panels are dusty and make less energy. The afternoon wind could help... or someone could go out to clean them.",
+  "ev.truque_areia.areia.label": "Drop sand into the wind",
+  "ev.truque_areia.areia.outcome":
+    "The robot dropped sand near the panels. The wind carried the sand, and it swept away some dust!",
+  "ev.truque_areia.areia.lesson":
+    "In 2021, the InSight lander used this trick: it dropped sand into the wind near its panels, and the sand carried away some dust.",
+  "ev.truque_areia.escovar.label": "Go out and brush the panels",
+  "ev.truque_areia.escovar.outcome":
+    "The panels are really clean! But the trip used spacesuit air.",
+  "ev.truque_areia.escovar.lesson":
+    "Brushing cleans better than the wind, but every trip outside uses air and tires the crew.",
+
+  // 💨 air factory
+  "ev.filtro_co2.title": "The carbon dioxide filter is full",
+  "ev.filtro_co2.body":
+    "When we breathe, we let out carbon dioxide. The filter that takes this gas out of the base's air is full.",
+  "ev.filtro_co2.reserva.label": "Put in the spare filter",
+  "ev.filtro_co2.reserva.outcome": "New filter in place! But now there are no spares left.",
+  "ev.filtro_co2.reserva.lesson":
+    "On the Space Station, machines take carbon dioxide out of the air, because too much of it is bad for the body.",
+  "ev.filtro_co2.improvisar.label": "Make a homemade filter",
+  "ev.filtro_co2.improvisar.outcome":
+    "The filter made with tape and old parts worked, but not as well. The air got a little worse.",
+  "ev.filtro_co2.improvisar.lesson":
+    "In 1970, the Apollo 13 spacecraft had a problem, and the astronauts built a filter with duct tape and other parts. It worked!",
+
+  "ev.eletrolise.title": "Make air from water?",
+  "ev.eletrolise.body":
+    "The air machine can split water into oxygen and another gas, using electricity. But this water also waters the plants.",
+  "ev.eletrolise.fazer_ar.label": "Use water to make air",
+  "ev.eletrolise.fazer_ar.outcome": "More oxygen for everyone! But the greenhouse got less water.",
+  "ev.eletrolise.fazer_ar.lesson":
+    "On the Space Station, a machine splits water with electricity and makes oxygen for the crew to breathe.",
+  "ev.eletrolise.guardar_agua.label": "Keep the water for the plants",
+  "ev.eletrolise.guardar_agua.outcome":
+    "The plants drank well and grew. But the factory made less air today.",
+  "ev.eletrolise.guardar_agua.lesson":
+    "In a base, the same water is used for drinking, growing plants, and even making air. That's why it's used many times.",
+
+  "ev.poeira_dentro.title": "Dust got into the base!",
+  "ev.poeira_dentro.body":
+    "Dust stuck to the spacesuits and came in with the crew. Now there's red powder all over the floor.",
+  "ev.poeira_dentro.aspirar.label": "Vacuum everything now",
+  "ev.poeira_dentro.aspirar.outcome": "The base is spotless! The vacuum used energy.",
+  "ev.poeira_dentro.aspirar.lesson":
+    "Apollo astronauts said Moon dust stuck to everything and smelled like gunpowder.",
+  "ev.poeira_dentro.depois.label": "Clean another day",
+  "ev.poeira_dentro.depois.outcome": "No energy used, but the dust made the crew cough and sneeze.",
+  "ev.poeira_dentro.depois.lesson":
+    "Mars dust is very fine and has salts that are bad for the body. It can't stay inside the house.",
+
+  // 🌱 greenhouse
+  "ev.luz_rosa.title": "Which light for the plants?",
+  "ev.luz_rosa.body":
+    "The greenhouse lamps can be red and blue, which make everything pink, or white, like daylight.",
+  "ev.luz_rosa.rosa.label": "Red and blue light",
+  "ev.luz_rosa.rosa.outcome":
+    "The greenhouse turned pink and the plants grew well, using little energy.",
+  "ev.luz_rosa.rosa.lesson":
+    "On the Space Station, plants grow under red and blue lights. Together, they make the greenhouse glow pink!",
+  "ev.luz_rosa.branca.label": "White light, like daylight",
+  "ev.luz_rosa.branca.outcome":
+    "The plants grew and the crew liked seeing everything green. But white light used more energy.",
+  "ev.luz_rosa.branca.lesson":
+    "With white light, plants show their real color. That makes it easier to see if one is sick.",
+
+  "ev.pimentas.title": "The peppers grew!",
+  "ev.pimentas.body":
+    "The pepper plants are full of green peppers. If you wait longer, they turn red and get bigger.",
+  "ev.pimentas.verdes.label": "Pick them green now",
+  "ev.pimentas.verdes.outcome": "New, spicy food today! Picking them was a bit of work.",
+  "ev.pimentas.verdes.lesson":
+    "In 2021, astronauts picked peppers on the Space Station and made tacos with them!",
+  "ev.pimentas.vermelhas.label": "Wait for them to turn red",
+  "ev.pimentas.vermelhas.outcome":
+    "The peppers keep growing. In a few sols, the harvest will be big!",
+  "ev.pimentas.vermelhas.lesson":
+    "The pepper experiment on the Space Station lasted more than 4 months. Big plants take time to make fruit.",
+  "ev.pimentas_vermelhas.title": "Red peppers!",
+  "ev.pimentas_vermelhas.body": "Waiting paid off: the peppers turned red and gave lots of food.",
+
+  "ev.adubo.title": "What to do with the leftovers?",
+  "ev.adubo.body":
+    "There are peels and leaves left from the kitchen. They can become trash... or compost for the greenhouse.",
+  "ev.adubo.compostar.label": "Make compost",
+  "ev.adubo.compostar.outcome":
+    "The leftovers will turn into compost. In a few sols, the plants will grow more!",
+  "ev.adubo.compostar.lesson":
+    "The European Space Agency is studying a system that recycles leftovers to make food and air on long trips.",
+  "ev.adubo.jogar_fora.label": "Throw them away",
+  "ev.adubo.jogar_fora.outcome":
+    "The kitchen has more space, but the trash smelled bad and made the crew queasy.",
+  "ev.adubo.jogar_fora.lesson":
+    "There's no garbage truck on a Mars base. Everything you throw away stays inside.",
+  "ev.adubo_pronto.title": "The compost is ready!",
+  "ev.adubo_pronto.body":
+    "The leftovers turned into compost, and the greenhouse plants gave more food.",
+
+  // 🔬 lab
+  "ev.meteorito.title": "A rock fell from the sky!",
+  "ev.meteorito.body":
+    "The robot found a dark, shiny rock near the base. It looks like a meteorite, a rock that came from space!",
+  "ev.meteorito.analisar.label": "Study it in the lab",
+  "ev.meteorito.analisar.outcome": "It really was an iron meteorite! The tests used energy.",
+  "ev.meteorito.analisar.lesson":
+    "In 2005, the Opportunity rover found a meteorite on Mars. It was the first meteorite found on another planet.",
+  "ev.meteorito.foto.label": "Take a photo and send it to Earth",
+  "ev.meteorito.foto.outcome":
+    "Scientists on Earth loved the photos, but without tests the research gave less.",
+  "ev.meteorito.foto.lesson":
+    "Rocks from Mars also fall on Earth as meteorites. Scientists have studied some of them for many years.",
+
+  "ev.tubo_amostra.title": "The sample tube came back empty!",
+  "ev.tubo_amostra.body":
+    "The crew drilled a rock to keep a piece in a tube. But the tube came back with nothing inside!",
+  "ev.tubo_amostra.cuidado.label": "Find out what happened and try again",
+  "ev.tubo_amostra.cuidado.outcome":
+    "The rock was crumbly and turned to powder. The second try worked! It used energy.",
+  "ev.tubo_amostra.cuidado.lesson":
+    "In 2021, the Perseverance rover's first sample tube came back empty: the rock turned to powder. The team studied what happened before trying again.",
+  "ev.tubo_amostra.rapido.label": "Try again really fast",
+  "ev.tubo_amostra.rapido.outcome":
+    "You got a sample right away! But nobody checked if it was good...",
+  "ev.tubo_amostra.rapido.lesson":
+    "In science, rushing can ruin the work. Checking first avoids losing samples.",
+  "ev.amostra_vazia.title": "The sample was ruined",
+  "ev.amostra_vazia.body":
+    "The rushed sample was full of dust and wasn't useful. Part of the research was lost.",
+
+  "ev.nuvens.title": "Clouds shining in the sky!",
+  "ev.nuvens.body": "After sunset, some clouds high up keep shining with rainbow colors.",
+  "ev.nuvens.noite.label": "Stay up taking photos",
+  "ev.nuvens.noite.outcome":
+    "Beautiful photos for science! But the crew went to bed late and got tired.",
+  "ev.nuvens.noite.lesson":
+    "In 2021, the Curiosity rover photographed clouds shining after sunset. They were made of dry ice.",
+  "ev.nuvens.uma_foto.label": "Take just one photo and sleep",
+  "ev.nuvens.uma_foto.outcome":
+    "One pretty photo and a well-rested crew. The camera used a little energy.",
+  "ev.nuvens.uma_foto.lesson":
+    "Mars has clouds too, like Earth. Most of them are made of water ice.",
+
+  // 🛡️ shelter
+  "ev.tijolos.title": "Bricks made of Mars sand",
+  "ev.tijolos.body": "You can make the base safer with a new layer: printed bricks or sandbags.",
+  "ev.tijolos.imprimir.label": "Print bricks",
+  "ev.tijolos.imprimir.outcome":
+    "The 3D printer made sand bricks! The base is better protected. It used energy.",
+  "ev.tijolos.imprimir.lesson":
+    "NASA held a contest for 3D-printed homes made with materials from Mars, to protect future crews.",
+  "ev.tijolos.sacos.label": "Fill sandbags outside",
+  "ev.tijolos.sacos.outcome":
+    "The bags are on top of the base. More protection! But the work outside used air and was tiring.",
+  "ev.tijolos.sacos.lesson":
+    "Using local sand is an idea being studied for Mars: that way you don't have to bring everything from Earth.",
+
+  "ev.tremor.title": "The base shook!",
+  "ev.tremor.body":
+    "Everything shook a little. It was a marsquake! It looks like nothing broke... or did it?",
+  "ev.tremor.conferir.label": "Check the whole base",
+  "ev.tremor.conferir.outcome": "You found a loose screw and fixed it. The check used energy.",
+  "ev.tremor.conferir.lesson":
+    "The InSight lander felt more than a thousand quakes on Mars. The biggest one was in 2022.",
+  "ev.tremor.seguir.label": "Keep working",
+  "ev.tremor.seguir.outcome": "You did more science. But nobody checked if anything came loose...",
+  "ev.tremor.seguir.lesson":
+    "After a quake, checking the house avoids surprises. Small damage grows if nobody sees it.",
+  "ev.tremor_estrago.title": "A shelf fell down!",
+  "ev.tremor_estrago.body":
+    "Yesterday's quake loosened a shelf. Cleaning up used energy and tired the crew.",
+
+  // 📡 antenna
+  "ev.conjuncao.title": "The Sun is in the way",
+  "ev.conjuncao.body":
+    "Soon the Sun will be between Mars and Earth. Messages won't get through for a few days.",
+  "ev.conjuncao.mandar_tudo.label": "Send all the data first",
+  "ev.conjuncao.mandar_tudo.outcome":
+    "All the data reached Earth in time! The antenna used energy.",
+  "ev.conjuncao.mandar_tudo.lesson":
+    "About every 2 years, the Sun gets between Earth and Mars. NASA stops sending commands to its rovers for about two weeks.",
+  "ev.conjuncao.silencio.label": "Turn off the antenna and save energy",
+  "ev.conjuncao.silencio.outcome":
+    "The battery saved energy, but the crew felt lonely without news from Earth.",
+  "ev.conjuncao.silencio.lesson":
+    "Without talking to Earth, the crew must solve everything alone. That takes preparation.",
+
+  "ev.satelite.title": "A satellite is passing by!",
+  "ev.satelite.body":
+    "A satellite that circles Mars will pass over the base. It can carry the data to Earth.",
+  "ev.satelite.satelite.label": "Send the data through the satellite",
+  "ev.satelite.satelite.outcome": "The data went quickly and used little energy!",
+  "ev.satelite.satelite.lesson":
+    "Rovers on Mars send most of their photos through satellites that circle the planet.",
+  "ev.satelite.direto.label": "Send it straight with the big antenna",
+  "ev.satelite.direto.outcome": "More data reached Earth, but the big antenna used lots of energy.",
+  "ev.satelite.direto.lesson":
+    "A big antenna can talk straight to Earth, but it uses much more energy.",
+
+  "ev.musica.title": "Wake-up music!",
+  "ev.musica.body": "Earth sent a fun song to wake up the crew today.",
+  "ev.musica.tocar.label": "Play it loud",
+  "ev.musica.tocar.outcome": "Everyone woke up dancing! The speakers used a little energy.",
+  "ev.musica.tocar.lesson":
+    "Back in the Space Shuttle days, Mission Control woke the astronauts with a different song each day.",
+  "ev.musica.dormir_mais.label": "Let the crew sleep longer",
+  "ev.musica.dormir_mais.outcome":
+    "The crew rested more, but the lab started late and only works at half today.",
+  "ev.musica.dormir_mais.lesson": "A bit more sleep helps the body, but it delays the day's work.",
+
+  // 🛏️ home
+  "ev.cardapio.title": "Boring food",
+  "ev.cardapio.body":
+    "The crew is tired of eating the same thing. The food seems to have no taste.",
+  "ev.cardapio.tempero.label": "Cook something new with spices",
+  "ev.cardapio.tempero.outcome": "What a tasty dinner! Everyone is happy, but it used more food.",
+  "ev.cardapio.tempero.lesson":
+    "In space, food can seem tasteless. That's why many astronauts like hot sauce.",
+  "ev.cardapio.de_sempre.label": "Eat the usual",
+  "ev.cardapio.de_sempre.outcome": "The food lasted longer, but the crew ate little and felt down.",
+  "ev.cardapio.de_sempre.lesson":
+    "Eating the same thing every day gets tiring. NASA studies how to keep food tasty on long trips.",
+
+  "ev.diario.title": "Diary time",
+  "ev.diario.body": "An astronaut wants to stop for a bit to write in her diary about the week.",
+  "ev.diario.escrever.label": "Stop to write",
+  "ev.diario.escrever.outcome":
+    "She felt much better! But she stopped working, and the lab only works at half today.",
+  "ev.diario.escrever.lesson":
+    "Space Station astronauts wrote diaries for a NASA study about what it's like to live isolated.",
+  "ev.diario.trabalhar.label": "Keep working",
+  "ev.diario.trabalhar.outcome": "The research moved on, but the astronaut got tired and worried.",
+  "ev.diario.trabalhar.lesson":
+    "Working nonstop seems good, but tiredness shows up later. Breaks are part of the job too.",
+
+  "ev.resfriado.title": "Achoo!",
+  "ev.resfriado.body": "An astronaut woke up sneezing. It looks like a cold!",
+  "ev.resfriado.isolar.label": "Rest away from the others",
+  "ev.resfriado.isolar.outcome":
+    "He got better and nobody else caught it. But someone was missing at work, and the lab only works at half today.",
+  "ev.resfriado.isolar.lesson":
+    "Before going to space, astronauts stay in quarantine for some days, away from other people, so they don't bring illnesses along.",
+  "ev.resfriado.seguir.label": "Work anyway",
+  "ev.resfriado.seguir.outcome": "The research moved on, but the cold spread to more people.",
+  "ev.resfriado.seguir.lesson":
+    "In a small base, an illness spreads easily from one person to another.",
+
+  // 🚙 rover
+  "ev.noite_gelada.title": "Freezing night!",
+  "ev.noite_gelada.body": "Tonight will be very cold. The cold can make the rover's battery weak.",
+  "ev.noite_gelada.aquecer.label": "Turn on the rover's heater",
+  "ev.noite_gelada.aquecer.outcome": "The rover spent a warm night. The heater used energy.",
+  "ev.noite_gelada.aquecer.lesson":
+    "Nights on Mars are very cold. Robots use heaters to protect their parts and batteries.",
+  "ev.noite_gelada.deixar.label": "Leave the rover in the cold",
+  "ev.noite_gelada.deixar.outcome": "You saved energy today. Will the battery hold up?",
+  "ev.noite_gelada.deixar.lesson":
+    "Cold makes batteries weaker. On Earth too: a phone runs out faster in the cold.",
+  "ev.rover_frio.title": "The rover's battery froze",
+  "ev.rover_frio.body":
+    "The cold made the rover's battery weak. Warming it up and recharging used energy.",
+
+  "ev.drone.title": "Send the drone ahead?",
+  "ev.drone.body":
+    "The rover will explore a new place. A small drone could fly first and show the way.",
+  "ev.drone.voar.label": "Fly the drone first",
+  "ev.drone.voar.outcome": "The drone found the best path and new photos! The flight used energy.",
+  "ev.drone.voar.lesson":
+    "The Ingenuity helicopter flew 72 times on Mars, from 2021 to 2024. It was built to fly only 5 times!",
+  "ev.drone.sem_olhar.label": "Go by rover without looking",
+  "ev.drone.sem_olhar.outcome":
+    "The rover got there faster and found new rocks. But the path was unknown...",
+  "ev.drone.sem_olhar.lesson":
+    "Without checking the path first, the rover may fall into soft sand and get stuck.",
 };

@@ -96,7 +96,13 @@ export function defaultAllocation(): Allocation {
 }
 
 export function newMission(
-  opts: { seed?: number; level?: Level; donkiPool?: SolarEvent[] } = {},
+  opts: {
+    seed?: number;
+    level?: Level;
+    donkiPool?: SolarEvent[];
+    /** eventos vistos nas últimas missões (o sorteio prefere outros para variar) */
+    recentes?: string[];
+  } = {},
   catalog: GameEvent[] = EVENTS,
 ): GameState {
   const level = opts.level ?? "cadete";
@@ -123,6 +129,7 @@ export function newMission(
     vars: {},
     scheduled: [],
     lastSeen: {},
+    ...(opts.recentes?.length ? { recentes: [...new Set(opts.recentes)] } : {}),
     alerts: [],
     donkiPool:
       opts.donkiPool && opts.donkiPool.length ? clone(opts.donkiPool) : clone(RESERVE_EVENTS),
@@ -212,6 +219,39 @@ function podeSortear(s: GameState, ev: GameEvent, ativas: Set<string>, relaxar =
 const peso = (s: GameState, ev: GameEvent) =>
   typeof ev.weight === "function" ? ev.weight(s) : (ev.weight ?? 1);
 
+/**
+ * Eventos da base que apareceram nesta missão, mais os de antes, sem repetir (para o próximo
+ * newMission({ recentes })). Só ids de eventos: nada sobre a criança.
+ */
+export function recentesDepois(
+  s: GameState,
+  antes: string[] = [],
+  catalog: GameEvent[] = EVENTS,
+): string[] {
+  const daMissao = Object.keys(s.lastSeen).filter((id) => {
+    const ev = catalog.find((e) => e.id === id);
+    return ev && !ev.donki && !ev.onlyScheduled && ev.id !== "chegada";
+  });
+  return [...new Set([...daMissao, ...antes])].slice(0, B.RECENTES_MAX);
+}
+
+/**
+ * Peso para variar os eventos da base (não muda os eventos do Sol):
+ * - já apareceu nesta missão → bem menos provável (a missão mostra coisas novas primeiro);
+ * - apareceu nas últimas missões deste aparelho → menos provável (cada missão parece diferente);
+ * - o mesmo lugar teve alerta ontem → um pouco menos provável (os alertas passeiam pela base).
+ */
+function pesoVariado(s: GameState, ev: GameEvent, catalog: GameEvent[]): number {
+  let p = peso(s, ev);
+  if (s.lastSeen[ev.id] !== undefined) p *= B.PESO_JA_VISTO;
+  else if (s.recentes?.includes(ev.id)) p *= B.PESO_RECENTE;
+  const lugarOntem = Object.entries(s.lastSeen).some(
+    ([id, sol]) => sol === s.sol - 1 && catalog.find((e) => e.id === id)?.place === ev.place,
+  );
+  if (lugarOntem) p *= B.PESO_LUGAR_ONTEM;
+  return p;
+}
+
 function addAlert(
   s: GameState,
   ev: GameEvent,
@@ -280,7 +320,7 @@ function pickBaseEvent(
     const candidatos = catalog.filter((ev) => !ev.donki && podeSortear(s, ev, ativas, relaxar));
     const ev = pickWeighted(
       rng,
-      candidatos.map((item) => ({ item, weight: peso(s, item) })),
+      candidatos.map((item) => ({ item, weight: pesoVariado(s, item, catalog) })),
     );
     if (ev) return ev;
   }
@@ -383,7 +423,9 @@ export function choose(
     const rng = rngFor(s);
     for (const sc of c.schedule ?? []) {
       const n = Array.isArray(sc.inSols) ? randInt(rng, sc.inSols[0], sc.inSols[1]) : sc.inSols;
-      s.scheduled.push({ eventId: sc.eventId, sol: s.sol + Math.max(1, n), vars: { ...a.vars } });
+      // continuação nunca cai depois do fim da missão (senão a escolha sairia de graça)
+      const quando = Math.min(s.sol + Math.max(1, n), Math.max(s.sol + 1, s.totalSols));
+      s.scheduled.push({ eventId: sc.eventId, sol: quando, vars: { ...a.vars } });
     }
     a.choiceId = c.id;
     a.delta = delta;

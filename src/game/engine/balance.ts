@@ -76,3 +76,13 @@ export const ENTARDECER_EM = 0.6;
 export const NOITE_EM = 0.82;
 /** dormir com alerta sem resposta: a tripulação dorme preocupada e cansada, por alerta (jogo) */
 export const SAUDE_POR_ALERTA_PERDIDO = 4;
+
+// ---------------------------------------------------------------- variedade do sorteio (jogo)
+/** evento da base que já apareceu nesta missão: peso multiplicado por isto */
+export const PESO_JA_VISTO = 0.2;
+/** evento que apareceu nas últimas missões deste aparelho (e ainda não nesta) */
+export const PESO_RECENTE = 0.35;
+/** o mesmo lugar teve alerta ontem: os alertas "passeiam" pela base */
+export const PESO_LUGAR_ONTEM = 0.6;
+/** quantos eventos das últimas missões o aparelho lembra (só ids de eventos, nada pessoal) */
+export const RECENTES_MAX = 40;
