@@ -9,4 +9,4 @@
 ## Leo — corrigir link do DONKI em /fontes
 - [x] Cartão "NASA DONKI" deve abrir https://ccmc.gsfc.nasa.gov/tools/DONKI/ (era https://api.nasa.gov/)
 - [x] Conferir a página /fontes no navegador
-- [ ] Não publicar o site (fechar só depois de conferir)
+- [x] Não publicar o site (nada foi publicado)
