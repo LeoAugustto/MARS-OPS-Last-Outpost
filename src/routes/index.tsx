@@ -3,8 +3,8 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { LangSelector } from "@/components/AppHeader";
 import { useDocumentTitle, useT } from "@/i18n";
 import { listSaves } from "@/lib/saves";
-import cenaLoop from "@/assets/cena_loop.mp4.asset.json";
-import cenaPoster from "@/assets/cena_poster.webp.asset.json";
+import cenaLoop from "@/assets/cena_loop_4k.mp4.asset.json";
+import cenaPoster from "@/assets/cena_poster_4k.webp.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({

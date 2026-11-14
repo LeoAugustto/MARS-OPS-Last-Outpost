@@ -16,4 +16,4 @@
 - [x] Vídeo cobre a tela inteira, sem borda, em qualquer tamanho
 - [x] Título, botões e links continuam legíveis nos 5 idiomas
 - [x] Conferir no navegador (celular, PC e tela bem larga)
-- [ ] Decidir se a arte parada public/assets/hub/cena.webp ainda serve para algo (hoje nada usa)
+- [x] Usar o vídeo 4K original na tela inicial e remover a arte parada public/assets/hub/cena.webp (pedido do Yckler)
