@@ -36,7 +36,7 @@ use the editor.
 
 ## O projeto em 30 segundos
 **Operação Marte: Última Base** (EN: *MARS OPS: Last Outpost*) — jogo de navegador para crianças de **7 a 12 anos** (NASA Space Apps 2026, desafio *Build a Junior Astronaut Mission Trainer*).
-A criança comanda uma base em Marte, **um sol (dia marciano) por vez**: responde a uma carta de evento e divide a energia do dia entre **ar, estufa, laboratório e escudo**. Eventos reais da NASA (tempestades solares do **DONKI**) disparam histórias encadeadas. Quando dá errado, **não tem game over**: o Controle de Missão explica por quê e a criança pode voltar a um sol anterior.
+A criança comanda uma base em Marte, **um sol (dia marciano) por vez**, andando num **mapa 2D da base** (sempre o mesmo). A cada sol surgem **2 a 4 alertas** nos lugares da base (cartas com escolhas que custam algo) e ela divide a energia entre **ar, estufa, laboratório e escudo** (a divisão continua de um dia pro outro). Desenho completo: `docs/GAME_DESIGN.md` (v2). Eventos reais da NASA (tempestades solares do **DONKI**) disparam histórias encadeadas. Quando dá errado, **não tem game over**: o Controle de Missão explica por quê e a criança pode voltar a um sol anterior.
 
 Prazo: submissão até **15/11/2026 23:59** (horário local). Simples e funcionando > bonito e quebrado.
 
