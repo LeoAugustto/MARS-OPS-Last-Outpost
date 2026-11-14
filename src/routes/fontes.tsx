@@ -22,7 +22,7 @@ const SOURCES = [
     icon: "/assets/icons/paineis.png",
     name: "NASA DONKI",
     key: "srcDonki" as const,
-    url: "https://api.nasa.gov/",
+    url: "https://ccmc.gsfc.nasa.gov/tools/DONKI/",
   },
   {
     icon: "/assets/icons/lab.png",
