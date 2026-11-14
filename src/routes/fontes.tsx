@@ -19,31 +19,31 @@ export const Route = createFileRoute("/fontes")({
 
 const SOURCES = [
   {
-    icon: "☀️",
+    icon: "/assets/icons/paineis.png",
     name: "NASA DONKI",
     key: "srcDonki" as const,
     url: "https://api.nasa.gov/",
   },
   {
-    icon: "🧬",
+    icon: "/assets/icons/lab.png",
     name: "NASA OSDR",
     key: "srcOsdr" as const,
     url: "https://osdr.nasa.gov/",
   },
   {
-    icon: "☢️",
+    icon: "/assets/icons/abrigo.png",
     name: "NASA RadLab",
     key: "srcRadlab" as const,
     url: "https://visualization.osdr.nasa.gov/radlab/",
   },
   {
-    icon: "🗺️",
+    icon: "/assets/icons/antena.png",
     name: "NASA Mars Trek",
     key: "srcTrek" as const,
     url: "https://trek.nasa.gov/mars/",
   },
   {
-    icon: "🥬",
+    icon: "/assets/icons/estufa.png",
     name: "CSA — Food Production",
     key: "srcCsa" as const,
     url: "https://www.asc-csa.gc.ca/eng/sciences/food-production/",
@@ -57,15 +57,15 @@ function Fontes() {
     <main className="bg-mars min-h-screen">
       <AppHeader />
       <section className="mx-auto max-w-3xl px-4 pb-12">
-        <h1 className="text-3xl font-bold text-secondary sm:text-4xl">{t("sourcesTitle")}</h1>
+        <h1 className="text-3xl font-bold text-highlight sm:text-4xl">{t("sourcesTitle")}</h1>
         <p className="mt-2 text-lg">{t("sourcesIntro")}</p>
         <ul className="mt-6 grid gap-4">
           {SOURCES.map((s) => (
-            <li key={s.name} className="flex flex-col gap-3 rounded-3xl border-4 border-border bg-card p-5 sm:flex-row sm:items-center">
-              <span className="text-4xl" aria-hidden>{s.icon}</span>
+            <li key={s.name} className="flex flex-col gap-3 pixel-frame bg-card text-card-foreground p-5 sm:flex-row sm:items-center">
+              <img src={s.icon} alt="" aria-hidden width={64} height={64} className="pixelated h-16 w-16 shrink-0" />
               <div className="flex-1">
                 <h2 className="text-xl font-bold">{s.name}</h2>
-                <p className="text-muted-foreground">{t(s.key)}</p>
+                <p className="text-card-foreground/85">{t(s.key)}</p>
               </div>
               <Button asChild variant="chunkySand" size="tap">
                 <a href={s.url} target="_blank" rel="noreferrer" aria-label={t("visitSite", { name: s.name })}>{t("visit")} ↗</a>

@@ -17,9 +17,9 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         chunky:
-          "rounded-2xl bg-primary text-primary-foreground font-bold shadow-chunky active:translate-y-1 active:shadow-none hover:brightness-110",
+          "rounded-sm bg-primary text-primary-foreground font-bold shadow-chunky active:translate-y-1 active:shadow-none hover:brightness-110",
         chunkySand:
-          "rounded-2xl bg-secondary text-secondary-foreground font-bold shadow-chunky-sand active:translate-y-1 active:shadow-none hover:brightness-105",
+          "rounded-sm bg-secondary text-secondary-foreground font-bold shadow-chunky-sand active:translate-y-1 active:shadow-none hover:brightness-110",
       },
       size: {
         default: "h-9 px-4 py-2",

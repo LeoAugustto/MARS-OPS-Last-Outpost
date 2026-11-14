@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { AppFooter, LangSelector } from "@/components/AppHeader";
 import { useDocumentTitle, useLang, useT } from "@/i18n";
 import { listSaves } from "@/lib/saves";
-import marsBase from "@/assets/mars-base.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -41,15 +40,21 @@ function Home() {
       <section className="mx-auto flex min-h-0 w-full max-w-3xl flex-1 flex-col items-center justify-center gap-[clamp(0.25rem,1.5dvh,1rem)] px-4 py-1 text-center">
         {/* Fixed height (per screen height) so the image is the same size in every language */}
         <div className="hidden h-[30dvh] w-full items-center justify-center [@media(min-height:420px)]:flex [@media(min-height:650px)]:h-[40dvh] [@media(min-height:850px)]:h-[48dvh]">
-          <img
-            src={marsBase}
-            alt=""
-            width={1280}
-            height={768}
-            className="h-auto w-auto max-h-full max-w-full rounded-3xl border-4 border-border object-contain shadow-2xl"
-          />
+          <div className="relative aspect-square h-full max-w-full">
+            <img
+              src="/assets/map/base.png"
+              alt=""
+              width={1024}
+              height={1024}
+              className="pixelated pixel-frame h-full w-full object-cover"
+            />
+            <img src="/assets/astronaut/f/s_1.png" alt="" aria-hidden width={128} height={128}
+              className="pixelated absolute -bottom-2 left-0 -translate-x-1/3 h-[clamp(4rem,30%,6rem)] w-auto" />
+            <img src="/assets/astronaut/m/s_1.png" alt="" aria-hidden width={128} height={128}
+              className="pixelated absolute -bottom-2 right-0 translate-x-1/3 h-[clamp(4rem,30%,6rem)] w-auto" />
+          </div>
         </div>
-        <h1 className="shrink-0 font-bold leading-tight text-secondary text-[clamp(1.5rem,min(7vw,7dvh),4rem)]">
+        <h1 className="shrink-0 font-bold leading-tight text-highlight text-[clamp(1.5rem,min(7vw,7dvh),4rem)]">
           {/* Two lines, breaking right after the colon; English joins into one line on sm+ screens */}
           <span className={`block whitespace-nowrap${singleLineOnWide ? " sm:hidden" : ""}`}>{titleLines[0]}</span>
           <span className={`block whitespace-nowrap${singleLineOnWide ? " sm:hidden" : ""}`}>{titleLines[1]}</span>
@@ -67,7 +72,7 @@ function Home() {
           )}
         </div>
         <nav className="flex shrink-0 flex-wrap items-center justify-center gap-x-3 text-sm font-semibold sm:text-base">
-          <Link to="/fontes" className="flex min-h-12 items-center text-secondary underline underline-offset-4">
+          <Link to="/fontes" className="flex min-h-12 items-center text-highlight underline underline-offset-4">
             {t("dataSources")}
           </Link>
           <span aria-hidden className="text-muted-foreground">·</span>
