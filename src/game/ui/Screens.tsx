@@ -53,7 +53,7 @@ export function LevelSelect({
             type="button"
             disabled={loading}
             onClick={() => onStart(l)}
-            className="flex min-h-20 items-center gap-4 rounded-3xl border-4 border-border bg-card p-4 text-left shadow-chunky-sand transition hover:border-primary active:translate-y-1 active:shadow-none disabled:opacity-50"
+            className="flex min-h-20 items-center gap-4 rounded-3xl border-4 border-border bg-card p-4 text-left text-card-foreground shadow-chunky-sand transition hover:border-primary active:translate-y-1 active:shadow-none disabled:opacity-50"
           >
             <span className="text-5xl" aria-hidden>
               {icon}
@@ -72,7 +72,7 @@ export function LevelSelect({
           </Button>
         )}
       </div>
-      <p className="text-center text-sm text-muted-foreground" aria-live="polite">
+      <p className="text-center text-sm text-foreground/80" aria-live="polite">
         {loading ? `⏳ ${t("ui.carregando")}` : nasaInfo}
       </p>
     </div>
@@ -171,13 +171,13 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
       <div className="text-7xl" aria-hidden>
         🤖
       </div>
-      <div className="max-w-md rounded-3xl border-4 border-border bg-card p-6 shadow-xl">
+      <div className="max-w-md rounded-3xl border-4 border-border bg-card p-6 text-card-foreground shadow-xl">
         <div className="mb-3 text-5xl" aria-hidden>
           {q.icon}
         </div>
         <p className="text-xl font-bold leading-snug">{q.text}</p>
         {ultimo && (
-          <p className="mt-3 rounded-2xl bg-accent p-3 text-lg">
+          <p className="mt-3 rounded-2xl bg-accent p-3 text-lg text-accent-foreground">
             {t("ui.abertura.meta", { sois: cfg.totalSols, meta: cfg.metaCiencia })}
           </p>
         )}
@@ -260,7 +260,7 @@ function Chart({ history }: { history: HistoryPoint[] }) {
     { k: "saude" as const, cor: "oklch(0.65 0.2 25)", icon: "❤️" },
   ];
   return (
-    <figure className="rounded-2xl bg-muted p-3">
+    <figure className="rounded-2xl bg-muted p-3 text-card-foreground">
       <figcaption className="mb-2 font-bold">{t("ui.relatorio.grafico")}</figcaption>
       <svg
         viewBox={`0 0 ${W} ${H}`}
@@ -324,7 +324,7 @@ export function Report({
         <Chart history={d.history} />
 
         {d.causaKey && (
-          <section className="rounded-2xl border-4 border-destructive/50 bg-card p-3">
+          <section className="rounded-2xl border-4 border-destructive/50 bg-card p-3 text-card-foreground">
             <p className="text-lg font-bold">{t(d.causaKey)}</p>
             {d.dicaKey && <p className="mt-1">{t(d.dicaKey)}</p>}
           </section>
@@ -336,7 +336,7 @@ export function Report({
           </h2>
           {d.momentos.length === 0 && <p>{t("ui.relatorio.sem_decisoes")}</p>}
           {d.momentos.map((m) => (
-            <div key={`${m.sol}-${m.eventId}-${m.choiceId}`} className="rounded-2xl bg-muted p-3">
+            <div key={`${m.sol}-${m.eventId}-${m.choiceId}`} className="rounded-2xl bg-muted p-3 text-card-foreground">
               <p className="text-sm font-bold text-muted-foreground">
                 {t("ui.relatorio.sol", { sol: m.sol })}
               </p>
@@ -353,12 +353,12 @@ export function Report({
           <h2 className="font-display text-xl font-bold text-[#ffd23f]">
             ☀️ {t("ui.relatorio.reais")}
           </h2>
-          <p className="text-sm text-muted-foreground">{t("ui.relatorio.reais_explica")}</p>
+          <p className="text-sm text-foreground/80">{t("ui.relatorio.reais_explica")}</p>
           {d.realEvents.length === 0 && <p>{t("ui.relatorio.nenhum")}</p>}
           {d.realEvents.map(({ sol, event }) => (
             <div
               key={`${sol}-${event.donkiId}`}
-              className="flex flex-wrap items-center gap-2 rounded-2xl bg-muted p-3"
+              className="flex flex-wrap items-center gap-2 rounded-2xl bg-muted p-3 text-card-foreground"
             >
               <span className="font-bold">{t(`donki.${event.kind}`)}</span>
               <span>{"⭐".repeat(event.forca)}</span>
@@ -380,7 +380,7 @@ export function Report({
           ))}
         </section>
 
-        <p className="rounded-2xl bg-accent p-3">💡 {t(d.fatoKey)}</p>
+        <p className="rounded-2xl bg-accent p-3 text-accent-foreground">💡 {t(d.fatoKey)}</p>
 
         <div className="flex flex-col gap-2 pb-4">
           {d.voltarAoSol !== undefined && state.status === "resgate" && (
