@@ -39,7 +39,8 @@ function Home() {
         <LangSelector />
       </div>
       <section className="mx-auto flex min-h-0 w-full max-w-3xl flex-1 flex-col items-center justify-center gap-[clamp(0.25rem,1.5dvh,1rem)] px-4 py-1 text-center">
-        <div className="hidden min-h-0 w-full flex-1 items-center justify-center [@media(min-height:420px)]:flex">
+        {/* Fixed height (per screen height) so the image is the same size in every language */}
+        <div className="hidden h-[30dvh] w-full items-center justify-center [@media(min-height:420px)]:flex [@media(min-height:650px)]:h-[40dvh] [@media(min-height:850px)]:h-[48dvh]">
           <img
             src={marsBase}
             alt=""
