@@ -218,7 +218,7 @@ export const en: Dict = {
     "In winter, the Opportunity rover parked on slopes facing the Sun. That way its panels caught more light.",
   "ev.inverno.economizar.label": "Save energy: pause the lab",
   "ev.inverno.economizar.outcome":
-    "The battery saved energy for the short days, but the research stopped.",
+    "You saved power in the battery. The lab earns half its usual science today.",
   "ev.inverno.economizar.lesson":
     "Mars has seasons because it is tilted, like Earth. In winter, each day has fewer hours of sunlight for the panels.",
 
@@ -323,7 +323,7 @@ export const en: Dict = {
     "In 2014, NASA sent the design of a tool to the Space Station as a message. Up there, it was made on a 3D printer!",
   "ev.microscopio.lupa.label": "Use a simple magnifying glass",
   "ev.microscopio.lupa.outcome":
-    "You can still work, but the magnifier shows far less detail. Less research got done.",
+    "The magnifying glass showed fewer details. The lab earns half its usual science today.",
   "ev.microscopio.lupa.lesson":
     "A microscope shows things too small for your eyes or a magnifier. Good tools make a big difference in science.",
 
@@ -335,7 +335,7 @@ export const en: Dict = {
     "In 2008, NASA's Phoenix lander dug into the ground on Mars and confirmed it: there was water ice down there!",
   "ev.gelo.derreter.label": "Melt it to water the plants",
   "ev.gelo.derreter.outcome":
-    "The greenhouse got water and will make more food. But the sample to study was lost.",
+    "The greenhouse got water. Without the ice sample, the lab earns half its usual science today.",
   "ev.gelo.derreter.lesson":
     "Using what is already on Mars, like ice, is one of the plans for future bases. That way less has to be brought from Earth.",
 
@@ -352,8 +352,7 @@ export const en: Dict = {
   "ev.bacterias.mesa.lesson":
     "NASA cleans spacecraft very carefully before going to Mars, so they don't carry germs from Earth. This is called planetary protection.",
   "ev.lab_contaminado.title": "The lab got dirty",
-  "ev.lab_contaminado.body":
-    "Some bacteria escaped and spoiled other experiments. Part of the research had to be done again.",
+  "ev.lab_contaminado.body": "Some bacteria escaped. Cleaning the table cost 2 energy.",
 
   // 🛡️ shelter
   "ev.rachadura.title": "A crack in the sand layer",
@@ -431,7 +430,8 @@ export const en: Dict = {
   "ev.sem_sono.body":
     "On Mars, the day is about 40 minutes longer than on Earth. One astronaut's body isn't used to it yet.",
   "ev.sem_sono.descansar.label": "Let her rest today",
-  "ev.sem_sono.descansar.outcome": "She woke up full of energy! But a day off slowed the research.",
+  "ev.sem_sono.descansar.outcome":
+    "She woke up feeling better! The lab earns half its usual science today.",
   "ev.sem_sono.descansar.lesson":
     "A sol, a day on Mars, lasts 24 hours and 39 minutes. NASA teams that drive rovers on Mars have lived on that schedule!",
   "ev.sem_sono.luzes.label": "Use lights to fix her sleep",

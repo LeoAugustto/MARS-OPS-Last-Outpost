@@ -236,7 +236,7 @@ export const fr: Dict = {
     "En hiver, le robot Opportunity se garait sur des pentes tournées vers le Soleil. Ainsi ses panneaux captaient plus de lumière.",
   "ev.inverno.economizar.label": "Économiser : mettre le labo en pause",
   "ev.inverno.economizar.outcome":
-    "La batterie a gardé de l'énergie pour les jours courts, mais la recherche s'est arrêtée.",
+    "La batterie a gardé de l’énergie. Aujourd’hui, le labo rapporte deux fois moins de points de science.",
   "ev.inverno.economizar.lesson":
     "Mars a des saisons parce qu'elle est penchée, comme la Terre. En hiver, chaque jour a moins d'heures de soleil pour les panneaux.",
 
@@ -347,7 +347,7 @@ export const fr: Dict = {
     "En 2014, la NASA a envoyé par message le plan d'un outil à la Station spatiale. Là-haut, il a été fabriqué avec une imprimante 3D !",
   "ev.microscopio.lupa.label": "Utiliser une simple loupe",
   "ev.microscopio.lupa.outcome":
-    "On peut travailler, mais la loupe montre bien moins de détails. La recherche a moins avancé.",
+    "La loupe montre moins de détails. Aujourd’hui, le labo rapporte deux fois moins de points de science.",
   "ev.microscopio.lupa.lesson":
     "Le microscope montre des choses trop petites pour l'œil et la loupe. Un bon outil change beaucoup de choses en science.",
 
@@ -361,7 +361,7 @@ export const fr: Dict = {
     "En 2008, l'atterrisseur Phoenix de la NASA a creusé le sol de Mars et l'a confirmé : il y avait de la glace d'eau dessous !",
   "ev.gelo.derreter.label": "La faire fondre pour arroser",
   "ev.gelo.derreter.outcome":
-    "La serre a reçu de l'eau et donnera plus de nourriture. Mais l'échantillon à étudier est perdu.",
+    "La serre a reçu de l’eau. Sans la glace à étudier, le labo rapporte deux fois moins de points de science aujourd’hui.",
   "ev.gelo.derreter.lesson":
     "Utiliser ce qui existe déjà sur Mars, comme la glace, fait partie des plans pour les bases du futur. Ainsi, il faut apporter moins de choses de la Terre.",
 
@@ -380,7 +380,7 @@ export const fr: Dict = {
     "La NASA nettoie très bien les vaisseaux avant d'aller sur Mars, pour ne pas apporter de microbes de la Terre. On appelle ça la protection planétaire.",
   "ev.lab_contaminado.title": "Le labo est contaminé",
   "ev.lab_contaminado.body":
-    "Des bactéries se sont échappées et ont abîmé d'autres expériences. Il a fallu refaire une partie de la recherche.",
+    "Des bactéries se sont échappées. Nettoyer la table a coûté 2 points d’énergie.",
 
   // 🛡️ abri
   "ev.rachadura.title": "Une fissure dans la couche de sable",
@@ -462,7 +462,7 @@ export const fr: Dict = {
     "Sur Mars, la journée dure environ 40 minutes de plus que sur Terre. Le corps d'une astronaute n'est pas encore habitué.",
   "ev.sem_sono.descansar.label": "La laisser se reposer aujourd'hui",
   "ev.sem_sono.descansar.outcome":
-    "Elle s'est réveillée en pleine forme ! Mais une journée sans travail a retardé la recherche.",
+    "Elle se réveille en pleine forme ! Aujourd’hui, le labo rapporte deux fois moins de points de science.",
   "ev.sem_sono.descansar.lesson":
     "Un sol, la journée martienne, dure 24 heures et 39 minutes. Des équipes de la NASA qui pilotent des robots sur Mars ont déjà vécu à cet horaire !",
   "ev.sem_sono.luzes.label": "Utiliser des lumières pour régler son sommeil",

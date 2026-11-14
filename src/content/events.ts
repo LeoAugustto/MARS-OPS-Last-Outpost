@@ -365,7 +365,7 @@ export const EVENTS: GameEvent[] = [
     icon: "💥",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
-    canHappen: (s) => s.sol >= 3,
+    canHappen: (s) => s.sol >= 3 && s.solar >= 0.6,
     weight: 0.8,
     choices: [
       { id: "consertar", effects: { energia: -2, ar: -4 } },
@@ -381,11 +381,14 @@ export const EVENTS: GameEvent[] = [
     source: "nasa-fato",
     cooldown: UMA_VEZ,
     canHappen: (s) =>
-      s.totalSols >= 10 && s.sol >= Math.ceil(s.totalSols / 2) && s.sol < s.totalSols,
+      s.totalSols >= 10 &&
+      s.sol >= Math.ceil(s.totalSols / 2) &&
+      s.sol < s.totalSols &&
+      s.solar >= 0.6,
     onOpen: () => ({ solar: -0.2 }),
     choices: [
       { id: "inclinar", effects: { energia: -3, solar: 0.2 } },
-      { id: "economizar", effects: { ciencia: -2, bateria: 3 } },
+      { id: "economizar", effects: { bateria: 3 }, setFlags: ["radio_mudo"], deferredCost: true },
     ],
   },
 
@@ -397,7 +400,7 @@ export const EVENTS: GameEvent[] = [
     icon: "🚪",
     source: "nasa-fato",
     cooldown: 5,
-    canHappen: (s) => s.sol >= 2 && s.sol < s.totalSols,
+    canHappen: (s) => s.sol >= 2 && s.sol + 3 <= s.totalSols,
     choices: [
       { id: "procurar", effects: { energia: -3 } },
       {
@@ -423,7 +426,7 @@ export const EVENTS: GameEvent[] = [
     icon: "🔊",
     source: "nasa-fato",
     cooldown: 5,
-    canHappen: (s) => s.sol >= 3 && s.sol < s.totalSols,
+    canHappen: (s) => s.sol >= 3 && s.sol + 2 <= s.totalSols,
     choices: [
       { id: "desligar", effects: { ar: -6 } },
       {
@@ -479,14 +482,14 @@ export const EVENTS: GameEvent[] = [
     icon: "🌶️",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
-    // folga de 1 sol para a nova colheita (3 sóis depois) chegar antes do fim da missão
-    canHappen: (s) => s.sol >= 2 && s.sol <= s.totalSols - 4,
+    canHappen: (s) => s.sol >= 2,
     weight: (s) => (s.resources.comida < 50 ? 2 : 1),
     choices: [
       { id: "comer", effects: { energia: -1, comida: 7 } },
       {
         id: "sementes",
         effects: { energia: -1, comida: 2 },
+        available: (s) => s.sol + 3 <= s.totalSols,
         schedule: [{ eventId: "rabanete_de_novo", inSols: 3 }],
       },
     ],
@@ -507,8 +510,7 @@ export const EVENTS: GameEvent[] = [
     icon: "📦",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
-    // a batata leva 4 sóis: só aparece se ainda der tempo de colher (com 1 sol de folga)
-    canHappen: (s) => s.sol >= 2 && s.sol <= s.totalSols - 5,
+    canHappen: (s) => s.sol >= 2 && s.sol + 2 <= s.totalSols,
     choices: [
       {
         id: "alface",
@@ -518,6 +520,7 @@ export const EVENTS: GameEvent[] = [
       {
         id: "batata",
         effects: { energia: -2 },
+        available: (s) => s.sol + 4 <= s.totalSols,
         schedule: [{ eventId: "batata_pronta", inSols: 4 }],
       },
     ],
@@ -552,7 +555,7 @@ export const EVENTS: GameEvent[] = [
     canHappen: (s) => s.sol >= 3,
     choices: [
       { id: "imprimir", effects: { energia: -3 } },
-      { id: "lupa", effects: { ciencia: -2 } },
+      { id: "lupa", effects: {}, setFlags: ["radio_mudo"], deferredCost: true },
     ],
   },
   {
@@ -565,7 +568,7 @@ export const EVENTS: GameEvent[] = [
     canHappen: (s) => s.sol >= 2 && s.sol < s.totalSols,
     choices: [
       { id: "estudar", effects: { energia: -2, ciencia: 3 } },
-      { id: "derreter", effects: { ciencia: -1, comida: 5 } },
+      { id: "derreter", effects: { comida: 5 }, setFlags: ["radio_mudo"], deferredCost: true },
     ],
   },
   {
@@ -592,7 +595,7 @@ export const EVENTS: GameEvent[] = [
     icon: "🧽",
     source: "nasa-fato",
     onlyScheduled: true,
-    onOpen: () => ({ ciencia: -2 }),
+    onOpen: () => ({ energia: -2 }),
   },
 
   // ------------------------------------------------------------ 🛡️ abrigo
@@ -603,7 +606,7 @@ export const EVENTS: GameEvent[] = [
     icon: "🧱",
     source: "nasa-fato",
     cooldown: 6,
-    canHappen: (s) => s.escudo >= 1,
+    canHappen: (s) => s.escudo > 0,
     choices: [
       { id: "tapar", effects: { energia: -3 } },
       { id: "depois", effects: { escudo: -1 } },
@@ -690,7 +693,7 @@ export const EVENTS: GameEvent[] = [
     cooldown: 5,
     canHappen: (s) => s.sol >= 3,
     choices: [
-      { id: "descansar", effects: { ciencia: -2, saude: 4 } },
+      { id: "descansar", effects: { saude: 4 }, setFlags: ["radio_mudo"], deferredCost: true },
       { id: "luzes", effects: { energia: -2, saude: 2 } },
     ],
   },
@@ -716,7 +719,7 @@ export const EVENTS: GameEvent[] = [
     icon: "🛞",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
-    canHappen: (s) => s.sol >= 3 && s.sol < s.totalSols,
+    canHappen: (s) => s.sol >= 3 && s.sol + 2 <= s.totalSols,
     choices: [
       { id: "devagar", effects: { energia: -2, ciencia: -1 } },
       {

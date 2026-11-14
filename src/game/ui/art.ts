@@ -27,14 +27,14 @@ export const ART = {
     frame: (g: Gender, d: Dir8, i: number) => `/assets/astronaut/${g}/${d}_${i}.png`,
   },
 
-  /** Retratos da caixa de diálogo (256×256). Controle de Missão e Rovi ainda sem arte. */
+  /** Retratos da caixa de diálogo (256×256). */
   portraits: {
     astronauta: { ready: true, src: (g: Gender) => `/assets/portraits/astronauta_${g}.png` },
-    controle: { ready: false, src: "/assets/portraits/controle.png" },
-    rovi: { ready: false, src: "/assets/portraits/rovi.png" },
+    controle: { ready: true, src: "/assets/portraits/controle.png" },
+    rovi: { ready: true, src: "/assets/portraits/rovi.png" },
   },
 
-  /** Ícones redondos dos lugares (128×128). O rover não tem ícone ainda. */
+  /** Ícones redondos dos lugares (128×128). */
   icons: {
     habitat: "/assets/icons/habitat.png",
     paineis: "/assets/icons/paineis.png",
@@ -43,6 +43,7 @@ export const ART = {
     estufa: "/assets/icons/estufa.png",
     lab: "/assets/icons/lab.png",
     abrigo: "/assets/icons/abrigo.png",
+    rover: "/assets/icons/rover.png",
   } as Partial<Record<PlaceId, string>>,
 
   /** Cena de DENTRO de cada lugar (1280×560) — ainda sem arte. */

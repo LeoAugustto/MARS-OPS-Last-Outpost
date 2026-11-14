@@ -229,7 +229,7 @@ export const pt = {
     "No inverno, o robô Opportunity parava em ladeiras viradas para o Sol. Assim os painéis dele pegavam mais luz.",
   "ev.inverno.economizar.label": "Economizar: pausar o laboratório",
   "ev.inverno.economizar.outcome":
-    "A bateria guardou energia para os dias curtos, mas a pesquisa parou.",
+    "A bateria guardou energia. Hoje, o laboratório só rende metade da ciência.",
   "ev.inverno.economizar.lesson":
     "Marte tem estações porque é inclinado, como a Terra. No inverno, cada dia tem menos horas de sol para os painéis.",
 
@@ -337,7 +337,7 @@ export const pt = {
     "Em 2014, a NASA mandou por mensagem o desenho de uma ferramenta para a Estação Espacial. Lá, ela foi feita numa impressora 3D!",
   "ev.microscopio.lupa.label": "Usar uma lupa simples",
   "ev.microscopio.lupa.outcome":
-    "Dá para trabalhar, mas a lupa mostra bem menos detalhes. A pesquisa rendeu menos.",
+    "A lupa mostrou menos detalhes. Hoje, o laboratório só rende metade da ciência.",
   "ev.microscopio.lupa.lesson":
     "O microscópio mostra coisas pequenas demais para o olho e para a lupa. Ferramenta boa faz muita diferença na ciência.",
 
@@ -350,7 +350,7 @@ export const pt = {
     "Em 2008, a sonda Phoenix, da NASA, cavou o chão de Marte e confirmou: havia gelo de água ali embaixo!",
   "ev.gelo.derreter.label": "Derreter para regar as plantas",
   "ev.gelo.derreter.outcome":
-    "A estufa ganhou água e vai dar mais comida. Mas a amostra para estudar se perdeu.",
+    "A estufa ganhou água. Sem a amostra de gelo, o laboratório só rende metade da ciência hoje.",
   "ev.gelo.derreter.lesson":
     "Usar o que já existe em Marte, como o gelo, é um dos planos para bases do futuro. Assim é preciso levar menos coisas da Terra.",
 
@@ -368,8 +368,7 @@ export const pt = {
   "ev.bacterias.mesa.lesson":
     "A NASA limpa muito bem as naves antes de ir para Marte, para não levar micróbios da Terra. Isso se chama proteção planetária.",
   "ev.lab_contaminado.title": "O laboratório ficou sujo",
-  "ev.lab_contaminado.body":
-    "Algumas bactérias escaparam e estragaram outros experimentos. Foi preciso refazer parte da pesquisa.",
+  "ev.lab_contaminado.body": "Algumas bactérias escaparam. Limpar a mesa custou 2 de energia.",
 
   // 🛡️ abrigo
   "ev.rachadura.title": "Rachadura na camada de areia",
@@ -450,7 +449,7 @@ export const pt = {
     "Em Marte, o dia tem uns 40 minutos a mais que na Terra. O corpo de uma astronauta ainda não se acostumou.",
   "ev.sem_sono.descansar.label": "Deixar ela descansar hoje",
   "ev.sem_sono.descansar.outcome":
-    "Ela acordou bem disposta! Mas um dia sem trabalho atrasou a pesquisa.",
+    "Ela acordou bem disposta! Hoje, o laboratório só rende metade da ciência.",
   "ev.sem_sono.descansar.lesson":
     "Um sol, o dia de Marte, dura 24 horas e 39 minutos. Equipes da NASA que guiam robôs em Marte já viveram nesse horário!",
   "ev.sem_sono.luzes.label": "Usar luzes para acertar o sono",
