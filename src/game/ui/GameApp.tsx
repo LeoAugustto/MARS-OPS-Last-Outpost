@@ -1,10 +1,11 @@
 // O jogo inteiro: nível → perfil (nome + personagem) → abertura → [manhã → mapa → noite] × sóis → fim → relatório.
 // Save automático no localStorage (slot 1). Eventos do Sol buscados ao vivo no DONKI.
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { loadSave, writeSave } from "@/lib/saves";
 import { loadDonkiPool, type DonkiPool } from "@/data/donki-live";
 import {
+  BALANCE,
   canSleep,
   choose,
   endSol,
@@ -23,6 +24,7 @@ import { EnergyPanel, GameMenu, Glossary, MorningModal, NightModal, PlaceInfo } 
 import { EndScreen, Intro, LevelSelect, ProfileScreen, Report, TutorialBubble } from "./Screens";
 import { PIXEL_FONT_URL, PIXEL_THEME, stopSpeaking, useGT } from "./shared";
 import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
+import type { Periodo } from "./art";
 
 type Phase = "nivel" | "perfil" | "abertura" | "manha" | "mapa" | "noite" | "fim" | "relatorio";
 type Overlay = null | "energia" | "glossario" | "menu";
@@ -34,10 +36,19 @@ interface SaveData {
   tut: number;
   seen: string[];
   player?: Player;
+  /** relógio do sol (0 = manhã, 1 = hora de dormir) */
+  relogio?: number;
 }
 
 const SLOT = 1;
 const TUT_FIM = 7;
+
+/** Em que parte do sol estamos (troca a arte do mapa). */
+function periodoDe(relogio: number): Periodo {
+  if (relogio >= BALANCE.NOITE_EM) return "noite";
+  if (relogio >= BALANCE.ENTARDECER_EM) return "entardecer";
+  return "dia";
+}
 
 function readSave(): SaveData | null {
   const row = loadSave<SaveData>(SLOT);
@@ -91,6 +102,9 @@ function GameInner({
   const [pool, setPool] = useState<DonkiPool | null>(null);
   const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState<SaveData | null>(null);
+  // relógio do sol: 0 = manhã … 1 = hora de dormir (só anda com o mapa livre)
+  const [relogio, setRelogio] = useState(0);
+  const solDoRelogio = useRef<number | null>(null);
 
   // ao abrir: lê o save e busca os eventos do Sol na NASA
   useEffect(() => {
@@ -109,6 +123,8 @@ function GameInner({
 
   function restore(s: SaveData) {
     if (s.player) onPlayer(s.player);
+    solDoRelogio.current = s.game.sol;
+    setRelogio(s.relogio ?? 0);
     setGame(s.game);
     setTut(s.tut);
     setSeen(s.seen);
@@ -117,11 +133,25 @@ function GameInner({
     setPhase(p);
   }
 
-  // save automático
+  // save automático (o relógio vai salvo em passos de 2,5% para não gravar a cada quadro)
+  const relogioSalvo = Math.floor(relogio * 40) / 40;
   useEffect(() => {
     if (!game || phase === "nivel" || phase === "perfil") return;
-    writeSave(SLOT, { v: 2, game, phase, tut, seen, player } satisfies SaveData, game.sol);
-  }, [game, phase, tut, seen, player]);
+    writeSave(
+      SLOT,
+      { v: 2, game, phase, tut, seen, player, relogio: relogioSalvo } satisfies SaveData,
+      game.sol,
+    );
+  }, [game, phase, tut, seen, player, relogioSalvo]);
+
+  // sol novo (dormiu, voltou a um sol, missão nova): o relógio volta para a manhã
+  useEffect(() => {
+    if (!game) return;
+    if (solDoRelogio.current !== game.sol) {
+      solDoRelogio.current = game.sol;
+      setRelogio(0);
+    }
+  }, [game]);
 
   /** escolheu o nível → tela "quem vai comandar a base?" */
   const pickLevel = (level: Level) => {
@@ -133,6 +163,7 @@ function GameInner({
     onPlayer(p);
     const g = newMission({ level: nivel, ...(pool ? { donkiPool: pool.events } : {}) });
     setGame(g);
+    setRelogio(0);
     setTut(0);
     setSeen([]);
     setCard(null);
@@ -189,13 +220,52 @@ function GameInner({
     if (game && game.status !== "jogando") setPhase("fim");
   };
 
+  const periodo = periodoDe(relogio);
+  const noite = periodo === "noite";
+
+  /** Dormir. De noite pode dormir com alerta aberto: cada um que ficou para trás custa saúde. */
   const sleep = () => {
-    if (!game || !canSleep(game)) return;
+    if (!game || game.status !== "jogando") return;
+    const forcado = !canSleep(game);
+    if (forcado && !noite) return;
     stopSpeaking();
     setPlace(null);
-    setGame(endSol(game));
+    setGame(endSol(game, undefined, { forcado }));
     setPhase("noite");
   };
+
+  // o tutorial (balão do robô) está na tela? (calculado aqui para pausar o relógio)
+  const algoAberto = !!card || !!place || !!overlay || phase !== "mapa";
+  const tutVisivel = (() => {
+    if (!game || phase !== "mapa" || tut >= TUT_FIM || overlay) return false;
+    const algumFeito = game.alerts.some((a) => a.done) || game.sol > 1;
+    if (tut === 0 || tut === 1) return !algoAberto;
+    if (tut === 2) return !!card;
+    if (tut <= 5) return !algoAberto && algumFeito;
+    return !algoAberto && canSleep(game);
+  })();
+
+  // relógio do sol: anda só com o mapa livre (carta, painel, menu ou tutorial abertos pausam)
+  const relogioRodando = !!game && game.status === "jogando" && !algoAberto && !tutVisivel;
+  const segundosPorSol = game ? BALANCE.SEGUNDOS_POR_SOL[game.level] : 120;
+  useEffect(() => {
+    if (!relogioRodando) return;
+    let antes = performance.now();
+    const id = setInterval(() => {
+      const agora = performance.now();
+      const dt = Math.min(1, (agora - antes) / 1000); // aba escondida não "pula" o dia inteiro
+      antes = agora;
+      setRelogio((r) => Math.min(1, r + dt / segundosPorSol));
+    }, 250);
+    return () => clearInterval(id);
+  }, [relogioRodando, segundosPorSol]);
+
+  // acabou o dia (21:00): a tripulação vai dormir sozinha, com ou sem os alertas resolvidos
+  const sleepRef = useRef(sleep);
+  sleepRef.current = sleep;
+  useEffect(() => {
+    if (relogio >= 1 && relogioRodando) sleepRef.current();
+  }, [relogio, relogioRodando]);
 
   // ---------------------------------------------------------------- telas sem mapa
   const tela = "h-dvh w-full overflow-hidden bg-mars text-foreground";
@@ -244,6 +314,7 @@ function GameInner({
           state={game}
           onRewind={(sol) => {
             setGame(rewindTo(game, sol));
+            setRelogio(0);
             setPhase("manha");
           }}
           onNew={backToLevels}
@@ -252,17 +323,19 @@ function GameInner({
     );
 
   // ---------------------------------------------------------------- mapa
-  const algoAberto = !!card || !!place || !!overlay || phase !== "mapa";
-  const algumFeito = game.alerts.some((a) => a.done) || game.sol > 1;
-  const tutCond =
-    tut === 0 || tut === 1
-      ? !algoAberto
-      : tut === 2
-        ? !!card
-        : tut <= 5
-          ? !algoAberto && algumFeito
-          : !algoAberto && canSleep(game);
-  const showTut = phase === "mapa" && tut < TUT_FIM && !overlay && tutCond;
+  const showTut = tutVisivel;
+  const faltam = game.alerts.filter((a) => !a.done).length;
+  // aviso do fim de tarde / da noite (não bloqueia o mapa)
+  const aviso =
+    phase !== "mapa" || card || showTut
+      ? ""
+      : noite
+        ? faltam
+          ? t("ui.noite.aviso", { dano: BALANCE.SAUDE_POR_ALERTA_PERDIDO })
+          : ""
+        : periodo === "entardecer" && faltam
+          ? t("ui.entardecer.aviso")
+          : "";
 
   return (
     <main className="flex h-dvh w-full flex-col overflow-hidden bg-mars text-foreground">
@@ -270,6 +343,8 @@ function GameInner({
         state={game}
         onMenu={() => setOverlay("menu")}
         onHelp={() => setOverlay("glossario")}
+        relogio={relogio}
+        periodo={periodo}
       />
       <div className="relative min-h-0 flex-1 p-2">
         <BaseMap
@@ -279,7 +354,22 @@ function GameInner({
           onPlace={onPlace}
           paused={algoAberto}
           onFirstMove={() => setTut((x) => (x === 0 ? 1 : x))}
-        />
+          periodo={periodo}
+        >
+          {/* no caminho de cima, entre os painéis e a antena: não cobre nenhum ❗ */}
+          {aviso && (
+            <div
+              role="status"
+              className={`pointer-events-none absolute left-1/2 top-[3%] z-10 w-[40%] -translate-x-1/2 border-4 px-2 py-1.5 text-center text-xs font-bold leading-snug shadow-[0_4px_0_#4a2615] sm:text-sm ${
+                noite
+                  ? "border-[#ffe9a8] bg-[#2b2350] text-[#ffe9a8]"
+                  : "border-[#4a2615] bg-[#ffd9a0] text-[#3a1f10]"
+              }`}
+            >
+              {aviso}
+            </div>
+          )}
+        </BaseMap>
         {showTut && (
           <div className={card ? "fixed inset-x-0 top-2 z-50" : ""}>
             <TutorialBubble
@@ -290,7 +380,12 @@ function GameInner({
           </div>
         )}
       </div>
-      <BottomBar state={game} onEnergy={() => setOverlay("energia")} onSleep={sleep} />
+      <BottomBar
+        state={game}
+        onEnergy={() => setOverlay("energia")}
+        onSleep={sleep}
+        noite={noite}
+      />
 
       {phase === "manha" && <MorningModal state={game} onGo={() => setPhase("mapa")} />}
       {phase === "noite" && (
@@ -321,6 +416,7 @@ function GameInner({
             setOverlay("energia");
           }}
           onSleep={sleep}
+          noite={noite}
         />
       )}
       {overlay === "energia" && (

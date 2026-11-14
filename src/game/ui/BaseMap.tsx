@@ -2,10 +2,10 @@
 // - Celular: toque no chão → anda; toque num lugar → anda até ele e abre.
 // - PC: clique, ou setas/WASD (ao chegar perto de um ❗ ele abre sozinho).
 // Arte: src/game/ui/art.ts (mapa pixel art + astronauta em 8 direções). Sem arte pronta, usa formas + emoji.
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import type { Alert, PlaceId } from "@/game/engine";
 import { PLACE_POS, useGT } from "./shared";
-import { ART, dirFrom, type Dir8 } from "./art";
+import { ART, dirFrom, type Dir8, type Periodo } from "./art";
 import { usePlayer } from "./player";
 
 /** quadros da caminhada: 0, 1, 2, 1 */
@@ -36,9 +36,22 @@ interface Props {
   onPlace: (place: PlaceId) => void;
   paused: boolean;
   onFirstMove?: () => void;
+  /** hora do sol: troca a arte do mapa (dia, entardecer, noite) */
+  periodo?: Periodo;
+  /** avisos desenhados por cima do mapa (posição em % do mapa) */
+  children?: ReactNode;
 }
 
-export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }: Props) {
+export function BaseMap({
+  alerts,
+  solar,
+  escudo,
+  onPlace,
+  paused,
+  onFirstMove,
+  periodo = "dia",
+  children,
+}: Props) {
   const background = ART.map.ready ? ART.map.src : undefined;
   const { t } = useGT();
   const { gender } = usePlayer();
@@ -262,6 +275,19 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
         aria-label={t("ui.mover")}
       >
         {!background && <ProvisionalGround />}
+        {/* hora do sol: as 3 artes do mapa ficam empilhadas e trocam com um esmaecer suave */}
+        {background &&
+          (Object.keys(ART.mapPeriodo) as Periodo[]).map((p) => (
+            <div
+              key={p}
+              className="pointer-events-none absolute inset-0 transition-opacity duration-[2000ms]"
+              style={{
+                background: `center / cover no-repeat url(${ART.mapPeriodo[p]})`,
+                opacity: p === periodo ? 1 : 0,
+              }}
+              aria-hidden
+            />
+          ))}
 
         {(Object.keys(PLACE_POS) as PlaceId[]).map((pl) => {
           const p = PLACE_POS[pl];
@@ -379,6 +405,7 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
           )}
           <span className="mx-auto block h-1.5 w-2/3 rounded-full bg-black/25" />
         </div>
+        {children}
       </div>
     </div>
   );

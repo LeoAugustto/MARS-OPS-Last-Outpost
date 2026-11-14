@@ -7,10 +7,19 @@ import type { PlaceId } from "@/game/engine";
 /** Personagem escolhido pela criança: menina (f) ou menino (m). */
 export type Gender = "f" | "m";
 export type Dir8 = "n" | "ne" | "e" | "se" | "s" | "sw" | "w" | "nw";
+/** Hora do sol no mapa: muda a arte do mapa (relógio em GameApp.tsx). */
+export type Periodo = "dia" | "entardecer" | "noite";
 
 export const ART = {
   /** Mapa da base visto de cima (1024×1024). */
   map: { ready: true, src: "/assets/map/base.png" },
+
+  /** O mesmo mapa em 3 horas do sol (1024×1024, mesmas posições do mapa de cima). */
+  mapPeriodo: {
+    dia: "/assets/map/base_dia.webp",
+    entardecer: "/assets/map/base_entardecer.webp",
+    noite: "/assets/map/base_noite.webp",
+  } as Record<Periodo, string>,
 
   /** Astronauta andando: 8 direções × 3 quadros (128×128, pés embaixo). Tocar 0,1,2,1. */
   astronaut: {

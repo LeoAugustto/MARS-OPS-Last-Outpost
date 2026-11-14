@@ -444,11 +444,28 @@ export function canSleep(s: GameState): boolean {
   return s.status === "jogando" && s.alerts.every((a) => a.done);
 }
 
-/** Dormir: aplica a divisão de energia, calcula a noite e começa o próximo sol. */
-export function endSol(state: GameState, catalog: GameEvent[] = EVENTS): GameState {
+/** Saúde que a tripulação perde se for dormir agora, com os alertas que ainda faltam. */
+export function sleepPenalty(s: GameState): number {
+  return s.alerts.filter((a) => !a.done).length * B.SAUDE_POR_ALERTA_PERDIDO;
+}
+
+/**
+ * Dormir: aplica a divisão de energia, calcula a noite e começa o próximo sol.
+ * `forcado`: a noite chegou e a tripulação vai dormir mesmo com alertas sem resposta.
+ * Cada alerta que ficou para trás custa saúde (SAUDE_POR_ALERTA_PERDIDO) e some.
+ */
+export function endSol(
+  state: GameState,
+  catalog: GameEvent[] = EVENTS,
+  opts: { forcado?: boolean } = {},
+): GameState {
   if (state.status !== "jogando") return state;
-  if (!canSleep(state)) throw new Error("Resolva todos os alertas antes de dormir.");
+  if (!opts.forcado && !canSleep(state))
+    throw new Error("Resolva todos os alertas antes de dormir.");
   const s = cloneState(state);
+  const perdidos = s.alerts.filter((a) => !a.done).length;
+  const danoPerdidos = perdidos * B.SAUDE_POR_ALERTA_PERDIDO;
+  for (const a of s.alerts) a.done = true;
   const cfg = B.LEVELS[s.level];
   const { real, faltou } = plannedAllocation(s);
 
@@ -471,7 +488,7 @@ export function endSol(state: GameState, catalog: GameEvent[] = EVENTS): GameSta
   const radioMudo = s.flags["radio_mudo"] === s.sol;
   const ciencia = Math.floor(real.ciencia * B.CIENCIA_POR_ENERGIA * (radioMudo ? 0.5 : 1));
 
-  let saude = -dose;
+  let saude = -dose - danoPerdidos;
   if (s.resources.ar < B.LIMITE_CRITICO) saude -= B.DANO_CRITICO;
   if (s.resources.comida < B.LIMITE_CRITICO) saude -= B.DANO_CRITICO;
 
@@ -497,6 +514,7 @@ export function endSol(state: GameState, catalog: GameEvent[] = EVENTS): GameSta
     bateria: s.bateria,
     faltou,
     critico,
+    ...(perdidos ? { perdidos, danoPerdidos } : {}),
     delta,
   };
   s.night = night;

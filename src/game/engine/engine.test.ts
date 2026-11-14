@@ -14,6 +14,7 @@ import {
   plannedAllocation,
   rewindTo,
   setAllocation,
+  sleepPenalty,
 } from "./index";
 import type { Allocation, GameState, Level } from "./types";
 
@@ -134,6 +135,18 @@ describe("motor v2", () => {
     const s = newMission({ seed: 3, donkiPool: RESERVE_EVENTS });
     expect(canSleep(s)).toBe(false);
     expect(() => endSol(s)).toThrow();
+  });
+
+  it("a noite chegou: dormir à força custa saúde por alerta sem resposta", () => {
+    const s = newMission({ seed: 3, donkiPool: RESERVE_EVENTS });
+    const faltam = s.alerts.filter((a) => !a.done).length;
+    expect(sleepPenalty(s)).toBe(faltam * 4);
+    const depois = endSol(s, undefined, { forcado: true });
+    expect(depois.sol).toBe(2);
+    expect(depois.night?.perdidos).toBe(faltam);
+    expect(depois.night?.danoPerdidos).toBe(faltam * 4);
+    // mesma noite com todos os alertas resolvidos não teria esse dano
+    expect(depois.night?.delta.saude).toBeLessThanOrEqual(-(faltam * 4));
   });
 
   it("a divisão de energia continua de um sol para o outro", () => {

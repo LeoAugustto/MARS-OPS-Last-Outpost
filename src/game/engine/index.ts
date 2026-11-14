@@ -14,6 +14,7 @@ export {
   allocationTotal,
   canSleep,
   endSol,
+  sleepPenalty,
   rewindTo,
   findEvent,
   defaultAllocation,

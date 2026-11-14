@@ -60,3 +60,19 @@ export const MAX_ALERTAS = 4;
 export const ALOCACAO_MAX = 20;
 /** sem energia para uma escolha: a tripulação faz "no braço" (jogo) */
 export const SAUDE_POR_ENERGIA_FALTANDO = 2;
+
+// ---------------------------------------------------------------- relógio do sol (jogo)
+/**
+ * Quanto dura um sol no mapa, em segundos de relógio (só conta com o mapa livre: carta, painel ou
+ * tutorial abertos pausam o relógio). Cadete tem mais tempo. (jogo)
+ */
+export const SEGUNDOS_POR_SOL: Record<Level, number> = {
+  cadete: 150,
+  piloto: 120,
+  comandante: 100,
+};
+/** fração do sol em que começa o entardecer e a noite (0 = manhã, 1 = hora de dormir) (jogo) */
+export const ENTARDECER_EM = 0.6;
+export const NOITE_EM = 0.82;
+/** dormir com alerta sem resposta: a tripulação dorme preocupada e cansada, por alerta (jogo) */
+export const SAUDE_POR_ALERTA_PERDIDO = 4;
