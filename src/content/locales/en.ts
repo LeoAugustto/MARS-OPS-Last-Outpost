@@ -76,30 +76,6 @@ export const en: Dict = {
   "ev.chegada.arrumar.lesson":
     "A thick layer of sand or rock blocks part of the radiation. Scientists plan bases like this.",
 
-  "ev.sol_agitado.title": "Alert: the Sun is stormy!",
-  "ev.sol_agitado.body":
-    "Earth warned you: the Sun let out a strong burst (class {classe}, power {estrelas}). It may arrive tomorrow!",
-  "ev.sol_agitado.abrigo.label": "Get the shelter ready",
-  "ev.sol_agitado.abrigo.outcome": "The shelter is ready. It used energy, but you are protected.",
-  "ev.sol_agitado.abrigo.lesson":
-    "On the Space Station, when the Sun gets stormy, astronauts move to the best-protected part of the station.",
-  "ev.sol_agitado.pesquisar.label": "Keep doing research",
-  "ev.sol_agitado.pesquisar.outcome": "You did more science today... but the storm is coming.",
-  "ev.sol_agitado.pesquisar.lesson":
-    "The light from the burst arrives in minutes, but the dangerous particles can take hours or days. That time is for getting safe.",
-
-  "ev.tempestade_chega.title": "The solar storm is here!",
-  "ev.tempestade_chega.body":
-    "Particles from the Sun are passing Mars. Mars has no strong magnetic shield like Earth.",
-  "ev.tempestade_chega.ficar.label": "Stay in the shelter all day",
-  "ev.tempestade_chega.ficar.outcome": "You stayed safe, but the shelter heater used energy.",
-  "ev.tempestade_chega.ficar.lesson":
-    "Staying safe has a cost: no work outside, and the shelter uses energy.",
-  "ev.tempestade_chega.trabalhar.label": "Go out and work anyway",
-  "ev.tempestade_chega.trabalhar.outcome": "You did science, but got more radiation.",
-  "ev.tempestade_chega.trabalhar.lesson":
-    "Earth has a magnetic field that pushes the Sun’s particles away. Mars barely has one, so radiation there is higher.",
-
   "ev.poeira_vem.title": "A dust cloud is coming",
   "ev.poeira_vem.body": "The Martian wind picked up dust. It may cover the solar panels.",
   "ev.poeira_vem.guardar.label": "Save energy in the battery",

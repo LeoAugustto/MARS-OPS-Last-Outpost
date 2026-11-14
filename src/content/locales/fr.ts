@@ -82,34 +82,6 @@ export const fr: Dict = {
   "ev.chegada.arrumar.lesson":
     "Une épaisse couche de sable ou de roche bloque une partie des radiations. Les scientifiques prévoient des bases comme ça.",
 
-  "ev.sol_agitado.title": "Alerte : le Soleil est agité !",
-  "ev.sol_agitado.body":
-    "La Terre a prévenu : le Soleil a lancé une forte explosion (classe {classe}, force {estrelas}). Elle peut arriver demain !",
-  "ev.sol_agitado.abrigo.label": "Préparer l’abri",
-  "ev.sol_agitado.abrigo.outcome":
-    "L’abri est prêt. Ça a utilisé de l’énergie, mais vous êtes protégés.",
-  "ev.sol_agitado.abrigo.lesson":
-    "Sur la Station spatiale, quand le Soleil s’agite, les astronautes vont dans la partie la mieux protégée.",
-  "ev.sol_agitado.pesquisar.label": "Continuer la recherche",
-  "ev.sol_agitado.pesquisar.outcome":
-    "Vous avez fait plus de science aujourd’hui... mais la tempête arrive.",
-  "ev.sol_agitado.pesquisar.lesson":
-    "La lumière de l’explosion arrive en quelques minutes, mais les particules dangereuses peuvent mettre des heures ou des jours. Ce temps sert à se protéger.",
-
-  "ev.tempestade_chega.title": "La tempête solaire est là !",
-  "ev.tempestade_chega.body":
-    "Des particules du Soleil traversent Mars. Mars n’a pas de bouclier magnétique fort comme la Terre.",
-  "ev.tempestade_chega.ficar.label": "Rester dans l’abri toute la journée",
-  "ev.tempestade_chega.ficar.outcome":
-    "Vous êtes restés en sécurité, mais le chauffage de l’abri a utilisé de l’énergie.",
-  "ev.tempestade_chega.ficar.lesson":
-    "Se protéger a un prix : pas de travail dehors, et l’abri utilise de l’énergie.",
-  "ev.tempestade_chega.trabalhar.label": "Sortir travailler quand même",
-  "ev.tempestade_chega.trabalhar.outcome":
-    "Vous avez fait de la science, mais reçu plus de radiations.",
-  "ev.tempestade_chega.trabalhar.lesson":
-    "La Terre a un champ magnétique qui dévie les particules du Soleil. Mars n’en a presque pas, donc il y a plus de radiations.",
-
   "ev.poeira_vem.title": "Un nuage de poussière arrive",
   "ev.poeira_vem.body":
     "Le vent de Mars a soulevé de la poussière. Elle peut couvrir les panneaux solaires.",

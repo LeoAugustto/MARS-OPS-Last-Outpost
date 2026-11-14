@@ -1,0 +1,350 @@
+// Mapa da base, visto de cima, com o astronauta andando.
+// - Celular: toque no chão → anda; toque num lugar → anda até ele e abre.
+// - PC: clique, ou setas/WASD (ao chegar perto de um ❗ ele abre sozinho).
+// Arte: src/game/ui/art.ts (mapa pixel art + astronauta em 8 direções). Sem arte pronta, usa formas + emoji.
+import { useCallback, useEffect, useRef, useState } from "react";
+import type { Alert, PlaceId } from "@/game/engine";
+import { PLACE_POS, useGT } from "./shared";
+import { ART, dirFrom, type Dir8 } from "./art";
+
+const SPEED = 38; // % do mapa por segundo
+const RAIO = 8; // distância (%) para "chegar" num lugar
+
+interface Props {
+  alerts: Alert[];
+  solar: number;
+  escudo: number;
+  onPlace: (place: PlaceId) => void;
+  paused: boolean;
+  onFirstMove?: () => void;
+}
+
+export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }: Props) {
+  const background = ART.map.ready ? ART.map.src : undefined;
+  const { t } = useGT();
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState(320);
+  const [pos, setPos] = useState({ x: 50, y: 58 });
+  const [flip, setFlip] = useState(false);
+  const [dir, setDir] = useState<Dir8>("s");
+  const [walking, setWalking] = useState(false);
+  const target = useRef<{ x: number; y: number; place?: PlaceId } | null>(null);
+  const keys = useRef(new Set<string>());
+  const perto = useRef<PlaceId | null>(null);
+  const posRef = useRef(pos);
+  const movedOnce = useRef(false);
+
+  // quadrado que cabe na área disponível
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([e]) => {
+      if (!e) return;
+      setSize(Math.max(200, Math.floor(Math.min(e.contentRect.width, e.contentRect.height))));
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const pendentes = new Set(alerts.filter((a) => !a.done).map((a) => a.place));
+  const urgentes = new Set(alerts.filter((a) => !a.done && a.urgent).map((a) => a.place));
+
+  const moved = useCallback(() => {
+    if (!movedOnce.current) {
+      movedOnce.current = true;
+      onFirstMove?.();
+    }
+  }, [onFirstMove]);
+
+  // valores mais recentes para o laço (sem recriar o laço a cada quadro)
+  const live = useRef({ paused, onPlace, pendentes, moved });
+  live.current = { paused, onPlace, pendentes, moved };
+
+  // laço de animação: requestAnimationFrame + reserva por relógio (celular lento / aba sem animação)
+  useEffect(() => {
+    let raf = 0;
+    let last = performance.now();
+    let andando = false;
+    const step = (now: number) => {
+      const dt = Math.min(0.12, (now - last) / 1000); // tolera celular lento
+      last = now;
+      const { paused: pausado, onPlace: abrir, pendentes: pend, moved: mexeu } = live.current;
+      if (pausado) return;
+      const p = posRef.current;
+      let dx = 0;
+      let dy = 0;
+      const k = keys.current;
+      if (k.size) {
+        if (k.has("ArrowLeft") || k.has("a")) dx -= 1;
+        if (k.has("ArrowRight") || k.has("d")) dx += 1;
+        if (k.has("ArrowUp") || k.has("w")) dy -= 1;
+        if (k.has("ArrowDown") || k.has("s")) dy += 1;
+        if (dx || dy) target.current = null;
+      } else if (target.current) {
+        dx = target.current.x - p.x;
+        dy = target.current.y - p.y;
+      }
+      const dist = Math.hypot(dx, dy);
+      if (dist <= 0.01) {
+        if (andando) {
+          andando = false;
+          setWalking(false);
+        }
+        return;
+      }
+      const passo = Math.min(SPEED * dt, k.size ? SPEED * dt : dist);
+      const nx = Math.max(4, Math.min(96, p.x + (dx / dist) * passo));
+      const ny = Math.max(6, Math.min(96, p.y + (dy / dist) * passo));
+      if (Math.abs(dx) > 0.2) setFlip(dx < 0);
+      setDir(dirFrom(dx, dy));
+      posRef.current = { x: nx, y: ny };
+      setPos(posRef.current);
+      if (!andando) {
+        andando = true;
+        setWalking(true);
+      }
+      mexeu();
+      // chegou no alvo
+      if (
+        !k.size &&
+        target.current &&
+        Math.hypot(target.current.x - nx, target.current.y - ny) < 0.6
+      ) {
+        const place = target.current.place;
+        target.current = null;
+        andando = false;
+        setWalking(false);
+        if (place) abrir(place);
+      }
+      // teclado: chegar perto de um ❗ abre sozinho
+      if (k.size) {
+        const near = (Object.keys(PLACE_POS) as PlaceId[]).find(
+          (pl) => Math.hypot(PLACE_POS[pl].x - nx, PLACE_POS[pl].y + 6 - ny) < RAIO,
+        );
+        if (near && near !== perto.current && pend.has(near)) abrir(near);
+        perto.current = near ?? null;
+      }
+    };
+    const loop = (now: number) => {
+      step(now);
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    const reserva = setInterval(() => {
+      const now = performance.now();
+      if (now - last > 250) step(now);
+    }, 100);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearInterval(reserva);
+    };
+  }, []);
+
+  // teclado
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "a", "d", "w", "s"].includes(k)) {
+        if (paused) return;
+        e.preventDefault();
+        keys.current.add(k);
+      }
+      if ((k === "Enter" || k === " ") && !paused && perto.current) onPlace(perto.current);
+    };
+    const up = (e: KeyboardEvent) => {
+      const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      keys.current.delete(k);
+    };
+    window.addEventListener("keydown", down);
+    window.addEventListener("keyup", up);
+    return () => {
+      window.removeEventListener("keydown", down);
+      window.removeEventListener("keyup", up);
+    };
+  }, [paused, onPlace]);
+
+  const goTo = (x: number, y: number, place?: PlaceId) => {
+    if (paused) return;
+    target.current = place ? { x, y, place } : { x, y };
+  };
+
+  const onGround = (e: React.PointerEvent<HTMLDivElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    goTo(((e.clientX - r.left) / r.width) * 100, ((e.clientY - r.top) / r.height) * 100);
+  };
+
+  return (
+    <div ref={wrapRef} className="relative flex h-full w-full items-center justify-center">
+      <div
+        className="relative touch-none select-none overflow-hidden rounded-3xl border-4 border-border shadow-2xl"
+        style={{
+          width: size,
+          height: size,
+          imageRendering: "pixelated",
+          background: background
+            ? `center / cover no-repeat url(${background})`
+            : "radial-gradient(circle at 50% 45%, oklch(0.72 0.14 50) 0%, oklch(0.62 0.15 42) 45%, oklch(0.5 0.13 38) 100%)",
+        }}
+        onPointerDown={onGround}
+        aria-label={t("ui.mover")}
+      >
+        {!background && <ProvisionalGround />}
+
+        {(Object.keys(PLACE_POS) as PlaceId[]).map((pl) => {
+          const p = PLACE_POS[pl];
+          const alerta = pendentes.has(pl);
+          const urgente = urgentes.has(pl);
+          return (
+            <button
+              key={pl}
+              type="button"
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                goTo(p.x, Math.min(94, p.y + 6), pl);
+              }}
+              className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center focus-visible:outline-none"
+              style={{ left: `${p.x}%`, top: `${p.y}%`, width: size * 0.2 }}
+              aria-label={t(`lugar.${pl}`) + (alerta ? " ❗" : "")}
+            >
+              <span
+                className={`relative grid aspect-square w-full place-items-center rounded-2xl ${
+                  background ? "border-4 border-transparent" : "border-4 bg-secondary/90 shadow-lg"
+                } ${urgente ? "border-destructive" : alerta ? "border-primary" : "border-border"}`}
+                style={{ fontSize: size * 0.085 }}
+              >
+                {!background && p.icon}
+                {pl === "paineis" && solar < 1 && (
+                  <span
+                    className="absolute inset-0 rounded-xl bg-[oklch(0.5_0.08_50)]"
+                    style={{ opacity: (1 - solar) * 0.9 }}
+                    aria-hidden
+                  />
+                )}
+                {pl === "abrigo" && escudo > 0 && (
+                  <span className="absolute -bottom-2 rounded-full bg-card px-1.5 text-xs font-bold text-secondary">
+                    {"▰".repeat(escudo)}
+                  </span>
+                )}
+                {alerta && (
+                  <span
+                    className={`absolute -right-2 -top-3 grid h-8 w-8 animate-bounce place-items-center rounded-full text-lg font-black shadow-md ${
+                      urgente ? "bg-destructive text-white" : "bg-primary text-primary-foreground"
+                    }`}
+                    style={{ width: size * 0.08, height: size * 0.08, fontSize: size * 0.05 }}
+                    aria-hidden
+                  >
+                    {urgente ? "🚨" : "!"}
+                  </span>
+                )}
+              </span>
+              <span
+                className="mt-1 max-w-[130%] truncate rounded-full bg-background/70 px-2 font-bold text-foreground"
+                style={{ fontSize: Math.max(10, size * 0.03) }}
+              >
+                {t(`lugar.${pl}`)}
+              </span>
+            </button>
+          );
+        })}
+
+        {/* astronauta */}
+        <div
+          className="pointer-events-none absolute -translate-x-1/2 -translate-y-full"
+          style={{ left: `${pos.x}%`, top: `${pos.y}%`, fontSize: size * 0.085 }}
+          aria-hidden
+        >
+          {ART.astronaut.ready ? (
+            <img
+              src={ART.astronaut.src[dir]}
+              alt=""
+              className={`block ${walking ? "animate-bounce" : ""}`}
+              style={{
+                width: size * 0.11,
+                height: size * 0.11,
+                imageRendering: "pixelated",
+                animationDuration: "0.5s",
+              }}
+            />
+          ) : (
+            <span
+              className={`block ${walking ? "animate-bounce" : ""}`}
+              style={{ transform: flip ? "scaleX(-1)" : undefined, animationDuration: "0.5s" }}
+            >
+              🧑‍🚀
+            </span>
+          )}
+          <span className="mx-auto block h-1.5 w-2/3 rounded-full bg-black/25" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Chão provisório: trilhas ligando a casa a cada lugar + pedrinhas. */
+function ProvisionalGround() {
+  const pedras = [
+    [8, 33],
+    [34, 30],
+    [64, 30],
+    [92, 34],
+    [36, 64],
+    [64, 66],
+    [8, 70],
+    [92, 70],
+    [30, 95],
+    [70, 95],
+    [50, 22],
+  ];
+  return (
+    <svg
+      className="pointer-events-none absolute inset-0 h-full w-full"
+      viewBox="0 0 100 100"
+      aria-hidden
+    >
+      {(Object.keys(PLACE_POS) as PlaceId[])
+        .filter((p) => p !== "habitat")
+        .map((p) => (
+          <line
+            key={p}
+            x1={PLACE_POS.habitat.x}
+            y1={PLACE_POS.habitat.y + 4}
+            x2={PLACE_POS[p].x}
+            y2={PLACE_POS[p].y + 4}
+            stroke="oklch(0.82 0.08 70)"
+            strokeOpacity="0.55"
+            strokeWidth="3.2"
+            strokeLinecap="round"
+          />
+        ))}
+      {pedras.map(([x, y], i) => (
+        <ellipse
+          key={i}
+          cx={x}
+          cy={y}
+          rx={1.6 + (i % 3) * 0.5}
+          ry={1.1 + (i % 2) * 0.4}
+          fill="oklch(0.42 0.1 35)"
+          opacity="0.6"
+        />
+      ))}
+      <circle
+        cx="12"
+        cy="92"
+        r="5"
+        fill="none"
+        stroke="oklch(0.45 0.1 35)"
+        strokeOpacity="0.4"
+        strokeWidth="0.8"
+      />
+      <circle
+        cx="90"
+        cy="6"
+        r="3.5"
+        fill="none"
+        stroke="oklch(0.45 0.1 35)"
+        strokeOpacity="0.4"
+        strokeWidth="0.8"
+      />
+    </svg>
+  );
+}

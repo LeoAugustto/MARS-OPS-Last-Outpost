@@ -1,7 +1,7 @@
 // Relatório do Controle de Missão: em vez de "game over", explica POR QUÊ.
 // Devolve só chaves de texto + dados; a UI traduz com t().
 
-import type { GameState, LogEntry, TextKey } from "./types";
+import type { GameState, HistoryPoint, LogEntry, RealEventSeen, TextKey } from "./types";
 
 export interface Debrief {
   status: GameState["status"];
@@ -22,25 +22,41 @@ export interface Debrief {
   /** sol sugerido para "voltar e tentar diferente" */
   voltarAoSol?: number;
   fatoKey: TextKey;
+  /** barras ao fim de cada sol (para o gráfico) */
+  history: HistoryPoint[];
+  /** eventos reais do Sol (DONKI) que apareceram na missão */
+  realEvents: RealEventSeen[];
+  ciencia: number;
+  metaCiencia: number;
+  soisCompletos: number;
+  totalSols: number;
 }
 
 export function debrief(s: GameState): Debrief {
-  const fatoKey = "fato.reabastecimento";
+  const base = {
+    fatoKey: "fato.reabastecimento",
+    history: s.history,
+    realEvents: s.realEvents,
+    ciencia: s.ciencia,
+    metaCiencia: s.metaCiencia,
+    soisCompletos: s.history.filter((h) => h.sol > 0).length - (s.status === "resgate" ? 1 : 0),
+    totalSols: s.totalSols,
+  };
   if (s.status === "vitoria")
     return {
       status: s.status,
       titleKey: "fim.vitoria.title",
       bodyKey: "fim.vitoria.body",
-      momentos: [],
-      fatoKey,
+      momentos: momentosQueMaisPesaram(s),
+      ...base,
     };
   if (s.status === "vitoria-parcial")
     return {
       status: s.status,
       titleKey: "fim.parcial.title",
       bodyKey: "fim.parcial.body",
-      momentos: [],
-      fatoKey,
+      momentos: momentosQueMaisPesaram(s),
+      ...base,
     };
 
   const r = s.resources;
@@ -72,6 +88,23 @@ export function debrief(s: GameState): Debrief {
     dicaKey: `dica.${causa}`,
     momentos,
     voltarAoSol: primeiro,
-    fatoKey,
+    ...base,
   };
+}
+
+/** As 2 escolhas que mais custaram, somando ar, comida e saúde. */
+function momentosQueMaisPesaram(s: GameState): Debrief["momentos"] {
+  const custo = (e: LogEntry) =>
+    -((e.delta.ar ?? 0) + (e.delta.comida ?? 0) + (e.delta.saude ?? 0));
+  return s.log
+    .filter((e) => e.kind === "evento" && e.lessonKey && custo(e) > 0)
+    .sort((a, b) => custo(b) - custo(a))
+    .slice(0, 2)
+    .map((e) => ({
+      sol: e.sol,
+      eventId: e.eventId,
+      choiceId: e.choiceId,
+      lessonKey: e.lessonKey,
+      perda: custo(e),
+    }));
 }

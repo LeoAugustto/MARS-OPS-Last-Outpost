@@ -84,32 +84,6 @@ export const pt = {
   "ev.chegada.arrumar.lesson":
     "Uma camada grossa de areia ou rocha bloqueia parte da radiação. Cientistas planejam bases assim.",
 
-  "ev.sol_agitado.title": "Alerta: o Sol está agitado!",
-  "ev.sol_agitado.body":
-    "A Terra avisou: o Sol soltou uma explosão forte (classe {classe}, força {estrelas}). Ela pode chegar amanhã!",
-  "ev.sol_agitado.abrigo.label": "Preparar o abrigo",
-  "ev.sol_agitado.abrigo.outcome":
-    "O abrigo está pronto. Usou energia, mas vocês estão protegidos.",
-  "ev.sol_agitado.abrigo.lesson":
-    "Na Estação Espacial, quando o Sol fica agitado, os astronautas vão para a parte mais protegida da nave.",
-  "ev.sol_agitado.pesquisar.label": "Continuar a pesquisa",
-  "ev.sol_agitado.pesquisar.outcome": "Vocês fizeram mais ciência hoje... mas a tempestade vem aí.",
-  "ev.sol_agitado.pesquisar.lesson":
-    "A luz da explosão chega em minutos, mas as partículas perigosas podem levar horas ou dias. Esse tempo serve para se proteger.",
-
-  "ev.tempestade_chega.title": "A tempestade solar chegou!",
-  "ev.tempestade_chega.body":
-    "Partículas do Sol estão passando por Marte. Marte não tem um escudo magnético forte como a Terra.",
-  "ev.tempestade_chega.ficar.label": "Ficar no abrigo o dia todo",
-  "ev.tempestade_chega.ficar.outcome":
-    "Vocês ficaram seguros, mas o aquecedor do abrigo gastou energia.",
-  "ev.tempestade_chega.ficar.lesson":
-    "Ficar protegido custa: não dá para trabalhar lá fora e o abrigo usa energia.",
-  "ev.tempestade_chega.trabalhar.label": "Sair para trabalhar mesmo assim",
-  "ev.tempestade_chega.trabalhar.outcome": "Vocês fizeram ciência, mas tomaram mais radiação.",
-  "ev.tempestade_chega.trabalhar.lesson":
-    "A Terra tem um campo magnético que desvia as partículas do Sol. Marte quase não tem, por isso a radiação lá é maior.",
-
   "ev.poeira_vem.title": "Uma nuvem de poeira vem aí",
   "ev.poeira_vem.body": "O vento de Marte levantou poeira. Ela pode cobrir os painéis solares.",
   "ev.poeira_vem.guardar.label": "Guardar energia na bateria",

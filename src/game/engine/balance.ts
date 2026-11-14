@@ -5,14 +5,14 @@
 import type { Level } from "./types";
 
 export const LEVELS: Record<Level, { totalSols: number; metaCiencia: number; doseMult: number }> = {
-  cadete: { totalSols: 7, metaCiencia: 12, doseMult: 0.7 }, // 7–9 anos
-  piloto: { totalSols: 10, metaCiencia: 20, doseMult: 1 },
-  comandante: { totalSols: 14, metaCiencia: 32, doseMult: 1.3 },
+  cadete: { totalSols: 7, metaCiencia: 24, doseMult: 0.8 }, // 7–9 anos
+  piloto: { totalSols: 10, metaCiencia: 38, doseMult: 1.2 },
+  comandante: { totalSols: 14, metaCiencia: 56, doseMult: 1.5 },
 };
 
 export const START = {
   ar: 80,
-  comida: 70, // comida embalada trazida da Terra (jogo)
+  comida: 60, // comida embalada trazida da Terra (jogo)
   saude: 100,
   bateria: 2,
 };
@@ -53,3 +53,10 @@ export const DANO_CRITICO = 5;
 
 /** o fator solar volta sozinho até 1 aos poucos? Não: só com vento/limpeza. */
 export const SOLAR_MIN = 0.2;
+
+/** alertas por sol: 2 a 4 (ver alertCount em engine.ts) */
+export const MAX_ALERTAS = 4;
+/** limite por módulo no painel de energia */
+export const ALOCACAO_MAX = 20;
+/** sem energia para uma escolha: a tripulação faz "no braço" (jogo) */
+export const SAUDE_POR_ENERGIA_FALTANDO = 2;

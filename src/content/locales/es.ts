@@ -79,31 +79,6 @@ export const es: Dict = {
   "ev.chegada.arrumar.lesson":
     "Una capa gruesa de arena o roca bloquea parte de la radiación. Los científicos planean bases así.",
 
-  "ev.sol_agitado.title": "¡Alerta: el Sol está agitado!",
-  "ev.sol_agitado.body":
-    "La Tierra avisó: el Sol lanzó una explosión fuerte (clase {classe}, fuerza {estrelas}). ¡Puede llegar mañana!",
-  "ev.sol_agitado.abrigo.label": "Preparar el refugio",
-  "ev.sol_agitado.abrigo.outcome": "El refugio está listo. Usó energía, pero están protegidos.",
-  "ev.sol_agitado.abrigo.lesson":
-    "En la Estación Espacial, cuando el Sol se agita, los astronautas van a la parte más protegida de la estación.",
-  "ev.sol_agitado.pesquisar.label": "Seguir investigando",
-  "ev.sol_agitado.pesquisar.outcome": "Hicieron más ciencia hoy... pero la tormenta ya viene.",
-  "ev.sol_agitado.pesquisar.lesson":
-    "La luz de la explosión llega en minutos, pero las partículas peligrosas pueden tardar horas o días. Ese tiempo sirve para protegerse.",
-
-  "ev.tempestade_chega.title": "¡Llegó la tormenta solar!",
-  "ev.tempestade_chega.body":
-    "Partículas del Sol están pasando por Marte. Marte no tiene un escudo magnético fuerte como la Tierra.",
-  "ev.tempestade_chega.ficar.label": "Quedarse en el refugio todo el día",
-  "ev.tempestade_chega.ficar.outcome":
-    "Estuvieron a salvo, pero la calefacción del refugio gastó energía.",
-  "ev.tempestade_chega.ficar.lesson":
-    "Protegerse cuesta: no se puede trabajar afuera y el refugio usa energía.",
-  "ev.tempestade_chega.trabalhar.label": "Salir a trabajar de todos modos",
-  "ev.tempestade_chega.trabalhar.outcome": "Hicieron ciencia, pero recibieron más radiación.",
-  "ev.tempestade_chega.trabalhar.lesson":
-    "La Tierra tiene un campo magnético que desvía las partículas del Sol. Marte casi no tiene, por eso allí hay más radiación.",
-
   "ev.poeira_vem.title": "Viene una nube de polvo",
   "ev.poeira_vem.body": "El viento de Marte levantó polvo. Puede cubrir los paneles solares.",
   "ev.poeira_vem.guardar.label": "Guardar energía en la batería",

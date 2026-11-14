@@ -56,16 +56,19 @@ Prazo: submissão até **15/11/2026 23:59** (horário local). Simples e funciona
 - i18n da UI do site: `src/i18n/locales/*.ts` + `useT()` (feito pelo Lovable). i18n do jogo: `src/content/locales/*.ts` + `t()`. Mesmo tipo `Lang`.
 - Supabase aparece no projeto (Lovable Cloud), mas **não é usado**: sem conta, sem banco. Não adicione migrations; mudança de banco só pelo Lovable.
 - Motor do jogo: **TypeScript puro** em `src/game/engine/` (sem React, sem DOM, sem `Math.random`).
-- Cena 2D: Phaser 3 em `src/game/scene/` (montada na div `#game-root` da rota `/play`). Assets CC0 (Kenney.nl) em `public/assets/`.
+- Telas do jogo: **React puro** em `src/game/ui/` (mapa andável em HTML/CSS, sem Phaser — mais leve no celular e sem brigar com o SSR do TanStack). A rota `src/routes/play.tsx` só monta `<GameApp />`.
+- Arte: **pixel art**. Lista de arquivos e tamanhos em `src/game/ui/art.ts` (mapa, astronauta em 8 direções, retratos da caixa de diálogo, cena de cada lugar). Sem arte pronta, o jogo usa formas + emoji.
+- **Nada de logo da NASA** (nem "meatball" nem "worm") em arte, retrato ou tela: as regras de marca da NASA proíbem uso que pareça apoio oficial. Citar a NASA como **fonte dos dados** pode e deve.
 - Testes: Vitest (`npm test`, ambiente jsdom, `vitest.config.ts`).
-- Sem backend por enquanto. Dado "ao vivo" do DONKI, se der tempo, via fetch com cache e fallback para `src/data/donki.ts`.
+- Sem backend. Eventos do Sol buscados **ao vivo** no DONKI pelo navegador (`src/data/donki-live.ts`, sem chave), com reserva conferida em `src/data/donki.ts`.
 
 ## Mapa de pastas e DONOS (não edite pasta de outro sem combinar)
 | Pasta | O que é | Quem mexe |
 |---|---|---|
 | `src/routes`, `src/components`, `src/i18n`, `src/lib`, `src/assets` | Telas do site, HUD, i18n da UI, save local | **Lovable** + Leo |
 | `src/game/engine/` | Regras, simulação, diretor de eventos, relatório | Vinicius (Claude/ChatGPT) — **Lovable NÃO edita** |
-| `src/game/scene/` | Cena Phaser 2D | Yckler — **Lovable NÃO edita** |
+| `src/game/ui/` | Telas do jogo: mapa, cartas, energia, noite, relatório, tutorial | Leo/Yckler — **Lovable NÃO edita** |
+| `public/assets/` | Arte pixel art (nomes em `src/game/ui/art.ts`) | Yckler + time de arte |
 | `src/content/` | Catálogo de eventos + textos nos 5 idiomas | Bruno — **Lovable NÃO edita** |
 | `src/data/`, `scripts/` | Dados reais da NASA + scripts de coleta | Felipe — **Lovable NÃO edita** |
 | `docs/` | Design, fontes, time, guia de texto | todos |

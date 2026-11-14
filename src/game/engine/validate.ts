@@ -2,12 +2,11 @@
 // Garante as regras do desafio: nenhuma escolha de graça, histórias coerentes, 5 idiomas completos.
 
 import type { Effect, GameEvent } from "./types";
-import { LANGS } from "./types";
+import { LANGS, PLACES } from "./types";
 import { LOCALES } from "../../content/i18n";
 import { eventKey } from "../../content/i18n";
 
-const temCusto = (e: Effect) =>
-  Object.entries(e).some(([k, v]) => typeof v === "number" && (k === "solar" ? v < 0 : v < 0));
+const temCusto = (e: Effect) => Object.values(e).some((v) => typeof v === "number" && v < 0);
 
 export function validateCatalog(events: GameEvent[]): string[] {
   const erros: string[] = [];
@@ -26,8 +25,8 @@ export function validateCatalog(events: GameEvent[]): string[] {
       // regra de ouro do desafio: nenhuma escolha sai de graça
       if (!temCusto(c.effects) && !c.deferredCost)
         erros.push(`${ev.id}.${c.id}: escolha sem custo`);
-      if (c.deferredCost && !(c.schedule && c.schedule.length))
-        erros.push(`${ev.id}.${c.id}: deferredCost sem schedule`);
+      if (c.deferredCost && !c.schedule?.length && !c.setFlags?.length)
+        erros.push(`${ev.id}.${c.id}: deferredCost sem schedule nem flag`);
       for (const sc of c.schedule ?? [])
         if (!ids.has(sc.eventId))
           erros.push(`${ev.id}.${c.id}: agenda evento inexistente ${sc.eventId}`);
@@ -39,6 +38,9 @@ export function validateCatalog(events: GameEvent[]): string[] {
     }
     if (ev.choices && ev.choices.length === 1)
       erros.push(`${ev.id}: só 1 escolha não é decisão (use 0 = notícia, ou 2+)`);
+    if (!PLACES.includes(ev.place)) erros.push(`${ev.id}: lugar inválido ${String(ev.place)}`);
+    if (ev.donki && ev.onlyScheduled)
+      erros.push(`${ev.id}: evento do Sol não pode ser só agendado`);
     if (ev.onlyScheduled && !agendados.has(ev.id))
       erros.push(`${ev.id}: onlyScheduled mas ninguém agenda`);
 
