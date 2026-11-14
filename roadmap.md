@@ -10,3 +10,10 @@
 - [x] Cartão "NASA DONKI" deve abrir https://ccmc.gsfc.nasa.gov/tools/DONKI/ (era https://api.nasa.gov/)
 - [x] Conferir a página /fontes no navegador
 - [x] Não publicar o site (nada foi publicado)
+
+## Yckler — cena da tela inicial em vídeo
+- [x] Tela inicial roda o vídeo da cena em loop
+- [x] Vídeo cobre a tela inteira, sem borda, em qualquer tamanho
+- [x] Título, botões e links continuam legíveis nos 5 idiomas
+- [x] Conferir no navegador (celular, PC e tela bem larga)
+- [ ] Decidir se a arte parada public/assets/hub/cena.webp ainda serve para algo (hoje nada usa)

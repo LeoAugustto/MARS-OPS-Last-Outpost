@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { LangSelector } from "@/components/AppHeader";
 import { useDocumentTitle, useT } from "@/i18n";
 import { listSaves } from "@/lib/saves";
+import cenaLoop from "@/assets/cena_loop.mp4.asset.json";
+import cenaPoster from "@/assets/cena_poster.webp.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,21 +26,11 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-// ---------------------------------------------------------------- tela inicial = a arte do hub
-// A arte inteira (public/assets/hub/cena.webp, 1672×941) é a MESMA imagem do menu, só sem os
-// textos: o título e os botões são escritos por cima, nas mesmas posições do desenho, para
-// funcionar nos 5 idiomas. Posições e tamanhos abaixo estão em % da arte (medidos no desenho).
-const ARTE_W = 1672;
-const ARTE_H = 941;
-const pctX = (px: number) => (px / ARTE_W) * 100;
-const pctY = (px: number) => (px / ARTE_H) * 100;
-
-/** Em PT, cada texto ocupa exatamente a largura do desenho; outros idiomas encolhem para caber. */
-const TITULO = { linha1: { y0: 32, y1: 112 }, linha2: { y0: 124, y1: 193 }, largura: 1227 - 459 };
-const TITULO_MAX = 62; // % da arte: título traduzido mais comprido não passa disso
-const BOTAO = { x0: 527, x1: 1142, alturaPx: 109, y1: 710, y2: 816 };
-const BOTAO_TEXTO = 1060 - 615; // largura de "Continuar missão" no desenho
-const BOTAO_MAX = 31; // % da arte: cabe dentro do botão
+// ============================================================ tela inicial
+// A cena é um vídeo em loop que cobre a tela INTEIRA (object-cover): não sobra borda em
+// nenhum tamanho de tela. Em telas muito deitadas ele corta em cima/embaixo, e em telas
+// muito em pé ele corta nas laterais — por isso o texto fica preso em cima e embaixo da
+// TELA (não do vídeo), sempre sobre o céu escuro ou sobre o chão.
 
 /** Largura do texto em "em" (1 = tamanho da fonte), medida com a fonte do jogo. */
 function larguraEm(texto: string): number {
@@ -62,12 +54,56 @@ function useFonteCarregada(): number {
   return n;
 }
 
+/** Mede a tela da home (para os textos caberem em qualquer tamanho, sem rolagem). */
+function useTela() {
+  const ref = useRef<HTMLElement | null>(null);
+  const [tamanho, setTamanho] = useState({ w: 0, h: 0 });
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const medir = () => {
+      const w = el.clientWidth;
+      const h = el.clientHeight;
+      setTamanho((atual) => (atual.w === w && atual.h === h ? atual : { w, h }));
+    };
+    medir();
+    const observador = new ResizeObserver(medir);
+    observador.observe(el);
+    return () => observador.disconnect();
+  }, []);
+  return [ref, tamanho] as const;
+}
+
+/** Quem pediu "menos movimento" vê a cena parada (o primeiro quadro), sem o vídeo rodando. */
+function useSemMovimento(): boolean {
+  const [parado, setParado] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setParado(mq.matches);
+    const mudar = () => setParado(mq.matches);
+    mq.addEventListener?.("change", mudar);
+    return () => mq.removeEventListener?.("change", mudar);
+  }, []);
+  return parado;
+}
+
 function Home() {
   const t = useT();
   useDocumentTitle();
   const [hasSave, setHasSave] = useState(false);
   useEffect(() => setHasSave(listSaves().length > 0), []);
   const fonte = useFonteCarregada();
+  const [telaRef, { w, h }] = useTela();
+  const semMovimento = useSemMovimento();
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // vídeo em loop: se o navegador bloquear o início automático, tenta de novo uma vez
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (semMovimento) v.pause();
+    else void v.play().catch(() => {});
+  }, [semMovimento]);
 
   // título em duas linhas, quebrando depois do ":" (como no desenho)
   const full = t("app.title");
@@ -75,64 +111,73 @@ function Home() {
   const [l1, l2] =
     colon === -1 ? [full, ""] : [full.slice(0, colon + 1), full.slice(colon + 1).trim()];
 
-  // tamanhos em cqw (% da largura da arte), calculados uma vez por idioma/fonte
-  const [tamTitulo, tamBotao] = (() => {
+  // ---- tamanhos em px, calculados para a tela atual (nada sai da tela) ----
+  const retrato = h > w;
+  const tamTitulo = (() => {
     void fonte;
-    const ref = pctX(TITULO.largura) / larguraEm("Operação Marte:");
-    const tit = Math.min(ref, ...[l1, l2].filter(Boolean).map((l) => TITULO_MAX / larguraEm(l)));
-    const refB = pctX(BOTAO_TEXTO) / larguraEm("Continuar missão");
-    const bot = Math.min(
-      refB,
-      BOTAO_MAX / larguraEm(t("playNow")),
-      BOTAO_MAX / larguraEm(t("continueMission")),
-    );
-    return [tit, bot];
+    if (!w || !h) return 0;
+    const linhas = [l1, l2].filter(Boolean);
+    // as duas linhas juntas não podem passar de 30% da altura da tela
+    const porAltura = (h * 0.3) / (linhas.length + 0.25);
+    // cada linha precisa caber em 88% da largura, em qualquer idioma
+    const porLargura = Math.min(...linhas.map((l) => (w * 0.88) / larguraEm(l)));
+    // no desenho original a 1ª linha tem ~46% da largura: não passa muito disso
+    const comoNoDesenho = (w * 0.52) / Math.max(larguraEm(l1), 0.01);
+    return Math.max(14, Math.min(porAltura, porLargura, comoNoDesenho));
   })();
 
-  const linhaTitulo = (texto: string, y0: number, y1: number) => (
-    <span
-      className="absolute inset-x-0 flex items-center justify-center whitespace-nowrap"
-      style={{ top: `${pctY(y0)}%`, height: `${pctY(y1 - y0)}%` }}
-    >
-      {texto}
-    </span>
-  );
+  const larguraBotao = (() => {
+    if (!w || !h) return 0;
+    // deitado: os dois botões ficam lado a lado, para não tapar os astronautas do desenho
+    const base = retrato
+      ? Math.min(w * 0.86, 352)
+      : hasSave
+        ? Math.min(w * 0.3, 420)
+        : Math.min(w * 0.42, 560);
+    return Math.max(base, Math.min(271, w * 0.9)); // altura mínima para o dedo (48px)
+  })();
+  const alturaBotao = Math.max(48, larguraBotao * (109 / 615));
+  const tamBotao = (() => {
+    void fonte;
+    if (!larguraBotao) return 0;
+    const textos = [t("playNow"), t("continueMission")];
+    const porLargura = Math.min(...textos.map((x) => (larguraBotao * 0.86) / larguraEm(x)));
+    return Math.max(14, Math.min(porLargura, alturaBotao * 0.58));
+  })();
+
+  // enquanto a tela não é medida (primeiro paint), os tamanhos vêm do CSS com clamp()
+  const medido = w > 0 && h > 0;
 
   // estilo dos botões: o próprio desenho do botão (sem texto) + texto grosso como no desenho
   const estiloBotao = {
     background: "center / 100% 100% no-repeat url(/assets/hub/botao.png)",
-    WebkitTextStroke: "0.16cqw #f6e38c",
+    WebkitTextStroke: "0.022em #f6e38c",
     paintOrder: "stroke fill",
-    textShadow: "0.2cqw 0.25cqw 0 #5a1d07",
+    textShadow: "0.035em 0.045em 0 #5a1d07",
   } as const;
   const classeBotao =
     "pixelated flex items-center justify-center whitespace-nowrap font-bold text-[#f6e38c] transition hover:brightness-110 active:translate-y-[2px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-highlight";
+  const botaoSemMedida =
+    "aspect-[615/109] w-[min(86vw,352px)] text-[clamp(1rem,4.2vw,1.6rem)] sm:w-[min(30vw,440px)] sm:text-[clamp(1.1rem,2.2vw,1.8rem)]";
 
-  /** botão por cima da arte, na mesma posição do desenho (telas deitadas) */
-  const botaoNaArte = (to: "new" | "continue", texto: string, y: number) => (
+  const botao = (to: "new" | "continue", texto: string) => (
     <Link
       to="/play"
       search={{ mode: to }}
-      className={`${classeBotao} absolute pb-[0.6cqw] portrait:hidden`}
-      style={{
-        ...estiloBotao,
-        left: `${pctX(BOTAO.x0)}%`,
-        width: `${pctX(BOTAO.x1 - BOTAO.x0)}%`,
-        top: `${pctY(y)}%`,
-        height: `${pctY(BOTAO.alturaPx)}%`,
-        fontSize: `${tamBotao}cqw`,
-      }}
+      className={`${classeBotao} pb-[0.08em] ${medido ? "" : botaoSemMedida}`}
+      style={
+        medido
+          ? { ...estiloBotao, width: larguraBotao, height: alturaBotao, fontSize: tamBotao }
+          : estiloBotao
+      }
     >
       {texto}
     </Link>
   );
 
   /** "De onde vêm os dados?" · "Sobre o projeto" + crédito do Space Apps */
-  const rodape = (className: string, style?: React.CSSProperties) => (
-    <div
-      className={`flex flex-col items-center gap-0.5 text-center [text-shadow:1px_1px_0_#1c0703] ${className}`}
-      style={style}
-    >
+  const rodape = (
+    <div className="flex flex-col items-center gap-0.5 text-center [text-shadow:1px_1px_0_#1c0703]">
       <nav className="flex flex-wrap items-center justify-center gap-x-3 font-semibold">
         <Link
           to="/fontes"
@@ -155,83 +200,67 @@ function Home() {
   );
 
   return (
-    <main className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-[linear-gradient(to_bottom,#2a060c,#3a0d10_55%,#4a1512)] portrait:justify-center">
+    <main
+      ref={telaRef}
+      className="relative h-[100dvh] w-full overflow-hidden bg-[#2a060c] text-[#fbe6c8]"
+    >
+      {/* a cena em loop cobrindo a tela toda, sem deixar borda */}
+      <video
+        ref={videoRef}
+        className="pixelated pointer-events-none absolute inset-0 h-full w-full select-none object-cover"
+        src={cenaLoop.url}
+        poster={cenaPoster.url}
+        autoPlay={!semMovimento}
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-hidden
+        tabIndex={-1}
+        disablePictureInPicture
+      />
+
+      {/* sombra forte no alto (onde fica o título) e leve no pé: o texto sempre lê bem */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(28,7,3,0.9)_0%,rgba(28,7,3,0.62)_16%,rgba(28,7,3,0.18)_30%,rgba(28,7,3,0)_52%,rgba(28,7,3,0.8))]"
+      />
+
       {/* idioma: canto de cima, à direita */}
       <div className="absolute right-2 top-2 z-20">
         <LangSelector />
       </div>
 
-      {/* área da arte: a imagem aparece INTEIRA (sem cortar), do maior tamanho que couber */}
-      <div
-        className={`flex w-full justify-center landscape:min-h-0 landscape:flex-1 landscape:[container-type:size] ${
-          hasSave ? "landscape:items-end" : "landscape:items-center"
-        }`}
-      >
-        <div
-          className="relative w-full [container-type:size] landscape:w-[min(100cqw,calc(100cqh*1672/941))]"
-          style={{ aspectRatio: `${ARTE_W} / ${ARTE_H}` }}
+      {/* texto por cima da cena: título no alto (sobre o céu), botões embaixo (sobre o chão).
+          o topo respeita o seletor de idioma para o título não encostar nele */}
+      <div className="relative z-10 flex h-full flex-col items-center justify-between px-4 pb-[3vh] pt-[max(3vh,54px)]">
+        <h1
+          className={`flex flex-col items-center gap-[0.08em] text-center font-display font-bold leading-none text-[#f3c916] ${
+            medido ? "" : "text-[clamp(1.1rem,7.2vw,3.4rem)]"
+          }`}
+          style={{
+            ...(medido ? { fontSize: tamTitulo } : {}),
+            // letra grossa como no desenho (contorno da mesma cor) + sombra
+            WebkitTextStroke: "0.05em #f3c916",
+            paintOrder: "stroke fill",
+            textShadow: "0 0.05em 0 #a86a00, 0.045em 0.09em 0 #2a0508",
+          }}
         >
-          <img
-            src="/assets/hub/cena.webp"
-            alt=""
-            aria-hidden
-            width={ARTE_W}
-            height={ARTE_H}
-            fetchPriority="high"
-            className="pixelated pointer-events-none absolute inset-0 h-full w-full select-none"
-          />
+          <span className="whitespace-nowrap">{l1}</span>
+          {l2 && <span className="whitespace-nowrap">{l2}</span>}
+        </h1>
 
-          <h1
-            className="absolute inset-0 font-display font-bold leading-none text-[#f3c916]"
-            style={{
-              fontSize: `${tamTitulo}cqw`,
-              // letra grossa como no desenho (contorno da mesma cor) + sombra
-              WebkitTextStroke: "0.3cqw #f3c916",
-              paintOrder: "stroke fill",
-              textShadow: "0 0.3cqw 0 #a86a00, 0.25cqw 0.5cqw 0 #2a0508",
-            }}
+        <div className="flex w-full flex-col items-center gap-3">
+          <div
+            className={`flex w-full items-center justify-center gap-3 ${
+              retrato ? "flex-col" : "flex-row flex-wrap"
+            }`}
           >
-            {linhaTitulo(l1, TITULO.linha1.y0, TITULO.linha1.y1)}
-            {l2 && linhaTitulo(l2, TITULO.linha2.y0, TITULO.linha2.y1)}
-          </h1>
-
-          {/* tela deitada: os botões ficam em cima da arte, onde estão no desenho */}
-          {botaoNaArte("new", t("playNow"), BOTAO.y1)}
-          {hasSave
-            ? botaoNaArte("continue", t("continueMission"), BOTAO.y2)
-            : // sem missão salva não tem "Continuar": os links ficam logo abaixo do "Jogar"
-              rodape("absolute inset-x-0 portrait:hidden", {
-                top: `${pctY(BOTAO.y2 + 6)}%`,
-                fontSize: "max(12px, 1.3cqw)",
-              })}
+            {botao("new", t("playNow"))}
+            {hasSave && botao("continue", t("continueMission"))}
+          </div>
+          {rodape}
         </div>
-      </div>
-
-      {/* tela deitada com missão salva: os links ficam logo abaixo do "Continuar" (fora da arte) */}
-      {hasSave && rodape("shrink-0 py-1 text-sm portrait:hidden")}
-
-      {/* celular em pé: a arte inteira fica pequena, então os botões vêm logo embaixo dela,
-          grandes para o dedo, e os links logo abaixo do último botão */}
-      <div className="flex w-full flex-col items-center gap-3 px-4 pt-4 landscape:hidden">
-        <Link
-          to="/play"
-          search={{ mode: "new" }}
-          className={`${classeBotao} aspect-[615/109] w-[min(22rem,90vw)] pb-1 text-[clamp(1.1rem,6vw,1.6rem)]`}
-          style={estiloBotao}
-        >
-          {t("playNow")}
-        </Link>
-        {hasSave && (
-          <Link
-            to="/play"
-            search={{ mode: "continue" }}
-            className={`${classeBotao} aspect-[615/109] w-[min(22rem,90vw)] pb-1 text-[clamp(1.1rem,6vw,1.6rem)]`}
-            style={estiloBotao}
-          >
-            {t("continueMission")}
-          </Link>
-        )}
-        {rodape("text-sm")}
       </div>
     </main>
   );
