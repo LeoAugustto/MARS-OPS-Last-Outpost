@@ -14,6 +14,19 @@ const PASSOS = [0, 1, 2, 1];
 const SPEED = 38; // % do mapa por segundo
 const RAIO = 8; // distância (%) para "chegar" num lugar
 
+/** Tamanho do astronauta: 12% do lado do mapa (quadrado). A posição é a dos PÉS. */
+const SPRITE = 0.12;
+// Limites da posição dos pés para o desenho inteiro caber no mapa (que corta o que sai, overflow-hidden):
+// na horizontal sobra meio sprite de cada lado; em cima cabe o sprite inteiro + a sombra.
+const X_MIN = (SPRITE * 100) / 2 + 1;
+const X_MAX = 100 - X_MIN;
+const Y_MIN = SPRITE * 100 + 3;
+const Y_MAX = 96;
+const limitar = (x: number, y: number) => ({
+  x: Math.max(X_MIN, Math.min(X_MAX, x)),
+  y: Math.max(Y_MIN, Math.min(Y_MAX, y)),
+});
+
 interface Props {
   alerts: Alert[];
   solar: number;
@@ -106,8 +119,16 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
         return;
       }
       const passo = Math.min(SPEED * dt, k.size ? SPEED * dt : dist);
-      const nx = Math.max(4, Math.min(96, p.x + (dx / dist) * passo));
-      const ny = Math.max(6, Math.min(96, p.y + (dy / dist) * passo));
+      const { x: nx, y: ny } = limitar(p.x + (dx / dist) * passo, p.y + (dy / dist) * passo);
+      // alvo fora dos limites (toque bem na borda): para onde der, em vez de andar sem parar
+      if (!k.size && target.current && nx === p.x && ny === p.y) {
+        const place = target.current.place;
+        target.current = null;
+        andando = false;
+        setWalking(false);
+        if (place) abrir(place);
+        return;
+      }
       if (Math.abs(dx) > 0.2) setFlip(dx < 0);
       setDir(dirFrom(dx, dy));
       posRef.current = { x: nx, y: ny };
@@ -178,7 +199,8 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
 
   const goTo = (x: number, y: number, place?: PlaceId) => {
     if (paused) return;
-    target.current = place ? { x, y, place } : { x, y };
+    const alvo = limitar(x, y);
+    target.current = place ? { ...alvo, place } : alvo;
   };
 
   const onGround = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -272,17 +294,27 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
         })}
 
         {/* astronauta */}
+        {/* largura fixa: perto da borda direita a caixa "encolhia" e espremia a imagem */}
         <div
           className="pointer-events-none absolute -translate-x-1/2 -translate-y-full"
-          style={{ left: `${pos.x}%`, top: `${pos.y}%`, fontSize: size * 0.085 }}
+          style={{
+            left: `${pos.x}%`,
+            top: `${pos.y}%`,
+            width: ART.astronaut.ready ? size * SPRITE : undefined,
+            fontSize: size * 0.085,
+          }}
           aria-hidden
         >
           {ART.astronaut.ready ? (
             <img
               src={ART.astronaut.frame(gender, dir, walking ? (PASSOS[quadro] ?? 1) : 1)}
               alt=""
-              className="block"
-              style={{ width: size * 0.12, height: size * 0.12, imageRendering: "pixelated" }}
+              className="block max-w-none"
+              style={{
+                width: size * SPRITE,
+                height: size * SPRITE,
+                imageRendering: "pixelated",
+              }}
               draggable={false}
             />
           ) : (
