@@ -24,3 +24,10 @@ Na barra lateral direita, abra **Agentes → Todos**. O Orca exibiu **Treinador 
 - **Integração** — Preservar o menu inicial novo da main ao integrar a branch; abrir PR para revisão de Leo, conforme AGENTS.md. Não reescrever histórico publicado.
 - **Lovable** — Leo pediu preferência pelo Lovable nas áreas permitidas. A integração oficial foi localizada e a conexão solicitada; autorização da conta ainda não confirmada. Lovable não deve editar `src/game`, `src/content` ou `src/data`.
 - **Pendências** — Concluir integração com main, validar novamente, enviar a branch e abrir PR. Validação visual/mobile completa e sincronização no editor Lovable ainda não foram verificadas nesta etapa.
+
+### Resultado da integração para envio
+
+- Commit das alterações locais: `1c4fb8e` (`integra interiores e ícones em pixel art`).
+- Integrada a main remota `c796112` por merge, preservando o histórico. O único conflito foi na home: manteve-se integralmente o menu de hub já publicado pelo time; a troca de emoji do botão antigo ficou superada por esse novo menu.
+- Após resolver o conflito: `npm test` passou novamente com 23 testes em 5 arquivos; `npm run build` passou novamente; `git diff --cached --check` passou.
+- Próximo passo: enviar esta branch e abrir PR para `main`. A sincronização do Lovable depende da integração na `main`, cuja revisão e merge cabem a Leo conforme `AGENTS.md`.
