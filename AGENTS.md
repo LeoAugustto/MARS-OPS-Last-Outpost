@@ -32,5 +32,4 @@ use the editor.
 ## Project rules
 - src/game/, src/content/, src/data/ belong to the game developers; app-shell work must not create or edit them.
 - UI text lives in src/i18n/dictionary.ts (pt default, en); never hardcode user-facing strings in pages.
-- Game saves go through src/lib/saves.ts (loadSave/writeSave); RLS limits rows to the owner.
-- Guests play via anonymous sign-in; "save to cloud" links email+password to the same user with updateUser.
+- No accounts and no backend use: saves are local-only via src/lib/saves.ts (localStorage, every call try/catch so blocked storage never breaks the game).

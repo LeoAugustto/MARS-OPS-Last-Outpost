@@ -1,10 +1,9 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
-import { toast } from "sonner";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { LangToggle } from "@/components/AppHeader";
 import { useI18n } from "@/i18n";
-import { supabase } from "@/integrations/supabase/client";
+import { listSaves } from "@/lib/saves";
 import marsBase from "@/assets/mars-base.jpg";
 
 export const Route = createFileRoute("/")({
@@ -23,22 +22,8 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { t } = useI18n();
-  const navigate = useNavigate();
-  const [busy, setBusy] = useState(false);
-
-  async function playAsGuest() {
-    setBusy(true);
-    const { data } = await supabase.auth.getSession();
-    if (!data.session) {
-      const { error } = await supabase.auth.signInAnonymously();
-      if (error) {
-        setBusy(false);
-        toast.error(t.errorGeneric);
-        return;
-      }
-    }
-    navigate({ to: "/play" });
-  }
+    const [hasSave, setHasSave] = useState(false);
+  useEffect(() => setHasSave(listSaves().length > 0), []);
 
   return (
     <main className="bg-mars min-h-screen">
@@ -56,15 +41,20 @@ function Home() {
         <h1 className="text-4xl font-bold leading-tight text-secondary sm:text-6xl">{t.appName}</h1>
         <p className="text-xl font-semibold sm:text-2xl">{t.tagline}</p>
         <div className="flex w-full max-w-sm flex-col gap-5">
-          <Button variant="chunky" size="xl" onClick={playAsGuest} disabled={busy}>
-            🚀 {busy ? t.loading : t.playNow}
+          <Button asChild variant="chunky" size="xl">
+            <Link to="/play" search={{ mode: "new" }}>🚀 {t.playNow}</Link>
           </Button>
-          <Button asChild variant="chunkySand" size="tap">
-            <Link to="/auth">{t.signIn}</Link>
-          </Button>
+          {hasSave && (
+            <Button asChild variant="chunkySand" size="tap">
+              <Link to="/play" search={{ mode: "continue" }}>{t.continueMission}</Link>
+            </Button>
+          )}
         </div>
         <Link to="/fontes" className="min-h-12 py-3 text-lg font-semibold text-secondary underline underline-offset-4">
           {t.dataSources}
+        </Link>
+        <Link to="/sobre" className="min-h-12 py-3 text-base font-semibold text-muted-foreground underline underline-offset-4">
+          {t.about}
         </Link>
       </section>
     </main>

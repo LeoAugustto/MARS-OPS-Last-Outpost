@@ -8,6 +8,13 @@
       "when": 1794664924798,
       "tag": "0000_profiles_and_saves",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794665346091,
+      "tag": "0001_deprecate_profiles_saves",
+      "breakpoints": true
     }
   ]
 }

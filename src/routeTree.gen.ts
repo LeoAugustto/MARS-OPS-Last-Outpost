@@ -10,24 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as FontesRouteImport } from './routes/fontes'
 import { Route as PlayRouteImport } from './routes/play'
-import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
+import { Route as SobreRouteImport } from './routes/sobre'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FontesRoute = FontesRouteImport.update({
@@ -40,56 +29,44 @@ const PlayRoute = PlayRouteImport.update({
   path: '/play',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedPerfilRoute = AuthenticatedPerfilRouteImport.update({
-  id: '/perfil',
-  path: '/perfil',
-  getParentRoute: () => AuthenticatedRouteRoute,
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
   '/fontes': typeof FontesRoute
   '/play': typeof PlayRoute
-  '/perfil': typeof AuthenticatedPerfilRoute
+  '/sobre': typeof SobreRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
   '/fontes': typeof FontesRoute
   '/play': typeof PlayRoute
-  '/perfil': typeof AuthenticatedPerfilRoute
+  '/sobre': typeof SobreRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/auth': typeof AuthRoute
   '/fontes': typeof FontesRoute
   '/play': typeof PlayRoute
-  '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
+  '/sobre': typeof SobreRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/fontes' | '/play' | '/perfil'
+  fullPaths: '/' | '/fontes' | '/play' | '/sobre'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/fontes' | '/play' | '/perfil'
-  id:
-    | '__root__'
-    | '/'
-    | '/_authenticated'
-    | '/auth'
-    | '/fontes'
-    | '/play'
-    | '/_authenticated/perfil'
+  to: '/' | '/fontes' | '/play' | '/sobre'
+  id: '__root__' | '/' | '/fontes' | '/play' | '/sobre'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  AuthRoute: typeof AuthRoute
   FontesRoute: typeof FontesRoute
   PlayRoute: typeof PlayRoute
+  SobreRoute: typeof SobreRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,20 +76,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fontes': {
@@ -129,33 +92,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlayRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/perfil': {
-      id: '/_authenticated/perfil'
-      path: '/perfil'
-      fullPath: '/perfil'
-      preLoaderRoute: typeof AuthenticatedPerfilRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface AuthenticatedRouteRouteChildren {
-  AuthenticatedPerfilRoute: typeof AuthenticatedPerfilRoute
-}
-
-const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedPerfilRoute: AuthenticatedPerfilRoute,
-}
-
-const AuthenticatedRouteRouteWithChildren =
-  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  AuthRoute: AuthRoute,
   FontesRoute: FontesRoute,
   PlayRoute: PlayRoute,
+  SobreRoute: SobreRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
