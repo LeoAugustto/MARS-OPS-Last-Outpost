@@ -1,4 +1,4 @@
-# MARS OPS: Last Outpost 🚀🔴
+# Operação Marte: Última Base · MARS OPS: Last Outpost 🚀🔴
 
 Jogo de navegador para crianças de **7 a 12 anos**: comande uma base em Marte, um **sol** (dia marciano) de cada vez.
 Divida a energia entre **ar, comida, ciência e escudo**, e enfrente **tempestades solares reais** registradas pela NASA (DONKI).

@@ -2,6 +2,7 @@
 import type { Dict } from './pt';
 
 export const fr: Dict = {
+  'jogo.titulo': 'Opération Mars : Dernière Base',
   'recurso.ar': 'Air',
   'recurso.comida': 'Nourriture',
   'recurso.saude': 'Santé',

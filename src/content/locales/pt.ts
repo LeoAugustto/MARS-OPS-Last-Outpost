@@ -4,6 +4,7 @@
 
 export const pt = {
   // ---------------------------------------------------------------- recursos e módulos
+  'jogo.titulo': 'Operação Marte: Última Base',
   'recurso.ar': 'Ar',
   'recurso.comida': 'Comida',
   'recurso.saude': 'Saúde',

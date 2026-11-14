@@ -4,7 +4,7 @@
 > Leia também: `docs/GAME_DESIGN.md` (regras do jogo), `docs/STYLE_GUIDE.md` (como escrever para crianças), `docs/TEAM.md` (quem faz o quê).
 
 ## O projeto em 30 segundos
-**MARS OPS: Last Outpost** — jogo de navegador para crianças de **7 a 12 anos** (NASA Space Apps 2026, desafio *Build a Junior Astronaut Mission Trainer*).
+**Operação Marte: Última Base** (EN: *MARS OPS: Last Outpost*) — jogo de navegador para crianças de **7 a 12 anos** (NASA Space Apps 2026, desafio *Build a Junior Astronaut Mission Trainer*).
 A criança comanda uma base em Marte, **um sol (dia marciano) por vez**: responde a uma carta de evento e divide a energia do dia entre **ar, estufa, laboratório e escudo**. Eventos reais da NASA (tempestades solares do **DONKI**) disparam histórias encadeadas. Quando dá errado, **não tem game over**: o Controle de Missão explica por quê e a criança pode voltar a um sol anterior.
 
 Prazo: submissão até **15/11/2026 23:59** (horário local). Simples e funcionando > bonito e quebrado.
