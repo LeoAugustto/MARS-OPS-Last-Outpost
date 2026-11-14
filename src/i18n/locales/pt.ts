@@ -1,6 +1,6 @@
 // Base dictionary: every other language must have exactly these keys.
 export const pt = {
-  appName: "MARS OPS: Última Base",
+  "app.title": "Operação Marte: Última Base",
   tagline: "Mantenha sua base em Marte viva!",
   playNow: "Jogar agora",
   continueMission: "Continuar missão",
@@ -24,7 +24,7 @@ export const pt = {
   srcCsa: "Ideias da Agência Espacial Canadense sobre como plantar comida longe da Terra.",
   aboutTitle: "Sobre o projeto",
   aboutIntro:
-    'MARS OPS: Última Base é um jogo para crianças de 7 a 12 anos, feito para o NASA Space Apps Challenge 2026 (desafio "Build a Junior Astronaut Mission Trainer").',
+    '{app} é um jogo para crianças de 7 a 12 anos, feito para o NASA Space Apps Challenge 2026 (desafio "Build a Junior Astronaut Mission Trainer").',
   aboutLearnTitle: "O que o jogo ensina",
   aboutLearn1: "Como dividir energia entre ar, comida, escudo e ciência.",
   aboutLearn2: "Que o Sol tem tempestades de verdade, e como os astronautas se protegem.",
@@ -34,10 +34,10 @@ export const pt = {
   aboutTeam: "Nome da equipe (em breve)",
   aboutPrivacyTitle: "Sem conta, sem download",
   aboutPrivacy: "Não pedimos nenhum dado. O progresso fica guardado só neste aparelho.",
-  titleHome: "MARS OPS: Última Base, um jogo de Marte para crianças",
-  titlePlay: "Jogar | MARS OPS",
-  titleSources: "De onde vêm os dados? | MARS OPS",
-  titleAbout: "Sobre o projeto | MARS OPS",
+  titlePlay: "Jogar",
+  titleSources: "De onde vêm os dados?",
+  titleAbout: "Sobre o projeto",
+  footer: "Feito para o NASA Space Apps Challenge 2026",
 };
 
 export type MessageKey = keyof typeof pt;

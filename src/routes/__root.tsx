@@ -83,9 +83,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "MARS OPS: Última Base" },
+      { title: "Operação Marte: Última Base" },
       { name: "description", content: "Jogo educativo: mantenha sua base em Marte viva!" },
-      { property: "og:title", content: "MARS OPS: Última Base" },
+      { property: "og:title", content: "Operação Marte: Última Base" },
       { property: "og:description", content: "Jogo educativo: mantenha sua base em Marte viva!" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

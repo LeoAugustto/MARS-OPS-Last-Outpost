@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { LangSelector } from "@/components/AppHeader";
+import { AppFooter, LangSelector } from "@/components/AppHeader";
 import { useDocumentTitle, useT } from "@/i18n";
 import { listSaves } from "@/lib/saves";
 import marsBase from "@/assets/mars-base.jpg";
@@ -9,9 +9,9 @@ import marsBase from "@/assets/mars-base.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MARS OPS: Última Base — Jogo de Marte para crianças" },
+      { title: "Operação Marte: Última Base — Jogo de Marte para crianças" },
       { name: "description", content: "Mantenha sua base em Marte viva! Um jogo educativo com dados reais da NASA." },
-      { property: "og:title", content: "MARS OPS: Última Base" },
+      { property: "og:title", content: "Operação Marte: Última Base" },
       { property: "og:description", content: "Mantenha sua base em Marte viva! Jogo educativo com dados reais da NASA." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const t = useT();
-  useDocumentTitle("titleHome");
+  useDocumentTitle();
   const [hasSave, setHasSave] = useState(false);
   useEffect(() => setHasSave(listSaves().length > 0), []);
 
@@ -39,7 +39,7 @@ function Home() {
           height={768}
           className="w-full rounded-3xl border-4 border-border shadow-2xl"
         />
-        <h1 className="text-4xl font-bold leading-tight text-secondary sm:text-6xl">{t("appName")}</h1>
+        <h1 className="text-4xl font-bold leading-tight text-secondary sm:text-6xl">{t("app.title")}</h1>
         <p className="text-xl font-semibold sm:text-2xl">{t("tagline")}</p>
         <div className="flex w-full max-w-sm flex-col gap-5">
           <Button asChild variant="chunky" size="xl">
@@ -58,6 +58,7 @@ function Home() {
           {t("about")}
         </Link>
       </section>
+      <AppFooter />
     </main>
   );
 }

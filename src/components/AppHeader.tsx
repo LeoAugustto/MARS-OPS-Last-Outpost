@@ -60,7 +60,20 @@ export function AppHeader({ showBack = true }: { showBack?: boolean }) {
       ) : (
         <span />
       )}
+      <Link to="/" className="hidden flex-1 truncate text-center font-display text-lg font-bold text-secondary sm:block">
+        {t("app.title")}
+      </Link>
       <LangSelector />
     </header>
+  );
+}
+
+export function AppFooter() {
+  const t = useT();
+  return (
+    <footer className="mx-auto max-w-3xl px-4 py-8 text-center text-sm text-muted-foreground">
+      <p className="font-display text-base font-bold text-secondary">{t("app.title")}</p>
+      <p>{t("footer")}</p>
+    </footer>
   );
 }

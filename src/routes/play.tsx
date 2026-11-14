@@ -9,9 +9,9 @@ export const Route = createFileRoute("/play")({
     s["mode"] === "new" || s["mode"] === "continue" ? { mode: s["mode"] } : {},
   head: () => ({
     meta: [
-      { title: "Jogar — MARS OPS: Última Base" },
+      { title: "Jogar — Operação Marte: Última Base" },
       { name: "description", content: "Comande sua base em Marte, um sol de cada vez." },
-      { property: "og:title", content: "Jogar MARS OPS" },
+      { property: "og:title", content: "Jogar | Operação Marte" },
       { property: "og:description", content: "Comande sua base em Marte, um sol de cada vez." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AppHeader } from "@/components/AppHeader";
+import { AppFooter, AppHeader } from "@/components/AppHeader";
 import { useDocumentTitle, useT } from "@/i18n";
 
 export const Route = createFileRoute("/sobre")({
   head: () => ({
     meta: [
-      { title: "Sobre o projeto — MARS OPS" },
-      { name: "description", content: "O que o jogo MARS OPS ensina, para jurados, pais e professores. NASA Space Apps 2026." },
-      { property: "og:title", content: "Sobre o projeto — MARS OPS" },
+      { title: "Sobre o projeto | Operação Marte" },
+      { name: "description", content: "O que o jogo Operação Marte ensina, para jurados, pais e professores. NASA Space Apps 2026." },
+      { property: "og:title", content: "Sobre o projeto | Operação Marte" },
       { property: "og:description", content: "Jogo educativo de Marte para o NASA Space Apps Challenge 2026." },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },
@@ -24,7 +24,7 @@ function Sobre() {
       <AppHeader />
       <section className="mx-auto grid max-w-3xl gap-5 px-4 pb-12">
         <h1 className="text-3xl font-bold text-secondary sm:text-4xl">{t("aboutTitle")}</h1>
-        <p className="text-lg">{t("aboutIntro")}</p>
+        <p className="text-lg">{t("aboutIntro", { app: t("app.title") })}</p>
         <div className="rounded-3xl border-4 border-border bg-card p-6">
           <h2 className="text-2xl font-bold">{t("aboutLearnTitle")}</h2>
           <ul className="mt-3 grid gap-2">
@@ -45,6 +45,7 @@ function Sobre() {
           </div>
         </div>
       </section>
+      <AppFooter />
     </main>
   );
 }

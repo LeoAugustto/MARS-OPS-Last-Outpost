@@ -1,7 +1,7 @@
 import type { Messages } from "./pt";
 
 export const en: Messages = {
-  appName: "MARS OPS: Last Outpost",
+  "app.title": "MARS OPS: Last Outpost",
   tagline: "Keep your Mars base alive!",
   playNow: "Play now",
   continueMission: "Continue mission",
@@ -25,7 +25,7 @@ export const en: Messages = {
   srcCsa: "Ideas from the Canadian Space Agency on how to grow food far from Earth.",
   aboutTitle: "About the project",
   aboutIntro:
-    'MARS OPS: Last Outpost is a game for kids aged 7 to 12, made for the NASA Space Apps Challenge 2026 (challenge "Build a Junior Astronaut Mission Trainer").',
+    '{app} is a game for kids aged 7 to 12, made for the NASA Space Apps Challenge 2026 (challenge "Build a Junior Astronaut Mission Trainer").',
   aboutLearnTitle: "What the game teaches",
   aboutLearn1: "How to split energy between air, food, shield and science.",
   aboutLearn2: "That the Sun has real storms, and how astronauts stay safe.",
@@ -35,8 +35,8 @@ export const en: Messages = {
   aboutTeam: "Team name (coming soon)",
   aboutPrivacyTitle: "No account, no download",
   aboutPrivacy: "We ask for no data. Progress is kept only on this device.",
-  titleHome: "MARS OPS: Last Outpost, a Mars game for kids",
-  titlePlay: "Play | MARS OPS",
-  titleSources: "Where does the data come from? | MARS OPS",
-  titleAbout: "About the project | MARS OPS",
+  titlePlay: "Play",
+  titleSources: "Where does the data come from?",
+  titleAbout: "About the project",
+  footer: "Made for the NASA Space Apps Challenge 2026",
 };

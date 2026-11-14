@@ -1,7 +1,7 @@
 import type { Messages } from "./pt";
 
 export const fr: Messages = {
-  appName: "MARS OPS : Dernière Base",
+  "app.title": "Opération Mars : Dernière Base",
   tagline: "Garde ta base sur Mars en vie !",
   playNow: "Jouer maintenant",
   continueMission: "Continuer la mission",
@@ -25,7 +25,7 @@ export const fr: Messages = {
   srcCsa: "Des idées de l'Agence spatiale canadienne pour faire pousser de la nourriture loin de la Terre.",
   aboutTitle: "À propos du projet",
   aboutIntro:
-    "MARS OPS : Dernière Base est un jeu pour les enfants de 7 à 12 ans, créé pour le NASA Space Apps Challenge 2026 (défi « Build a Junior Astronaut Mission Trainer »).",
+    "{app} est un jeu pour les enfants de 7 à 12 ans, créé pour le NASA Space Apps Challenge 2026 (défi « Build a Junior Astronaut Mission Trainer »).",
   aboutLearnTitle: "Ce que le jeu apprend",
   aboutLearn1: "Comment partager l'énergie entre l'air, la nourriture, le bouclier et la science.",
   aboutLearn2: "Que le Soleil a de vraies tempêtes, et comment les astronautes se protègent.",
@@ -35,8 +35,8 @@ export const fr: Messages = {
   aboutTeam: "Nom de l'équipe (bientôt)",
   aboutPrivacyTitle: "Sans compte, sans téléchargement",
   aboutPrivacy: "Nous ne demandons aucune donnée. La progression reste seulement sur cet appareil.",
-  titleHome: "MARS OPS : Dernière Base, un jeu sur Mars pour enfants",
-  titlePlay: "Jouer | MARS OPS",
-  titleSources: "D'où viennent les données ? | MARS OPS",
-  titleAbout: "À propos du projet | MARS OPS",
+  titlePlay: "Jouer",
+  titleSources: "D'où viennent les données ?",
+  titleAbout: "À propos du projet",
+  footer: "Créé pour le NASA Space Apps Challenge 2026",
 };

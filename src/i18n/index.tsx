@@ -74,9 +74,9 @@ export function useT() {
 }
 
 /** Sets the browser tab title in the current language. */
-export function useDocumentTitle(key: MessageKey) {
+export function useDocumentTitle(key?: MessageKey) {
   const t = useT();
   useEffect(() => {
-    document.title = t(key);
+    document.title = key ? `${t(key)} | ${t("app.title")}` : t("app.title");
   }, [t, key]);
 }

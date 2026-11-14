@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { AppHeader } from "@/components/AppHeader";
+import { AppFooter, AppHeader } from "@/components/AppHeader";
 import { useDocumentTitle, useT } from "@/i18n";
 
 export const Route = createFileRoute("/fontes")({
   head: () => ({
     meta: [
-      { title: "De onde vêm os dados? — MARS OPS" },
+      { title: "De onde vêm os dados? | Operação Marte" },
       { name: "description", content: "As fontes reais da NASA e da Agência Espacial Canadense usadas no jogo." },
-      { property: "og:title", content: "De onde vêm os dados? — MARS OPS" },
+      { property: "og:title", content: "De onde vêm os dados? | Operação Marte" },
       { property: "og:description", content: "As fontes reais da NASA e da CSA usadas no jogo." },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },
@@ -74,6 +74,7 @@ function Fontes() {
           ))}
         </ul>
       </section>
+      <AppFooter />
     </main>
   );
 }
