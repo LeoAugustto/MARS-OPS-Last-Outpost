@@ -15,6 +15,7 @@ export {
   canSleep,
   endSol,
   sleepPenalty,
+  recentesDepois,
   rewindTo,
   findEvent,
   defaultAllocation,

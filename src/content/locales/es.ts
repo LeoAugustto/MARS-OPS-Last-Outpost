@@ -513,4 +513,325 @@ export const es: Dict = {
   "ev.fossil_resultado.title": "Era solo una roca... ¡pero es ciencia!",
   "ev.fossil_resultado.body":
     "No era un fósil, era una roca común. Pero descubrir eso también es ciencia: ¡ahora sabemos más sobre las rocas de Marte!",
+
+  // ================================================================ eventos por lugar (lote 2)
+  // ☀️ paneles
+  "ev.geada.title": "¡Hielo en los paneles!",
+  "ev.geada.body": "La noche fue tan fría que una capa finita de hielo cubrió los paneles solares.",
+  "ev.geada.esperar.label": "Esperar que el Sol lo derrita",
+  "ev.geada.esperar.outcome":
+    "El hielo se derritió solo, pero los paneles dieron menos energía en la mañana.",
+  "ev.geada.esperar.lesson":
+    "En 1979, la sonda Viking 2 fotografió una capa finita de hielo en el suelo de Marte.",
+  "ev.geada.raspar.label": "Salir a raspar el hielo",
+  "ev.geada.raspar.outcome":
+    "¡Paneles limpios en un momento! Pero la salida gastó el aire del traje.",
+  "ev.geada.raspar.lesson":
+    "Afuera, todo trabajo gasta el aire del traje. A veces esperar es más seguro que salir.",
+
+  "ev.eclipse_fobos.title": "¡Una luna pasó delante del Sol!",
+  "ev.eclipse_fobos.body":
+    "Fobos, una de las dos lunas de Marte, va a pasar delante del Sol. Por un momento, los paneles recibirán menos luz.",
+  "ev.eclipse_fobos.filmar.label": "Filmar el eclipse",
+  "ev.eclipse_fobos.filmar.outcome":
+    "¡Qué video increíble! La cámara y el telescopio gastaron energía.",
+  "ev.eclipse_fobos.filmar.lesson":
+    "En 2022, el robot Perseverance filmó a Fobos pasando delante del Sol. ¡El eclipse duró unos 40 segundos!",
+  "ev.eclipse_fobos.guardar.label": "Guardar energía en la batería",
+  "ev.eclipse_fobos.guardar.outcome":
+    "La batería quedó más llena, pero el laboratorio se quedó sin energía y hoy rinde solo la mitad.",
+  "ev.eclipse_fobos.guardar.lesson":
+    "Marte tiene dos lunas pequeñas, Fobos y Deimos. Cuando Fobos pasa delante del Sol, llega menos luz por un momento.",
+
+  "ev.truque_areia.title": "Paneles con polvo",
+  "ev.truque_areia.body":
+    "Los paneles tienen polvo y dan menos energía. El viento de la tarde puede ayudar... o alguien puede salir a limpiar.",
+  "ev.truque_areia.areia.label": "Soltar arena al viento",
+  "ev.truque_areia.areia.outcome":
+    "El robot soltó arena cerca de los paneles. ¡El viento se llevó la arena, y ella arrastró un poco de polvo!",
+  "ev.truque_areia.areia.lesson":
+    "En 2021, la sonda InSight usó este truco: soltó arena al viento cerca de sus paneles, y la arena se llevó parte del polvo.",
+  "ev.truque_areia.escovar.label": "Salir a cepillar los paneles",
+  "ev.truque_areia.escovar.outcome":
+    "¡Los paneles quedaron muy limpios! Pero la salida gastó el aire del traje.",
+  "ev.truque_areia.escovar.lesson":
+    "Cepillar limpia más que el viento, pero cada salida gasta aire y cansa al equipo.",
+
+  // 💨 fábrica de aire
+  "ev.filtro_co2.title": "El filtro de dióxido de carbono se llenó",
+  "ev.filtro_co2.body":
+    "Cuando respiramos, soltamos dióxido de carbono. El filtro que saca ese gas del aire de la base está lleno.",
+  "ev.filtro_co2.reserva.label": "Cambiarlo por el de repuesto",
+  "ev.filtro_co2.reserva.outcome": "¡Filtro nuevo en su lugar! Pero ya no queda ningún repuesto.",
+  "ev.filtro_co2.reserva.lesson":
+    "En la Estación Espacial, unas máquinas sacan el dióxido de carbono del aire, porque mucho de él hace mal al cuerpo.",
+  "ev.filtro_co2.improvisar.label": "Improvisar un filtro",
+  "ev.filtro_co2.improvisar.outcome":
+    "El filtro hecho con cinta y piezas viejas funcionó, pero no tan bien. El aire empeoró un poco.",
+  "ev.filtro_co2.improvisar.lesson":
+    "En 1970, la nave Apolo 13 tuvo un problema y los astronautas armaron un filtro con cinta adhesiva y otras piezas. ¡Funcionó!",
+
+  "ev.eletrolise.title": "¿Hacer aire con agua?",
+  "ev.eletrolise.body":
+    "La máquina de aire puede separar el agua en oxígeno y otro gas, usando electricidad. Pero esa agua también riega las plantas.",
+  "ev.eletrolise.fazer_ar.label": "Usar agua para hacer aire",
+  "ev.eletrolise.fazer_ar.outcome":
+    "¡Más oxígeno para todos! Pero el invernadero recibió menos agua.",
+  "ev.eletrolise.fazer_ar.lesson":
+    "En la Estación Espacial, una máquina separa el agua con electricidad y hace oxígeno para que la tripulación respire.",
+  "ev.eletrolise.guardar_agua.label": "Guardar el agua para las plantas",
+  "ev.eletrolise.guardar_agua.outcome":
+    "Las plantas tomaron agua y crecieron. Pero la fábrica hizo menos aire hoy.",
+  "ev.eletrolise.guardar_agua.lesson":
+    "En una base, la misma agua sirve para beber, cultivar y hasta hacer aire. Por eso se usa muchas veces.",
+
+  "ev.poeira_dentro.title": "¡Entró polvo a la base!",
+  "ev.poeira_dentro.body":
+    "El polvo se pegó a los trajes y entró con el equipo. Ahora hay polvo rojo en todo el piso.",
+  "ev.poeira_dentro.aspirar.label": "Aspirar todo ahora",
+  "ev.poeira_dentro.aspirar.outcome": "¡La base quedó limpita! La aspiradora gastó energía.",
+  "ev.poeira_dentro.aspirar.lesson":
+    "Los astronautas del Apolo contaron que el polvo de la Luna se pegaba a todo y olía a pólvora.",
+  "ev.poeira_dentro.depois.label": "Limpiar otro día",
+  "ev.poeira_dentro.depois.outcome":
+    "No se gastó energía, pero el polvo hizo toser y estornudar al equipo.",
+  "ev.poeira_dentro.depois.lesson":
+    "El polvo de Marte es muy fino y tiene sales que hacen mal al cuerpo. No puede quedarse dentro de casa.",
+
+  // 🌱 invernadero
+  "ev.luz_rosa.title": "¿Qué luz usar en las plantas?",
+  "ev.luz_rosa.body":
+    "Las lámparas del invernadero pueden ser rojas y azules, que dejan todo rosado, o blancas, como la luz del día.",
+  "ev.luz_rosa.rosa.label": "Luz roja y azul",
+  "ev.luz_rosa.rosa.outcome":
+    "El invernadero quedó rosado y las plantas crecieron bien, gastando poca energía.",
+  "ev.luz_rosa.rosa.lesson":
+    "En la Estación Espacial, las plantas crecen con luces rojas y azules. ¡Juntas, dejan el invernadero rosado!",
+  "ev.luz_rosa.branca.label": "Luz blanca, como la del día",
+  "ev.luz_rosa.branca.outcome":
+    "Las plantas crecieron y al equipo le gustó ver todo verde. Pero la luz blanca gastó más energía.",
+  "ev.luz_rosa.branca.lesson":
+    "Con luz blanca, las plantas muestran su color real. Así es más fácil ver si alguna está enferma.",
+
+  "ev.pimentas.title": "¡Crecieron los chiles!",
+  "ev.pimentas.body":
+    "Las plantas están llenas de chiles verdes. Si esperas más, se ponen rojos y más grandes.",
+  "ev.pimentas.verdes.label": "Cosecharlos verdes ahora",
+  "ev.pimentas.verdes.outcome": "¡Hoy hay comida nueva y picante! Cosechar dio un poco de trabajo.",
+  "ev.pimentas.verdes.lesson":
+    "¡En 2021, unos astronautas cosecharon chiles en la Estación Espacial e hicieron tacos!",
+  "ev.pimentas.vermelhas.label": "Esperar que se pongan rojos",
+  "ev.pimentas.vermelhas.outcome":
+    "Los chiles siguen creciendo. ¡En unos soles, la cosecha será grande!",
+  "ev.pimentas.vermelhas.lesson":
+    "El experimento de los chiles en la Estación Espacial duró más de 4 meses. Las plantas grandes tardan en dar frutos.",
+  "ev.pimentas_vermelhas.title": "¡Chiles rojos!",
+  "ev.pimentas_vermelhas.body":
+    "La espera valió la pena: los chiles se pusieron rojos y dieron mucha comida.",
+
+  "ev.adubo.title": "¿Qué hacer con los restos?",
+  "ev.adubo.body":
+    "Sobraron cáscaras y hojas de la cocina. Pueden ser basura... o abono para el invernadero.",
+  "ev.adubo.compostar.label": "Hacer abono",
+  "ev.adubo.compostar.outcome":
+    "Los restos se van a volver abono. ¡En unos soles, las plantas crecerán más!",
+  "ev.adubo.compostar.lesson":
+    "La Agencia Espacial Europea estudia un sistema que recicla restos para producir comida y aire en viajes largos.",
+  "ev.adubo.jogar_fora.label": "Tirarlos a la basura",
+  "ev.adubo.jogar_fora.outcome":
+    "La cocina quedó con más espacio, pero la basura olió mal y mareó al equipo.",
+  "ev.adubo.jogar_fora.lesson":
+    "En una base en Marte no hay camión de basura. Todo lo que se tira sigue ahí adentro.",
+  "ev.adubo_pronto.title": "¡El abono está listo!",
+  "ev.adubo_pronto.body":
+    "Los restos se volvieron abono, y las plantas del invernadero dieron más comida.",
+
+  // 🔬 laboratorio
+  "ev.meteorito.title": "¡Cayó una piedra del cielo!",
+  "ev.meteorito.body":
+    "El robot encontró una piedra oscura y brillante cerca de la base. ¡Parece un meteorito, una piedra que vino del espacio!",
+  "ev.meteorito.analisar.label": "Analizarla en el laboratorio",
+  "ev.meteorito.analisar.outcome":
+    "¡Era de verdad un meteorito de hierro! El análisis gastó energía.",
+  "ev.meteorito.analisar.lesson":
+    "En 2005, el robot Opportunity encontró un meteorito en Marte. Fue el primer meteorito hallado en otro planeta.",
+  "ev.meteorito.foto.label": "Fotografiarla y mandarla a la Tierra",
+  "ev.meteorito.foto.outcome":
+    "A los científicos en la Tierra les encantaron las fotos, pero sin análisis la investigación rindió menos.",
+  "ev.meteorito.foto.lesson":
+    "Las piedras de Marte también caen en la Tierra como meteoritos. Los científicos estudian algunas desde hace muchos años.",
+
+  "ev.tubo_amostra.title": "¡El tubo de muestra volvió vacío!",
+  "ev.tubo_amostra.body":
+    "El equipo perforó una roca para guardar un pedazo en un tubo. ¡Pero el tubo volvió sin nada adentro!",
+  "ev.tubo_amostra.cuidado.label": "Averiguar qué pasó e intentar de nuevo",
+  "ev.tubo_amostra.cuidado.outcome":
+    "La roca era blanda y se hizo polvo. ¡La segunda vez funcionó! Gastó energía.",
+  "ev.tubo_amostra.cuidado.lesson":
+    "En 2021, el primer tubo de muestra del robot Perseverance volvió vacío: la roca se hizo polvo. El equipo estudió qué pasó antes de intentar de nuevo.",
+  "ev.tubo_amostra.rapido.label": "Intentar de nuevo muy rápido",
+  "ev.tubo_amostra.rapido.outcome":
+    "¡Tomaron una muestra enseguida! Pero nadie revisó si estaba bien...",
+  "ev.tubo_amostra.rapido.lesson":
+    "En la ciencia, el apuro puede arruinar el trabajo. Revisar antes evita perder muestras.",
+  "ev.amostra_vazia.title": "La muestra se arruinó",
+  "ev.amostra_vazia.body":
+    "La muestra tomada con apuro estaba llena de polvo y no sirvió. Se perdió parte de la investigación.",
+
+  "ev.nuvens.title": "¡Nubes brillando en el cielo!",
+  "ev.nuvens.body":
+    "Después de la puesta del sol, unas nubes muy altas siguen brillando con colores del arcoíris.",
+  "ev.nuvens.noite.label": "Quedarse despierto fotografiando",
+  "ev.nuvens.noite.outcome":
+    "¡Fotos lindas para la ciencia! Pero el equipo se durmió tarde y quedó cansado.",
+  "ev.nuvens.noite.lesson":
+    "En 2021, el robot Curiosity fotografió nubes brillando después de la puesta del sol. Eran de hielo seco.",
+  "ev.nuvens.uma_foto.label": "Sacar una sola foto y dormir",
+  "ev.nuvens.uma_foto.outcome":
+    "Una foto bonita y todos descansados. La cámara gastó un poco de energía.",
+  "ev.nuvens.uma_foto.lesson":
+    "Marte también tiene nubes, como la Tierra. La mayoría son de hielo de agua.",
+
+  // 🛡️ refugio
+  "ev.tijolos.title": "Ladrillos de arena de Marte",
+  "ev.tijolos.body":
+    "Se puede proteger más la base con una capa nueva: ladrillos impresos o sacos de arena.",
+  "ev.tijolos.imprimir.label": "Imprimir ladrillos",
+  "ev.tijolos.imprimir.outcome":
+    "¡La impresora 3D hizo ladrillos de arena! La base está más protegida. Gastó energía.",
+  "ev.tijolos.imprimir.lesson":
+    "La NASA hizo un concurso de casas impresas en 3D con materiales de Marte, para proteger a futuras tripulaciones.",
+  "ev.tijolos.sacos.label": "Llenar sacos de arena afuera",
+  "ev.tijolos.sacos.outcome":
+    "Los sacos quedaron sobre la base. ¡Más protección! Pero el trabajo afuera gastó aire y cansó.",
+  "ev.tijolos.sacos.lesson":
+    "Usar la arena del propio lugar es una idea que se estudia para Marte: así no hay que llevar todo desde la Tierra.",
+
+  "ev.tremor.title": "¡La base tembló!",
+  "ev.tremor.body":
+    "Todo se movió un poquito. ¡Fue un temblor en Marte! Parece que nada se rompió... ¿o sí?",
+  "ev.tremor.conferir.label": "Revisar toda la base",
+  "ev.tremor.conferir.outcome":
+    "Encontraron un tornillo flojo y lo arreglaron. La revisión gastó energía.",
+  "ev.tremor.conferir.lesson":
+    "La sonda InSight sintió más de mil temblores en Marte. El más grande fue en 2022.",
+  "ev.tremor.seguir.label": "Seguir trabajando",
+  "ev.tremor.seguir.outcome": "Hicieron más ciencia. Pero nadie revisó si algo se aflojó...",
+  "ev.tremor.seguir.lesson":
+    "Después de un temblor, revisar la casa evita sorpresas. Un daño pequeño crece si nadie lo ve.",
+  "ev.tremor_estrago.title": "¡Se cayó un estante!",
+  "ev.tremor_estrago.body":
+    "El temblor de ayer aflojó un estante. Ordenar todo gastó energía y cansó al equipo.",
+
+  // 📡 antena
+  "ev.conjuncao.title": "El Sol está en medio del camino",
+  "ev.conjuncao.body":
+    "Pronto el Sol quedará entre Marte y la Tierra. Los mensajes no pasarán por unos días.",
+  "ev.conjuncao.mandar_tudo.label": "Mandar todos los datos antes",
+  "ev.conjuncao.mandar_tudo.outcome":
+    "¡Todos los datos llegaron a la Tierra a tiempo! La antena gastó energía.",
+  "ev.conjuncao.mandar_tudo.lesson":
+    "Más o menos cada 2 años, el Sol queda entre la Tierra y Marte. La NASA deja de mandar órdenes a sus robots por unas dos semanas.",
+  "ev.conjuncao.silencio.label": "Apagar la antena y ahorrar",
+  "ev.conjuncao.silencio.outcome":
+    "La batería guardó energía, pero el equipo se sintió solo sin noticias de la Tierra.",
+  "ev.conjuncao.silencio.lesson":
+    "Sin hablar con la Tierra, la tripulación tiene que resolver todo sola. Eso necesita preparación.",
+
+  "ev.satelite.title": "¡Está pasando un satélite!",
+  "ev.satelite.body":
+    "Un satélite que da vueltas a Marte va a pasar sobre la base. Puede llevar los datos a la Tierra.",
+  "ev.satelite.satelite.label": "Mandar los datos por el satélite",
+  "ev.satelite.satelite.outcome": "¡Los datos se fueron rapidito y gastaron poca energía!",
+  "ev.satelite.satelite.lesson":
+    "Los robots en Marte mandan la mayoría de sus fotos por satélites que dan vueltas al planeta.",
+  "ev.satelite.direto.label": "Mandarlos directo con la antena grande",
+  "ev.satelite.direto.outcome":
+    "Llegaron más datos a la Tierra, pero la antena grande gastó mucha energía.",
+  "ev.satelite.direto.lesson":
+    "Una antena grande puede hablar directo con la Tierra, pero gasta mucha más energía.",
+
+  "ev.musica.title": "¡Música para despertar!",
+  "ev.musica.body": "La Tierra mandó una canción alegre para despertar al equipo hoy.",
+  "ev.musica.tocar.label": "Ponerla bien fuerte",
+  "ev.musica.tocar.outcome": "¡Todos despertaron bailando! El sonido gastó un poquito de energía.",
+  "ev.musica.tocar.lesson":
+    "En la época de los transbordadores espaciales, el Control de Misión despertaba a los astronautas con una canción distinta cada día.",
+  "ev.musica.dormir_mais.label": "Dejar que el equipo duerma más",
+  "ev.musica.dormir_mais.outcome":
+    "El equipo descansó más, pero el laboratorio empezó tarde y hoy rinde solo la mitad.",
+  "ev.musica.dormir_mais.lesson":
+    "Un poco más de sueño ayuda al cuerpo, pero atrasa el trabajo del día.",
+
+  // 🛏️ casa
+  "ev.cardapio.title": "Comida aburrida",
+  "ev.cardapio.body":
+    "El equipo está cansado de comer siempre lo mismo. La comida parece no tener sabor.",
+  "ev.cardapio.tempero.label": "Cocinar algo nuevo con especias",
+  "ev.cardapio.tempero.outcome":
+    "¡Qué cena tan rica! Todos quedaron felices, pero se gastó más comida.",
+  "ev.cardapio.tempero.lesson":
+    "En el espacio, la comida puede parecer sin sabor. Por eso a muchos astronautas les gusta la salsa picante.",
+  "ev.cardapio.de_sempre.label": "Comer lo de siempre",
+  "ev.cardapio.de_sempre.outcome":
+    "La comida duró más, pero el equipo comió poco y quedó desanimado.",
+  "ev.cardapio.de_sempre.lesson":
+    "Comer siempre lo mismo cansa. La NASA estudia cómo mantener la comida rica en viajes largos.",
+
+  "ev.diario.title": "La hora del diario",
+  "ev.diario.body":
+    "Una astronauta quiere parar un poco para escribir en su diario cómo fue la semana.",
+  "ev.diario.escrever.label": "Parar para escribir",
+  "ev.diario.escrever.outcome":
+    "¡Se sintió mucho mejor! Pero dejó de trabajar, y el laboratorio hoy rinde solo la mitad.",
+  "ev.diario.escrever.lesson":
+    "Astronautas de la Estación Espacial escribieron diarios para una investigación de la NASA sobre cómo es vivir aislado.",
+  "ev.diario.trabalhar.label": "Seguir trabajando",
+  "ev.diario.trabalhar.outcome":
+    "La investigación avanzó, pero la astronauta quedó cansada y preocupada.",
+  "ev.diario.trabalhar.lesson":
+    "Trabajar sin parar parece bueno, pero el cansancio aparece después. Las pausas también son parte del trabajo.",
+
+  "ev.resfriado.title": "¡Achís!",
+  "ev.resfriado.body": "Un astronauta se despertó estornudando. ¡Parece un resfriado!",
+  "ev.resfriado.isolar.label": "Descansar lejos de los demás",
+  "ev.resfriado.isolar.outcome":
+    "Se mejoró y nadie más se contagió. Pero faltó alguien en el trabajo, y el laboratorio hoy rinde solo la mitad.",
+  "ev.resfriado.isolar.lesson":
+    "Antes de ir al espacio, los astronautas pasan unos días en cuarentena, lejos de otras personas, para no llevar enfermedades.",
+  "ev.resfriado.seguir.label": "Trabajar igual",
+  "ev.resfriado.seguir.outcome": "La investigación avanzó, pero el resfriado pasó a más gente.",
+  "ev.resfriado.seguir.lesson":
+    "En una base pequeña, una enfermedad pasa fácil de una persona a otra.",
+
+  // 🚙 rover
+  "ev.noite_gelada.title": "¡Noche helada!",
+  "ev.noite_gelada.body":
+    "Esta noche va a hacer mucho frío. El frío puede debilitar la batería del rover.",
+  "ev.noite_gelada.aquecer.label": "Encender la calefacción del rover",
+  "ev.noite_gelada.aquecer.outcome":
+    "El rover pasó la noche calentito. La calefacción gastó energía.",
+  "ev.noite_gelada.aquecer.lesson":
+    "Las noches en Marte son muy heladas. Los robots usan calefactores para proteger sus piezas y baterías.",
+  "ev.noite_gelada.deixar.label": "Dejar el rover en el frío",
+  "ev.noite_gelada.deixar.outcome": "Ahorraron energía hoy. ¿Aguantará la batería?",
+  "ev.noite_gelada.deixar.lesson":
+    "El frío debilita las baterías. En la Tierra también: el celular se descarga más rápido con frío.",
+  "ev.rover_frio.title": "La batería del rover se congeló",
+  "ev.rover_frio.body":
+    "El frío debilitó la batería del rover. Calentarla y recargarla gastó energía.",
+
+  "ev.drone.title": "¿Mandar el dron adelante?",
+  "ev.drone.body":
+    "El rover va a explorar un lugar nuevo. Un dron pequeño puede volar antes y mostrar el camino.",
+  "ev.drone.voar.label": "Volar el dron antes",
+  "ev.drone.voar.outcome":
+    "¡El dron encontró el mejor camino y fotos nuevas! El vuelo gastó energía.",
+  "ev.drone.voar.lesson":
+    "El helicóptero Ingenuity voló 72 veces en Marte, de 2021 a 2024. ¡Lo hicieron para volar solo 5 veces!",
+  "ev.drone.sem_olhar.label": "Ir en rover sin mirar",
+  "ev.drone.sem_olhar.outcome":
+    "El rover llegó más rápido y encontró piedras nuevas. Pero el camino era desconocido...",
+  "ev.drone.sem_olhar.lesson":
+    "Sin mirar el camino antes, el rover puede caer en arena blanda y quedar atrapado.",
 };

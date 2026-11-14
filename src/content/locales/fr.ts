@@ -535,4 +535,331 @@ export const fr: Dict = {
   "ev.fossil_resultado.title": "Juste une roche... mais c'est de la science !",
   "ev.fossil_resultado.body":
     "Ce n'était pas un fossile, juste une roche ordinaire. Mais le découvrir, c'est aussi de la science : on en sait plus sur les roches de Mars !",
+
+  // ================================================================ événements par lieu (lot 2)
+  // ☀️ panneaux
+  "ev.geada.title": "De la glace sur les panneaux !",
+  "ev.geada.body":
+    "La nuit a été si froide qu'une couche très fine de glace a couvert les panneaux solaires.",
+  "ev.geada.esperar.label": "Attendre que le Soleil la fasse fondre",
+  "ev.geada.esperar.outcome":
+    "La glace a fondu toute seule, mais les panneaux ont fait moins d'énergie le matin.",
+  "ev.geada.esperar.lesson":
+    "En 1979, l'atterrisseur Viking 2 a photographié une couche très fine de glace sur le sol de Mars.",
+  "ev.geada.raspar.label": "Sortir gratter la glace",
+  "ev.geada.raspar.outcome":
+    "Panneaux propres en un rien de temps ! Mais la sortie a utilisé l'air de la combinaison.",
+  "ev.geada.raspar.lesson":
+    "Dehors, chaque travail utilise l'air de la combinaison. Parfois, attendre est plus sûr que sortir.",
+
+  "ev.eclipse_fobos.title": "Une lune est passée devant le Soleil !",
+  "ev.eclipse_fobos.body":
+    "Phobos, une des deux lunes de Mars, va passer devant le Soleil. Pendant un instant, les panneaux recevront moins de lumière.",
+  "ev.eclipse_fobos.filmar.label": "Filmer l'éclipse",
+  "ev.eclipse_fobos.filmar.outcome":
+    "Quelle vidéo incroyable ! La caméra et le télescope ont coûté de l'énergie.",
+  "ev.eclipse_fobos.filmar.lesson":
+    "En 2022, le robot Perseverance a filmé Phobos passant devant le Soleil. L'éclipse a duré environ 40 secondes !",
+  "ev.eclipse_fobos.guardar.label": "Garder l'énergie dans la batterie",
+  "ev.eclipse_fobos.guardar.outcome":
+    "La batterie est plus pleine, mais le labo n'a pas eu d'énergie et ne marche qu'à moitié aujourd'hui.",
+  "ev.eclipse_fobos.guardar.lesson":
+    "Mars a deux petites lunes, Phobos et Deimos. Quand Phobos passe devant le Soleil, il arrive moins de lumière pendant un instant.",
+
+  "ev.truque_areia.title": "Panneaux poussiéreux",
+  "ev.truque_areia.body":
+    "Les panneaux ont de la poussière et font moins d'énergie. Le vent de l'après-midi peut aider... ou quelqu'un peut sortir les nettoyer.",
+  "ev.truque_areia.areia.label": "Lâcher du sable dans le vent",
+  "ev.truque_areia.areia.outcome":
+    "Le robot a lâché du sable près des panneaux. Le vent a emporté le sable, qui a entraîné un peu de poussière !",
+  "ev.truque_areia.areia.lesson":
+    "En 2021, l'atterrisseur InSight a utilisé cette astuce : il a lâché du sable dans le vent près de ses panneaux, et le sable a emporté une partie de la poussière.",
+  "ev.truque_areia.escovar.label": "Sortir brosser les panneaux",
+  "ev.truque_areia.escovar.outcome":
+    "Les panneaux sont bien propres ! Mais la sortie a utilisé l'air de la combinaison.",
+  "ev.truque_areia.escovar.lesson":
+    "Brosser nettoie mieux que le vent, mais chaque sortie utilise de l'air et fatigue l'équipe.",
+
+  // 💨 usine à air
+  "ev.filtro_co2.title": "Le filtre à gaz carbonique est plein",
+  "ev.filtro_co2.body":
+    "Quand on respire, on rejette du gaz carbonique. Le filtre qui retire ce gaz de l'air de la base est plein.",
+  "ev.filtro_co2.reserva.label": "Mettre le filtre de rechange",
+  "ev.filtro_co2.reserva.outcome": "Nouveau filtre en place ! Mais il n'y a plus de rechange.",
+  "ev.filtro_co2.reserva.lesson":
+    "Sur la Station spatiale, des machines retirent le gaz carbonique de l'air, car trop de ce gaz est mauvais pour le corps.",
+  "ev.filtro_co2.improvisar.label": "Bricoler un filtre",
+  "ev.filtro_co2.improvisar.outcome":
+    "Le filtre fait avec du ruban et de vieilles pièces a marché, mais moins bien. L'air est un peu moins bon.",
+  "ev.filtro_co2.improvisar.lesson":
+    "En 1970, le vaisseau Apollo 13 a eu un problème, et les astronautes ont fabriqué un filtre avec du ruban adhésif et d'autres pièces. Ça a marché !",
+
+  "ev.eletrolise.title": "Faire de l'air avec de l'eau ?",
+  "ev.eletrolise.body":
+    "La machine à air peut séparer l'eau en oxygène et en un autre gaz, avec de l'électricité. Mais cette eau sert aussi à arroser les plantes.",
+  "ev.eletrolise.fazer_ar.label": "Utiliser l'eau pour faire de l'air",
+  "ev.eletrolise.fazer_ar.outcome":
+    "Plus d'oxygène pour tout le monde ! Mais la serre a reçu moins d'eau.",
+  "ev.eletrolise.fazer_ar.lesson":
+    "Sur la Station spatiale, une machine sépare l'eau avec de l'électricité et fabrique de l'oxygène pour que l'équipage respire.",
+  "ev.eletrolise.guardar_agua.label": "Garder l'eau pour les plantes",
+  "ev.eletrolise.guardar_agua.outcome":
+    "Les plantes ont bien bu et ont poussé. Mais l'usine a fait moins d'air aujourd'hui.",
+  "ev.eletrolise.guardar_agua.lesson":
+    "Dans une base, la même eau sert à boire, à cultiver et même à faire de l'air. C'est pour ça qu'on la réutilise souvent.",
+
+  "ev.poeira_dentro.title": "De la poussière est entrée dans la base !",
+  "ev.poeira_dentro.body":
+    "La poussière a collé aux combinaisons et est entrée avec l'équipe. Maintenant, il y a de la poudre rouge partout par terre.",
+  "ev.poeira_dentro.aspirar.label": "Tout aspirer maintenant",
+  "ev.poeira_dentro.aspirar.outcome":
+    "La base est toute propre ! L'aspirateur a coûté de l'énergie.",
+  "ev.poeira_dentro.aspirar.lesson":
+    "Les astronautes d'Apollo ont raconté que la poussière de la Lune collait à tout et sentait la poudre à canon.",
+  "ev.poeira_dentro.depois.label": "Nettoyer un autre jour",
+  "ev.poeira_dentro.depois.outcome":
+    "Aucune énergie dépensée, mais la poussière a fait tousser et éternuer l'équipe.",
+  "ev.poeira_dentro.depois.lesson":
+    "La poussière de Mars est très fine et contient des sels mauvais pour le corps. Elle ne peut pas rester dans la maison.",
+
+  // 🌱 serre
+  "ev.luz_rosa.title": "Quelle lumière pour les plantes ?",
+  "ev.luz_rosa.body":
+    "Les lampes de la serre peuvent être rouges et bleues, ce qui rend tout rose, ou blanches, comme la lumière du jour.",
+  "ev.luz_rosa.rosa.label": "Lumière rouge et bleue",
+  "ev.luz_rosa.rosa.outcome":
+    "La serre est devenue rose et les plantes ont bien poussé, avec peu d'énergie.",
+  "ev.luz_rosa.rosa.lesson":
+    "Sur la Station spatiale, les plantes poussent sous des lumières rouges et bleues. Ensemble, elles rendent la serre rose !",
+  "ev.luz_rosa.branca.label": "Lumière blanche, comme le jour",
+  "ev.luz_rosa.branca.outcome":
+    "Les plantes ont poussé et l'équipe a aimé voir tout vert. Mais la lumière blanche a coûté plus d'énergie.",
+  "ev.luz_rosa.branca.lesson":
+    "Avec une lumière blanche, les plantes montrent leur vraie couleur. C'est plus facile de voir si l'une d'elles est malade.",
+
+  "ev.pimentas.title": "Les piments ont poussé !",
+  "ev.pimentas.body":
+    "Les plants sont pleins de piments verts. Si on attend plus, ils deviennent rouges et plus gros.",
+  "ev.pimentas.verdes.label": "Les cueillir verts maintenant",
+  "ev.pimentas.verdes.outcome":
+    "Il y a de la nourriture nouvelle et piquante aujourd'hui ! La cueillette a demandé un peu de travail.",
+  "ev.pimentas.verdes.lesson":
+    "En 2021, des astronautes ont cueilli des piments sur la Station spatiale et ont fait des tacos !",
+  "ev.pimentas.vermelhas.label": "Attendre qu'ils deviennent rouges",
+  "ev.pimentas.vermelhas.outcome":
+    "Les piments continuent de pousser. Dans quelques sols, la récolte sera grande !",
+  "ev.pimentas.vermelhas.lesson":
+    "L'expérience des piments sur la Station spatiale a duré plus de 4 mois. Les grandes plantes mettent du temps à donner des fruits.",
+  "ev.pimentas_vermelhas.title": "Des piments rouges !",
+  "ev.pimentas_vermelhas.body":
+    "L'attente en valait la peine : les piments sont devenus rouges et ont donné beaucoup de nourriture.",
+
+  "ev.adubo.title": "Que faire des restes ?",
+  "ev.adubo.body":
+    "Il reste des épluchures et des feuilles de la cuisine. Elles peuvent devenir des déchets... ou du compost pour la serre.",
+  "ev.adubo.compostar.label": "Faire du compost",
+  "ev.adubo.compostar.outcome":
+    "Les restes vont devenir du compost. Dans quelques sols, les plantes pousseront mieux !",
+  "ev.adubo.compostar.lesson":
+    "L'Agence spatiale européenne étudie un système qui recycle les restes pour produire de la nourriture et de l'air pendant les longs voyages.",
+  "ev.adubo.jogar_fora.label": "Les jeter",
+  "ev.adubo.jogar_fora.outcome":
+    "La cuisine a plus de place, mais les déchets sentaient mauvais et ont donné mal au cœur à l'équipe.",
+  "ev.adubo.jogar_fora.lesson":
+    "Dans une base sur Mars, il n'y a pas de camion-poubelle. Tout ce qu'on jette reste à l'intérieur.",
+  "ev.adubo_pronto.title": "Le compost est prêt !",
+  "ev.adubo_pronto.body":
+    "Les restes sont devenus du compost, et les plantes de la serre ont donné plus de nourriture.",
+
+  // 🔬 laboratoire
+  "ev.meteorito.title": "Une pierre est tombée du ciel !",
+  "ev.meteorito.body":
+    "Le robot a trouvé une pierre sombre et brillante près de la base. On dirait une météorite, une pierre venue de l'espace !",
+  "ev.meteorito.analisar.label": "L'analyser au labo",
+  "ev.meteorito.analisar.outcome":
+    "C'était bien une météorite en fer ! L'analyse a coûté de l'énergie.",
+  "ev.meteorito.analisar.lesson":
+    "En 2005, le robot Opportunity a trouvé une météorite sur Mars. C'était la première météorite trouvée sur une autre planète.",
+  "ev.meteorito.foto.label": "La photographier et l'envoyer sur Terre",
+  "ev.meteorito.foto.outcome":
+    "Les scientifiques sur Terre ont adoré les photos, mais sans analyse, la recherche a moins avancé.",
+  "ev.meteorito.foto.lesson":
+    "Des pierres de Mars tombent aussi sur Terre sous forme de météorites. Des scientifiques en étudient certaines depuis des années.",
+
+  "ev.tubo_amostra.title": "Le tube d'échantillon est revenu vide !",
+  "ev.tubo_amostra.body":
+    "L'équipe a percé une roche pour en garder un morceau dans un tube. Mais le tube est revenu vide !",
+  "ev.tubo_amostra.cuidado.label": "Comprendre ce qui s'est passé et réessayer",
+  "ev.tubo_amostra.cuidado.outcome":
+    "La roche était friable et s'est réduite en poudre. Le deuxième essai a marché ! Ça a coûté de l'énergie.",
+  "ev.tubo_amostra.cuidado.lesson":
+    "En 2021, le premier tube d'échantillon du robot Perseverance est revenu vide : la roche s'est réduite en poudre. L'équipe a étudié ce qui s'était passé avant de réessayer.",
+  "ev.tubo_amostra.rapido.label": "Réessayer très vite",
+  "ev.tubo_amostra.rapido.outcome":
+    "Vous avez pris un échantillon tout de suite ! Mais personne n'a vérifié s'il était bon...",
+  "ev.tubo_amostra.rapido.lesson":
+    "En science, se dépêcher peut gâcher le travail. Vérifier d'abord évite de perdre des échantillons.",
+  "ev.amostra_vazia.title": "L'échantillon est abîmé",
+  "ev.amostra_vazia.body":
+    "L'échantillon pris trop vite était plein de poussière et n'a pas servi. Une partie de la recherche est perdue.",
+
+  "ev.nuvens.title": "Des nuages brillent dans le ciel !",
+  "ev.nuvens.body":
+    "Après le coucher du soleil, des nuages très hauts continuent de briller avec les couleurs de l'arc-en-ciel.",
+  "ev.nuvens.noite.label": "Rester debout pour les photographier",
+  "ev.nuvens.noite.outcome":
+    "De belles photos pour la science ! Mais l'équipe s'est couchée tard et s'est fatiguée.",
+  "ev.nuvens.noite.lesson":
+    "En 2021, le robot Curiosity a photographié des nuages qui brillaient après le coucher du soleil. Ils étaient faits de glace sèche.",
+  "ev.nuvens.uma_foto.label": "Prendre une seule photo et dormir",
+  "ev.nuvens.uma_foto.outcome":
+    "Une jolie photo et une équipe reposée. La caméra a coûté un peu d'énergie.",
+  "ev.nuvens.uma_foto.lesson":
+    "Mars a aussi des nuages, comme la Terre. La plupart sont faits de glace d'eau.",
+
+  // 🛡️ abri
+  "ev.tijolos.title": "Des briques en sable de Mars",
+  "ev.tijolos.body":
+    "On peut mieux protéger la base avec une nouvelle couche : des briques imprimées ou des sacs de sable.",
+  "ev.tijolos.imprimir.label": "Imprimer des briques",
+  "ev.tijolos.imprimir.outcome":
+    "L'imprimante 3D a fait des briques de sable ! La base est mieux protégée. Ça a coûté de l'énergie.",
+  "ev.tijolos.imprimir.lesson":
+    "La NASA a organisé un concours de maisons imprimées en 3D avec des matériaux de Mars, pour protéger les futurs équipages.",
+  "ev.tijolos.sacos.label": "Remplir des sacs de sable dehors",
+  "ev.tijolos.sacos.outcome":
+    "Les sacs sont sur la base. Plus de protection ! Mais le travail dehors a coûté de l'air et a fatigué.",
+  "ev.tijolos.sacos.lesson":
+    "Utiliser le sable sur place est une idée étudiée pour Mars : ainsi, pas besoin de tout apporter de la Terre.",
+
+  "ev.tremor.title": "La base a tremblé !",
+  "ev.tremor.body":
+    "Tout a un peu bougé. C'était un séisme sur Mars ! On dirait que rien n'est cassé... ou pas ?",
+  "ev.tremor.conferir.label": "Vérifier toute la base",
+  "ev.tremor.conferir.outcome":
+    "Vous avez trouvé une vis desserrée et l'avez réparée. La vérification a coûté de l'énergie.",
+  "ev.tremor.conferir.lesson":
+    "L'atterrisseur InSight a senti plus de mille séismes sur Mars. Le plus fort a eu lieu en 2022.",
+  "ev.tremor.seguir.label": "Continuer le travail",
+  "ev.tremor.seguir.outcome":
+    "Vous avez fait plus de science. Mais personne n'a vérifié si quelque chose s'était desserré...",
+  "ev.tremor.seguir.lesson":
+    "Après un séisme, vérifier la maison évite les surprises. Un petit dégât grandit si personne ne le voit.",
+  "ev.tremor_estrago.title": "Une étagère est tombée !",
+  "ev.tremor_estrago.body":
+    "Le séisme d'hier a desserré une étagère. Tout ranger a coûté de l'énergie et a fatigué l'équipe.",
+
+  // 📡 antenne
+  "ev.conjuncao.title": "Le Soleil est sur le chemin",
+  "ev.conjuncao.body":
+    "Bientôt, le Soleil sera entre Mars et la Terre. Les messages ne passeront pas pendant quelques jours.",
+  "ev.conjuncao.mandar_tudo.label": "Envoyer toutes les données avant",
+  "ev.conjuncao.mandar_tudo.outcome":
+    "Toutes les données sont arrivées sur Terre à temps ! L'antenne a coûté de l'énergie.",
+  "ev.conjuncao.mandar_tudo.lesson":
+    "Environ tous les 2 ans, le Soleil se place entre la Terre et Mars. La NASA arrête d'envoyer des ordres à ses robots pendant environ deux semaines.",
+  "ev.conjuncao.silencio.label": "Éteindre l'antenne et économiser",
+  "ev.conjuncao.silencio.outcome":
+    "La batterie a gardé de l'énergie, mais l'équipe s'est sentie seule sans nouvelles de la Terre.",
+  "ev.conjuncao.silencio.lesson":
+    "Sans parler à la Terre, l'équipage doit tout résoudre seul. Il faut s'y préparer.",
+
+  "ev.satelite.title": "Un satellite passe !",
+  "ev.satelite.body":
+    "Un satellite qui tourne autour de Mars va passer au-dessus de la base. Il peut porter les données jusqu'à la Terre.",
+  "ev.satelite.satelite.label": "Envoyer les données par le satellite",
+  "ev.satelite.satelite.outcome": "Les données sont parties vite, avec peu d'énergie !",
+  "ev.satelite.satelite.lesson":
+    "Les robots sur Mars envoient la plupart de leurs photos par des satellites qui tournent autour de la planète.",
+  "ev.satelite.direto.label": "Envoyer directement avec la grande antenne",
+  "ev.satelite.direto.outcome":
+    "Plus de données sont arrivées sur Terre, mais la grande antenne a coûté beaucoup d'énergie.",
+  "ev.satelite.direto.lesson":
+    "Une grande antenne peut parler directement à la Terre, mais elle coûte beaucoup plus d'énergie.",
+
+  "ev.musica.title": "De la musique pour se réveiller !",
+  "ev.musica.body": "La Terre a envoyé une chanson joyeuse pour réveiller l'équipe aujourd'hui.",
+  "ev.musica.tocar.label": "La mettre très fort",
+  "ev.musica.tocar.outcome":
+    "Tout le monde s'est réveillé en dansant ! Le son a coûté un tout petit peu d'énergie.",
+  "ev.musica.tocar.lesson":
+    "À l'époque des navettes spatiales, le Contrôle de mission réveillait les astronautes avec une chanson différente chaque jour.",
+  "ev.musica.dormir_mais.label": "Laisser l'équipe dormir plus",
+  "ev.musica.dormir_mais.outcome":
+    "L'équipe s'est plus reposée, mais le labo a commencé tard et ne marche qu'à moitié aujourd'hui.",
+  "ev.musica.dormir_mais.lesson":
+    "Un peu plus de sommeil aide le corps, mais retarde le travail du jour.",
+
+  // 🛏️ maison
+  "ev.cardapio.title": "Repas sans goût",
+  "ev.cardapio.body":
+    "L'équipe en a assez de manger toujours la même chose. La nourriture semble n'avoir aucun goût.",
+  "ev.cardapio.tempero.label": "Cuisiner quelque chose de nouveau avec des épices",
+  "ev.cardapio.tempero.outcome":
+    "Quel bon dîner ! Tout le monde est content, mais ça a coûté plus de nourriture.",
+  "ev.cardapio.tempero.lesson":
+    "Dans l'espace, la nourriture peut sembler fade. C'est pour ça que beaucoup d'astronautes aiment la sauce piquante.",
+  "ev.cardapio.de_sempre.label": "Manger comme d'habitude",
+  "ev.cardapio.de_sempre.outcome":
+    "La nourriture a duré plus longtemps, mais l'équipe a peu mangé et s'est découragée.",
+  "ev.cardapio.de_sempre.lesson":
+    "Manger toujours la même chose, c'est lassant. La NASA étudie comment garder une nourriture bonne pendant les longs voyages.",
+
+  "ev.diario.title": "L'heure du journal",
+  "ev.diario.body":
+    "Une astronaute veut faire une pause pour écrire dans son journal comment s'est passée la semaine.",
+  "ev.diario.escrever.label": "S'arrêter pour écrire",
+  "ev.diario.escrever.outcome":
+    "Elle se sent bien mieux ! Mais elle a arrêté de travailler, et le labo ne marche qu'à moitié aujourd'hui.",
+  "ev.diario.escrever.lesson":
+    "Des astronautes de la Station spatiale ont écrit des journaux pour une étude de la NASA sur la vie isolée.",
+  "ev.diario.trabalhar.label": "Continuer à travailler",
+  "ev.diario.trabalhar.outcome":
+    "La recherche a avancé, mais l'astronaute est fatiguée et inquiète.",
+  "ev.diario.trabalhar.lesson":
+    "Travailler sans s'arrêter semble bien, mais la fatigue arrive après. Les pauses font aussi partie du travail.",
+
+  "ev.resfriado.title": "Atchoum !",
+  "ev.resfriado.body": "Un astronaute s'est réveillé en éternuant. On dirait un rhume !",
+  "ev.resfriado.isolar.label": "Se reposer loin des autres",
+  "ev.resfriado.isolar.outcome":
+    "Il va mieux et personne d'autre ne l'a attrapé. Mais il manquait quelqu'un au travail, et le labo ne marche qu'à moitié aujourd'hui.",
+  "ev.resfriado.isolar.lesson":
+    "Avant d'aller dans l'espace, les astronautes restent quelques jours en quarantaine, loin des autres, pour ne pas emporter de maladies.",
+  "ev.resfriado.seguir.label": "Travailler quand même",
+  "ev.resfriado.seguir.outcome": "La recherche a avancé, mais le rhume s'est transmis à d'autres.",
+  "ev.resfriado.seguir.lesson":
+    "Dans une petite base, une maladie passe facilement d'une personne à l'autre.",
+
+  // 🚙 rover
+  "ev.noite_gelada.title": "Nuit glaciale !",
+  "ev.noite_gelada.body":
+    "Cette nuit va être très froide. Le froid peut affaiblir la batterie du rover.",
+  "ev.noite_gelada.aquecer.label": "Allumer le chauffage du rover",
+  "ev.noite_gelada.aquecer.outcome":
+    "Le rover a passé une nuit au chaud. Le chauffage a coûté de l'énergie.",
+  "ev.noite_gelada.aquecer.lesson":
+    "Les nuits sur Mars sont très froides. Les robots utilisent des chauffages pour protéger leurs pièces et leurs batteries.",
+  "ev.noite_gelada.deixar.label": "Laisser le rover dans le froid",
+  "ev.noite_gelada.deixar.outcome":
+    "Vous avez économisé de l'énergie aujourd'hui. La batterie va-t-elle tenir ?",
+  "ev.noite_gelada.deixar.lesson":
+    "Le froid affaiblit les batteries. Sur Terre aussi : un téléphone se décharge plus vite dans le froid.",
+  "ev.rover_frio.title": "La batterie du rover a gelé",
+  "ev.rover_frio.body":
+    "Le froid a affaibli la batterie du rover. La réchauffer et la recharger a coûté de l'énergie.",
+
+  "ev.drone.title": "Envoyer le drone devant ?",
+  "ev.drone.body":
+    "Le rover va explorer un nouvel endroit. Un petit drone pourrait voler avant et montrer le chemin.",
+  "ev.drone.voar.label": "Faire voler le drone d'abord",
+  "ev.drone.voar.outcome":
+    "Le drone a trouvé le meilleur chemin et de nouvelles photos ! Le vol a coûté de l'énergie.",
+  "ev.drone.voar.lesson":
+    "L'hélicoptère Ingenuity a volé 72 fois sur Mars, de 2021 à 2024. Il avait été conçu pour voler seulement 5 fois !",
+  "ev.drone.sem_olhar.label": "Y aller en rover sans regarder",
+  "ev.drone.sem_olhar.outcome":
+    "Le rover est arrivé plus vite et a trouvé de nouvelles pierres. Mais le chemin était inconnu...",
+  "ev.drone.sem_olhar.lesson":
+    "Sans regarder le chemin avant, le rover peut tomber dans du sable mou et rester coincé.",
 };
