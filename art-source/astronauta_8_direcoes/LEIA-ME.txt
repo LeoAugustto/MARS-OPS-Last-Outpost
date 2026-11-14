@@ -1,0 +1,10 @@
+ASTRONAUTA — 8 DIREÇÕES
+
+Os 8 PNGs da pasta principal contêm um astronauta por arquivo (160 x 160 px), em pose de caminhada.
+Fundo transparente. Nomes indicam a direção do movimento na tela.
+
+A pasta animacoes contém as 8 faixas de caminhada, cada uma com 3 quadros lado a lado.
+Tamanho de cada faixa: 480 x 160 px. Tamanho de cada quadro: 160 x 160 px.
+Ordem dos quadros: esquerda para direita. Sugestão de reprodução: 0, 1, 2, 1.
+
+Artes recortadas da folha original, sem redesenhar o personagem. PNGs são imagens; a animação precisa ser configurada no jogo.

@@ -39,7 +39,7 @@ export function TopHud({
   const { t } = useGT();
   const r = state.resources;
   return (
-    <header className="flex shrink-0 flex-col gap-1 border-b-4 border-border bg-card px-2 py-1.5">
+    <header className="flex shrink-0 flex-col gap-1 border-b-4 border-border bg-card px-2 py-1.5 text-card-foreground">
       <div className="flex items-center gap-2">
         <Button
           variant="ghost"
@@ -96,7 +96,7 @@ export function BottomBar({
   const { t } = useGT();
   const faltam = state.alerts.filter((a) => !a.done).length;
   return (
-    <footer className="flex shrink-0 items-center gap-2 border-t-4 border-border bg-card p-2">
+    <footer className="flex shrink-0 items-center gap-2 border-t-4 border-border bg-card p-2 text-card-foreground">
       <Button variant="chunkySand" size="tap" onClick={onEnergy}>
         ⚡ {t("ui.energia.abrir")}
       </Button>

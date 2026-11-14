@@ -6,6 +6,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Alert, PlaceId } from "@/game/engine";
 import { PLACE_POS, useGT } from "./shared";
 import { ART, dirFrom, type Dir8 } from "./art";
+import { usePlayer } from "./player";
+
+/** quadros da caminhada: 0, 1, 2, 1 */
+const PASSOS = [0, 1, 2, 1];
 
 const SPEED = 38; // % do mapa por segundo
 const RAIO = 8; // distância (%) para "chegar" num lugar
@@ -22,6 +26,8 @@ interface Props {
 export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }: Props) {
   const background = ART.map.ready ? ART.map.src : undefined;
   const { t } = useGT();
+  const { gender } = usePlayer();
+  const [quadro, setQuadro] = useState(0);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState(320);
   const [pos, setPos] = useState({ x: 50, y: 58 });
@@ -33,6 +39,13 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
   const perto = useRef<PlaceId | null>(null);
   const posRef = useRef(pos);
   const movedOnce = useRef(false);
+
+  // troca o quadro da caminhada enquanto anda
+  useEffect(() => {
+    if (!walking) return;
+    const id = setInterval(() => setQuadro((q) => (q + 1) % PASSOS.length), 140);
+    return () => clearInterval(id);
+  }, [walking]);
 
   // quadrado que cabe na área disponível
   useEffect(() => {
@@ -174,9 +187,12 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
   };
 
   return (
-    <div ref={wrapRef} className="relative flex h-full w-full items-center justify-center">
+    <div
+      ref={wrapRef}
+      className="relative flex h-full w-full items-start justify-center sm:items-center"
+    >
       <div
-        className="relative touch-none select-none overflow-hidden rounded-3xl border-4 border-border shadow-2xl"
+        className="relative touch-none select-none overflow-hidden border-4 border-[#a5461f] shadow-[0_6px_0_#6e2a10]"
         style={{
           width: size,
           height: size,
@@ -203,32 +219,40 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
                 goTo(p.x, Math.min(94, p.y + 6), pl);
               }}
               className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center focus-visible:outline-none"
-              style={{ left: `${p.x}%`, top: `${p.y}%`, width: size * 0.2 }}
+              style={{ left: `${p.x}%`, top: `${p.y}%`, width: size * (background ? 0.24 : 0.2) }}
               aria-label={t(`lugar.${pl}`) + (alerta ? " ❗" : "")}
             >
               <span
-                className={`relative grid aspect-square w-full place-items-center rounded-2xl ${
-                  background ? "border-4 border-transparent" : "border-4 bg-secondary/90 shadow-lg"
-                } ${urgente ? "border-destructive" : alerta ? "border-primary" : "border-border"}`}
+                className={`relative grid aspect-square w-full place-items-center ${
+                  background ? "border-4 border-dashed" : "border-4 bg-secondary/90 shadow-lg"
+                } ${
+                  urgente
+                    ? "animate-pulse border-destructive"
+                    : alerta
+                      ? "border-[#fff1dc]/90"
+                      : background
+                        ? "border-transparent"
+                        : "border-border"
+                }`}
                 style={{ fontSize: size * 0.085 }}
               >
                 {!background && p.icon}
                 {pl === "paineis" && solar < 1 && (
                   <span
-                    className="absolute inset-0 rounded-xl bg-[oklch(0.5_0.08_50)]"
+                    className="absolute inset-0 bg-[#8a5a3a]"
                     style={{ opacity: (1 - solar) * 0.9 }}
                     aria-hidden
                   />
                 )}
                 {pl === "abrigo" && escudo > 0 && (
-                  <span className="absolute -bottom-2 rounded-full bg-card px-1.5 text-xs font-bold text-secondary">
+                  <span className="absolute -bottom-2 border-2 border-border bg-card px-1.5 text-xs font-bold text-secondary">
                     {"▰".repeat(escudo)}
                   </span>
                 )}
                 {alerta && (
                   <span
-                    className={`absolute -right-2 -top-3 grid h-8 w-8 animate-bounce place-items-center rounded-full text-lg font-black shadow-md ${
-                      urgente ? "bg-destructive text-white" : "bg-primary text-primary-foreground"
+                    className={`absolute -right-2 -top-3 grid h-8 w-8 animate-bounce place-items-center border-2 border-[#4a2615] text-lg font-black shadow-[0_3px_0_#4a2615] ${
+                      urgente ? "bg-destructive text-white" : "bg-[#ffd23f] text-[#4a2615]"
                     }`}
                     style={{ width: size * 0.08, height: size * 0.08, fontSize: size * 0.05 }}
                     aria-hidden
@@ -238,7 +262,7 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
                 )}
               </span>
               <span
-                className="mt-1 max-w-[130%] truncate rounded-full bg-background/70 px-2 font-bold text-foreground"
+                className="mt-0.5 max-w-[130%] truncate border-2 border-[#a5461f] bg-[#fbe2c2]/95 px-1.5 font-bold text-[#4a2615]"
                 style={{ fontSize: Math.max(10, size * 0.03) }}
               >
                 {t(`lugar.${pl}`)}
@@ -255,15 +279,11 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
         >
           {ART.astronaut.ready ? (
             <img
-              src={ART.astronaut.src[dir]}
+              src={ART.astronaut.frame(gender, dir, walking ? (PASSOS[quadro] ?? 1) : 1)}
               alt=""
-              className={`block ${walking ? "animate-bounce" : ""}`}
-              style={{
-                width: size * 0.11,
-                height: size * 0.11,
-                imageRendering: "pixelated",
-                animationDuration: "0.5s",
-              }}
+              className="block"
+              style={{ width: size * 0.12, height: size * 0.12, imageRendering: "pixelated" }}
+              draggable={false}
             />
           ) : (
             <span

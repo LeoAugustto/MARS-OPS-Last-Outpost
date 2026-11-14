@@ -1,62 +1,47 @@
-// ARTE DO JOGO — dono: Yckler (+ time de arte).
-// Coloque as imagens em public/assets/ com EXATAMENTE estes nomes e mude `ready` para true.
-// Enquanto `ready` for false, o jogo usa a arte provisória (formas + emoji).
-// Estilo: pixel art (as imagens são desenhadas com image-rendering: pixelated).
+// ARTE DO JOGO (pixel art) — dono: Yckler + time de arte. Detalhes em docs/ART.md.
+// Arquivos em public/assets/. Originais (sem cortar) em art-source/.
+// Grupo com `ready: false` usa a arte provisória (emoji).
 
 import type { PlaceId } from "@/game/engine";
 
+/** Personagem escolhido pela criança: menina (f) ou menino (m). */
+export type Gender = "f" | "m";
+export type Dir8 = "n" | "ne" | "e" | "se" | "s" | "sw" | "w" | "nw";
+
 export const ART = {
-  /** Mapa da base visto de cima, QUADRADO (ex.: 1024×1024). Mesma disposição de docs/GAME_DESIGN.md. */
-  map: { ready: false, src: "/assets/map/base.png" },
+  /** Mapa da base visto de cima (1024×1024). */
+  map: { ready: true, src: "/assets/map/base.png" },
 
-  /**
-   * Astronauta andando em 8 direções (fundo transparente, quadrado, ex.: 128×128 cada).
-   * n = para cima · s = para baixo · e = direita · w = esquerda · ne/nw/se/sw = diagonais.
-   */
+  /** Astronauta andando: 8 direções × 3 quadros (128×128, pés embaixo). Tocar 0,1,2,1. */
   astronaut: {
-    ready: false,
-    src: {
-      n: "/assets/astronaut/n.png",
-      ne: "/assets/astronaut/ne.png",
-      e: "/assets/astronaut/e.png",
-      se: "/assets/astronaut/se.png",
-      s: "/assets/astronaut/s.png",
-      sw: "/assets/astronaut/sw.png",
-      w: "/assets/astronaut/w.png",
-      nw: "/assets/astronaut/nw.png",
-    },
+    ready: true,
+    frame: (g: Gender, d: Dir8, i: number) => `/assets/astronaut/${g}/${d}_${i}.png`,
   },
 
-  /**
-   * Retratos para a CAIXA DE DIÁLOGO (pixel art, quadrado, ex.: 256×256, fundo opaco ou transparente).
-   * Sem logo da NASA (regras de uso de marca da NASA). Personagens genéricos.
-   */
+  /** Retratos da caixa de diálogo (256×256). Controle de Missão e Rovi ainda sem arte. */
   portraits: {
-    ready: false,
-    src: {
-      astronauta: "/assets/portraits/astronauta.png",
-      controle: "/assets/portraits/controle.png",
-      rovi: "/assets/portraits/rovi.png",
-    },
+    astronauta: { ready: true, src: (g: Gender) => `/assets/portraits/astronauta_${g}.png` },
+    controle: { ready: false, src: "/assets/portraits/controle.png" },
+    rovi: { ready: false, src: "/assets/portraits/rovi.png" },
   },
 
-  /** Ilustração de DENTRO de cada lugar (cena com o astronauta), larga (ex.: 1280×720). Aparece atrás do card. */
+  /** Ícones redondos dos lugares (128×128). O rover não tem ícone ainda. */
+  icons: {
+    habitat: "/assets/icons/habitat.png",
+    paineis: "/assets/icons/paineis.png",
+    antena: "/assets/icons/antena.png",
+    ar: "/assets/icons/ar.png",
+    estufa: "/assets/icons/estufa.png",
+    lab: "/assets/icons/lab.png",
+    abrigo: "/assets/icons/abrigo.png",
+  } as Partial<Record<PlaceId, string>>,
+
+  /** Cena de DENTRO de cada lugar (1280×560) — ainda sem arte. */
   places: {
     ready: false,
-    src: {
-      habitat: "/assets/places/habitat.png",
-      paineis: "/assets/places/paineis.png",
-      antena: "/assets/places/antena.png",
-      ar: "/assets/places/ar.png",
-      estufa: "/assets/places/estufa.png",
-      lab: "/assets/places/lab.png",
-      abrigo: "/assets/places/abrigo.png",
-      rover: "/assets/places/rover.png",
-    } satisfies Record<PlaceId, string>,
+    src: (p: PlaceId) => `/assets/places/${p}.png`,
   },
 } as const;
-
-export type Dir8 = keyof typeof ART.astronaut.src;
 
 /** Direção (8) a partir do movimento. y cresce para baixo. */
 export function dirFrom(dx: number, dy: number): Dir8 {
@@ -65,4 +50,4 @@ export function dirFrom(dx: number, dy: number): Dir8 {
   return dirs[Math.round(((ang + 360) % 360) / 45) % 8]!;
 }
 
-export type Speaker = keyof typeof ART.portraits.src;
+export type Speaker = "astronauta" | "controle" | "rovi";

@@ -1,4 +1,4 @@
-// O jogo inteiro: nível → abertura → [manhã → mapa → noite] × sóis → fim → relatório.
+// O jogo inteiro: nível → perfil (nome + personagem) → abertura → [manhã → mapa → noite] × sóis → fim → relatório.
 // Save automático no localStorage (slot 1). Eventos do Sol buscados ao vivo no DONKI.
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
@@ -20,10 +20,11 @@ import { BaseMap } from "./BaseMap";
 import { EventCard } from "./EventCard";
 import { BottomBar, TopHud } from "./Hud";
 import { EnergyPanel, GameMenu, Glossary, MorningModal, NightModal, PlaceInfo } from "./Panels";
-import { EndScreen, Intro, LevelSelect, Report, TutorialBubble } from "./Screens";
-import { stopSpeaking, useGT } from "./shared";
+import { EndScreen, Intro, LevelSelect, ProfileScreen, Report, TutorialBubble } from "./Screens";
+import { PIXEL_FONT_URL, PIXEL_THEME, stopSpeaking, useGT } from "./shared";
+import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
 
-type Phase = "nivel" | "abertura" | "manha" | "mapa" | "noite" | "fim" | "relatorio";
+type Phase = "nivel" | "perfil" | "abertura" | "manha" | "mapa" | "noite" | "fim" | "relatorio";
 type Overlay = null | "energia" | "glossario" | "menu";
 
 interface SaveData {
@@ -32,6 +33,7 @@ interface SaveData {
   phase: Phase;
   tut: number;
   seen: string[];
+  player?: Player;
 }
 
 const SLOT = 1;
@@ -43,8 +45,41 @@ function readSave(): SaveData | null {
   return d && d.v === 2 && d.game?.version === 2 ? d : null;
 }
 
+/** Camada de fora: perfil da criança (nome + personagem) e tema pixel art do jogo. */
 export function GameApp({ mode }: { mode?: "new" | "continue" | undefined }) {
+  const [player, setPlayer] = useState<Player>({ name: "", gender: "f" });
+  useEffect(() => {
+    const p = loadPlayer();
+    if (p) setPlayer(p);
+  }, []);
+  const onPlayer = useCallback((p: Player) => {
+    setPlayer(p);
+    savePlayer(p);
+  }, []);
+  return (
+    <div
+      style={PIXEL_THEME}
+      className="[&_.font-display]:[font-family:'Pixelify_Sans',sans-serif] [&_img]:[image-rendering:pixelated]"
+    >
+      <link rel="stylesheet" href={PIXEL_FONT_URL} />
+      <PlayerProvider player={player}>
+        <GameInner mode={mode} player={player} onPlayer={onPlayer} />
+      </PlayerProvider>
+    </div>
+  );
+}
+
+function GameInner({
+  mode,
+  player,
+  onPlayer,
+}: {
+  mode?: "new" | "continue" | undefined;
+  player: Player;
+  onPlayer: (p: Player) => void;
+}) {
   const { t } = useGT();
+  const [nivel, setNivel] = useState<Level>("cadete");
   const navigate = useNavigate();
   const [game, setGame] = useState<GameState | null>(null);
   const [phase, setPhase] = useState<Phase>("nivel");
@@ -73,21 +108,30 @@ export function GameApp({ mode }: { mode?: "new" | "continue" | undefined }) {
   }, []);
 
   function restore(s: SaveData) {
+    if (s.player) onPlayer(s.player);
     setGame(s.game);
     setTut(s.tut);
     setSeen(s.seen);
-    const p = s.phase === "nivel" || s.phase === "abertura" ? "manha" : s.phase;
+    const p =
+      s.phase === "nivel" || s.phase === "abertura" || s.phase === "perfil" ? "manha" : s.phase;
     setPhase(p);
   }
 
   // save automático
   useEffect(() => {
-    if (!game || phase === "nivel") return;
-    writeSave(SLOT, { v: 2, game, phase, tut, seen } satisfies SaveData, game.sol);
-  }, [game, phase, tut, seen]);
+    if (!game || phase === "nivel" || phase === "perfil") return;
+    writeSave(SLOT, { v: 2, game, phase, tut, seen, player } satisfies SaveData, game.sol);
+  }, [game, phase, tut, seen, player]);
 
-  const start = (level: Level) => {
-    const g = newMission({ level, ...(pool ? { donkiPool: pool.events } : {}) });
+  /** escolheu o nível → tela "quem vai comandar a base?" */
+  const pickLevel = (level: Level) => {
+    setNivel(level);
+    setPhase("perfil");
+  };
+
+  const start = (p: Player) => {
+    onPlayer(p);
+    const g = newMission({ level: nivel, ...(pool ? { donkiPool: pool.events } : {}) });
     setGame(g);
     setTut(0);
     setSeen([]);
@@ -155,7 +199,7 @@ export function GameApp({ mode }: { mode?: "new" | "continue" | undefined }) {
   // ---------------------------------------------------------------- telas sem mapa
   const tela = "h-dvh w-full overflow-hidden bg-mars text-foreground";
 
-  if (phase === "nivel" || !game) {
+  if (phase === "nivel" || (!game && phase !== "perfil")) {
     const info = pool
       ? pool.fromNasa > 0
         ? t("ui.nasa_ok", { n: pool.fromNasa })
@@ -167,12 +211,19 @@ export function GameApp({ mode }: { mode?: "new" | "continue" | undefined }) {
           loading={loading}
           nasaInfo={info}
           saveSol={saved && saved.game.status === "jogando" ? saved.game.sol : null}
-          onStart={start}
+          onStart={pickLevel}
           onContinue={() => saved && restore(saved)}
         />
       </main>
     );
   }
+  if (phase === "perfil")
+    return (
+      <main className={tela}>
+        <ProfileScreen initial={player} onBack={() => setPhase("nivel")} onDone={start} />
+      </main>
+    );
+  if (!game) return null;
   if (phase === "abertura")
     return (
       <main className={tela}>

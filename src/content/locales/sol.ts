@@ -80,7 +80,8 @@ const en: SolDict = {
   "ev.sol_clarao.reserva.lesson":
     "Strong solar flashes cause real radio blackouts here on Earth. A backup antenna helps, but it costs energy.",
   "ev.sol_clarao.desligar.label": "Turn the antenna off today",
-  "ev.sol_clarao.desligar.outcome": "You saved energy, but today the lab can only send half of its data.",
+  "ev.sol_clarao.desligar.outcome":
+    "You saved energy, but today the lab can only send half of its data.",
   "ev.sol_clarao.desligar.lesson":
     "Without radio, science can’t reach Earth. Sometimes saving energy means losing information.",
 
@@ -124,7 +125,8 @@ const en: SolDict = {
   "ev.sol_terra.body":
     "On {data}, a magnetic storm (power {estrelas}) hit Earth. Mission Control is having trouble talking to you.",
   "ev.sol_terra.esperar.label": "Wait for Earth",
-  "ev.sol_terra.esperar.outcome": "You waited for Earth. Today the lab can only send half of its data.",
+  "ev.sol_terra.esperar.outcome":
+    "You waited for Earth. Today the lab can only send half of its data.",
   "ev.sol_terra.esperar.lesson":
     "Earth’s magnetic field protects people, but a strong storm disturbs radios and satellites.",
   "ev.sol_terra.sozinhos.label": "Solve it yourselves",
@@ -144,7 +146,8 @@ const es: SolDict = {
   "ev.sol_clarao.reserva.lesson":
     "Los destellos fuertes causan apagones de radio de verdad aquí en la Tierra. Una antena de reserva ayuda, pero cuesta energía.",
   "ev.sol_clarao.desligar.label": "Apagar la antena hoy",
-  "ev.sol_clarao.desligar.outcome": "Guardaron energía, pero hoy el laboratorio solo puede enviar la mitad de los datos.",
+  "ev.sol_clarao.desligar.outcome":
+    "Guardaron energía, pero hoy el laboratorio solo puede enviar la mitad de los datos.",
   "ev.sol_clarao.desligar.lesson":
     "Sin radio, la ciencia no llega a la Tierra. A veces ahorrar energía significa perder información.",
 
@@ -189,7 +192,8 @@ const es: SolDict = {
   "ev.sol_terra.body":
     "El {data}, una tormenta magnética (fuerza {estrelas}) golpeó la Tierra. El Control de Misión tiene problemas para hablar con ustedes.",
   "ev.sol_terra.esperar.label": "Esperar a la Tierra",
-  "ev.sol_terra.esperar.outcome": "Esperaron a la Tierra. Hoy el laboratorio solo puede enviar la mitad de los datos.",
+  "ev.sol_terra.esperar.outcome":
+    "Esperaron a la Tierra. Hoy el laboratorio solo puede enviar la mitad de los datos.",
   "ev.sol_terra.esperar.lesson":
     "El campo magnético de la Tierra protege a las personas, pero una tormenta fuerte molesta a radios y satélites.",
   "ev.sol_terra.sozinhos.label": "Resolverlo solos",
@@ -258,7 +262,8 @@ const fr: SolDict = {
   "ev.sol_terra.body":
     "Le {data}, une tempête magnétique (force {estrelas}) a frappé la Terre. Le Contrôle de mission a du mal à vous parler.",
   "ev.sol_terra.esperar.label": "Attendre la Terre",
-  "ev.sol_terra.esperar.outcome": "Vous avez attendu la Terre. Aujourd’hui le laboratoire ne peut envoyer que la moitié des données.",
+  "ev.sol_terra.esperar.outcome":
+    "Vous avez attendu la Terre. Aujourd’hui le laboratoire ne peut envoyer que la moitié des données.",
   "ev.sol_terra.esperar.lesson":
     "Le champ magnétique de la Terre protège les gens, mais une forte tempête perturbe les radios et les satellites.",
   "ev.sol_terra.sozinhos.label": "Se débrouiller seuls",

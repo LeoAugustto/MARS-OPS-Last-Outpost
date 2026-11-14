@@ -11,7 +11,9 @@ import {
   type HistoryPoint,
   type Level,
 } from "@/game/engine";
-import { DialogBox, SpeakButton, useGT } from "./shared";
+import { AstronautSprite, DialogBox, SpeakButton, useGT } from "./shared";
+import { NAME_MAX, cleanName, type Player } from "./player";
+import type { Gender } from "./art";
 
 // ---------------------------------------------------------------- escolher nível
 export function LevelSelect({
@@ -41,7 +43,7 @@ export function LevelSelect({
         </Button>
         <LangSelector />
       </div>
-      <h1 className="text-center font-display text-3xl font-bold text-secondary">
+      <h1 className="text-center font-display text-3xl font-bold text-[#ffd23f]">
         {t("ui.nivel.titulo")}
       </h1>
       <div className="grid w-full max-w-xl gap-3">
@@ -74,6 +76,81 @@ export function LevelSelect({
         {loading ? `⏳ ${t("ui.carregando")}` : nasaInfo}
       </p>
     </div>
+  );
+}
+
+// ---------------------------------------------------------------- perfil: nome + personagem
+export function ProfileScreen({
+  initial,
+  onBack,
+  onDone,
+}: {
+  initial: Player;
+  onBack: () => void;
+  onDone: (p: Player) => void;
+}) {
+  const { t } = useGT();
+  const [gender, setGender] = useState<Gender>(initial.gender);
+  const [name, setName] = useState(initial.name);
+  const opcoes: Gender[] = ["f", "m"];
+  return (
+    <form
+      className="flex h-full flex-col items-center gap-4 overflow-y-auto p-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onDone({ gender, name: cleanName(name) });
+      }}
+    >
+      <div className="flex w-full max-w-xl">
+        <Button type="button" variant="ghost" size="tap" onClick={onBack}>
+          ← {t("ui.nivel.titulo")}
+        </Button>
+      </div>
+      <h1 className="text-center font-display text-3xl font-bold text-foreground">
+        {t("ui.perfil.titulo")}
+      </h1>
+      <p className="font-bold text-foreground">{t("ui.perfil.escolha")}</p>
+      <div
+        className="grid w-full max-w-md grid-cols-2 gap-3"
+        role="radiogroup"
+        aria-label={t("ui.perfil.escolha")}
+      >
+        {opcoes.map((g) => (
+          <button
+            key={g}
+            type="button"
+            role="radio"
+            aria-checked={gender === g}
+            onClick={() => setGender(g)}
+            className={`flex flex-col items-center gap-2 border-4 bg-card p-3 text-card-foreground transition active:translate-y-1 ${
+              gender === g
+                ? "border-primary shadow-[0_6px_0_#9a3a14]"
+                : "border-border opacity-80 shadow-[0_6px_0_#6e2a10]"
+            }`}
+          >
+            <AstronautSprite gender={g} size={112} />
+            <span className="text-lg font-bold">
+              {t(`ui.perfil.${g === "f" ? "menina" : "menino"}`)}
+            </span>
+          </button>
+        ))}
+      </div>
+      <label className="flex w-full max-w-md flex-col gap-1">
+        <span className="font-bold text-foreground">{t("ui.perfil.nome")}</span>
+        <input
+          value={name}
+          maxLength={NAME_MAX}
+          autoComplete="off"
+          onChange={(e) => setName(e.target.value)}
+          placeholder={t("ui.perfil.padrao")}
+          className="min-h-12 border-4 border-border bg-card px-3 text-xl font-bold text-card-foreground outline-none focus:border-primary"
+        />
+        <span className="text-sm text-foreground/80">{t("ui.perfil.dica")}</span>
+      </label>
+      <Button type="submit" variant="chunky" size="tap" className="w-full max-w-md text-lg">
+        {t("ui.proximo")} ▶
+      </Button>
+    </form>
   );
 }
 
@@ -148,7 +225,10 @@ export function EndScreen({
       <div className="text-8xl" aria-hidden>
         {icon}
       </div>
-      <h1 className="font-display text-4xl font-bold text-secondary">{t(d.titleKey)}</h1>
+      <p className="border-2 border-border bg-card px-3 py-1 font-bold text-card-foreground">
+        {t("ui.fim.quem")}
+      </p>
+      <h1 className="font-display text-4xl font-bold text-[#ffd23f]">{t(d.titleKey)}</h1>
       <p className="max-w-md text-xl">{t(d.bodyKey)}</p>
       <p className="text-lg font-bold">
         {t("ui.relatorio.ciencia", { n: d.ciencia, meta: d.metaCiencia })} ·{" "}
@@ -234,7 +314,7 @@ export function Report({
   return (
     <div className="h-full overflow-y-auto p-4">
       <div className="mx-auto flex max-w-2xl flex-col gap-4">
-        <h1 className="text-center font-display text-3xl font-bold text-secondary">
+        <h1 className="text-center font-display text-3xl font-bold text-[#ffd23f]">
           📋 {t("ui.relatorio.titulo")}
         </h1>
         <p className="text-center text-lg font-bold">
@@ -251,7 +331,7 @@ export function Report({
         )}
 
         <section className="flex flex-col gap-2">
-          <h2 className="font-display text-xl font-bold text-secondary">
+          <h2 className="font-display text-xl font-bold text-[#ffd23f]">
             {t("ui.relatorio.decisoes")}
           </h2>
           {d.momentos.length === 0 && <p>{t("ui.relatorio.sem_decisoes")}</p>}
@@ -270,7 +350,7 @@ export function Report({
         </section>
 
         <section className="flex flex-col gap-2">
-          <h2 className="font-display text-xl font-bold text-secondary">
+          <h2 className="font-display text-xl font-bold text-[#ffd23f]">
             ☀️ {t("ui.relatorio.reais")}
           </h2>
           <p className="text-sm text-muted-foreground">{t("ui.relatorio.reais_explica")}</p>
