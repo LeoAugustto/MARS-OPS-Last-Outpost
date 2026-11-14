@@ -5,7 +5,8 @@
 // Arte: src/game/ui/art.ts (mapa pixel art + astronauta em 8 direções). Sem arte pronta, usa formas + emoji.
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import type { Alert, PlaceId } from "@/game/engine";
-import { PLACE_POS, useGT } from "./shared";
+import { AstronautSprite, PlaceIcon, PLACE_POS, useGT } from "./shared";
+import { PixelIcon } from "./PixelIcon";
 import { ART, dirFrom, type Dir8, type Periodo } from "./art";
 import { usePlayer } from "./player";
 import {
@@ -363,7 +364,7 @@ export function BaseMap({
               }}
               className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center focus-visible:outline-none"
               style={{ left: `${p.x}%`, top: `${p.y}%`, width: size * (background ? 0.24 : 0.2) }}
-              aria-label={t(`lugar.${pl}`) + (alerta ? " ❗" : "")}
+              aria-label={t(`lugar.${pl}`) + (alerta ? ` · ${urgente ? t("ui.urgente") : t("ui.alerta")}` : "")}
             >
               <span
                 ref={(el) => {
@@ -384,7 +385,7 @@ export function BaseMap({
                 }`}
                 style={{ fontSize: size * 0.085 }}
               >
-                {!background && p.icon}
+                {!background && <PlaceIcon place={pl} size={Math.round(size * 0.11)} />}
                 {pl === "paineis" && solar < 1 && (
                   <span
                     className="absolute inset-0 bg-[#8a5a3a]"
@@ -393,8 +394,8 @@ export function BaseMap({
                   />
                 )}
                 {pl === "abrigo" && escudo > 0 && (
-                  <span className="absolute -bottom-2 border-2 border-border bg-card px-1.5 text-xs font-bold text-secondary">
-                    {"▰".repeat(escudo)}
+                  <span className="absolute -bottom-2 inline-flex items-center gap-0.5 border-2 border-border bg-card px-1 text-xs font-bold text-secondary" title={t("recurso.escudo")}>
+                    <PixelIcon name="nivel" size={20} /> {escudo}
                   </span>
                 )}
                 {alerta &&
@@ -405,19 +406,16 @@ export function BaseMap({
                     return (
                       <span
                         data-aviso
-                        className={`absolute grid animate-bounce place-items-center border-2 border-[#4a2615] font-black shadow-[0_3px_0_#4a2615] ${
-                          urgente ? "bg-destructive text-white" : "bg-[#ffd23f] text-[#4a2615]"
-                        }`}
+                        className="absolute grid animate-bounce place-items-center"
                         style={{
                           left: at.left,
                           top: at.top,
                           width: B,
                           height: B,
-                          fontSize: size * 0.05,
                         }}
                         aria-hidden
                       >
-                        {urgente ? "🚨" : "!"}
+                        <PixelIcon name={urgente ? "urgente" : "alerta"} size={Math.round(B)} />
                       </span>
                     );
                   })()}
@@ -461,7 +459,7 @@ export function BaseMap({
               className={`block ${walking ? "animate-bounce" : ""}`}
               style={{ transform: flip ? "scaleX(-1)" : undefined, animationDuration: "0.5s" }}
             >
-              🧑‍🚀
+              <AstronautSprite gender={gender} size={Math.round(size * SPRITE)} />
             </span>
           )}
           <span

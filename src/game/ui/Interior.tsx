@@ -1,12 +1,11 @@
 // Interior de um lugar da base: a criança entra pela porta e anda livre lá dentro.
-// Objetos: 🖥️ computador (alerta do lugar ou informações), 🚪 saída, e alguns especiais
-// (🛏️ cama na casa = dormir; ⚡ painel de energia na fábrica de ar).
-// Arte: ART.places (src/game/ui/art.ts). Sem arte pronta, desenha uma sala pixel com o ícone do lugar.
+// O computador abre alertas e informações. A cama e o painel de energia têm ações próprias.
 import { useEffect, useRef, useState } from "react";
 import type { Alert, PlaceId } from "@/game/engine";
 import { ART, dirFrom, type Dir8 } from "./art";
 import { usePlayer } from "./player";
-import { PlaceIcon, useGT } from "./shared";
+import { useGT } from "./shared";
+import { PixelIcon } from "./PixelIcon";
 
 type Obj = "terminal" | "saida" | "cama" | "energia";
 type Ponto = { x: number; y: number };
@@ -19,7 +18,7 @@ function objetos(place: PlaceId): Partial<Record<Obj, Ponto>> {
   return base;
 }
 
-const ICONE: Record<Obj, string> = { terminal: "🖥️", saida: "🚪", cama: "🛏️", energia: "⚡" };
+const ICONE: Record<Obj, string> = { terminal: "computador", saida: "porta", cama: "cama", energia: "raio" };
 const SPEED = 34;
 const RAIO = 9;
 const PASSOS = [0, 1, 2, 1];
@@ -181,24 +180,12 @@ export function Interior({
     alvo.current = obj ? { p: prender(p), obj } : { p: prender(p) };
   };
 
-  const fundo = ART.places.ready
-    ? { background: `center / cover no-repeat url(${ART.places.src(place)})` }
-    : {
-        // sala pixel provisória: parede em cima, piso em ladrilhos embaixo
-        background: [
-          "linear-gradient(180deg, #5b3a2e 0%, #5b3a2e 34%, #3c241b 34%, #3c241b 37%, transparent 37%)",
-          "repeating-linear-gradient(90deg, transparent 0 46px, rgba(0,0,0,.12) 46px 48px)",
-          "repeating-linear-gradient(0deg, transparent 0 46px, rgba(0,0,0,.12) 46px 48px)",
-          "linear-gradient(180deg, #d9b089, #c99a72)",
-        ].join(","),
-      };
-
   return (
     <div className="relative flex h-full w-full items-start justify-center sm:items-center">
       <div
         className="relative aspect-square w-full max-w-[min(100%,calc(100dvh-180px))] touch-none select-none overflow-hidden border-4 border-[#a5461f] shadow-[0_6px_0_#6e2a10]"
         style={{
-          ...fundo,
+          background: `center / cover no-repeat url(${ART.placeScene(place)})`,
           imageRendering: "pixelated",
           filter: noite ? "brightness(0.75) saturate(0.9)" : undefined,
         }}
@@ -211,14 +198,6 @@ export function Interior({
         }}
         aria-label={t(`lugar.${place}`)}
       >
-        {!ART.places.ready && (
-          <div
-            className="pointer-events-none absolute left-1/2 top-[6%] -translate-x-1/2 opacity-90"
-            aria-hidden
-          >
-            <PlaceIcon place={place} size={72} />
-          </div>
-        )}
         <div className="pointer-events-none absolute left-2 top-2 border-2 border-[#a5461f] bg-[#fbe2c2] px-2 py-0.5 text-sm font-bold text-[#4a2615]">
           {t(`lugar.${place}`)}
         </div>
@@ -231,19 +210,19 @@ export function Interior({
               e.stopPropagation();
               irPara(p, o);
             }}
-            className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
+            className={`absolute z-10 flex -translate-x-1/2 -translate-y-1/2 items-center ${o === "saida" ? "flex-col-reverse" : "flex-col"}`}
             style={{ left: `${p.x}%`, top: `${p.y}%` }}
-            aria-label={t(`ui.interior.${o}`) + (o === "terminal" && alerta ? " ❗" : "")}
+            aria-label={t(`ui.interior.${o}`) + (o === "terminal" && alerta ? ` · ${t("ui.alerta")}` : "")}
           >
-            <span className="relative grid h-14 w-14 place-items-center border-4 border-[#4a2615] bg-[#efcda2] text-3xl shadow-[0_4px_0_#4a2615] sm:h-16 sm:w-16">
-              {ICONE[o]}
+            <span className="relative grid h-12 w-12 place-items-center border-2 border-[#4a2615] bg-[#efcda2]/95 shadow-[0_3px_0_#4a2615] sm:h-14 sm:w-14">
+              <PixelIcon name={ICONE[o]} size={36} />
               {o === "terminal" && alerta && (
-                <span className="absolute -right-3 -top-4 grid h-7 w-7 animate-bounce place-items-center border-2 border-[#4a2615] bg-[#ffd23f] font-black text-[#4a2615]">
-                  !
+                <span className="absolute -right-3 -top-4 animate-bounce">
+                  <PixelIcon name="alerta" size={28} />
                 </span>
               )}
             </span>
-            <span className="mt-1 border-2 border-[#a5461f] bg-[#fbe2c2] px-1.5 text-xs font-bold text-[#4a2615]">
+            <span className="whitespace-nowrap border-2 border-[#a5461f] bg-[#fbe2c2] px-1.5 text-xs font-bold text-[#4a2615]">
               {t(`ui.interior.${o}`)}
             </span>
           </button>

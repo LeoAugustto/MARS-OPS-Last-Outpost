@@ -1,27 +1,9 @@
 // HUD em pixel art (modelo do time em art-source): barras no topo + barra de ações embaixo.
 // Ícone + número sempre (nunca só cor). Ícones em public/assets/ui/.
-import { Button } from "@/components/ui/button";
 import { BALANCE, type GameState } from "@/game/engine";
 import type { Periodo } from "./art";
+import { PixelIcon } from "./PixelIcon";
 import { useGT } from "./shared";
-
-const UI = (n: string) => `/assets/ui/${n}.png`;
-
-/** Ícone pixel do HUD. */
-export function HudIcon({ name, size = 24 }: { name: string; size?: number }) {
-  return (
-    <img
-      src={UI(name)}
-      alt=""
-      aria-hidden
-      width={size}
-      height={size}
-      className="shrink-0"
-      style={{ width: size, height: size, imageRendering: "pixelated" }}
-      draggable={false}
-    />
-  );
-}
 
 /** Barra verde-azulada com contorno, como no modelo (vermelha quando está baixa). */
 function Bar({ icon, value, label }: { icon: string; value: number; label: string }) {
@@ -32,7 +14,7 @@ function Bar({ icon, value, label }: { icon: string; value: number; label: strin
       title={label}
       aria-label={`${label}: ${value}`}
     >
-      <HudIcon name={icon} size={26} />
+      <PixelIcon name={icon} size={26} />
       <div className="h-3.5 min-w-8 flex-1 overflow-hidden rounded-full border-2 border-[#c9a27c] bg-[#f3dcc0] sm:h-4">
         <div
           className={`h-full rounded-full transition-all duration-500 ${cor}`}
@@ -60,10 +42,10 @@ function Pill({
 }) {
   return (
     <span
-      className="flex items-center gap-1 rounded-xl border-2 border-[#c9a27c] bg-[#f3dcc0] px-2 py-0.5 text-sm font-bold sm:text-base"
+      className="flex shrink-0 items-center gap-1 border-2 border-[#c9a27c] bg-[#f3dcc0] px-1 py-0.5 text-sm font-bold sm:px-2 sm:text-base"
       aria-label={label}
     >
-      <HudIcon name={icon} size={20} />
+      <PixelIcon name={icon} size={18} />
       {children}
     </span>
   );
@@ -76,9 +58,9 @@ function SquareBtn({ img, label, onClick }: { img: string; label: string; onClic
       type="button"
       onClick={onClick}
       aria-label={label}
-      className="grid h-11 w-11 shrink-0 place-items-center active:translate-y-0.5"
+      className="grid h-12 w-12 shrink-0 place-items-center active:translate-y-0.5"
     >
-      <HudIcon name={img} size={42} />
+      <PixelIcon name={img} size={42} />
     </button>
   );
 }
@@ -91,7 +73,7 @@ export function horaDoSol(relogio: number): string {
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 }
 
-const ICONE_PERIODO: Record<Periodo, string> = { dia: "☀️", entardecer: "🌇", noite: "🌙" };
+const ICONE_PERIODO: Record<Periodo, string> = { dia: "sol", entardecer: "entardecer", noite: "lua" };
 
 export function TopHud({
   state,
@@ -110,27 +92,28 @@ export function TopHud({
   const r = state.resources;
   return (
     <header className="flex shrink-0 flex-col gap-1 border-b-[6px] border-[#c4581f] bg-[#fbe6c8] px-2 py-1.5 text-[#3a2015] shadow-[0_3px_0_#7a2f12]">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1 sm:gap-2">
         <SquareBtn img="btn_menu" label={t("ui.menu.titulo")} onClick={onMenu} />
-        <span className="font-display text-lg font-bold">
-          {t("hud.sol", { sol: state.sol, total: state.totalSols })}
-        </span>
-        {relogio !== undefined && periodo && (
-          <span
-            className={`rounded-full px-2 py-0.5 text-sm font-black ${
-              periodo === "noite"
-                ? "bg-[#2b2350] text-[#ffe9a8]"
-                : periodo === "entardecer"
-                  ? "bg-[#f2a33a] text-[#3a1f10]"
-                  : "bg-muted"
-            }`}
-            aria-label={`${t("ui.relogio")}: ${horaDoSol(relogio)} · ${t(`ui.periodo.${periodo}`)}`}
-            title={t(`ui.periodo.${periodo}`)}
-          >
-            {ICONE_PERIODO[periodo]} {horaDoSol(relogio)}
+        <div className="mr-auto flex min-w-0 flex-col items-start gap-x-2 sm:flex-row sm:items-center">
+          <span className="font-display text-sm font-bold leading-tight sm:text-lg">
+            {t("hud.sol", { sol: state.sol, total: state.totalSols })}
           </span>
-        )}
-        <span className="ml-auto" />
+          {relogio !== undefined && periodo && (
+            <span
+              className={`inline-flex items-center gap-1 px-1 text-sm font-black ${
+                periodo === "noite"
+                  ? "bg-[#2b2350] text-[#ffe9a8]"
+                  : periodo === "entardecer"
+                    ? "bg-[#f2a33a] text-[#3a1f10]"
+                    : "bg-muted"
+              }`}
+              aria-label={`${t("ui.relogio")}: ${horaDoSol(relogio)} · ${t(`ui.periodo.${periodo}`)}`}
+              title={t(`ui.periodo.${periodo}`)}
+            >
+              <PixelIcon name={ICONE_PERIODO[periodo]} size={16} /> {horaDoSol(relogio)}
+            </span>
+          )}
+        </div>
         <Pill icon="raio" label={t("recurso.energia")}>
           {state.energiaHoje}
         </Pill>
@@ -164,7 +147,7 @@ export function BottomBar({ state, noite = false }: { state: GameState; noite?: 
         : t("ui.dormir_dica");
   return (
     <footer className="flex shrink-0 items-center justify-center gap-2 border-t-[6px] border-[#c4581f] bg-[#fbe6c8] p-2 text-[#3a2015]">
-      <HudIcon name={faltam > 0 && !noite ? "coracao" : "cama"} size={24} />
+      <PixelIcon name={faltam > 0 && !noite ? "alerta" : "cama"} size={24} />
       <span
         className={`text-center text-sm font-bold sm:text-base ${noite ? "animate-pulse" : ""}`}
       >

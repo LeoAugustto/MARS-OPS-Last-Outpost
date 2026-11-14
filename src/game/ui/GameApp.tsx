@@ -26,6 +26,7 @@ import { BottomBar, TopHud } from "./Hud";
 import { EnergyPanel, GameMenu, Glossary, MorningModal, NightModal, PlaceInfo } from "./Panels";
 import { EndScreen, Intro, LevelSelect, ProfileScreen, Report, TutorialBubble } from "./Screens";
 import { PIXEL_FONT_URL, PIXEL_THEME, stopSpeaking, useGT } from "./shared";
+import { PixelIcon } from "./PixelIcon";
 import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
 import { collectStickers } from "./stickers";
 import type { Periodo } from "./art";
@@ -478,7 +479,7 @@ function GameInner({
                     : "border-[#4a2615] bg-[#ffd9a0] text-[#3a1f10]"
                 }`}
               >
-                {aviso}
+                <PixelIcon name={noite ? "lua" : "entardecer"} size={18} /> {aviso}
               </div>
             )}
           </BaseMap>

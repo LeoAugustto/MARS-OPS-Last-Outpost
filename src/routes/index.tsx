@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { AppFooter, LangSelector } from "@/components/AppHeader";
 import { useDocumentTitle, useLang, useT } from "@/i18n";
 import { listSaves } from "@/lib/saves";
+import { PixelIcon } from "@/game/ui/PixelIcon";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -63,7 +64,7 @@ function Home() {
         <p className="shrink-0 text-[clamp(1rem,min(4vw,3dvh),1.5rem)] font-semibold">{t("tagline")}</p>
         <div className="flex w-full max-w-sm shrink-0 flex-col gap-2">
           <Button asChild variant="chunky" size="xl">
-            <Link to="/play" search={{ mode: "new" }}>🚀 {t("playNow")}</Link>
+            <Link to="/play" search={{ mode: "new" }}><PixelIcon name="foguete" size={28} /> {t("playNow")}</Link>
           </Button>
           {hasSave && (
             <Button asChild variant="chunkySand" size="tap">

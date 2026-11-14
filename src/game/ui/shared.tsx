@@ -6,6 +6,7 @@ import type { Effect, Lang, PlaceId } from "@/game/engine";
 import type { CSSProperties } from "react";
 import { ART, type Gender, type Speaker } from "./art";
 import { usePlayer } from "./player";
+import { PixelIcon } from "./PixelIcon";
 
 /** Tradutor dos textos do jogo no idioma escolhido no site. Já preenche {nome} com o nome da criança. */
 export function useGT() {
@@ -17,6 +18,10 @@ export function useGT() {
       const v: Record<string, string | number> = { nome, ...vars };
       // datas dos eventos reais (AAAA-MM-DD) aparecem no formato do idioma
       if (typeof v["data"] === "string") v["data"] = formatarData(v["data"], lang);
+      // Saves mais antigos guardavam a força como uma sequência de estrelas.
+      if (typeof v["estrelas"] === "string") {
+        v["estrelas"] = v["estrelas"].replace(/⭐+/g, (stars) => `${stars.length}/3`);
+      }
       return translate(key, lang, v);
     },
     [lang, name],
@@ -82,23 +87,17 @@ export const PIXEL_THEME = {
 export const PIXEL_FONT_URL =
   "https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap";
 
-/** Ícone do lugar (pixel art) ou emoji, se não houver arte. */
+/** Ícone do lugar em pixel art. */
 export function PlaceIcon({ place, size = 48 }: { place: PlaceId; size?: number }) {
-  const src = ART.icons[place];
-  if (src)
-    return (
-      <img
-        src={src}
-        alt=""
-        width={size}
-        height={size}
-        style={{ width: size, height: size, imageRendering: "pixelated" }}
-      />
-    );
   return (
-    <span aria-hidden style={{ fontSize: size * 0.8 }}>
-      {PLACE_POS[place].icon}
-    </span>
+    <img
+      src={ART.icons[place]}
+      alt=""
+      width={size}
+      height={size}
+      className="shrink-0"
+      style={{ width: size, height: size, imageRendering: "pixelated" }}
+    />
   );
 }
 
@@ -163,21 +162,21 @@ export function SpeakButton({ text }: { text: string }) {
       onClick={() => speak(text, lang)}
       className="min-h-10 rounded-full bg-muted px-3 text-sm font-bold text-secondary hover:brightness-110"
     >
-      {t("ui.ouvir")}
+      <PixelIcon name="som" size={20} /> {t("ui.ouvir")}
     </button>
   );
 }
 
 // ---------------------------------------------------------------- efeitos como "chips" (−3 ⚡, +2 🔬)
 const ICON: Record<keyof Effect, string> = {
-  energia: "⚡",
-  ar: "💨",
-  comida: "🥔",
-  saude: "❤️",
-  ciencia: "🔬",
-  escudo: "🛡️",
-  bateria: "🔋",
-  solar: "☀️",
+  energia: "raio",
+  ar: "o2",
+  comida: "batata",
+  saude: "coracao",
+  ciencia: "microscopio",
+  escudo: "escudo",
+  bateria: "bateria",
+  solar: "sol",
 };
 const ORDER: (keyof Effect)[] = [
   "energia",
@@ -197,6 +196,7 @@ export function EffectChips({
   effect: Effect | undefined;
   className?: string;
 }) {
+  const { t } = useGT();
   if (!effect) return null;
   const items = ORDER.filter((k) => effect[k] !== undefined && effect[k] !== 0);
   if (!items.length) return null;
@@ -209,13 +209,15 @@ export function EffectChips({
         return (
           <span
             key={k}
-            className={`rounded-full px-2 py-0.5 text-sm font-extrabold ${
+            className={`inline-flex items-center gap-1 border border-current px-2 py-0.5 text-sm font-extrabold ${
               good ? "bg-success/20 text-success" : "bg-destructive/20 text-destructive"
             }`}
           >
             {v > 0 ? "+" : "−"}
             {Math.abs(v)}
-            {k === "solar" ? "%" : ""} {ICON[k]}
+            {k === "solar" ? "%" : ""}
+            <PixelIcon name={ICON[k]} size={18} />
+            <span className="sr-only">{t(k === "solar" ? "lugar.paineis" : `recurso.${k}`)}</span>
           </span>
         );
       })}
@@ -246,7 +248,7 @@ export function Modal({
       }}
     >
       <div
-        className={`max-h-[92dvh] w-full overflow-y-auto rounded-3xl border-4 border-border bg-card p-4 text-card-foreground shadow-2xl sm:p-6 ${
+        className={`max-h-[92dvh] w-full overflow-y-auto border-[6px] border-border bg-card p-4 text-card-foreground shadow-[0_6px_0_#6e2a10,inset_0_0_0_2px_#f3bd83] sm:p-6 ${
           wide ? "max-w-2xl" : "max-w-lg"
         }`}
       >
@@ -258,43 +260,28 @@ export function Modal({
 
 // ---------------------------------------------------------------- mapa: posição de cada lugar (% do quadrado)
 // Ajustado ao mapa pixel art (public/assets/map/base.png). Se a arte mudar, ajuste aqui.
-export const PLACE_POS: Record<PlaceId, { x: number; y: number; icon: string }> = {
-  habitat: { x: 50, y: 46, icon: "🏠" },
-  paineis: { x: 21, y: 16, icon: "🔆" },
-  antena: { x: 77, y: 16, icon: "📡" },
-  ar: { x: 16, y: 45, icon: "💨" },
-  estufa: { x: 84, y: 45, icon: "🌱" },
-  lab: { x: 18, y: 77, icon: "🔬" },
-  abrigo: { x: 83, y: 75, icon: "🛡️" },
-  rover: { x: 49, y: 83, icon: "🚙" },
+export const PLACE_POS: Record<PlaceId, { x: number; y: number }> = {
+  habitat: { x: 50, y: 46 },
+  paineis: { x: 21, y: 16 },
+  antena: { x: 77, y: 16 },
+  ar: { x: 16, y: 45 },
+  estufa: { x: 84, y: 45 },
+  lab: { x: 18, y: 77 },
+  abrigo: { x: 83, y: 75 },
+  rover: { x: 49, y: 83 },
 };
 
-/** Cena de DENTRO do lugar (ilustração com o astronauta). Sem arte pronta: fundo provisório com ícones. */
+/** Faixa de cena da carta. O interior jogável usa a imagem quadrada completa. */
 export function PlaceScene({ place, radio = false }: { place: PlaceId; radio?: boolean }) {
   const { t } = useGT();
-  const { gender } = usePlayer();
-  if (ART.places.ready)
-    return (
-      <div className="relative -mx-4 -mt-4 mb-1 overflow-hidden rounded-t-3xl sm:-mx-6 sm:-mt-6">
-        <img
-          src={ART.places.src(place)}
-          alt={t(`lugar.${place}`)}
-          className="aspect-[16/7] w-full object-cover"
-          style={{ imageRendering: "pixelated" }}
-        />
-        {radio && <RadioTag />}
-      </div>
-    );
   return (
-    <div
-      className="relative -mx-4 -mt-4 mb-1 flex aspect-[16/6] items-end justify-center gap-6 overflow-hidden border-b-4 border-border pb-2 sm:-mx-6 sm:-mt-6"
-      style={{
-        background: "linear-gradient(180deg, #2b2340 0%, #6b3a3a 45%, #c4572c 75%, #b44b24 100%)",
-      }}
-      aria-hidden
-    >
-      <PlaceIcon place={place} size={84} />
-      <AstronautSprite gender={gender} size={80} />
+    <div className="relative -mx-4 -mt-4 mb-1 overflow-hidden border-b-4 border-border sm:-mx-6 sm:-mt-6">
+      <img
+        src={ART.placeScene(place)}
+        alt={t(`lugar.${place}`)}
+        className="aspect-[16/6] w-full object-cover object-[center_24%]"
+        style={{ imageRendering: "pixelated" }}
+      />
       {radio && <RadioTag />}
     </div>
   );
@@ -303,14 +290,13 @@ export function PlaceScene({ place, radio = false }: { place: PlaceId; radio?: b
 function RadioTag() {
   const { t } = useGT();
   return (
-    <span className="absolute left-2 top-2 border-2 border-border bg-card px-2 py-0.5 text-xs font-black text-secondary">
-      {t("ui.radio")}
+    <span className="absolute left-2 top-2 inline-flex items-center gap-1 border-2 border-border bg-card px-2 py-0.5 text-xs font-black text-secondary">
+      <PixelIcon name="radio" size={18} /> {t("ui.radio")}
     </span>
   );
 }
 
 // ---------------------------------------------------------------- caixa de diálogo com retrato (estilo jogo)
-const FALLBACK: Record<Speaker, string> = { astronauta: "🧑‍🚀", controle: "🛰️", rovi: "🤖" };
 
 /** Texto que aparece letra por letra (toque para mostrar tudo). */
 function useTypewriter(text: string, speed = 22) {
@@ -338,9 +324,7 @@ export function DialogBox({
   const retrato =
     speaker === "astronauta"
       ? ART.portraits.astronauta.src(gender)
-      : ART.portraits[speaker].ready
-        ? ART.portraits[speaker].src
-        : null;
+      : ART.portraits[speaker].src;
   const quem = speaker === "astronauta" && name ? name : t(`ui.falante.${speaker}`);
   const rebites = [
     "left-0.5 top-0.5",
@@ -370,16 +354,12 @@ export function DialogBox({
         className={`flex shrink-0 flex-col items-center gap-1 ${compact ? "w-16 sm:w-20" : "w-24 sm:w-28"}`}
       >
         <div className="grid aspect-square w-full place-items-center overflow-hidden border-4 border-[#a5461f] bg-[#d9b089] text-3xl sm:text-5xl">
-          {retrato ? (
-            <img
-              src={retrato}
-              alt=""
-              className="h-full w-full object-contain"
-              style={{ imageRendering: "pixelated" }}
-            />
-          ) : (
-            <span aria-hidden>{FALLBACK[speaker]}</span>
-          )}
+          <img
+            src={retrato}
+            alt=""
+            className="h-full w-full object-contain"
+            style={{ imageRendering: "pixelated" }}
+          />
         </div>
         <span className="w-full border-2 border-[#a5461f] bg-[#fff1dc] px-0.5 text-center text-[10px] font-bold leading-tight sm:text-xs">
           {quem}

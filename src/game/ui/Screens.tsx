@@ -11,11 +11,12 @@ import {
   type HistoryPoint,
   type Level,
 } from "@/game/engine";
-import { AstronautSprite, DialogBox, formatarData, useGT } from "./shared";
+import { AstronautSprite, DialogBox, formatarData, PlaceIcon, useGT } from "./shared";
 import { NAME_MAX, cleanName, type Player } from "./player";
 import { FAMOSAS, type Famosa, type ModoSol } from "@/data/donki-live";
 import { STICKERS, loadStickers } from "./stickers";
-import type { Gender } from "./art";
+import { ART, type Gender } from "./art";
+import { PixelIcon } from "./PixelIcon";
 
 // ---------------------------------------------------------------- escolher nível
 const MODOS: ModoSol[] = ["surpresa", "semana", "famosa"];
@@ -100,7 +101,7 @@ export function LevelSelect({
         ))}
         {saveSol !== null && (
           <Button variant="chunkySand" size="tap" className="w-full text-lg" onClick={onContinue}>
-            ▶ {t("ui.continuar", { sol: saveSol })}
+            <PixelIcon name="play" /> {t("ui.continuar", { sol: saveSol })}
           </Button>
         )}
       </div>
@@ -147,7 +148,7 @@ export function LevelSelect({
         )}
       </fieldset>
       <p className="text-center text-sm text-foreground/80" aria-live="polite">
-        {loading ? `⏳ ${t("ui.carregando")}` : nasaInfo}
+        {loading ? <><PixelIcon name="ampulheta" size={20} /> {t("ui.carregando")}</> : nasaInfo}
       </p>
     </div>
   );
@@ -222,7 +223,7 @@ export function ProfileScreen({
         <span className="text-sm text-foreground/80">{t("ui.perfil.dica")}</span>
       </label>
       <Button type="submit" variant="chunky" size="tap" className="w-full max-w-md text-lg">
-        {t("ui.proximo")} ▶
+        {t("ui.proximo")} <PixelIcon name="play" />
       </Button>
     </form>
   );
@@ -234,20 +235,18 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
   const [i, setI] = useState(0);
   const cfg = BALANCE.LEVELS[level];
   const quadros = [
-    { icon: "🏠", text: t("ui.abertura.1") },
-    { icon: "💨🥔❤️", text: t("ui.abertura.2") },
-    { icon: "☀️📡", text: t("ui.abertura.3") },
+    { icons: ["cama"], text: t("ui.abertura.1") },
+    { icons: ["o2", "batata", "coracao"], text: t("ui.abertura.2") },
+    { icons: ["sol", "ao_vivo"], text: t("ui.abertura.3") },
   ];
   const q = quadros[i]!;
   const ultimo = i === quadros.length - 1;
   return (
     <div className="flex h-full flex-col items-center justify-center gap-5 p-6 text-center">
-      <div className="text-7xl" aria-hidden>
-        🤖
-      </div>
-      <div className="max-w-md rounded-3xl border-4 border-border bg-card p-6 text-card-foreground shadow-xl">
-        <div className="mb-3 text-5xl" aria-hidden>
-          {q.icon}
+      <img src={ART.portraits.rovi.src} alt="" width={96} height={96} className="object-contain" />
+      <div className="max-w-md border-4 border-border bg-card p-6 text-card-foreground shadow-[0_5px_0_#6e2a10]">
+        <div className="mb-3 flex justify-center gap-2">
+          {q.icons.map((name) => <PixelIcon key={name} name={name} size={48} />)}
         </div>
         <p className="text-xl font-bold leading-snug">{q.text}</p>
         {ultimo && (
@@ -326,12 +325,10 @@ export function EndScreen({
 }) {
   const { t } = useGT();
   const d = debrief(state);
-  const icon = state.status === "vitoria" ? "🎉" : state.status === "vitoria-parcial" ? "🙂" : "🚀";
+  const icon = state.status === "vitoria" ? "vitoria" : state.status === "vitoria-parcial" ? "ok" : "foguete";
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-4 p-6 text-center">
-      <div className="text-8xl" aria-hidden>
-        {icon}
-      </div>
+    <div className="flex h-full flex-col items-center gap-4 overflow-y-auto p-6 text-center">
+      <PixelIcon name={icon} size={96} />
       <p className="border-2 border-border bg-card px-3 py-1 font-bold text-card-foreground">
         {t("ui.fim.quem")}
       </p>
@@ -351,10 +348,10 @@ export function EndScreen({
       )}
       <div className="flex w-full max-w-md flex-col gap-2">
         <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onReport}>
-          📋 {t("ui.relatorio.ver")}
+          <PixelIcon name="relatorio" /> {t("ui.relatorio.ver")}
         </Button>
         <Button variant="chunkySand" size="tap" className="w-full" onClick={onNew}>
-          🔄 {t("botao.nova_missao")}
+          <PixelIcon name="recomecar" /> {t("botao.nova_missao")}
         </Button>
       </div>
     </div>
@@ -370,9 +367,9 @@ function Chart({ history }: { history: HistoryPoint[] }) {
   const xy = (i: number, v: number) =>
     `${(i / n) * (W - 20) + 10},${H - 10 - (v / 100) * (H - 20)}`;
   const linhas = [
-    { k: "ar" as const, cor: "oklch(0.7 0.12 230)", icon: "💨" },
-    { k: "comida" as const, cor: "oklch(0.8 0.12 85)", icon: "🥔" },
-    { k: "saude" as const, cor: "oklch(0.65 0.2 25)", icon: "❤️" },
+    { k: "ar" as const, cor: "oklch(0.7 0.12 230)", icon: "o2" },
+    { k: "comida" as const, cor: "oklch(0.8 0.12 85)", icon: "batata" },
+    { k: "saude" as const, cor: "oklch(0.65 0.2 25)", icon: "coracao" },
   ];
   return (
     <figure className="rounded-2xl bg-muted p-3 text-card-foreground">
@@ -407,7 +404,7 @@ function Chart({ history }: { history: HistoryPoint[] }) {
         {linhas.map((l) => (
           <span key={l.k} className="flex items-center gap-1">
             <span className="inline-block h-2 w-4 rounded" style={{ background: l.cor }} />
-            {l.icon} {t(`recurso.${l.k}`)}
+            <PixelIcon name={l.icon} size={18} /> {t(`recurso.${l.k}`)}
           </span>
         ))}
       </div>
@@ -430,7 +427,7 @@ export function Report({
     <div className="h-full overflow-y-auto p-4">
       <div className="mx-auto flex max-w-2xl flex-col gap-4">
         <h1 className="text-center font-display text-3xl font-bold text-[#ffd23f]">
-          📋 {t("ui.relatorio.titulo")}
+          <PixelIcon name="relatorio" /> {t("ui.relatorio.titulo")}
         </h1>
         <p className="text-center text-lg font-bold">
           {t(d.titleKey)} · {t("ui.relatorio.ciencia", { n: d.ciencia, meta: d.metaCiencia })}
@@ -462,14 +459,14 @@ export function Report({
               {m.eventId && m.choiceId && m.choiceId !== "inicio" && (
                 <p>→ {t(eventKey.label(m.eventId, m.choiceId))}</p>
               )}
-              {m.lessonKey && <p className="mt-1 rounded-xl bg-accent p-2">💡 {t(m.lessonKey)}</p>}
+              {m.lessonKey && <p className="mt-1 rounded-xl bg-accent p-2"><PixelIcon name="lampada" size={20} /> {t(m.lessonKey)}</p>}
             </div>
           ))}
         </section>
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-xl font-bold text-[#ffd23f]">
-            ☀️ {t("ui.relatorio.reais")}
+            <PixelIcon name="sol" /> {t("ui.relatorio.reais")}
           </h2>
           <p className="text-sm text-foreground/80">{t("ui.relatorio.reais_explica")}</p>
           {d.realEvents.length === 0 && <p>{t("ui.relatorio.nenhum")}</p>}
@@ -479,7 +476,9 @@ export function Report({
               className="flex flex-wrap items-center gap-2 rounded-2xl bg-muted p-3 text-card-foreground"
             >
               <span className="font-bold">{t(`donki.${event.kind}`)}</span>
-              <span>{"⭐".repeat(event.forca)}</span>
+              <span className="inline-flex" role="img" aria-label={t("ui.forca", { n: event.forca })}>
+                {Array.from({ length: event.forca }, (_, i) => <PixelIcon key={i} name="estrela" size={18} />)}
+              </span>
               <span className="text-sm">
                 {formatarData(event.date, lang)} · {event.label}
               </span>
@@ -504,7 +503,7 @@ export function Report({
           <StickerGrid ids={loadStickers()} />
         </section>
 
-        <p className="rounded-2xl bg-accent p-3 text-accent-foreground">💡 {t(d.fatoKey)}</p>
+        <p className="rounded-2xl bg-accent p-3 text-accent-foreground"><PixelIcon name="lampada" size={20} /> {t(d.fatoKey)}</p>
 
         <div className="flex flex-col gap-2 pb-4">
           {d.voltarAoSol !== undefined && state.status === "resgate" && (
@@ -514,14 +513,14 @@ export function Report({
               className="w-full text-lg"
               onClick={() => onRewind(d.voltarAoSol!)}
             >
-              ⏪ {t("botao.voltar_sol", { sol: d.voltarAoSol })}
+              <PixelIcon name="voltar" /> {t("botao.voltar_sol", { sol: d.voltarAoSol })}
             </Button>
           )}
           <Button variant="chunkySand" size="tap" className="w-full" onClick={onNew}>
-            🔄 {t("botao.nova_missao")}
+            <PixelIcon name="recomecar" /> {t("botao.nova_missao")}
           </Button>
           <Button asChild variant="ghost" size="tap" className="w-full">
-            <Link to="/">🏠 {t("ui.inicio")}</Link>
+            <Link to="/"><PlaceIcon place="habitat" size={24} /> {t("ui.inicio")}</Link>
           </Button>
         </div>
       </div>

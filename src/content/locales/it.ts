@@ -19,15 +19,15 @@ export const it: Dict = {
   "nivel.comandante": "Comandante (difficile)",
 
   "hud.sol": "Sol {sol} di {total}",
-  "hud.distribuir": "Dividi l'energia di oggi: {energia} ⚡",
+  "hud.distribuir": "Dividi l'energia di oggi: {energia}",
   "hud.sobra": "L'energia che avanza resta nella batteria.",
   "hud.dormir": "Dormi e finisci il sol",
   "botao.ok": "OK!",
   "botao.porque": "Perché?",
   "botao.voltar_sol": "Torna al sol {sol}",
   "botao.nova_missao": "Nuova missione",
-  "selo.ao_vivo": "📡 Dato NASA in diretta",
-  "selo.real": "📚 Evento reale del {data}",
+  "selo.ao_vivo": "Dato NASA in diretta",
+  "selo.real": "Evento reale del {data}",
 
   "fonte.donki": "NASA DONKI — meteo spaziale",
   "fonte.osdr": "NASA OSDR — salute degli astronauti",
@@ -42,7 +42,7 @@ export const it: Dict = {
   "glossario.tempestade":
     "Tempesta solare = quando il Sole lancia un’esplosione di luce e di particelle velocissime.",
 
-  "fim.vitoria.title": "Missione compiuta! 🎉",
+  "fim.vitoria.title": "Missione compiuta!",
   "fim.vitoria.body": "Il tuo equipaggio sta bene e ha fatto tanta scienza. La NASA è fiera di te!",
   "fim.parcial.title": "Tutti sono tornati sani e salvi!",
   "fim.parcial.body":
@@ -55,7 +55,7 @@ export const it: Dict = {
   "causa.comida":
     "Il cibo è finito. La serra ha bisogno di luce (energia) e le piante ci mettono tempo a crescere.",
   "causa.saude": "La salute è scesa troppo. Radiazioni, fame e poca aria stancano il corpo.",
-  "dica.ar": "Consiglio: tieni almeno 3 ⚡ ogni sol per la fabbrica d'aria.",
+  "dica.ar": "Consiglio: tieni almeno 3 di energia ogni sol per la fabbrica d'aria.",
   "dica.comida":
     "Consiglio: pianta presto! Quello che pianti oggi diventa cibo solo qualche sol dopo.",
   "dica.saude":
@@ -116,7 +116,7 @@ export const it: Dict = {
   "ev.broto.economizar.lesson":
     "Risparmiare oggi può far mancare qualcosa domani: il raccolto dipende dalle cure di tanti giorni.",
 
-  "ev.colheita_boa.title": "Bel raccolto! 🥔",
+  "ev.colheita_boa.title": "Bel raccolto!",
   "ev.colheita_boa.body": "Con tanta luce, la serra ha dato tantissime patate.",
   "ev.colheita_fraca.title": "Raccolto piccolo",
   "ev.colheita_fraca.body": "Con poca luce, le piante sono cresciute poco.",

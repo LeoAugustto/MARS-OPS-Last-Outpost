@@ -19,15 +19,15 @@ export const es: Dict = {
   "nivel.comandante": "Comandante (difícil)",
 
   "hud.sol": "Sol {sol} de {total}",
-  "hud.distribuir": "Reparte la energía de hoy: {energia} ⚡",
+  "hud.distribuir": "Reparte la energía de hoy: {energia}",
   "hud.sobra": "La energía que sobre se guarda en la batería.",
   "hud.dormir": "Dormir y terminar el sol",
   "botao.ok": "¡OK!",
   "botao.porque": "¿Por qué?",
   "botao.voltar_sol": "Volver al sol {sol}",
   "botao.nova_missao": "Nueva misión",
-  "selo.ao_vivo": "📡 Dato en vivo de la NASA",
-  "selo.real": "📚 Evento real del {data}",
+  "selo.ao_vivo": "Dato en vivo de la NASA",
+  "selo.real": "Evento real del {data}",
 
   "fonte.donki": "NASA DONKI — clima espacial",
   "fonte.osdr": "NASA OSDR — salud de los astronautas",
@@ -42,7 +42,7 @@ export const es: Dict = {
   "glossario.tempestade":
     "Tormenta solar = cuando el Sol lanza una explosión de luz y partículas muy rápidas.",
 
-  "fim.vitoria.title": "¡Misión cumplida! 🎉",
+  "fim.vitoria.title": "¡Misión cumplida!",
   "fim.vitoria.body": "Tu tripulación está bien e hizo mucha ciencia. ¡La NASA está orgullosa!",
   "fim.parcial.title": "¡Todos volvieron bien!",
   "fim.parcial.body":
@@ -56,7 +56,7 @@ export const es: Dict = {
     "Se acabó la comida. El invernadero necesita luz (energía) y las plantas tardan en crecer.",
   "causa.saude":
     "La salud bajó demasiado. La radiación, el hambre y la falta de aire cansan el cuerpo.",
-  "dica.ar": "Consejo: guarda al menos 3 ⚡ cada sol para la fábrica de aire.",
+  "dica.ar": "Consejo: guarda al menos 3 de energía cada sol para la fábrica de aire.",
   "dica.comida": "Consejo: ¡planta pronto! Lo que plantas hoy se vuelve comida unos soles después.",
   "dica.saude":
     "Consejo: construye el escudo pronto y escóndete en el refugio cuando el Sol esté agitado.",
@@ -118,7 +118,7 @@ export const es: Dict = {
   "ev.broto.economizar.lesson":
     "Ahorrar hoy puede hacer falta mañana: la cosecha depende del cuidado de muchos días.",
 
-  "ev.colheita_boa.title": "¡Buena cosecha! 🥔",
+  "ev.colheita_boa.title": "¡Buena cosecha!",
   "ev.colheita_boa.body": "Con mucha luz, el invernadero dio muchas papas.",
   "ev.colheita_fraca.title": "Cosecha pequeña",
   "ev.colheita_fraca.body": "Con poca luz, las plantas crecieron poco.",

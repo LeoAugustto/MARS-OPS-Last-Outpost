@@ -12,7 +12,8 @@ import {
   type GameState,
 } from "@/game/engine";
 import { atrasoRadioMin } from "@/data/marte";
-import { DialogBox, EffectChips, Modal, PlaceScene, useGT } from "./shared";
+import { DialogBox, EffectChips, Modal, PlaceIcon, PlaceScene, useGT } from "./shared";
+import { PixelIcon } from "./PixelIcon";
 
 const DICA_DONKI: Record<string, string> = {
   FLR: "glossario.clarao",
@@ -48,7 +49,8 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
 
   const selo = alert.real ? (
     <div className="flex flex-wrap items-center gap-2 text-sm">
-      <span className="rounded-full bg-accent px-3 py-1 font-bold text-secondary">
+      <span className="inline-flex items-center gap-1 border-2 border-border bg-accent px-2 py-1 font-bold text-secondary">
+        <PixelIcon name={alert.real.live ? "ao_vivo" : "arquivo"} size={20} />
         {alert.real.live ? t("selo.ao_vivo") : t("selo.real", { data: alert.real.date })}
       </span>
       <a
@@ -69,12 +71,15 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
       <div className="flex flex-col gap-3">
         <PlaceScene place={alert.place} radio={radio} />
         <div className="flex items-start gap-3">
-          <span className="text-5xl leading-none" aria-hidden>
-            {ev.icon}
-          </span>
+          {ev.id === "chegada" ? (
+            <PixelIcon name="foguete" size={48} />
+          ) : (
+            <PlaceIcon place={alert.place} size={48} />
+          )}
           <div className="flex-1">
             {alert.urgent && (
-              <span className="mb-1 inline-block rounded-full bg-destructive px-2 text-xs font-black text-white">
+              <span className="mb-1 inline-flex items-center gap-1 border-2 border-destructive px-2 text-xs font-black text-destructive">
+                <PixelIcon name="urgente" size={18} />
                 {t("ui.urgente")}
               </span>
             )}
@@ -98,8 +103,8 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
         <EffectChips effect={alert.openDelta} />
 
         {showTip && alert.real && DICA_DONKI[alert.real.kind] && (
-          <p className="rounded-2xl bg-accent p-3 text-sm">
-            <b>{t("ui.novidade")}</b> {t(DICA_DONKI[alert.real.kind]!)}
+          <p className="border-2 border-border bg-accent p-3 text-sm">
+            <PixelIcon name="lampada" size={20} /> <b>{t("ui.novidade")}</b> {t(DICA_DONKI[alert.real.kind]!)}
           </p>
         )}
 
@@ -115,7 +120,7 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
                   type="button"
                   disabled={!ok}
                   onClick={() => onChoose(c.id)}
-                  className="flex min-h-14 flex-col items-start gap-1 rounded-2xl border-4 border-border bg-muted p-3 text-left transition hover:border-primary active:translate-y-0.5 disabled:opacity-45"
+                  className="flex min-h-14 flex-col items-start gap-1 border-4 border-border bg-muted p-3 text-left transition hover:border-primary active:translate-y-0.5 disabled:opacity-45"
                 >
                   <span className="text-lg font-extrabold">
                     {t(eventKey.label(ev.id, c.id), vars)}
@@ -123,14 +128,14 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
                   <span className="flex flex-wrap items-center gap-1">
                     <EffectChips effect={choiceEffect(state, alert, c)} />
                     {c.deferredCost && (
-                      <span className="rounded-full bg-primary/20 px-2 py-0.5 text-sm font-extrabold text-primary">
-                        ⏳ {t("ui.custo_depois")}
+                      <span className="inline-flex items-center gap-1 border border-border bg-primary/15 px-2 py-0.5 text-sm font-extrabold text-secondary">
+                        <PixelIcon name="ampulheta" size={18} /> {t("ui.custo_depois")}
                       </span>
                     )}
                   </span>
                   {!ok && (
                     <span className="text-sm font-bold text-destructive">
-                      {t("ui.sem_energia")}
+                      <PixelIcon name="aviso" size={18} /> {t("ui.sem_energia")}
                     </span>
                   )}
                   {ok && falta > 0 && (
@@ -163,12 +168,12 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
 
         {/* ---- depois de escolher ---- */}
         {alert.done && escolhida && (
-          <div className="flex flex-col gap-2 rounded-2xl bg-muted p-3">
+          <div className="flex flex-col gap-2 border-2 border-border bg-muted p-3">
             <DialogBox speaker="astronauta" text={t(eventKey.outcome(ev.id, escolhida.id), vars)} />
             <EffectChips effect={alert.delta} />
             {porque ? (
-              <p className="rounded-xl bg-accent p-3">
-                💡 {t(eventKey.lesson(ev.id, escolhida.id), vars)}
+              <p className="border border-border bg-accent p-3">
+                <PixelIcon name="lampada" size={20} /> {t(eventKey.lesson(ev.id, escolhida.id), vars)}
               </p>
             ) : (
               <Button variant="chunkySand" size="tap" onClick={() => setPorque(true)}>

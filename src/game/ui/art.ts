@@ -1,6 +1,5 @@
 // ARTE DO JOGO (pixel art) — dono: Yckler + time de arte. Detalhes em docs/ART.md.
 // Arquivos em public/assets/. Originais (sem cortar) em art-source/.
-// Grupo com `ready: false` usa a arte provisória (emoji).
 
 import type { PlaceId } from "@/game/engine";
 
@@ -44,13 +43,10 @@ export const ART = {
     lab: "/assets/icons/lab.png",
     abrigo: "/assets/icons/abrigo.png",
     rover: "/assets/icons/rover.png",
-  } as Partial<Record<PlaceId, string>>,
+  } as Record<PlaceId, string>,
 
-  /** Cena de DENTRO de cada lugar (1280×560) — ainda sem arte. */
-  places: {
-    ready: false,
-    src: (p: PlaceId) => `/assets/places/${p}.png`,
-  },
+  /** Cena quadrada de cada interior, vista de cima (900×900). */
+  placeScene: (place: PlaceId) => `/assets/places/${place}.jpg`,
 } as const;
 
 /** Direção (8) a partir do movimento. y cresce para baixo. */

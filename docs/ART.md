@@ -1,7 +1,7 @@
 # Arte do jogo (pixel art)
 
 **Originais** (como vieram do time): `art-source/`. **Usados no jogo** (cortados e padronizados): `public/assets/`.
-Configuração: `src/game/ui/art.ts` (grupo com `ready: false` usa emoji provisório).
+Configuração das cenas e retratos em `src/game/ui/art.ts`. Os ícones de interface são renderizados por `PixelIcon`.
 
 | Grupo | No jogo | Status |
 |---|---|---|
@@ -12,7 +12,10 @@ Configuração: `src/game/ui/art.ts` (grupo com `ready: false` usa emoji provis�
 | Retrato do Controle de Missão | `assets/portraits/controle.png` (256×256) | ✅ |
 | Retrato do Rovi (robô guia) | `assets/portraits/rovi.png` (256×256) | ✅ |
 | Ícone do rover | `assets/icons/rover.png` (128×128) | ✅ |
-| Cena de dentro de cada lugar | `assets/places/{lugar}.png` (1280×560) | ⏳ opcional |
+| Cena de dentro de cada lugar | `assets/places/{lugar}.jpg` (900×900) | ✅ oito cenas do Vinicius |
+| Ícones da interface | `assets/ui/*.png` (64×64 para os novos) | ✅ pacote de 29 ícones do Vinicius |
+
+Os interiores jogáveis usam a cena inteira. A carta usa uma faixa da mesma cena e um ícone do lugar. As artes individuais dos eventos ainda constam em `docs/PENDENCIAS-PIXEL.md`.
 
 **Para trocar/adicionar:** gere no mesmo estilo, salve com o nome da tabela e mude `ready` para `true` em `art.ts`.
 Para recortar folhas novas (como a de ícones), dá para repetir o processo com Python + Pillow (peça ao Claude).
