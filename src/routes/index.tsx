@@ -34,36 +34,28 @@ function Home() {
   const singleLineOnWide = useLang().lang === "en";
 
   return (
-    <main className="bg-mars min-h-screen">
-      <div className="mx-auto flex max-w-3xl justify-end p-4">
+    <main className="bg-mars flex h-[100dvh] flex-col overflow-hidden">
+      <div className="mx-auto flex w-full max-w-3xl shrink-0 justify-end px-4 pt-2">
         <LangSelector />
       </div>
-      <section className="mx-auto flex max-w-3xl flex-col items-center gap-6 px-4 pb-12 text-center">
-        <img
-          src={marsBase}
-          alt=""
-          width={1280}
-          height={768}
-          className="w-full rounded-3xl border-4 border-border shadow-2xl"
-        />
-        <h1 className="font-bold leading-tight text-secondary">
+      <section className="mx-auto flex min-h-0 w-full max-w-3xl flex-1 flex-col items-center justify-center gap-[clamp(0.25rem,1.5dvh,1rem)] px-4 py-1 text-center">
+        <div className="hidden min-h-0 w-full flex-1 items-center justify-center [@media(min-height:420px)]:flex">
+          <img
+            src={marsBase}
+            alt=""
+            width={1280}
+            height={768}
+            className="max-h-full max-w-full rounded-3xl border-4 border-border object-contain shadow-2xl"
+          />
+        </div>
+        <h1 className="shrink-0 font-bold leading-tight text-secondary text-[clamp(1.5rem,min(7vw,7dvh),4rem)]">
           {/* Two lines, breaking right after the colon; English joins into one line on sm+ screens */}
-          <span
-            className={`block whitespace-nowrap text-[clamp(1.75rem,9vw,3.75rem)]${singleLineOnWide ? " sm:hidden" : ""}`}
-          >
-            {titleLines[0]}
-          </span>
-          <span
-            className={`block whitespace-nowrap text-[clamp(1.75rem,9vw,3.75rem)]${singleLineOnWide ? " sm:hidden" : ""}`}
-          >
-            {titleLines[1]}
-          </span>
-          {singleLineOnWide && (
-            <span className="hidden whitespace-nowrap text-6xl sm:inline">{fullTitle}</span>
-          )}
+          <span className={`block whitespace-nowrap${singleLineOnWide ? " sm:hidden" : ""}`}>{titleLines[0]}</span>
+          <span className={`block whitespace-nowrap${singleLineOnWide ? " sm:hidden" : ""}`}>{titleLines[1]}</span>
+          {singleLineOnWide && <span className="hidden whitespace-nowrap sm:block">{fullTitle}</span>}
         </h1>
-        <p className="text-xl font-semibold sm:text-2xl">{t("tagline")}</p>
-        <div className="flex w-full max-w-sm flex-col gap-5">
+        <p className="shrink-0 text-[clamp(1rem,min(4vw,3dvh),1.5rem)] font-semibold">{t("tagline")}</p>
+        <div className="flex w-full max-w-sm shrink-0 flex-col gap-2">
           <Button asChild variant="chunky" size="xl">
             <Link to="/play" search={{ mode: "new" }}>🚀 {t("playNow")}</Link>
           </Button>
@@ -73,14 +65,17 @@ function Home() {
             </Button>
           )}
         </div>
-        <Link to="/fontes" className="min-h-12 py-3 text-lg font-semibold text-secondary underline underline-offset-4">
-          {t("dataSources")}
-        </Link>
-        <Link to="/sobre" className="min-h-12 py-3 text-base font-semibold text-muted-foreground underline underline-offset-4">
-          {t("about")}
-        </Link>
+        <nav className="flex shrink-0 flex-wrap items-center justify-center gap-x-3 text-sm font-semibold sm:text-base">
+          <Link to="/fontes" className="flex min-h-12 items-center text-secondary underline underline-offset-4">
+            {t("dataSources")}
+          </Link>
+          <span aria-hidden className="text-muted-foreground">·</span>
+          <Link to="/sobre" className="flex min-h-12 items-center text-muted-foreground underline underline-offset-4">
+            {t("about")}
+          </Link>
+        </nav>
       </section>
-      <AppFooter />
+      <AppFooter compact />
     </main>
   );
 }

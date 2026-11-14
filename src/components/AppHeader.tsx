@@ -68,8 +68,12 @@ export function AppHeader({ showBack = true }: { showBack?: boolean }) {
   );
 }
 
-export function AppFooter() {
+export function AppFooter({ compact = false }: { compact?: boolean }) {
   const t = useT();
+  if (compact)
+    return (
+      <footer className="shrink-0 px-4 pb-2 pt-1 text-center text-xs text-muted-foreground">{t("footer")}</footer>
+    );
   return (
     <footer className="mx-auto max-w-3xl px-4 py-8 text-center text-sm text-muted-foreground">
       <p className="font-display text-base font-bold text-secondary">{t("app.title")}</p>
