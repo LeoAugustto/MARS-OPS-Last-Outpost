@@ -45,7 +45,7 @@ function Home() {
             alt=""
             width={1280}
             height={768}
-            className="max-h-full max-w-full rounded-3xl border-4 border-border object-contain shadow-2xl"
+            className="h-auto w-auto max-h-full max-w-full rounded-3xl border-4 border-border object-contain shadow-2xl"
           />
         </div>
         <h1 className="shrink-0 font-bold leading-tight text-secondary text-[clamp(1.5rem,min(7vw,7dvh),4rem)]">
