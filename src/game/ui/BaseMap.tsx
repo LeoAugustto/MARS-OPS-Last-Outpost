@@ -2,7 +2,7 @@
 // - Celular: toque no chão → anda; toque num lugar → anda até ele e abre.
 // - PC: clique, ou setas/WASD (ao chegar perto de um ❗ ele abre sozinho).
 // Arte: src/game/ui/art.ts (mapa pixel art + astronauta em 8 direções). Sem arte pronta, usa formas + emoji.
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Alert, PlaceId } from "@/game/engine";
 import { PLACE_POS, useGT } from "./shared";
 import { ART, dirFrom, type Dir8 } from "./art";
@@ -26,6 +26,8 @@ const limitar = (x: number, y: number) => ({
   x: Math.max(X_MIN, Math.min(X_MAX, x)),
   y: Math.max(Y_MIN, Math.min(Y_MAX, y)),
 });
+
+const aperta = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
 
 interface Props {
   alerts: Alert[];
@@ -52,6 +54,9 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
   const perto = useRef<PlaceId | null>(null);
   const posRef = useRef(pos);
   const movedOnce = useRef(false);
+  const mapRef = useRef<HTMLDivElement>(null);
+  const spanRefs = useRef(new Map<PlaceId, HTMLSpanElement | null>());
+  const [badgeAt, setBadgeAt] = useState<Record<string, { left: number; top: number }>>({});
 
   // troca o quadro da caminhada enquanto anda
   useEffect(() => {
@@ -74,6 +79,35 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
 
   const pendentes = new Set(alerts.filter((a) => !a.done).map((a) => a.place));
   const urgentes = new Set(alerts.filter((a) => !a.done && a.urgent).map((a) => a.place));
+
+  // O mapa corta o que sai (overflow-hidden). Mede o canto de cada aviso e o
+  // empurra para dentro da moldura: o "!" nunca some atrás da borda nem da barra de cima.
+  const pendKey = [...pendentes].sort().join(",");
+  useLayoutEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    const mr = map.getBoundingClientRect();
+    const B = size * 0.08; // lado do aviso
+    const FOLGA = 3; // respiro da moldura
+    const SALTO = B * 0.3; // o aviso pula para cima (animate-bounce)
+    const borda = parseFloat(getComputedStyle(map).borderLeftWidth) || 0;
+    const next: Record<string, { left: number; top: number }> = {};
+    for (const pl of Object.keys(PLACE_POS) as PlaceId[]) {
+      const sp = spanRefs.current.get(pl);
+      if (!sp || !pendentes.has(pl)) continue;
+      const sr = sp.getBoundingClientRect();
+      const dentro = parseFloat(getComputedStyle(sp).borderLeftWidth) || 0;
+      const l = aperta(sr.right + 8 - B, mr.left + borda + FOLGA, mr.right - borda - B - FOLGA);
+      const topo = aperta(
+        sr.top - 12,
+        mr.top + borda + FOLGA + SALTO,
+        mr.bottom - borda - B - FOLGA,
+      );
+      next[pl] = { left: l - (sr.left + dentro), top: topo - (sr.top + dentro) };
+    }
+    setBadgeAt(next);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [size, pendKey, background]);
 
   const moved = useCallback(() => {
     if (!movedOnce.current) {
@@ -214,6 +248,7 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
       className="relative flex h-full w-full items-start justify-center sm:items-center"
     >
       <div
+        ref={mapRef}
         className="relative touch-none select-none overflow-hidden border-4 border-[#a5461f] shadow-[0_6px_0_#6e2a10]"
         style={{
           width: size,
@@ -245,6 +280,9 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
               aria-label={t(`lugar.${pl}`) + (alerta ? " ❗" : "")}
             >
               <span
+                ref={(el) => {
+                  spanRefs.current.set(pl, el);
+                }}
                 // com a arte pronta o alerta é só o "!" (sem moldura tracejada); a borda invisível
                 // mantém o tamanho do botão. Na arte provisória (emoji) a moldura continua.
                 className={`relative grid aspect-square w-full place-items-center border-4 ${
@@ -273,17 +311,29 @@ export function BaseMap({ alerts, solar, escudo, onPlace, paused, onFirstMove }:
                     {"▰".repeat(escudo)}
                   </span>
                 )}
-                {alerta && (
-                  <span
-                    className={`absolute -right-2 -top-3 grid h-8 w-8 animate-bounce place-items-center border-2 border-[#4a2615] text-lg font-black shadow-[0_3px_0_#4a2615] ${
-                      urgente ? "bg-destructive text-white" : "bg-[#ffd23f] text-[#4a2615]"
-                    }`}
-                    style={{ width: size * 0.08, height: size * 0.08, fontSize: size * 0.05 }}
-                    aria-hidden
-                  >
-                    {urgente ? "🚨" : "!"}
-                  </span>
-                )}
+                {alerta &&
+                  (() => {
+                    const B = size * 0.08;
+                    const lado = size * (background ? 0.24 : 0.2);
+                    const at = badgeAt[pl] ?? { left: lado - B + 8, top: -12 };
+                    return (
+                      <span
+                        className={`absolute grid animate-bounce place-items-center border-2 border-[#4a2615] font-black shadow-[0_3px_0_#4a2615] ${
+                          urgente ? "bg-destructive text-white" : "bg-[#ffd23f] text-[#4a2615]"
+                        }`}
+                        style={{
+                          left: at.left,
+                          top: at.top,
+                          width: B,
+                          height: B,
+                          fontSize: size * 0.05,
+                        }}
+                        aria-hidden
+                      >
+                        {urgente ? "🚨" : "!"}
+                      </span>
+                    );
+                  })()}
               </span>
               <span
                 className="mt-0.5 max-w-[130%] truncate border-2 border-[#a5461f] bg-[#fbe2c2]/95 px-1.5 font-bold text-[#4a2615]"
