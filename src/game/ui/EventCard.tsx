@@ -42,6 +42,8 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
   const escolhida = alert.choiceId ? todas.find((c) => c.id === alert.choiceId) : undefined;
   /** alertas da antena e eventos do Sol chegam como mensagem de rádio do Controle de Missão */
   const radio = alert.place === "antena" || !!ev.donki;
+  /** dá para fechar sem escolher e ver outro alerta; o urgente precisa ser resolvido agora */
+  const podeAdiar = !alert.done && !alert.urgent && todas.length > 0;
 
   const selo = alert.real ? (
     <div className="flex flex-wrap items-center gap-2 text-sm">
@@ -62,7 +64,7 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
   ) : null;
 
   return (
-    <Modal label={title} onClose={alert.done ? onClose : undefined}>
+    <Modal label={title} onClose={alert.done || podeAdiar ? onClose : undefined}>
       <div className="flex flex-col gap-3">
         <PlaceScene place={alert.place} radio={radio} />
         <div className="flex items-start gap-3">
@@ -135,6 +137,12 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
               );
             })}
           </div>
+        )}
+
+        {podeAdiar && (
+          <Button variant="chunkySand" size="tap" className="w-full text-lg" onClick={onClose}>
+            {t("ui.fechar")}
+          </Button>
         )}
 
         {!alert.done && todas.length === 0 && (

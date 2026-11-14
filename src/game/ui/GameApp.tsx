@@ -184,7 +184,8 @@ function GameInner({
     const a = game?.alerts.find((x) => x.id === card);
     if (a?.real && !seen.includes(a.real.kind)) setSeen((s) => [...s, a.real!.kind]);
     setCard(null);
-    setTut((x) => (x === 2 ? 3 : x));
+    // fechou sem escolher (alerta adiado): o tutorial continua esperando a 1ª escolha
+    if (a?.done) setTut((x) => (x === 2 ? 3 : x));
     if (game && game.status !== "jogando") setPhase("fim");
   };
 
