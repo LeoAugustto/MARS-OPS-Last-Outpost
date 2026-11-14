@@ -11,18 +11,29 @@ import {
   type HistoryPoint,
   type Level,
 } from "@/game/engine";
-import { AstronautSprite, DialogBox, SpeakButton, useGT } from "./shared";
+import { AstronautSprite, DialogBox, formatarData, useGT } from "./shared";
 import { NAME_MAX, cleanName, type Player } from "./player";
+import { FAMOSAS, type Famosa, type ModoSol } from "@/data/donki-live";
+import { STICKERS, loadStickers } from "./stickers";
 import type { Gender } from "./art";
 
 // ---------------------------------------------------------------- escolher nível
+const MODOS: ModoSol[] = ["surpresa", "semana", "famosa"];
+const FAMOSAS_LISTA = Object.keys(FAMOSAS) as Famosa[];
+
 export function LevelSelect({
+  modo,
+  famosa,
+  onModo,
   loading,
   nasaInfo,
   saveSol,
   onStart,
   onContinue,
 }: {
+  modo: ModoSol;
+  famosa: Famosa;
+  onModo: (m: ModoSol, f?: Famosa) => void;
   loading: boolean;
   nasaInfo: string;
   saveSol: number | null;
@@ -93,6 +104,48 @@ export function LevelSelect({
           </Button>
         )}
       </div>
+      <fieldset className="w-full max-w-xl border-4 border-[#c4581f] bg-[#fbe6c8] p-3 text-[#3a2015] shadow-[0_6px_0_#7a2f12]">
+        <legend className="bg-[#fbe6c8] px-2 font-display text-lg font-bold">
+          {t("ui.fonte.titulo")}
+        </legend>
+        <div className="grid gap-2 sm:grid-cols-3" role="radiogroup">
+          {MODOS.map((m) => (
+            <button
+              key={m}
+              type="button"
+              role="radio"
+              aria-checked={modo === m}
+              disabled={loading}
+              onClick={() => onModo(m)}
+              className={`border-4 p-2 text-left transition active:translate-y-0.5 ${
+                modo === m
+                  ? "border-[#e2672b] bg-[#ffe9cc]"
+                  : "border-[#e8c39c] bg-[#f6dcb8] opacity-80"
+              }`}
+            >
+              <span className="block font-bold">{t(`ui.fonte.${m}`)}</span>
+              <span className="block text-xs text-[#5a3424]">{t(`ui.fonte.${m}.desc`)}</span>
+            </button>
+          ))}
+        </div>
+        {modo === "famosa" && (
+          <div className="mt-2 grid gap-1.5">
+            {FAMOSAS_LISTA.map((f) => (
+              <button
+                key={f}
+                type="button"
+                disabled={loading}
+                onClick={() => onModo("famosa", f)}
+                className={`border-2 px-2 py-1.5 text-left text-sm font-bold ${
+                  famosa === f ? "border-[#e2672b] bg-[#ffe9cc]" : "border-[#e8c39c] bg-[#f6dcb8]"
+                }`}
+              >
+                {t(`ui.famosa.${f}`)}
+              </button>
+            ))}
+          </div>
+        )}
+      </fieldset>
       <p className="text-center text-sm text-foreground/80" aria-live="polite">
         {loading ? `⏳ ${t("ui.carregando")}` : nasaInfo}
       </p>
@@ -202,9 +255,6 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
             {t("ui.abertura.meta", { sois: cfg.totalSols, meta: cfg.metaCiencia })}
           </p>
         )}
-        <div className="mt-3 flex justify-center">
-          <SpeakButton text={q.text} />
-        </div>
       </div>
       <div className="flex gap-2" aria-hidden>
         {quadros.map((_, k) => (
@@ -229,14 +279,50 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
 }
 
 // ---------------------------------------------------------------- fim da missão
+/** Figurinhas: as que tem ficam coloridas; as que faltam, apagadas. */
+export function StickerGrid({ ids, so }: { ids: string[]; so?: string[] }) {
+  const { t } = useGT();
+  const lista = so ? STICKERS.filter((k) => so.includes(k.id)) : STICKERS;
+  return (
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+      {lista.map((k) => {
+        const tem = ids.includes(k.id);
+        return (
+          <div
+            key={k.id}
+            className={`flex flex-col items-center gap-1 border-4 p-2 text-center ${
+              tem
+                ? "border-[#e2672b] bg-[#ffe9cc] text-[#3a2015]"
+                : "border-[#8a6a52] bg-[#5a3a2c] text-[#c9a27c] opacity-70"
+            }`}
+            title={t(`fig.${k.id}.desc`)}
+          >
+            <img
+              src={k.icone}
+              alt=""
+              className={`h-12 w-12 ${tem ? "" : "grayscale"}`}
+              style={{ imageRendering: "pixelated" }}
+            />
+            <span className="text-sm font-bold leading-tight">{t(`fig.${k.id}`)}</span>
+            <span className="text-xs leading-tight">{t(`fig.${k.id}.desc`)}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export function EndScreen({
   state,
   onReport,
   onNew,
+  novas = [],
 }: {
   state: GameState;
   onReport: () => void;
   onNew: () => void;
+  /** figurinhas ganhas agora */
+  novas?: string[];
 }) {
   const { t } = useGT();
   const d = debrief(state);
@@ -255,6 +341,14 @@ export function EndScreen({
         {t("ui.relatorio.ciencia", { n: d.ciencia, meta: d.metaCiencia })} ·{" "}
         {t("ui.relatorio.sois", { n: Math.max(0, d.soisCompletos), total: d.totalSols })}
       </p>
+      {novas.length > 0 && (
+        <section className="w-full max-w-xl">
+          <h2 className="mb-2 font-display text-2xl font-bold text-[#ffd23f]">
+            {t("ui.fig.novas")}
+          </h2>
+          <StickerGrid ids={novas} so={novas} />
+        </section>
+      )}
       <div className="flex w-full max-w-md flex-col gap-2">
         <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onReport}>
           📋 {t("ui.relatorio.ver")}
@@ -330,7 +424,7 @@ export function Report({
   onRewind: (sol: number) => void;
   onNew: () => void;
 }) {
-  const { t } = useGT();
+  const { t, lang } = useGT();
   const d = debrief(state);
   return (
     <div className="h-full overflow-y-auto p-4">
@@ -387,7 +481,7 @@ export function Report({
               <span className="font-bold">{t(`donki.${event.kind}`)}</span>
               <span>{"⭐".repeat(event.forca)}</span>
               <span className="text-sm">
-                {event.date} · {event.label}
+                {formatarData(event.date, lang)} · {event.label}
               </span>
               <span className="text-xs text-muted-foreground">
                 {event.live ? t("selo.ao_vivo") : ""}
@@ -402,6 +496,12 @@ export function Report({
               </a>
             </div>
           ))}
+        </section>
+
+        <section className="flex flex-col gap-2">
+          <h2 className="font-display text-xl font-bold text-[#ffd23f]">{t("ui.fig.album")}</h2>
+
+          <StickerGrid ids={loadStickers()} />
         </section>
 
         <p className="rounded-2xl bg-accent p-3 text-accent-foreground">💡 {t(d.fatoKey)}</p>
@@ -451,7 +551,6 @@ export function TutorialBubble({
         <Button variant="chunky" size="sm" className="min-h-10 flex-1" onClick={onOk}>
           {t("tut.ok")}
         </Button>
-        <SpeakButton text={texto} />
         <button
           type="button"
           className="min-h-10 px-2 text-xs text-foreground underline"

@@ -10,7 +10,7 @@ import {
   type ModuleKey,
   type PlaceId,
 } from "@/game/engine";
-import { Modal, PlaceScene, SpeakButton, useGT } from "./shared";
+import { DialogBox, Modal, PlaceScene, useGT } from "./shared";
 
 // ---------------------------------------------------------------- energia
 const MODULOS: { k: ModuleKey; icon: string }[] = [
@@ -102,7 +102,16 @@ export function EnergyPanel({
 }
 
 // ---------------------------------------------------------------- manhã
-export function MorningModal({ state, onGo }: { state: GameState; onGo: () => void }) {
+export function MorningModal({
+  state,
+  onGo,
+  dica,
+}: {
+  state: GameState;
+  onGo: () => void;
+  /** chave de uma dica do Rovi para mostrar hoje (uma vez por missão) */
+  dica?: string | undefined;
+}) {
   const { t } = useGT();
   const linhas = [
     t("ui.manha.energia", {
@@ -126,9 +135,7 @@ export function MorningModal({ state, onGo }: { state: GameState; onGo: () => vo
             {l}
           </p>
         ))}
-        <div className="flex justify-center">
-          <SpeakButton text={`${titulo}. ${linhas.join(" ")}`} />
-        </div>
+        {dica && <DialogBox speaker="rovi" text={t(dica)} compact />}
         <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onGo}>
           {t("ui.vamos")}
         </Button>
@@ -172,9 +179,6 @@ export function NightModal({ state, onNext }: { state: GameState; onNext: () => 
             </li>
           ))}
         </ul>
-        <div className="flex justify-center">
-          <SpeakButton text={`${titulo}. ${linhas.join(" ")}`} />
-        </div>
         <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onNext}>
           {acabou ? t("ui.noite.fim") : t("ui.noite.acordar", { sol: state.sol })}
         </Button>
@@ -286,7 +290,17 @@ export function GameMenu({
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
           <h2 className="font-display text-2xl font-bold text-secondary">{t("ui.menu.titulo")}</h2>
-          <LangSelector />
+          <div className="flex items-center gap-2">
+            <LangSelector />
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={t("ui.fechar")}
+              className="grid h-11 w-11 place-items-center border-4 border-[#7a2f12] bg-[#c2312b] text-xl font-black text-white shadow-[0_3px_0_#7a2f12] active:translate-y-0.5"
+            >
+              X
+            </button>
+          </div>
         </div>
         <Button variant="chunky" size="tap" className="w-full" onClick={onClose}>
           ▶ {t("ui.menu.voltar")}

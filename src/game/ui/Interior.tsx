@@ -39,6 +39,8 @@ interface Props {
   onEnergy: () => void;
   onSleep: () => void;
   onExit: () => void;
+  /** andou (% da sala): o relógio do sol anda junto */
+  onWalk?: (dist: number) => void;
 }
 
 export function Interior({
@@ -50,6 +52,7 @@ export function Interior({
   onEnergy,
   onSleep,
   onExit,
+  onWalk,
 }: Props) {
   const { t } = useGT();
   const { gender } = usePlayer();
@@ -69,8 +72,8 @@ export function Interior({
     else if (o === "cama") onSleep();
     else onExit();
   };
-  const live = useRef({ paused, usar, objs });
-  live.current = { paused, usar, objs };
+  const live = useRef({ paused, usar, objs, onWalk });
+  live.current = { paused, usar, objs, onWalk };
 
   useEffect(() => {
     if (!andando) return;
@@ -114,6 +117,7 @@ export function Interior({
         const n = prender({ x: p.x + (dx / d) * passo, y: p.y + (dy / d) * passo });
         if (n.x !== p.x || n.y !== p.y) {
           setDir(dirFrom(dx, dy));
+          L.onWalk?.(Math.hypot(n.x - p.x, n.y - p.y) / 3); // sala é menor: conta 1/3
           posRef.current = n;
           setPos(n);
           setAndando(true);
@@ -160,7 +164,6 @@ export function Interior({
         e.preventDefault();
         keys.current.add(k);
       }
-      if (k === "Escape" && !paused) onExit();
     };
     const up = (e: KeyboardEvent) => {
       keys.current.delete(e.key.length === 1 ? e.key.toLowerCase() : e.key);

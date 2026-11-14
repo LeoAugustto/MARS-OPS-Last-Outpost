@@ -125,14 +125,60 @@ export interface DonkiPool {
   /** quantos vieram da NASA agora (0 = usando só a reserva) */
   fromNasa: number;
   liveCount: number;
+  /** modo "semana": o Sol não teve eventos fortes nos últimos 7 dias */
+  calmo?: boolean;
+  /** modo "famosa": eventos de uma semana histórica (não são de agora) */
+  famosa?: boolean;
 }
 
 /**
  * Monta a lista de eventos do Sol para UMA missão.
  * Garante pelo menos 1 de cada tipo (completa com a reserva se faltar).
  */
-export async function loadDonkiPool(rand: () => number = Math.random): Promise<DonkiPool> {
+/** De onde vêm os eventos do Sol da missão (a criança escolhe na tela de missão). */
+export type ModoSol = "surpresa" | "semana" | "famosa";
+
+/** Semanas históricas famosas (datas conferidas no DONKI; ver docs/DATA_SOURCES.md). */
+export const FAMOSAS = {
+  maio2024: ["2024-05-08", "2024-05-16"], // a maior tempestade magnética em mais de 20 anos (Kp 9)
+  set2017: ["2017-09-04", "2017-09-12"], // clarões X9.3 e X8.2; auroras em Marte
+  out2024: ["2024-10-01", "2024-10-11"], // clarão X9.0, o maior do ciclo até então
+} as const;
+export type Famosa = keyof typeof FAMOSAS;
+
+const dia = (iso: string) => new Date(`${iso}T00:00:00Z`);
+
+/**
+ * Monta a lista de eventos do Sol para UMA missão.
+ * - surpresa: últimos 30 dias (ao vivo) + 1 semana histórica sorteada; completa os tipos com a reserva.
+ * - semana: só os últimos 7 dias (ao vivo). Sol calmo demais? usa a reserva (selo "evento real").
+ * - famosa: só a semana histórica escolhida (com a reserva daquela semana, se a NASA não responder).
+ */
+export async function loadDonkiPool(
+  rand: () => number = Math.random,
+  modo: ModoSol = "surpresa",
+  famosa: Famosa = "maio2024",
+): Promise<DonkiPool> {
   const hoje = new Date();
+  if (modo === "semana") {
+    const recentes = await fetchWindow(new Date(hoje.getTime() - 7 * DAY), hoje, true);
+    if (recentes.length)
+      return { events: recentes, fromNasa: recentes.length, liveCount: recentes.length };
+    return { events: [...RESERVE_EVENTS], fromNasa: 0, liveCount: 0, calmo: true };
+  }
+  if (modo === "famosa") {
+    const [ini, fim] = FAMOSAS[famosa];
+    const daNasa = await fetchWindow(dia(ini), dia(fim), false);
+    const daReserva = RESERVE_EVENTS.filter((e) => e.date >= ini && e.date <= fim);
+    const base = daNasa.length ? daNasa : daReserva.length ? daReserva : [...RESERVE_EVENTS];
+    // semana famosa: os eventos FORTES daquela semana vêm na frente (cada tipo, se tiver)
+    const events = (["FLR", "CME", "SEP", "GST"] as DonkiKind[]).flatMap((k) => {
+      const doTipo = base.filter((e) => e.kind === k);
+      const fortes = doTipo.filter((e) => e.forca >= 2);
+      return fortes.length ? fortes : doTipo;
+    });
+    return { events, fromNasa: daNasa.length, liveCount: 0, famosa: true };
+  }
   const [hIni, hFim] = semanaHistorica(rand, hoje);
   const [recentes, historicos] = await Promise.all([
     fetchWindow(new Date(hoje.getTime() - 30 * DAY), hoje, true),

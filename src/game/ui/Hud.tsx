@@ -83,9 +83,9 @@ function SquareBtn({ img, label, onClick }: { img: string; label: string; onClic
   );
 }
 
-/** Relógio do sol: 0 = 07:00 (acordar) … 1 = 21:00 (hora de dormir). Horário só de jogo. */
+/** Relógio do sol: 0 = 07:00 (acordar) … 1 = 19:00 (hora de dormir). Horário só de jogo. */
 export function horaDoSol(relogio: number): string {
-  const min = Math.round((7 + Math.min(1, Math.max(0, relogio)) * 14) * 60);
+  const min = Math.round((7 + Math.min(1, Math.max(0, relogio)) * BALANCE.HORAS_DO_SOL) * 60);
   const h = Math.floor(min / 60);
   const m = Math.floor((min % 60) / 10) * 10; // de 10 em 10 minutos
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
@@ -148,43 +148,28 @@ export function TopHud({
   );
 }
 
-export function BottomBar({
-  state,
-  onEnergy,
-  onSleep,
-  noite = false,
-}: {
-  state: GameState;
-  onEnergy: () => void;
-  onSleep: () => void;
-  /** já é noite: pode dormir mesmo com alerta aberto (perde saúde) */
-  noite?: boolean;
-}) {
+/**
+ * Barra de baixo (o time vai remodelar): só mostra o status do dia.
+ * A energia se divide no painel da FÁBRICA DE AR; dormir é na CAMA da casa.
+ */
+export function BottomBar({ state, noite = false }: { state: GameState; noite?: boolean }) {
   const { t } = useGT();
   const faltam = state.alerts.filter((a) => !a.done).length;
   const dano = faltam * BALANCE.SAUDE_POR_ALERTA_PERDIDO;
-  const bloqueado = faltam > 0 && !noite;
+  const texto =
+    faltam > 0 && !noite
+      ? t("ui.alertas_faltam", { n: faltam })
+      : faltam > 0
+        ? `${t("ui.dormir_dica")} ${t("ui.dormir_custo", { dano })}`
+        : t("ui.dormir_dica");
   return (
-    <footer className="flex shrink-0 items-center gap-2 border-t-[6px] border-[#c4581f] bg-[#fbe6c8] p-2 text-[#3a2015]">
-      <Button variant="chunky" size="tap" onClick={onEnergy} className="gap-1.5">
-        <HudIcon name="raio" size={22} /> {t("ui.energia.abrir")}
-      </Button>
-      <span className="flex-1 text-center text-sm font-bold text-muted-foreground">
-        {faltam > 0 ? `❗ ${t("ui.alertas_faltam", { n: faltam })}` : ""}
-      </span>
-      <Button
-        variant="chunky"
-        size="tap"
-        onClick={onSleep}
-        disabled={bloqueado}
-        title={bloqueado ? t("ui.dormir_bloqueado", { n: faltam }) : undefined}
-        className={`gap-1.5 bg-[#e89a72] text-[#fff6ea] ${noite ? "animate-pulse" : ""}`}
+    <footer className="flex shrink-0 items-center justify-center gap-2 border-t-[6px] border-[#c4581f] bg-[#fbe6c8] p-2 text-[#3a2015]">
+      <HudIcon name={faltam > 0 && !noite ? "coracao" : "cama"} size={24} />
+      <span
+        className={`text-center text-sm font-bold sm:text-base ${noite ? "animate-pulse" : ""}`}
       >
-        <HudIcon name="cama" size={26} />
-        {faltam > 0 && noite
-          ? t("ui.dormir_custo", { dano })
-          : t("ui.dormir").replace(/\s*🛏️/u, "")}
-      </Button>
+        {texto}
+      </span>
     </footer>
   );
 }

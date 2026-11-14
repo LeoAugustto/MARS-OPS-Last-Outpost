@@ -86,3 +86,8 @@ export const PESO_RECENTE = 0.35;
 export const PESO_LUGAR_ONTEM = 0.6;
 /** quantos eventos das últimas missões o aparelho lembra (só ids de eventos, nada pessoal) */
 export const RECENTES_MAX = 40;
+
+/** duração do sol no relógio do jogo: 07:00 → 19:00 (jogo) */
+export const HORAS_DO_SOL = 12;
+/** andar o lado inteiro do mapa gasta 1 hora (jogo) */
+export const HORAS_POR_MAPA_ANDADO = 1;

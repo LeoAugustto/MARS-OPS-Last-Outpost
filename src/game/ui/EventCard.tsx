@@ -11,7 +11,8 @@ import {
   isChoiceAvailable,
   type GameState,
 } from "@/game/engine";
-import { DialogBox, EffectChips, Modal, PlaceScene, SpeakButton, useGT } from "./shared";
+import { atrasoRadioMin } from "@/data/marte";
+import { DialogBox, EffectChips, Modal, PlaceScene, useGT } from "./shared";
 
 const DICA_DONKI: Record<string, string> = {
   FLR: "glossario.clarao",
@@ -81,12 +82,16 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
               {title}
             </h2>
           </div>
-          <SpeakButton text={`${title}. ${body}`} />
         </div>
 
         {selo}
         {radio ? (
-          <DialogBox speaker="controle" text={body} />
+          <>
+            <DialogBox speaker="controle" text={body} />
+            <p className="text-sm font-semibold text-[#5a3424]">
+              {t("ui.radio_atraso", { min: atrasoRadioMin() })}
+            </p>
+          </>
         ) : (
           <p className="text-lg leading-snug">{body}</p>
         )}

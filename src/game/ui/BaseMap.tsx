@@ -43,6 +43,8 @@ interface Props {
   children?: ReactNode;
   /** saiu deste lugar: começa na porta dele */
   saiuDe?: PlaceId | null;
+  /** andou esta distância (% do mapa): o relógio do sol anda junto */
+  onWalk?: (dist: number) => void;
 }
 
 export function BaseMap({
@@ -55,6 +57,7 @@ export function BaseMap({
   periodo = "dia",
   children,
   saiuDe,
+  onWalk,
 }: Props) {
   const background = ART.map.ready ? ART.map.src : undefined;
   const { t } = useGT();
@@ -137,8 +140,8 @@ export function BaseMap({
   }, [onFirstMove]);
 
   // valores mais recentes para o laço (sem recriar o laço a cada quadro)
-  const live = useRef({ paused, onPlace, pendentes, moved });
-  live.current = { paused, onPlace, pendentes, moved };
+  const live = useRef({ paused, onPlace, pendentes, moved, onWalk });
+  live.current = { paused, onPlace, pendentes, moved, onWalk };
 
   // laço de animação: requestAnimationFrame + reserva por relógio (celular lento / aba sem animação)
   useEffect(() => {
@@ -202,6 +205,7 @@ export function BaseMap({
       if (mexeuAgora) {
         if (Math.abs(dx) > 0.2) setFlip(dx < 0);
         if (dx || dy) setDir(dirFrom(dx, dy));
+        live.current.onWalk?.(Math.hypot(nx - p.x, ny - p.y));
         posRef.current = { x: nx, y: ny };
         setPos(posRef.current);
         if (!andando) {

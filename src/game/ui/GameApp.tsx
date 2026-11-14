@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { loadSave, writeSave } from "@/lib/saves";
-import { loadDonkiPool, type DonkiPool } from "@/data/donki-live";
+import { loadDonkiPool, type DonkiPool, type Famosa, type ModoSol } from "@/data/donki-live";
 import {
   BALANCE,
   canSleep,
@@ -27,6 +27,7 @@ import { EnergyPanel, GameMenu, Glossary, MorningModal, NightModal, PlaceInfo } 
 import { EndScreen, Intro, LevelSelect, ProfileScreen, Report, TutorialBubble } from "./Screens";
 import { PIXEL_FONT_URL, PIXEL_THEME, stopSpeaking, useGT } from "./shared";
 import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
+import { collectStickers } from "./stickers";
 import type { Periodo } from "./art";
 
 type Phase = "nivel" | "perfil" | "abertura" | "manha" | "mapa" | "noite" | "fim" | "relatorio";
@@ -126,6 +127,19 @@ function GameInner({
   const [overlay, setOverlay] = useState<Overlay>(null);
   const [pool, setPool] = useState<DonkiPool | null>(null);
   const [loading, setLoading] = useState(true);
+  /** figurinhas ganhas na missão que acabou (mostradas no fim) */
+  const [novasFig, setNovasFig] = useState<string[]>([]);
+  /** de onde vêm os eventos do Sol desta missão */
+  const [modoSol, setModoSol] = useState<ModoSol>("surpresa");
+  const [famosa, setFamosa] = useState<Famosa>("maio2024");
+  const trocarModo = (m: ModoSol, f: Famosa = famosa) => {
+    setModoSol(m);
+    setFamosa(f);
+    setLoading(true);
+    loadDonkiPool(Math.random, m, f)
+      .then(setPool)
+      .finally(() => setLoading(false));
+  };
   const [saved, setSaved] = useState<SaveData | null>(null);
   // relógio do sol: 0 = manhã … 1 = hora de dormir (só anda com o mapa livre)
   const [relogio, setRelogio] = useState(0);
@@ -137,7 +151,7 @@ function GameInner({
     setSaved(s);
     if (mode === "continue" && s) restore(s);
     let vivo = true;
-    loadDonkiPool()
+    loadDonkiPool(Math.random, modoSol, famosa)
       .then((p) => vivo && setPool(p))
       .finally(() => vivo && setLoading(false));
     return () => {
@@ -214,7 +228,7 @@ function GameInner({
     setPhase("nivel");
     // nova semana histórica do DONKI para a próxima missão
     setLoading(true);
-    loadDonkiPool()
+    loadDonkiPool(Math.random, modoSol, famosa)
       .then(setPool)
       .finally(() => setLoading(false));
   };
@@ -303,20 +317,55 @@ function GameInner({
     return () => clearInterval(id);
   }, [relogioRodando, segundosPorSol]);
 
-  // 21:00: o relógio PARA e espera a criança ir dormir na casa (não vira o dia sozinho)
+  /** andar gasta tempo: atravessar o mapa inteiro = BALANCE.HORAS_POR_MAPA_ANDADO */
+  const andou = useCallback((dist: number) => {
+    setRelogio((r) =>
+      Math.min(1, r + ((dist / 100) * BALANCE.HORAS_POR_MAPA_ANDADO) / BALANCE.HORAS_DO_SOL),
+    );
+  }, []);
+
+  // ESC: fecha a janela aberta (menu, energia, glossário, informação); no mapa, abre o menu
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape" || phase !== "mapa" || card) return;
+      e.preventDefault();
+      if (overlay) setOverlay(null);
+      else if (place) setPlace(null);
+      else setOverlay("menu");
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [phase, card, overlay, place]);
+
+  // fim da missão: guarda as figurinhas ganhas (uma vez)
+  const coletou = useRef<number | null>(null);
+  useEffect(() => {
+    if (phase !== "fim" || !game || coletou.current === game.seed) return;
+    coletou.current = game.seed;
+    setNovasFig(collectStickers(game));
+  }, [phase, game]);
+
+  // 19:00: o relógio PARA e espera a criança ir dormir na casa (não vira o dia sozinho)
 
   // ---------------------------------------------------------------- telas sem mapa
   const tela = "h-dvh w-full overflow-hidden bg-mars text-foreground";
 
   if (phase === "nivel" || (!game && phase !== "perfil")) {
     const info = pool
-      ? pool.fromNasa > 0
-        ? t("ui.nasa_ok", { n: pool.fromNasa })
-        : t("ui.nasa_reserva")
+      ? pool.calmo
+        ? t("ui.fonte.calmo")
+        : pool.famosa
+          ? t("ui.nasa_famosa", { n: pool.events.length })
+          : pool.fromNasa > 0
+            ? t("ui.nasa_ok", { n: pool.fromNasa })
+            : t("ui.nasa_reserva")
       : "";
     return (
       <main className={tela}>
         <LevelSelect
+          modo={modoSol}
+          famosa={famosa}
+          onModo={trocarModo}
           loading={loading}
           nasaInfo={info}
           saveSol={saved && saved.game.status === "jogando" ? saved.game.sol : null}
@@ -342,7 +391,12 @@ function GameInner({
   if (phase === "fim")
     return (
       <main className={tela}>
-        <EndScreen state={game} onReport={() => setPhase("relatorio")} onNew={backToLevels} />
+        <EndScreen
+          state={game}
+          novas={novasFig}
+          onReport={() => setPhase("relatorio")}
+          onNew={backToLevels}
+        />
       </main>
     );
   if (phase === "relatorio")
@@ -395,6 +449,7 @@ function GameInner({
             onTerminal={() => abrirTerminal(inside)}
             onEnergy={() => setOverlay("energia")}
             onSleep={sleep}
+            onWalk={andou}
             onExit={() => {
               setSaiuDe(inside);
               setInside(null);
@@ -404,6 +459,7 @@ function GameInner({
           <BaseMap
             key={"mapa-" + game.sol}
             saiuDe={saiuDe}
+            onWalk={andou}
             alerts={game.alerts}
             solar={game.solar}
             escudo={game.escudo}
@@ -437,14 +493,28 @@ function GameInner({
           </div>
         )}
       </div>
-      <BottomBar
-        state={game}
-        onEnergy={() => setOverlay("energia")}
-        onSleep={sleep}
-        noite={noite}
-      />
+      <BottomBar state={game} noite={noite} />
 
-      {phase === "manha" && <MorningModal state={game} onGo={() => setPhase("mapa")} />}
+      {phase === "manha" &&
+        (() => {
+          // dicas do Rovi, uma vez por missão: energia livre (faltou ontem) e escudo (ainda zero)
+          const dica =
+            game.night?.faltou.length && !seen.includes("dica_energia")
+              ? "dica_energia"
+              : game.sol >= 2 && game.escudo === 0 && !seen.includes("dica_escudo")
+                ? "dica_escudo"
+                : undefined;
+          return (
+            <MorningModal
+              state={game}
+              dica={dica && `ui.${dica.replace("_", ".")}`}
+              onGo={() => {
+                if (dica) setSeen((s) => [...s, dica]);
+                setPhase("mapa");
+              }}
+            />
+          );
+        })()}
       {phase === "noite" && (
         <NightModal
           state={game}
@@ -461,11 +531,11 @@ function GameInner({
           })()}
           onChoose={(choiceId) => {
             setGame((g) => (g ? choose(g, card, choiceId) : g));
-            // cada escolha gasta horas do sol (07:00–21:00 = 14 h); "perder o dia" gasta várias
+            // cada escolha gasta horas do sol (07:00–19:00); "perder o dia" gasta várias
             const a = game.alerts.find((x) => x.id === card);
             const c = a ? findEvent(a.eventId).choices?.find((x) => x.id === choiceId) : undefined;
             const horas = c ? (c.horas ?? 1) : 0;
-            if (horas) setRelogio((r) => Math.min(1, r + horas / 14));
+            if (horas) setRelogio((r) => Math.min(1, r + horas / BALANCE.HORAS_DO_SOL));
           }}
           onClose={closeCard}
         />

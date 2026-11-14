@@ -14,11 +14,39 @@ export function useGT() {
   const t = useCallback(
     (key: string, vars?: Record<string, string | number>) => {
       const nome = name || translate("ui.perfil.padrao", lang);
-      return translate(key, lang, { nome, ...vars });
+      const v: Record<string, string | number> = { nome, ...vars };
+      // datas dos eventos reais (AAAA-MM-DD) aparecem no formato do idioma
+      if (typeof v["data"] === "string") v["data"] = formatarData(v["data"], lang);
+      return translate(key, lang, v);
     },
     [lang, name],
   );
   return { t, lang };
+}
+
+const LOCALE: Record<Lang, string> = {
+  pt: "pt-BR",
+  en: "en-US",
+  es: "es-ES",
+  fr: "fr-FR",
+  it: "it-IT",
+};
+
+/** "2024-05-10" → "10 de mai. de 2024" (pt), "May 10, 2024" (en), "10 may 2024" (es)… */
+export function formatarData(iso: string, lang: Lang): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  if (!m) return iso;
+  const d = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])));
+  try {
+    return new Intl.DateTimeFormat(LOCALE[lang], {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      timeZone: "UTC",
+    }).format(d);
+  } catch {
+    return iso;
+  }
 }
 
 // ---------------------------------------------------------------- tema pixel art (só dentro do jogo)
@@ -120,8 +148,15 @@ export function stopSpeaking(): void {
   }
 }
 
+/**
+ * Leitura em voz alta DESLIGADA por enquanto (decisão do time, 14/11). Para religar no futuro:
+ * VOZ_ATIVA = true e recolocar <SpeakButton /> nas telas (ver docs/PENDENCIAS-PIXEL.md).
+ */
+export const VOZ_ATIVA = false;
+
 export function SpeakButton({ text }: { text: string }) {
   const { t, lang } = useGT();
+  if (!VOZ_ATIVA) return null;
   return (
     <button
       type="button"
