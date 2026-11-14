@@ -31,5 +31,5 @@ use the editor.
 
 ## Project rules
 - src/game/, src/content/, src/data/ belong to the game developers; app-shell work must not create or edit them.
-- UI text lives in src/i18n/dictionary.ts (pt default, en); never hardcode user-facing strings in pages.
+- UI text lives in src/i18n/locales/*.ts (pt is the base type; others must match keys); use useT() and never hardcode user-facing strings.
 - No accounts and no backend use: saves are local-only via src/lib/saves.ts (localStorage, every call try/catch so blocked storage never breaks the game).

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { LangToggle } from "@/components/AppHeader";
-import { useI18n } from "@/i18n";
+import { LangSelector } from "@/components/AppHeader";
+import { useDocumentTitle, useT } from "@/i18n";
 
 export const Route = createFileRoute("/play")({
   // mode tells the game whether to start fresh or load the latest local save.
@@ -21,22 +21,23 @@ export const Route = createFileRoute("/play")({
 });
 
 function Play() {
-  const { t } = useI18n();
+  const t = useT();
+  useDocumentTitle("titlePlay");
 
   return (
     <main className="flex h-dvh flex-col bg-background">
       {/* HUD placeholder — the game fills this in later */}
       <header id="game-hud" className="flex items-center justify-between gap-2 border-b-4 border-border bg-card p-2">
         <Button asChild variant="ghost" size="tap">
-          <Link to="/">←</Link>
+          <Link to="/" aria-label={t("backHome")}>←</Link>
         </Button>
-        <span className="font-display text-lg font-bold text-secondary">{t.sol} 1</span>
+        <span className="font-display text-lg font-bold text-secondary">{t("solCount", { n: 1 })}</span>
         <div className="flex items-center gap-2">
-          <LangToggle />
+          <LangSelector />
         </div>
       </header>
-      <div id="game-root" className="bg-mars relative flex flex-1 items-center justify-center overflow-hidden">
-        <p className="font-display text-2xl text-muted-foreground">{t.gameHere}</p>
+      <div id="game-root" aria-label={t("gameArea")} className="bg-mars relative flex flex-1 items-center justify-center overflow-hidden">
+        <p className="font-display text-2xl text-muted-foreground">{t("gameHere")}</p>
       </div>
     </main>
   );

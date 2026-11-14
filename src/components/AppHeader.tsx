@@ -1,39 +1,66 @@
 import { Link } from "@tanstack/react-router";
-import { useI18n } from "@/i18n";
+import { Check, ChevronDown } from "lucide-react";
+import br from "flag-icons/flags/4x3/br.svg";
+import us from "flag-icons/flags/4x3/us.svg";
+import es from "flag-icons/flags/4x3/es.svg";
+import fr from "flag-icons/flags/4x3/fr.svg";
+import it from "flag-icons/flags/4x3/it.svg";
+import { LANGS, LANG_NAMES, useLang, useT, type Lang } from "@/i18n";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-export function LangToggle() {
-  const { lang, setLang } = useI18n();
+const FLAGS: Record<Lang, string> = { pt: br, en: us, es, fr, it };
+
+function Flag({ lang }: { lang: Lang }) {
   return (
-    <div className="flex rounded-2xl bg-muted p-1" role="group" aria-label="Idioma / Language">
-      {(["pt", "en"] as const).map((l) => (
-        <Button
-          key={l}
-          size="tap"
-          variant={lang === l ? "chunkySand" : "ghost"}
-          className="min-w-12 px-3"
-          aria-pressed={lang === l}
-          onClick={() => setLang(l)}
-        >
-          {l.toUpperCase()}
+    <img src={FLAGS[lang]} alt="" aria-hidden width={32} height={24}
+      className="h-6 w-8 rounded-md object-cover shadow-sm ring-1 ring-border" />
+  );
+}
+
+export function LangSelector() {
+  const { lang, setLang } = useLang();
+  const t = useT();
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="chunkySand" size="tap" className="gap-2 px-3" aria-label={`${t("chooseLanguage")}: ${LANG_NAMES[lang]}`}>
+          <Flag lang={lang} />
+          <span className="uppercase">{lang}</span>
+          <ChevronDown aria-hidden />
         </Button>
-      ))}
-    </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="min-w-48 rounded-2xl p-2">
+        {LANGS.map((l) => (
+          <DropdownMenuItem key={l} onSelect={() => setLang(l)} lang={l}
+            className="min-h-12 gap-3 rounded-xl text-base" aria-current={l === lang}>
+            <Flag lang={l} />
+            <span className="flex-1">{LANG_NAMES[l]}</span>
+            {l === lang && <Check aria-hidden />}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
 export function AppHeader({ showBack = true }: { showBack?: boolean }) {
-  const { t } = useI18n();
+  const t = useT();
   return (
     <header className="mx-auto flex w-full max-w-3xl items-center justify-between gap-3 p-4">
       {showBack ? (
         <Button asChild variant="ghost" size="tap">
-          <Link to="/">← {t.home}</Link>
+          <Link to="/" aria-label={t("backHome")}>← {t("home")}</Link>
         </Button>
       ) : (
         <span />
       )}
-      <LangToggle />
+      <LangSelector />
     </header>
   );
 }
