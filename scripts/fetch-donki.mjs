@@ -1,15 +1,26 @@
 // Baixa flares reais do DONKI e imprime no formato de src/data/donki.ts.
 // Uso:
-//   NASA_API_KEY=suachave node scripts/fetch-donki.mjs 2024-01-01 2024-12-31
-// Chave grátis em https://api.nasa.gov (a DEMO_KEY estoura rápido em rede compartilhada).
-// NUNCA commite a chave. Ela fica só na variável de ambiente.
+//   node scripts/fetch-donki.mjs 2024-01-01 2024-12-31
+// Fonte principal: serviço web do próprio DONKI (CCMC/NASA), não precisa de chave.
+// Fallback: api.nasa.gov (precisa de NASA_API_KEY na variável de ambiente — NUNCA commite a chave).
+// Obs. (14/11/2026): api.nasa.gov/DONKI/FLR estava devolvendo 404; o CCMC funcionava.
 
-const key = process.env.NASA_API_KEY || 'DEMO_KEY';
 const [start = '2024-01-01', end = '2024-12-31'] = process.argv.slice(2);
-const url = `https://api.nasa.gov/DONKI/FLR?startDate=${start}&endDate=${end}&api_key=${key}`;
+const urls = [
+  `https://ccmc.gsfc.nasa.gov/DONKI/WS/get/FLR?startDate=${start}&endDate=${end}`,
+  `https://api.nasa.gov/DONKI/FLR?startDate=${start}&endDate=${end}&api_key=${process.env.NASA_API_KEY || 'DEMO_KEY'}`,
+];
 
-const res = await fetch(url);
-const data = await res.json();
+let data;
+for (const url of urls) {
+  try {
+    const res = await fetch(url);
+    data = await res.json();
+    if (Array.isArray(data)) break;
+  } catch {
+    /* tenta o próximo */
+  }
+}
 if (!Array.isArray(data)) {
   console.error('Resposta inesperada:', JSON.stringify(data).slice(0, 300));
   process.exit(1);

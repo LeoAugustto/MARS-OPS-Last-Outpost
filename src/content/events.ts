@@ -40,12 +40,16 @@ export const EVENTS: GameEvent[] = [
     weight: 1.3,
     canHappen: (s) => s.sol >= 2 && s.sol < s.totalSols,
     prepare: (s, rng) => {
-      const ev = LIVE_EVENT ?? SOLAR_EVENTS[Math.floor(rng() * SOLAR_EVENTS.length)];
+      // 1º alerta da missão usa o flare REAL desta semana (se a busca ao vivo funcionou); os outros, a lista conferida
+      const usarAoVivo = LIVE_EVENT !== null && !s.vars.usouAoVivo;
+      const ev = usarAoVivo ? LIVE_EVENT! : SOLAR_EVENTS[Math.floor(rng() * SOLAR_EVENTS.length)];
+      if (usarAoVivo) s.vars.usouAoVivo = 1;
       s.vars.classe = ev.classType;
       s.vars.data = ev.date;
       s.vars.forca = ev.forca;
       s.vars.estrelas = estrelas(ev.forca);
-      s.vars.aoVivo = LIVE_EVENT ? 1 : 0;
+      s.vars.aoVivo = usarAoVivo ? 1 : 0;
+      s.vars.donkiLink = ev.link ?? '';
       s.vars.fato = ev.factKey ?? '';
     },
     choices: [

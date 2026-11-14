@@ -6,7 +6,7 @@
 ## Conjuntos de dados da NASA usados
 | Fonte | Para quê no jogo | Como entra | Status |
 |---|---|---|---|
-| **DONKI** — https://ccmc.gsfc.nasa.gov/tools/DONKI/ · API `https://api.nasa.gov` `/DONKI/FLR` | Força e data das tempestades solares (`sol_agitado` → `tempestade_chega`) | `src/data/donki.ts` (lista selecionada) gerada por `scripts/fetch-donki.mjs`; opcional: flare recente "ao vivo" | ⚠️ lista atual escrita de memória, **rodar o script** |
+| **DONKI** — https://ccmc.gsfc.nasa.gov/tools/DONKI/ · API `https://api.nasa.gov` `/DONKI/FLR` | Força e data das tempestades solares (`sol_agitado` → `tempestade_chega`) | 1º alerta da missão: flare M/X mais forte dos últimos 7 dias, **ao vivo** (`src/data/donki-live.ts`, sem chave, CORS liberado). Demais alertas: 16 flares conferidos com ID e link do DONKI (`src/data/donki.ts`, gerado por `scripts/fetch-donki.mjs`) | ✅ conferido em 14/11/2026 |
 | **OSDR** — https://osdr.nasa.gov | Evento `exercicio`: ossos/músculos enfraquecem com pouca gravidade | Lição da carta + link de um estudo na página /fontes | ⚠️ escolher 1 estudo e linkar |
 | **RadLab (OSDR)** — https://visualization.osdr.nasa.gov/radlab/gui/data-api/ | Comparar a dose do jogo com a dose real medida na ISS | Fato no relatório / página /fontes | ⚠️ a fazer |
 | **Mars Trek** — https://trek.nasa.gov/mars/ | Foto/mapa real do local de pouso (carta `chegada`) | Imagem em `public/assets/` com crédito | ⚠️ a fazer |
@@ -26,12 +26,17 @@
 | Na ISS, tripulação se abriga em área mais protegida em eventos solares | `sol_agitado` | NASA | ⚠️ |
 | Radiação na superfície de Marte ~0,64 mSv/dia (RAD/Curiosity, Hassler et al. 2014) | `balance.ts` | Science 2014 / NASA | ⚠️ |
 | Set/2017: tempestade solar gerou auroras em Marte e aumentou radiação medida pelo Curiosity | `fato.marte_2017` | NASA (MAVEN/Curiosity) | ⚠️ |
-| Mai/2024: evento solar chegou a Marte; Curiosity mediu ~8.100 µGy ≈ 30 raios-X de tórax | `fato.marte_2024` | NASA, jun/2024 | ⚠️ |
+| Mai/2024 (20/05): evento solar chegou a Marte; Curiosity mediu ~8.100 µGy ≈ 30 raios-X de tórax. **Não está no DONKI** (foi no lado oculto do Sol), então não ligar a nenhum flare da lista | `fato.marte_2024` | NASA, jun/2024 | ⚠️ |
 | Perseverance coleta rochas com sinais de água antiga (Jezero) | `laboratorio` | NASA | ⚠️ |
 
 ## Números de jogo (🎮 — simplificados, não são dados da NASA)
 Todos em `src/game/engine/balance.ts`: produção dos painéis (10 ⚡), consumo diário, rendimento por energia, força das tempestades, redução do escudo (15%/nível), fator do abrigo (30%).
 A página `/fontes` deve dizer isso com clareza: *"Os números de energia e comida foram simplificados para o jogo. As tempestades, datas e fatos são reais."*
+
+## Observações técnicas do DONKI
+- `api.nasa.gov/DONKI/FLR` devolvia **404** em 14/11/2026; o serviço do próprio DONKI (`https://ccmc.gsfc.nasa.gov/DONKI/WS/get/FLR`) funcionava, sem chave e com CORS liberado.
+- Intervalos muito longos (ex.: 1 ano) às vezes voltam vazios: busque mês a mês.
+- A chave da api.nasa.gov do time **não vai para o repositório**. Se precisar, use `NASA_API_KEY` só no seu terminal.
 
 ## Regra de honestidade
 - Lista selecionada → selo **"📚 Evento real de <data>"**.
