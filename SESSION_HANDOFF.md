@@ -31,3 +31,12 @@ Na barra lateral direita, abra **Agentes → Todos**. O Orca exibiu **Treinador 
 - Integrada a main remota `c796112` por merge, preservando o histórico. O único conflito foi na home: manteve-se integralmente o menu de hub já publicado pelo time; a troca de emoji do botão antigo ficou superada por esse novo menu.
 - Após resolver o conflito: `npm test` passou novamente com 23 testes em 5 arquivos; `npm run build` passou novamente; `git diff --cached --check` passou.
 - Próximo passo: enviar esta branch e abrir PR para `main`. A sincronização do Lovable depende da integração na `main`, cuja revisão e merge cabem a Leo conforme `AGENTS.md`.
+
+## 2026-11-14 · Codex · envio concluído
+
+- **Autorização** — Leo confirmou a conexão do Lovable e autorizou o restante, incluindo o merge na main.
+- **Resultado** — PR #1 (`https://github.com/LeoAugustto/MARS-OPS-Last-Outpost/pull/1`) integrado por merge, sem reescrever histórico. Commit na main: `b500808` (`integra interiores e ícones na main`). Os oito interiores, 29 ícones e demais alterações revisadas estão no GitHub.
+- **Checkout** — Mesmo checkout principal e mesma branch `feat/ui-arte-interiores-icones`, atualizada por fast-forward até a main integrada.
+- **Validação** — Mantidos os resultados da etapa anterior: 23 testes em 5 arquivos e build de produção passaram após integrar o menu novo. Não houve alteração de código após esses testes.
+- **Lovable** — Catálogo confirmou a integração instalada nesta etapa. As ferramentas do Lovable ainda não foram expostas nesta sessão; sincronização no editor e atualização do site publicado não foram verificadas. Usar Lovable nas próximas tarefas das áreas permitidas, respeitando a propriedade de pastas no AGENTS.md.
+- **Pendências** — Confirmar a sincronização no editor Lovable e fazer a revisão visual/mobile completa. Nenhuma mudança do jogo desta etapa ficou apenas local.
