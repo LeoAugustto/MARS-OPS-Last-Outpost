@@ -29,7 +29,7 @@ function Sobre() {
           <h2 className="text-2xl font-bold">{t("aboutLearnTitle")}</h2>
           <ul className="mt-3 grid gap-2">
             {(["aboutLearn1", "aboutLearn2", "aboutLearn3", "aboutLearn4"] as const).map((k) => t(k)).map((item) => (
-              <li key={item} className="flex gap-2"><span aria-hidden>⭐</span>{item}</li>
+              <li key={item} className="flex gap-2"><img src="/assets/ui/estrela.png" alt="" width={18} height={18} className="pixelated h-[18px] w-[18px] shrink-0" />{item}</li>
             ))}
           </ul>
         </div>

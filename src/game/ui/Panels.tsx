@@ -10,14 +10,16 @@ import {
   type ModuleKey,
   type PlaceId,
 } from "@/game/engine";
-import { DialogBox, Modal, PlaceScene, useGT } from "./shared";
+import { ART } from "./art";
+import { PixelIcon } from "./PixelIcon";
+import { DialogBox, Modal, PlaceIcon, PlaceScene, useGT } from "./shared";
 
 // ---------------------------------------------------------------- energia
 const MODULOS: { k: ModuleKey; icon: string }[] = [
-  { k: "ar", icon: "💨" },
-  { k: "estufa", icon: "🌱" },
-  { k: "ciencia", icon: "🔬" },
-  { k: "escudo", icon: "🛡️" },
+  { k: "ar", icon: "o2" },
+  { k: "estufa", icon: "batata" },
+  { k: "ciencia", icon: "microscopio" },
+  { k: "escudo", icon: "escudo" },
 ];
 
 export function EnergyPanel({
@@ -39,14 +41,12 @@ export function EnergyPanel({
   return (
     <Modal label={t("ui.energia.titulo")} onClose={onClose}>
       <div className="flex flex-col gap-3">
-        <h2 className="font-display text-2xl font-bold text-secondary">{t("ui.energia.titulo")}</h2>
+        <h2 className="font-display text-2xl font-bold text-secondary"><PixelIcon name="raio" size={32} /> {t("ui.energia.titulo")}</h2>
         <p className="text-sm text-muted-foreground">{t("ui.energia.explica")}</p>
         <p className="text-lg font-extrabold">{t("ui.energia.hoje", { n: hoje })}</p>
         {MODULOS.map(({ k, icon }) => (
-          <div key={k} className="flex items-center gap-2 rounded-2xl bg-muted p-2">
-            <span className="text-3xl" aria-hidden>
-              {icon}
-            </span>
+          <div key={k} className="flex items-center gap-2 border-2 border-border bg-muted p-2">
+            <PixelIcon name={icon} size={32} />
             <div className="flex-1">
               <div className="font-bold">{t(`modulo.${k}`)}</div>
               <div className="text-xs text-muted-foreground">{t(`ui.energia.rende.${k}`)}</div>
@@ -76,11 +76,11 @@ export function EnergyPanel({
         ))}
         <p className="font-bold">{t("ui.energia.pede", { n: total })}</p>
         {total <= hoje ? (
-          <p className="rounded-xl bg-success/15 p-2 font-bold text-success">
+          <p className="border border-border bg-success/15 p-2 font-bold text-success">
             {t("ui.energia.sobra", { n: hoje - total })}
           </p>
         ) : (
-          <p className="rounded-xl bg-destructive/15 p-2 font-bold text-destructive">
+          <p className="border border-border bg-destructive/15 p-2 font-bold text-destructive">
             {t("ui.energia.falta", { n: total - hoje })}
           </p>
         )}
@@ -127,7 +127,7 @@ export function MorningModal({
     <Modal label={titulo}>
       <div className="flex flex-col gap-3 text-center">
         <div className="text-6xl" aria-hidden>
-          🌅
+          <PixelIcon name="amanhecer" size={64} />
         </div>
         <h2 className="font-display text-3xl font-bold text-secondary">{titulo}</h2>
         {linhas.map((l) => (
@@ -150,32 +150,37 @@ export function NightModal({ state, onNext }: { state: GameState; onNext: () => 
   const n = state.night;
   if (!n) return null;
   const linhas = [
-    t("ui.noite.ar", { feito: n.arFeito, usado: n.arUsado }),
-    t("ui.noite.comida", { feito: n.comidaFeita, usado: n.comidaUsada }),
-    t("ui.noite.radiacao", { dose: n.dose, pct: n.escudoPct }),
-    n.ciencia ? t("ui.noite.ciencia", { n: n.ciencia }) : "",
-    n.escudoNovo ? t("ui.noite.escudo", { n: n.escudoNovo }) : "",
-    n.faltou.length
-      ? t("ui.noite.falta", { lista: n.faltou.map((k) => t(`modulo.${k}`)).join(", ") })
-      : "",
-    n.critico ? t("ui.noite.critico") : "",
-    n.perdidos ? t("ui.noite.perdidos", { n: n.perdidos, dano: n.danoPerdidos ?? 0 }) : "",
-    n.perdidos ? t("ui.noite.sono") : "",
-    t("ui.noite.bateria", { n: n.bateria }),
-  ].filter(Boolean);
+    { icon: "o2", texto: t("ui.noite.ar", { feito: n.arFeito, usado: n.arUsado }) },
+    { icon: "batata", texto: t("ui.noite.comida", { feito: n.comidaFeita, usado: n.comidaUsada }) },
+    { icon: "radiacao", texto: t("ui.noite.radiacao", { dose: n.dose, pct: n.escudoPct }) },
+    n.ciencia > 0 && { icon: "microscopio", texto: t("ui.noite.ciencia", { n: n.ciencia }) },
+    n.escudoNovo > 0 && { icon: "escudo", texto: t("ui.noite.escudo", { n: n.escudoNovo }) },
+    n.faltou.length > 0 && {
+      icon: "aviso",
+      texto: t("ui.noite.falta", { lista: n.faltou.map((k) => t(`modulo.${k}`)).join(", ") }),
+    },
+    n.critico && { icon: "cansado", texto: t("ui.noite.critico") },
+    !!n.perdidos && {
+      icon: "cansado",
+      texto: t("ui.noite.perdidos", { n: n.perdidos, dano: n.danoPerdidos ?? 0 }),
+    },
+    !!n.perdidos && { icon: "cama", texto: t("ui.noite.sono") },
+    { icon: "bateria", texto: t("ui.noite.bateria", { n: n.bateria }) },
+  ].filter((linha) => linha !== false);
   const titulo = t("ui.noite.titulo", { sol: n.sol });
   const acabou = state.status !== "jogando";
   return (
     <Modal label={titulo}>
       <div className="flex flex-col gap-2">
         <div className="text-center text-6xl" aria-hidden>
-          🌙
+          <PixelIcon name="lua" size={64} />
         </div>
         <h2 className="text-center font-display text-2xl font-bold text-secondary">{titulo}</h2>
         <ul className="flex flex-col gap-1.5">
-          {linhas.map((l) => (
-            <li key={l} className="rounded-xl bg-muted px-3 py-2 text-base">
-              {l}
+          {linhas.map(({ icon, texto }) => (
+            <li key={texto} className="flex items-center gap-2 border border-border bg-muted px-3 py-2 text-base">
+              <PixelIcon name={icon} />
+              <span>{texto}</span>
             </li>
           ))}
         </ul>
@@ -215,16 +220,16 @@ export function PlaceInfo({
         <p className="text-lg">{t(`lugar.${place}.info`, { n: state.escudo })}</p>
         {place === "ar" && (
           <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onEnergy}>
-            ⚡ {t("ui.energia.titulo")}
+            <PixelIcon name="raio" /> {t("ui.energia.titulo")}
           </Button>
         )}
         {place === "habitat" &&
           (faltam === 0 || noite ? (
             <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onSleep}>
-              {faltam ? t("ui.dormir_custo", { dano }) : t("ui.dormir")}
+              <PixelIcon name="cama" /> {faltam ? t("ui.dormir_custo", { dano }) : t("ui.dormir")}
             </Button>
           ) : (
-            <p className="rounded-xl bg-accent p-3 font-bold">
+            <p className="border border-border bg-accent p-3 font-bold">
               {t("ui.dormir_bloqueado", { n: faltam })}
             </p>
           ))}
@@ -255,10 +260,10 @@ export function Glossary({ onClose }: { onClose: () => void }) {
     <Modal label={t("ui.glossario.titulo")} onClose={onClose}>
       <div className="flex flex-col gap-2">
         <h2 className="font-display text-2xl font-bold text-secondary">
-          📖 {t("ui.glossario.titulo")}
+          <PixelIcon name="livro" /> {t("ui.glossario.titulo")}
         </h2>
         {GLOSSARIO.map((k) => (
-          <p key={k} className="rounded-xl bg-muted p-3">
+          <p key={k} className="border border-border bg-muted p-3">
             {t(`glossario.${k}`)}
           </p>
         ))}
@@ -296,26 +301,26 @@ export function GameMenu({
               type="button"
               onClick={onClose}
               aria-label={t("ui.fechar")}
-              className="grid h-11 w-11 place-items-center border-4 border-[#7a2f12] bg-[#c2312b] text-xl font-black text-white shadow-[0_3px_0_#7a2f12] active:translate-y-0.5"
+              className="grid h-12 w-12 place-items-center active:translate-y-0.5"
             >
-              X
+              <PixelIcon name="btn_fechar" size={42} />
             </button>
           </div>
         </div>
         <Button variant="chunky" size="tap" className="w-full" onClick={onClose}>
-          ▶ {t("ui.menu.voltar")}
+          <PixelIcon name="play" /> {t("ui.menu.voltar")}
         </Button>
         <Button variant="chunkySand" size="tap" className="w-full" onClick={onTutorial}>
-          🤖 {t("ui.menu.tutorial")}
+          <img src={ART.portraits.rovi.src} alt="" className="h-8 w-8 object-contain" /> {t("ui.menu.tutorial")}
         </Button>
         <Button variant="chunkySand" size="tap" className="w-full" onClick={onGlossary}>
-          📖 {t("ui.menu.glossario")}
+          <PixelIcon name="livro" /> {t("ui.menu.glossario")}
         </Button>
         <Button variant="chunkySand" size="tap" className="w-full" onClick={onRestart}>
-          🔄 {t("ui.menu.reiniciar")}
+          <PixelIcon name="recomecar" /> {t("ui.menu.reiniciar")}
         </Button>
         <Button variant="ghost" size="tap" className="w-full" onClick={onExit}>
-          🏠 {t("ui.menu.sair")}
+          <PlaceIcon place="habitat" size={24} /> {t("ui.menu.sair")}
         </Button>
       </div>
     </Modal>

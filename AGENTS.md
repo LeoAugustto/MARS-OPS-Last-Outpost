@@ -102,3 +102,11 @@ Prazo: submissão até **15/11/2026 23:59** (horário local). Simples e funciona
 - Não apresentar dado selecionado como "ao vivo".
 - Não copiar arte/nome/personagens de jogos existentes (inspiração de gênero tudo bem).
 - Não adicionar dependência pesada sem combinar (o jogo tem que abrir rápido no celular).
+
+## Continuidade entre Codex e Claude Code
+
+1. No início de cada etapa ou retomada, leia `PROJECT_CONTEXT.md` e `SESSION_HANDOFF.md`. Na raiz do checkout, confira `git status --short --branch`, `git branch --show-current` e `git log -5 --oneline`. Use `git diff` e `git diff --cached` para entender o trabalho existente antes de editar.
+2. Ao assumir uma tarefa em andamento, continue no mesmo checkout e na mesma branch. A regra de pull e branch por tarefa acima se aplica a trabalho novo. Se o fluxo de integração for necessário durante uma retomada, combine antes. Preserve as mudanças existentes e confirme no código o que ainda falta.
+3. Ao concluir uma etapa importante, ou antes de trocar de agente, atualize `SESSION_HANDOFF.md` com agente, objetivo, arquivos, decisões, testes realmente executados, pendências e próximo passo. Atualize `PROJECT_CONTEXT.md` quando a arquitetura ou as funcionalidades mudarem.
+4. No Orca, use **Resume** no histórico para continuar uma conversa do mesmo agente e confira o diretório registrado. Para trocar de agente, use **Hand Off to Another Agent** no terminal e confira se o destino está no mesmo checkout. A transferência leva um resumo limitado. Se o agente de origem estiver sem cota, abra o outro agente na mesma branch e peça que continue pelos dois arquivos de contexto e pelo diff.
+5. Faça commit ou push só com autorização. Preserve os históricos dos agentes, mantenha credenciais fora dos documentos e use permissões Auto quando disponíveis.

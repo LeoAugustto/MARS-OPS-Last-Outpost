@@ -19,15 +19,15 @@ export const fr: Dict = {
   "nivel.comandante": "Commandant (difficile)",
 
   "hud.sol": "Sol {sol} sur {total}",
-  "hud.distribuir": "Partage l'énergie du jour : {energia} ⚡",
+  "hud.distribuir": "Partage l'énergie du jour : {energia}",
   "hud.sobra": "L'énergie qui reste est gardée dans la batterie.",
   "hud.dormir": "Dormir et finir le sol",
   "botao.ok": "OK !",
   "botao.porque": "Pourquoi ?",
   "botao.voltar_sol": "Revenir au sol {sol}",
   "botao.nova_missao": "Nouvelle mission",
-  "selo.ao_vivo": "📡 Donnée de la NASA en direct",
-  "selo.real": "📚 Événement réel du {data}",
+  "selo.ao_vivo": "Donnée de la NASA en direct",
+  "selo.real": "Événement réel du {data}",
 
   "fonte.donki": "NASA DONKI — météo de l’espace",
   "fonte.osdr": "NASA OSDR — santé des astronautes",
@@ -42,7 +42,7 @@ export const fr: Dict = {
   "glossario.tempestade":
     "Tempête solaire = quand le Soleil lance une explosion de lumière et de particules très rapides.",
 
-  "fim.vitoria.title": "Mission accomplie ! 🎉",
+  "fim.vitoria.title": "Mission accomplie !",
   "fim.vitoria.body": "Ton équipage va bien et a fait beaucoup de science. La NASA est fière !",
   "fim.parcial.title": "Tout le monde est rentré !",
   "fim.parcial.body":
@@ -56,7 +56,7 @@ export const fr: Dict = {
     "La nourriture s’est épuisée. La serre a besoin de lumière (énergie) et les plantes mettent du temps à pousser.",
   "causa.saude":
     "La santé est trop basse. Les radiations, la faim et le manque d’air fatiguent le corps.",
-  "dica.ar": "Astuce : garde au moins 3 ⚡ à chaque sol pour la fabrique d'air.",
+  "dica.ar": "Astuce : garde au moins 3 d’énergie à chaque sol pour la fabrique d'air.",
   "dica.comida":
     "Astuce : plante tôt ! Ce que tu plantes aujourd’hui ne devient de la nourriture que quelques sols plus tard.",
   "dica.saude":
@@ -124,7 +124,7 @@ export const fr: Dict = {
   "ev.broto.economizar.lesson":
     "Économiser aujourd’hui peut manquer demain : une récolte dépend des soins de plusieurs jours.",
 
-  "ev.colheita_boa.title": "Belle récolte ! 🥔",
+  "ev.colheita_boa.title": "Belle récolte !",
   "ev.colheita_boa.body": "Avec beaucoup de lumière, la serre a donné plein de pommes de terre.",
   "ev.colheita_fraca.title": "Petite récolte",
   "ev.colheita_fraca.body": "Avec peu de lumière, les plantes ont peu poussé.",

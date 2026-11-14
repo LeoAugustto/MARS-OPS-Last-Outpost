@@ -22,15 +22,15 @@ export const pt = {
 
   // ---------------------------------------------------------------- HUD e botões
   "hud.sol": "Sol {sol} de {total}",
-  "hud.distribuir": "Divida a energia de hoje: {energia} ⚡",
+  "hud.distribuir": "Divida a energia de hoje: {energia}",
   "hud.sobra": "A energia que sobrar fica guardada na bateria.",
   "hud.dormir": "Dormir e terminar o sol",
   "botao.ok": "OK!",
   "botao.porque": "Por quê?",
   "botao.voltar_sol": "Voltar ao sol {sol}",
   "botao.nova_missao": "Nova missão",
-  "selo.ao_vivo": "📡 Dado ao vivo da NASA",
-  "selo.real": "📚 Evento real de {data}",
+  "selo.ao_vivo": "Dado ao vivo da NASA",
+  "selo.real": "Evento real de {data}",
 
   // ---------------------------------------------------------------- fontes
   "fonte.donki": "NASA DONKI — clima espacial",
@@ -48,7 +48,7 @@ export const pt = {
     "Tempestade solar = quando o Sol solta uma explosão de luz e partículas muito rápidas.",
 
   // ---------------------------------------------------------------- fim da missão (nunca "game over")
-  "fim.vitoria.title": "Missão cumprida! 🎉",
+  "fim.vitoria.title": "Missão cumprida!",
   "fim.vitoria.body": "Sua tripulação ficou bem e fez muita ciência. A NASA está orgulhosa!",
   "fim.parcial.title": "Todos voltaram bem!",
   "fim.parcial.body":
@@ -61,7 +61,7 @@ export const pt = {
   "causa.comida":
     "A comida acabou. A estufa precisa de luz (energia) e as plantas demoram para crescer.",
   "causa.saude": "A saúde ficou baixa demais. Radiação, fome e falta de ar cansam o corpo.",
-  "dica.ar": "Dica: guarde pelo menos 3 ⚡ por sol para a fábrica de ar.",
+  "dica.ar": "Dica: guarde pelo menos 3 de energia por sol para a fábrica de ar.",
   "dica.comida": "Dica: plante cedo! O que você planta hoje só vira comida daqui a alguns sóis.",
   "dica.saude": "Dica: construa o escudo cedo e se esconda no abrigo quando o Sol estiver agitado.",
   "fato.reabastecimento":
@@ -122,7 +122,7 @@ export const pt = {
   "ev.broto.economizar.lesson":
     "Economizar hoje pode faltar amanhã: a colheita depende do cuidado de vários dias.",
 
-  "ev.colheita_boa.title": "Colheita boa! 🥔",
+  "ev.colheita_boa.title": "Colheita boa!",
   "ev.colheita_boa.body": "Com bastante luz, a estufa deu muitas batatas.",
   "ev.colheita_fraca.title": "Colheita pequena",
   "ev.colheita_fraca.body": "Com pouca luz, as plantas cresceram pouco.",

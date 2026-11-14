@@ -19,15 +19,15 @@ export const en: Dict = {
   "nivel.comandante": "Commander (hard)",
 
   "hud.sol": "Sol {sol} of {total}",
-  "hud.distribuir": "Share today's energy: {energia} ⚡",
+  "hud.distribuir": "Share today's energy: {energia}",
   "hud.sobra": "Any energy left over is saved in the battery.",
   "hud.dormir": "Sleep and end the sol",
   "botao.ok": "OK!",
   "botao.porque": "Why?",
   "botao.voltar_sol": "Go back to sol {sol}",
   "botao.nova_missao": "New mission",
-  "selo.ao_vivo": "📡 Live NASA data",
-  "selo.real": "📚 Real event from {data}",
+  "selo.ao_vivo": "Live NASA data",
+  "selo.real": "Real event from {data}",
 
   "fonte.donki": "NASA DONKI — space weather",
   "fonte.osdr": "NASA OSDR — astronaut health",
@@ -42,7 +42,7 @@ export const en: Dict = {
   "glossario.tempestade":
     "Solar storm = when the Sun throws out a burst of light and super-fast particles.",
 
-  "fim.vitoria.title": "Mission complete! 🎉",
+  "fim.vitoria.title": "Mission complete!",
   "fim.vitoria.body": "Your crew stayed healthy and did lots of science. NASA is proud!",
   "fim.parcial.title": "Everyone got home safe!",
   "fim.parcial.body":
@@ -55,7 +55,7 @@ export const en: Dict = {
   "causa.comida":
     "The food ran out. The greenhouse needs light (energy), and plants take time to grow.",
   "causa.saude": "Health got too low. Radiation, hunger and lack of air make the body tired.",
-  "dica.ar": "Tip: save at least 3 ⚡ every sol for the air maker.",
+  "dica.ar": "Tip: save at least 3 energy every sol for the air maker.",
   "dica.comida": "Tip: plant early! What you plant today only becomes food a few sols later.",
   "dica.saude": "Tip: build the shield early and hide in the shelter when the Sun is stormy.",
   "fato.reabastecimento":
@@ -113,7 +113,7 @@ export const en: Dict = {
   "ev.broto.economizar.lesson":
     "Saving today can mean missing out tomorrow: a harvest needs care over many days.",
 
-  "ev.colheita_boa.title": "Great harvest! 🥔",
+  "ev.colheita_boa.title": "Great harvest!",
   "ev.colheita_boa.body": "With plenty of light, the greenhouse grew lots of potatoes.",
   "ev.colheita_fraca.title": "Small harvest",
   "ev.colheita_fraca.body": "With little light, the plants grew only a little.",
