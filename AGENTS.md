@@ -28,3 +28,9 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- src/game/, src/content/, src/data/ belong to the game developers; app-shell work must not create or edit them.
+- UI text lives in src/i18n/dictionary.ts (pt default, en); never hardcode user-facing strings in pages.
+- Game saves go through src/lib/saves.ts (loadSave/writeSave); RLS limits rows to the owner.
+- Guests play via anonymous sign-in; "save to cloud" links email+password to the same user with updateUser.
