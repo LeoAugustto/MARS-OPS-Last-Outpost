@@ -323,7 +323,7 @@ export const EVENTS: GameEvent[] = [
   },
 
   // ============================================================ EVENTOS POR LUGAR DA BASE
-  // Dono: Bruno. Um bloco por lugar (o lugar de cada evento fica em src/content/places.ts).
+  // Dono: Bruno. Um bloco por lugar (o lugar de cada evento fica no campo `place`).
   // Regras seguidas: 2 escolhas, as duas com custo (agora ou depois), lição real com fonte em
   // docs/DATA_SOURCES.md. Todos os números abaixo são de JOGO (balanceamento), não medições.
   // UMA_VEZ = cooldown maior que qualquer missão: o evento aparece no máximo 1 vez.
@@ -333,6 +333,7 @@ export const EVENTS: GameEvent[] = [
     // Redemoinho de poeira: o resultado depende do estado do painel (sujo → limpa; limpo → suja um pouco).
     id: "redemoinho",
     chain: "poeira",
+    place: "paineis",
     icon: "🌀",
     source: "nasa-fato",
     cooldown: 5,
@@ -351,14 +352,16 @@ export const EVENTS: GameEvent[] = [
   {
     id: "redemoinho_passou",
     chain: "poeira",
+    place: "paineis",
     icon: "🌀",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: (s: GameState) => ({ solar: s.solar < 1 ? 0.3 : -0.2 }),
+    onOpen: (s: GameState) => ({ solar: s.solar < 1 ? 0.3 : -0.2 }),
   },
   {
     id: "painel_rachado",
     chain: "paineis",
+    place: "paineis",
     icon: "💥",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
@@ -373,12 +376,13 @@ export const EVENTS: GameEvent[] = [
     // Só nas missões mais longas (Piloto e Comandante), da metade em diante.
     id: "inverno",
     chain: "paineis",
+    place: "paineis",
     icon: "❄️",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
     canHappen: (s) =>
       s.totalSols >= 10 && s.sol >= Math.ceil(s.totalSols / 2) && s.sol < s.totalSols,
-    onStart: () => ({ solar: -0.2 }),
+    onOpen: () => ({ solar: -0.2 }),
     choices: [
       { id: "inclinar", effects: { energia: -3, solar: 0.2 } },
       { id: "economizar", effects: { ciencia: -2, bateria: 3 } },
@@ -389,6 +393,7 @@ export const EVENTS: GameEvent[] = [
   {
     id: "vazamento",
     chain: "ar",
+    place: "ar",
     icon: "🚪",
     source: "nasa-fato",
     cooldown: 5,
@@ -405,14 +410,16 @@ export const EVENTS: GameEvent[] = [
   {
     id: "vazamento_volta",
     chain: "ar",
+    place: "ar",
     icon: "🚪",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ ar: -5 }),
+    onOpen: () => ({ ar: -5 }),
   },
   {
     id: "gerador_barulho",
     chain: "ar",
+    place: "ar",
     icon: "🔊",
     source: "nasa-fato",
     cooldown: 5,
@@ -430,14 +437,16 @@ export const EVENTS: GameEvent[] = [
   {
     id: "gerador_quebrou",
     chain: "ar",
+    place: "ar",
     icon: "🛠️",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ ar: -8, energia: -2 }),
+    onOpen: () => ({ ar: -8, energia: -2 }),
   },
   {
     id: "agua_do_ar",
     chain: "ar",
+    place: "ar",
     icon: "💧",
     source: "nasa-fato",
     cooldown: 5,
@@ -453,6 +462,7 @@ export const EVENTS: GameEvent[] = [
     // A ideia original era "praga"; usamos mofo porque é o que aconteceu de verdade na Estação Espacial.
     id: "mofo",
     chain: "estufa",
+    place: "estufa",
     icon: "🍂",
     source: "nasa-fato",
     cooldown: 5,
@@ -465,6 +475,7 @@ export const EVENTS: GameEvent[] = [
   {
     id: "rabanete",
     chain: "estufa",
+    place: "estufa",
     icon: "🌶️",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
@@ -483,14 +494,16 @@ export const EVENTS: GameEvent[] = [
   {
     id: "rabanete_de_novo",
     chain: "estufa",
+    place: "estufa",
     icon: "🌶️",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ comida: 9 }),
+    onOpen: () => ({ comida: 9 }),
   },
   {
     id: "sementes_terra",
     chain: "estufa",
+    place: "estufa",
     icon: "📦",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
@@ -512,24 +525,27 @@ export const EVENTS: GameEvent[] = [
   {
     id: "alface_pronta",
     chain: "estufa",
+    place: "estufa",
     icon: "🥬",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ comida: 5 }),
+    onOpen: () => ({ comida: 5 }),
   },
   {
     id: "batata_pronta",
     chain: "estufa",
+    place: "estufa",
     icon: "🥔",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ comida: 12 }),
+    onOpen: () => ({ comida: 12 }),
   },
 
   // ------------------------------------------------------------ 🔬 laboratório
   {
     id: "microscopio",
     chain: "ciencia",
+    place: "lab",
     icon: "🔬",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
@@ -542,6 +558,7 @@ export const EVENTS: GameEvent[] = [
   {
     id: "gelo",
     chain: "ciencia",
+    place: "lab",
     icon: "🧊",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
@@ -554,6 +571,7 @@ export const EVENTS: GameEvent[] = [
   {
     id: "bacterias",
     chain: "ciencia",
+    place: "lab",
     icon: "🦠",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
@@ -570,16 +588,18 @@ export const EVENTS: GameEvent[] = [
   {
     id: "lab_contaminado",
     chain: "ciencia",
+    place: "lab",
     icon: "🧽",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ ciencia: -2 }),
+    onOpen: () => ({ ciencia: -2 }),
   },
 
   // ------------------------------------------------------------ 🛡️ abrigo
   {
     id: "rachadura",
     chain: "abrigo",
+    place: "abrigo",
     icon: "🧱",
     source: "nasa-fato",
     cooldown: 6,
@@ -592,6 +612,7 @@ export const EVENTS: GameEvent[] = [
   {
     id: "treino",
     chain: "abrigo",
+    place: "abrigo",
     icon: "🚨",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
@@ -609,16 +630,18 @@ export const EVENTS: GameEvent[] = [
   {
     id: "alarme_teste",
     chain: "abrigo",
+    place: "abrigo",
     icon: "🚨",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ energia: -3, saude: -2 }),
+    onOpen: () => ({ energia: -3, saude: -2 }),
   },
 
   // ------------------------------------------------------------ 📡 antena
   {
     id: "aniversario",
     chain: "comunicacao",
+    place: "antena",
     icon: "🎂",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
@@ -631,6 +654,7 @@ export const EVENTS: GameEvent[] = [
   {
     id: "escola",
     chain: "comunicacao",
+    place: "antena",
     icon: "🏫",
     source: "nasa-fato",
     cooldown: 5,
@@ -644,6 +668,7 @@ export const EVENTS: GameEvent[] = [
     // Só depois de alguma história de vento/poeira na missão (coerência).
     id: "antena_torta",
     chain: "comunicacao",
+    place: "antena",
     icon: "📡",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
@@ -659,6 +684,7 @@ export const EVENTS: GameEvent[] = [
   {
     id: "sem_sono",
     chain: "saude",
+    place: "habitat",
     icon: "😴",
     source: "nasa-fato",
     cooldown: 5,
@@ -671,6 +697,7 @@ export const EVENTS: GameEvent[] = [
   {
     id: "saudade",
     chain: "saude",
+    place: "habitat",
     icon: "🏠",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
@@ -685,6 +712,7 @@ export const EVENTS: GameEvent[] = [
   {
     id: "pneu",
     chain: "rover",
+    place: "rover",
     icon: "🛞",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
@@ -702,14 +730,16 @@ export const EVENTS: GameEvent[] = [
   {
     id: "roda_conserto",
     chain: "rover",
+    place: "rover",
     icon: "🔧",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ energia: -3 }),
+    onOpen: () => ({ energia: -3 }),
   },
   {
     id: "dunas",
     chain: "rover",
+    place: "rover",
     icon: "🏜️",
     source: "nasa-fato",
     cooldown: 6,
@@ -727,14 +757,16 @@ export const EVENTS: GameEvent[] = [
   {
     id: "rover_atolou",
     chain: "rover",
+    place: "rover",
     icon: "🏜️",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ energia: -3 }),
+    onOpen: () => ({ energia: -3 }),
   },
   {
     id: "fossil",
     chain: "rover",
+    place: "rover",
     icon: "🐚",
     source: "nasa-fato",
     cooldown: UMA_VEZ,
@@ -751,9 +783,10 @@ export const EVENTS: GameEvent[] = [
   {
     id: "fossil_resultado",
     chain: "rover",
+    place: "rover",
     icon: "🪨",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ ciencia: 4 }),
+    onOpen: () => ({ ciencia: 4 }),
   },
 ];
