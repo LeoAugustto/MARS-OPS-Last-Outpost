@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { AppFooter, LangSelector } from "@/components/AppHeader";
-import { useDocumentTitle, useT } from "@/i18n";
+import { useDocumentTitle, useLang, useT } from "@/i18n";
 import { listSaves } from "@/lib/saves";
 import marsBase from "@/assets/mars-base.jpg";
 
@@ -25,6 +25,13 @@ function Home() {
   useDocumentTitle();
   const [hasSave, setHasSave] = useState(false);
   useEffect(() => setHasSave(listSaves().length > 0), []);
+  // Split the localized title at the first ":" so it always breaks right after it
+  const fullTitle = t("app.title");
+  const colon = fullTitle.indexOf(":");
+  const titleLines: [string, string] =
+    colon === -1 ? [fullTitle, ""] : [fullTitle.slice(0, colon + 1), fullTitle.slice(colon + 1).trim()];
+  // English joins into a single line on sm+ screens; the other languages always stay on two lines
+  const singleLineOnWide = useLang().lang === "en";
 
   return (
     <main className="bg-mars min-h-screen">
@@ -39,7 +46,22 @@ function Home() {
           height={768}
           className="w-full rounded-3xl border-4 border-border shadow-2xl"
         />
-        <h1 className="text-4xl font-bold leading-tight text-secondary sm:text-6xl">{t("app.title")}</h1>
+        <h1 className="font-bold leading-tight text-secondary">
+          {/* Two lines, breaking right after the colon; English joins into one line on sm+ screens */}
+          <span
+            className={`block whitespace-nowrap text-[clamp(1.75rem,9vw,3.75rem)]${singleLineOnWide ? " sm:hidden" : ""}`}
+          >
+            {titleLines[0]}
+          </span>
+          <span
+            className={`block whitespace-nowrap text-[clamp(1.75rem,9vw,3.75rem)]${singleLineOnWide ? " sm:hidden" : ""}`}
+          >
+            {titleLines[1]}
+          </span>
+          {singleLineOnWide && (
+            <span className="hidden whitespace-nowrap text-6xl sm:inline">{fullTitle}</span>
+          )}
+        </h1>
         <p className="text-xl font-semibold sm:text-2xl">{t("tagline")}</p>
         <div className="flex w-full max-w-sm flex-col gap-5">
           <Button asChild variant="chunky" size="xl">
