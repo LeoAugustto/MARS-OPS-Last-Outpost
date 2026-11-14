@@ -1,14 +1,24 @@
-// API pública do motor. A UI (React/Phaser) só importa daqui.
+// API pública do motor. A UI só importa daqui.
 export * from "./types";
 export {
   newMission,
-  currentEvent,
-  availableChoices,
-  isChoiceAvailable,
+  openAlert,
   choose,
+  choicesFor,
+  choiceEffect,
+  isChoiceAvailable,
+  energiaFaltando,
+  getAlert,
+  setAllocation,
+  plannedAllocation,
+  allocationTotal,
+  canSleep,
   endSol,
-  emptyAllocation,
   rewindTo,
+  findEvent,
+  defaultAllocation,
+  alertCount,
+  ORDEM_CORTE,
 } from "./engine";
 export { debrief, type Debrief } from "./debrief";
 export * as BALANCE from "./balance";

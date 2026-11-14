@@ -1,27 +1,28 @@
-// Catálogo de eventos. Donos: Bruno (histórias/textos) + Vinicius (números).
+// Catálogo de eventos (v2). Donos: Bruno (histórias/textos) + Vinicius (números).
 //
-// COMO FUNCIONA A ALEATORIEDADE COM SENTIDO
-//  - Cada evento pertence a uma "cadeia" (história): tempestade, poeira, estufa, ar, ciencia, saude, comunicacao.
-//  - Eventos "de abertura" são sorteados, mas só se canHappen() for verdade (ex.: só chega poeira se o painel está limpo).
-//  - A escolha da criança AGENDA a continuação (schedule) e liga flags. A continuação lê as flags.
-//    Ex.: "Preparar abrigo" liga a flag abrigo_pronto -> amanhã a tempestade chega e machuca bem menos.
-//  - O diretor nunca abre uma história que já está em andamento (não chegam duas poeiras ao mesmo tempo).
-//  - Toda escolha tem custo (agora ou depois). O teste src/game/engine/validate.test.ts garante isso.
+// COMO FUNCIONA
+//  - Cada evento tem um LUGAR (place) na base: o alerta ❗ aparece ali no mapa.
+//  - Eventos com `donki` usam um evento REAL do Sol (DONKI/NASA) do mesmo tipo, buscado ao vivo.
+//    As variáveis {data}, {tamanho}, {estrelas} vêm desse evento real.
+//  - Escolhas agendam continuações (schedule) e ligam flags: histórias encadeadas e coerentes.
+//  - Toda escolha tem custo (agora ou depois). O teste do validador garante isso.
 //
-// TEXTOS: não escreva texto aqui. Use as chaves em src/content/locales/<lang>.ts:
-//   ev.<id>.title, ev.<id>.body, ev.<id>.<choiceId>.label/.outcome/.lesson
+// TEXTOS: ficam em src/content/locales/ (chaves ev.<id>.title, ev.<id>.body,
+//         ev.<id>.<escolha>.label/.outcome/.lesson) nos 5 idiomas.
 
-import type { GameEvent, GameState } from "../game/engine/types";
+import type { Alert, GameEvent, GameState } from "../game/engine/types";
 import * as B from "../game/engine/balance";
-import { LIVE_EVENT, SOLAR_EVENTS } from "../data/donki";
 
-const estrelas = (n: number) => "⭐".repeat(n);
+const forcaDo = (a: Alert) => Number(a.vars["forca"] ?? 2);
+const reducaoEscudo = (s: GameState) => 1 - s.escudo * B.ESCUDO_REDUCAO;
+const hoje = (s: GameState, flag: string) => s.flags[flag] === s.sol;
 
 export const EVENTS: GameEvent[] = [
-  // ------------------------------------------------------------ chegada (sol 1, sempre)
+  // ============================================================ chegada (sol 1)
   {
     id: "chegada",
     chain: "intro",
+    place: "rover",
     icon: "🚀",
     source: "marstrek",
     choices: [
@@ -30,56 +31,59 @@ export const EVENTS: GameEvent[] = [
     ],
   },
 
-  // ------------------------------------------------------------ cadeia: tempestade solar (DONKI)
+  // ============================================================ EVENTOS DO SOL (DONKI)
+  // Clarão solar (FLR): rádio atrapalhado hoje
   {
-    id: "sol_agitado",
-    chain: "tempestade",
-    icon: "☀️",
+    id: "sol_clarao",
+    chain: "sol-clarao",
+    place: "antena",
+    icon: "⚡",
+    donki: "FLR",
     source: "donki",
-    cooldown: 5,
-    weight: 1.3,
-    canHappen: (s) => s.sol >= 2 && s.sol < s.totalSols,
-    prepare: (s, rng) => {
-      // 1º alerta da missão usa o flare REAL desta semana (se a busca ao vivo funcionou); os outros, a lista conferida
-      const usarAoVivo = LIVE_EVENT !== null && !s.vars["usouAoVivo"];
-      const ev =
-        (usarAoVivo ? LIVE_EVENT : SOLAR_EVENTS[Math.floor(rng() * SOLAR_EVENTS.length)]) ??
-        SOLAR_EVENTS[0]!;
-      if (usarAoVivo) s.vars["usouAoVivo"] = 1;
-      s.vars["classe"] = ev.classType;
-      s.vars["data"] = ev.date;
-      s.vars["forca"] = ev.forca;
-      s.vars["estrelas"] = estrelas(ev.forca);
-      s.vars["aoVivo"] = usarAoVivo ? 1 : 0;
-      s.vars["donkiLink"] = ev.link ?? "";
-      s.vars["fato"] = ev.factKey ?? "";
-    },
+    cooldown: 3,
+    weight: 1,
+    choices: [
+      { id: "reserva", effects: { energia: -3, ciencia: 1 } },
+      { id: "desligar", effects: { bateria: 2 }, setFlags: ["radio_mudo"], deferredCost: true },
+    ],
+  },
+  // Nuvem de partículas (CME): chega em 1 a 3 sóis
+  {
+    id: "sol_nuvem",
+    chain: "sol-nuvem",
+    place: "antena",
+    icon: "☄️",
+    donki: "CME",
+    source: "donki",
+    cooldown: 4,
+    weight: 1.4,
+    canHappen: (s) => s.sol < s.totalSols,
     choices: [
       {
         id: "abrigo",
         effects: { energia: -3 },
         setFlags: ["abrigo_pronto"],
-        schedule: [{ eventId: "tempestade_chega", inSols: 1 }],
+        schedule: [{ eventId: "sol_nuvem_chega", inSols: [1, 3] }],
       },
       {
-        id: "pesquisar",
+        id: "trabalhar",
         effects: { ciencia: 2 },
         deferredCost: true,
-        schedule: [{ eventId: "tempestade_chega", inSols: 1 }],
+        schedule: [{ eventId: "sol_nuvem_chega", inSols: [1, 3] }],
       },
     ],
   },
   {
-    id: "tempestade_chega",
-    chain: "tempestade",
+    id: "sol_nuvem_chega",
+    chain: "sol-nuvem",
+    place: "abrigo",
     icon: "🌩️",
     source: "donki",
     onlyScheduled: true,
-    onStart: (s: GameState) => {
-      const forca = Number(s.vars["forca"] ?? 2);
+    onOpen: (s, a) => {
       const abrigo = s.flags["abrigo_pronto"] !== undefined ? B.ABRIGO_FATOR : 1;
-      const escudo = 1 - s.escudo * B.ESCUDO_REDUCAO;
-      const dose = B.DOSE_TEMPESTADE * forca * B.LEVELS[s.level].doseMult * escudo * abrigo;
+      const dose =
+        B.DOSE_TEMPESTADE * forcaDo(a) * B.LEVELS[s.level].doseMult * reducaoEscudo(s) * abrigo;
       return { saude: -Math.round(dose) };
     },
     choices: [
@@ -87,11 +91,54 @@ export const EVENTS: GameEvent[] = [
       { id: "trabalhar", effects: { saude: -4, ciencia: 2 }, clearFlags: ["abrigo_pronto"] },
     ],
   },
+  // Chuva de partículas (SEP): URGENTE, chega em minutos
+  {
+    id: "sol_chuva",
+    chain: "sol-chuva",
+    place: "abrigo",
+    icon: "🚨",
+    donki: "SEP",
+    urgent: true,
+    source: "donki",
+    cooldown: 4,
+    weight: 1,
+    canHappen: (s) => s.sol >= 2,
+    choices: [
+      { id: "correr", effects: { energia: -1, ciencia: -1 } },
+      {
+        id: "terminar",
+        effects: { saude: -2, ciencia: 2 },
+        dynamic: (s, a) => ({ saude: -Math.round(5 * forcaDo(a) * reducaoEscudo(s)) }),
+      },
+    ],
+  },
+  // Tempestade magnética na Terra (GST): a Terra responde atrasado
+  {
+    id: "sol_terra",
+    chain: "sol-terra",
+    place: "antena",
+    icon: "🌍",
+    donki: "GST",
+    source: "donki",
+    cooldown: 5,
+    weight: 0.8,
+    canHappen: (s) => s.sol >= 2,
+    choices: [
+      {
+        id: "esperar",
+        effects: {},
+        setFlags: ["terra_atrasada", "radio_mudo"],
+        deferredCost: true,
+      },
+      { id: "sozinhos", effects: { energia: -2, ciencia: 1 } },
+    ],
+  },
 
-  // ------------------------------------------------------------ cadeia: poeira
+  // ============================================================ painéis: poeira
   {
     id: "poeira_vem",
     chain: "poeira",
+    place: "paineis",
     icon: "🌪️",
     source: "nasa-fato",
     cooldown: 5,
@@ -113,10 +160,11 @@ export const EVENTS: GameEvent[] = [
   {
     id: "painel_sujo",
     chain: "poeira",
+    place: "paineis",
     icon: "🔆",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ solar: -0.4 }),
+    onOpen: () => ({ solar: -0.4 }),
     choices: [
       { id: "limpar", effects: { ar: -6, saude: -2, solar: 0.4 } },
       {
@@ -130,16 +178,18 @@ export const EVENTS: GameEvent[] = [
   {
     id: "vento_limpa",
     chain: "poeira",
+    place: "paineis",
     icon: "🍃",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ solar: 0.4 }),
+    onOpen: () => ({ solar: 0.4 }),
   },
 
-  // ------------------------------------------------------------ cadeia: estufa (CSA)
+  // ============================================================ estufa
   {
     id: "broto",
     chain: "estufa",
+    place: "estufa",
     icon: "🌱",
     source: "csa",
     cooldown: 4,
@@ -158,28 +208,31 @@ export const EVENTS: GameEvent[] = [
   {
     id: "colheita_boa",
     chain: "estufa",
+    place: "estufa",
     icon: "🥔",
     source: "csa",
     onlyScheduled: true,
-    onStart: () => ({ comida: 12 }),
+    onOpen: () => ({ comida: 12 }),
   },
   {
     id: "colheita_fraca",
     chain: "estufa",
+    place: "estufa",
     icon: "🥀",
     source: "csa",
     onlyScheduled: true,
-    onStart: () => ({ comida: 4 }),
+    onOpen: () => ({ comida: 4 }),
   },
 
-  // ------------------------------------------------------------ cadeia: ar
+  // ============================================================ fábrica de ar
   {
     id: "filtro_entupido",
     chain: "ar",
+    place: "ar",
     icon: "💨",
     source: "nasa-fato",
     cooldown: 4,
-    canHappen: (s) => s.sol >= 3,
+    canHappen: (s) => s.sol >= 2,
     choices: [
       {
         id: "peca",
@@ -192,10 +245,11 @@ export const EVENTS: GameEvent[] = [
     ],
   },
 
-  // ------------------------------------------------------------ cadeia: ciência
+  // ============================================================ rover + laboratório
   {
     id: "rocha",
     chain: "ciencia",
+    place: "rover",
     icon: "🪨",
     source: "nasa-fato",
     cooldown: 3,
@@ -212,16 +266,18 @@ export const EVENTS: GameEvent[] = [
   {
     id: "laboratorio",
     chain: "ciencia",
+    place: "lab",
     icon: "🔬",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ ciencia: 3 }),
+    onOpen: () => ({ ciencia: 3 }),
   },
 
-  // ------------------------------------------------------------ cadeia: saúde (OSDR)
+  // ============================================================ habitat: saúde (OSDR)
   {
     id: "exercicio",
     chain: "saude",
+    place: "habitat",
     icon: "🏋️",
     source: "osdr",
     cooldown: 3,
@@ -232,14 +288,18 @@ export const EVENTS: GameEvent[] = [
     ],
   },
 
-  // ------------------------------------------------------------ cadeia: comunicação com a Terra
+  // ============================================================ antena: falar com a Terra
   {
     id: "contato_terra",
     chain: "comunicacao",
+    place: "antena",
     icon: "📡",
     source: "nasa-fato",
     cooldown: 4,
-    canHappen: (s) => s.sol < s.totalSols,
+    canHappen: (s) =>
+      s.sol < s.totalSols &&
+      !hoje(s, "radio_mudo") &&
+      !(s.sol - (s.flags["terra_atrasada"] ?? -9) <= 1),
     choices: [
       {
         id: "conselho",
@@ -252,9 +312,10 @@ export const EVENTS: GameEvent[] = [
   {
     id: "resposta_terra",
     chain: "comunicacao",
+    place: "antena",
     icon: "📨",
     source: "nasa-fato",
     onlyScheduled: true,
-    onStart: () => ({ comida: 5 }),
+    onOpen: () => ({ comida: 5 }),
   },
 ];

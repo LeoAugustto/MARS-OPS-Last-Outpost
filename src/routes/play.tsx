@@ -1,7 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
-import { LangSelector } from "@/components/AppHeader";
-import { useDocumentTitle, useT } from "@/i18n";
+import { createFileRoute } from "@tanstack/react-router";
+import { useDocumentTitle } from "@/i18n";
+import { GameApp } from "@/game/ui/GameApp";
 
 export const Route = createFileRoute("/play")({
   // mode tells the game whether to start fresh or load the latest local save.
@@ -20,25 +19,9 @@ export const Route = createFileRoute("/play")({
   component: Play,
 });
 
+// O jogo fica em src/game/ (não editar pelo Lovable). Esta rota só monta o jogo.
 function Play() {
-  const t = useT();
   useDocumentTitle("titlePlay");
-
-  return (
-    <main className="flex h-dvh flex-col bg-background">
-      {/* HUD placeholder — the game fills this in later */}
-      <header id="game-hud" className="flex items-center justify-between gap-2 border-b-4 border-border bg-card p-2">
-        <Button asChild variant="ghost" size="tap">
-          <Link to="/" aria-label={t("backHome")}>←</Link>
-        </Button>
-        <span className="font-display text-lg font-bold text-secondary">{t("solCount", { n: 1 })}</span>
-        <div className="flex items-center gap-2">
-          <LangSelector />
-        </div>
-      </header>
-      <div id="game-root" aria-label={t("gameArea")} className="bg-mars relative flex flex-1 items-center justify-center overflow-hidden">
-        <p className="font-display text-2xl text-muted-foreground">{t("gameHere")}</p>
-      </div>
-    </main>
-  );
+  const { mode } = Route.useSearch();
+  return <GameApp mode={mode} />;
 }

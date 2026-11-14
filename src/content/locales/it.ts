@@ -79,32 +79,6 @@ export const it: Dict = {
   "ev.chegada.arrumar.lesson":
     "Uno strato spesso di sabbia o roccia blocca una parte delle radiazioni. Gli scienziati progettano basi così.",
 
-  "ev.sol_agitado.title": "Allarme: il Sole è agitato!",
-  "ev.sol_agitado.body":
-    "La Terra ha avvisato: il Sole ha lanciato una forte esplosione (classe {classe}, forza {estrelas}). Può arrivare domani!",
-  "ev.sol_agitado.abrigo.label": "Preparare il rifugio",
-  "ev.sol_agitado.abrigo.outcome": "Il rifugio è pronto. Ha usato energia, ma siete protetti.",
-  "ev.sol_agitado.abrigo.lesson":
-    "Sulla Stazione Spaziale, quando il Sole è agitato, gli astronauti vanno nella parte più protetta.",
-  "ev.sol_agitado.pesquisar.label": "Continuare la ricerca",
-  "ev.sol_agitado.pesquisar.outcome":
-    "Oggi avete fatto più scienza... ma la tempesta sta arrivando.",
-  "ev.sol_agitado.pesquisar.lesson":
-    "La luce dell’esplosione arriva in pochi minuti, ma le particelle pericolose possono metterci ore o giorni. Quel tempo serve per proteggersi.",
-
-  "ev.tempestade_chega.title": "È arrivata la tempesta solare!",
-  "ev.tempestade_chega.body":
-    "Particelle del Sole stanno passando su Marte. Marte non ha uno scudo magnetico forte come la Terra.",
-  "ev.tempestade_chega.ficar.label": "Restare nel rifugio tutto il giorno",
-  "ev.tempestade_chega.ficar.outcome":
-    "Siete rimasti al sicuro, ma il riscaldamento del rifugio ha usato energia.",
-  "ev.tempestade_chega.ficar.lesson":
-    "Proteggersi ha un costo: niente lavoro fuori, e il rifugio usa energia.",
-  "ev.tempestade_chega.trabalhar.label": "Uscire a lavorare lo stesso",
-  "ev.tempestade_chega.trabalhar.outcome": "Avete fatto scienza, ma avete preso più radiazioni.",
-  "ev.tempestade_chega.trabalhar.lesson":
-    "La Terra ha un campo magnetico che devia le particelle del Sole. Marte quasi non ce l’ha, per questo lì ci sono più radiazioni.",
-
   "ev.poeira_vem.title": "Arriva una nuvola di polvere",
   "ev.poeira_vem.body": "Il vento di Marte ha sollevato polvere. Può coprire i pannelli solari.",
   "ev.poeira_vem.guardar.label": "Mettere energia nella batteria",
