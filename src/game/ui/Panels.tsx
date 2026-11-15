@@ -53,6 +53,9 @@ export function EnergyPanel({
   const [a, setA] = useState<Allocation>(state.allocation);
   const total = allocationTotal(a);
   const hoje = state.energiaHoje;
+  // + só enquanto houver energia do dia; o escudo para no que falta para as camadas máximas
+  const escudoUtil = Math.max(0, BALANCE.ESCUDO_MAX - state.escudo) * BALANCE.ENERGIA_POR_ESCUDO;
+  const podeMais = (k: keyof Allocation) => total < hoje && (k !== "escudo" || a.escudo < escudoUtil);
   // a divisão pede mais energia do que há: o Rovi explica (uma vez por missão) o que desliga primeiro
   const [roviFalta, setRoviFalta] = useState(false);
   useEffect(() => {
@@ -100,6 +103,7 @@ export function EnergyPanel({
               size="tap"
               className="w-12 text-xl"
               data-tut={k === "ar" ? "mais" : undefined}
+              disabled={!podeMais(k)}
               onClick={() => {
                 muda(k, 1);
                 tocarEfeito("clique_agudo");
