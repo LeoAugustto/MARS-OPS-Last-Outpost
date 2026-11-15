@@ -15,4 +15,12 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // a arte (public/assets) e o áudio trocam sem mudar de nome: o navegador confere se mudou
+  // em vez de guardar por 1 ano (senão quem já abriu o site continua vendo a imagem velha)
+  nitro: {
+    routeRules: {
+      "/assets/**": { headers: { "cache-control": "public, max-age=0, must-revalidate" } },
+      "/audio/**": { headers: { "cache-control": "public, max-age=0, must-revalidate" } },
+    },
+  },
 });
