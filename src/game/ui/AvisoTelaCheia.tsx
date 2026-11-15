@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { BOTAO_ESCURO, BotaoHub, TituloHub } from "./hub";
 import { Modal, useGT } from "./shared";
+import { PixelIcon } from "./PixelIcon";
 
 const CHAVE = "marsops:aviso-tela-cheia";
 
@@ -45,13 +46,8 @@ export function AvisoTelaCheia() {
   return (
     <Modal label={t("ui.telacheia.aviso.titulo")} onClose={fechar}>
       <div className="flex flex-col items-center gap-4 text-center">
-        {/* cantos de tela cheia em pixel (o mesmo desenho do botão lá de cima) */}
-        <svg viewBox="0 0 24 24" width="56" height="56" aria-hidden shapeRendering="crispEdges">
-          <path
-            d="M1 1h7v2H3v5H1zM16 1h7v7h-2V3h-5zM1 16h2v5h5v2H1zM21 16h2v7h-7v-2h5z"
-            fill="#f3c916"
-          />
-        </svg>
+        {/* o mesmo botão de tela cheia lá de cima */}
+        <PixelIcon name="tela_cheia" size={64} />
         <TituloHub as="h2" className="text-[clamp(1.1rem,4.5vw,1.6rem)]">
           {t("ui.telacheia.aviso.titulo")}
         </TituloHub>
