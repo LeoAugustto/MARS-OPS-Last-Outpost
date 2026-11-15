@@ -210,7 +210,11 @@ export function Interior({
               e.stopPropagation();
               irPara(p, o);
             }}
-            className={`absolute z-10 flex -translate-x-1/2 -translate-y-1/2 items-center ${o === "saida" ? "flex-col-reverse" : "flex-col"}`}
+            onClick={(e) => {
+              // Enter, espaço e tecnologias assistivas ativam o botão sem pointerdown.
+              if (e.detail === 0) irPara(p, o);
+            }}
+            className={`absolute z-10 flex -translate-x-1/2 -translate-y-1/2 items-center focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#ffd23f] ${o === "saida" ? "flex-col-reverse" : "flex-col"}`}
             style={{ left: `${p.x}%`, top: `${p.y}%` }}
             aria-label={t(`ui.interior.${o}`) + (o === "terminal" && alerta ? ` · ${t("ui.alerta")}` : "")}
           >

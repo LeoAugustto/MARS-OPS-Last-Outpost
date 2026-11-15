@@ -79,13 +79,13 @@ export const PIXEL_THEME = {
   "--ring": "#2c9c8f",
   "--success": "#22806f",
   "--destructive": "#c2312b",
-  fontFamily: '"Pixelify Sans", "Nunito", ui-rounded, sans-serif',
+  fontFamily: 'var(--font-sans, "VT323", monospace)',
   fontVariantLigatures: "none",
   fontFeatureSettings: '"liga" 0, "clig" 0',
 } as CSSProperties;
 
 export const PIXEL_FONT_URL =
-  "https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap";
+  "https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap";
 
 /** Ícone do lugar em pixel art. */
 export function PlaceIcon({ place, size = 48 }: { place: PlaceId; size?: number }) {
