@@ -144,6 +144,7 @@ function GameInner({
   const [saved, setSaved] = useState<SaveData | null>(null);
   // relógio do sol: 0 = manhã … 1 = hora de dormir (só anda com o mapa livre)
   const [relogio, setRelogio] = useState(0);
+  const [avisoFeito, setAvisoFeito] = useState("");
   const solDoRelogio = useRef<number | null>(null);
 
   // ao abrir: lê o save e busca os eventos do Sol na NASA
@@ -418,6 +419,8 @@ function GameInner({
   // ---------------------------------------------------------------- mapa
   const showTut = tutVisivel;
   const faltam = game.alerts.filter((a) => !a.done).length;
+  // cada aviso aparece uma vez por período de cada sol e depois some sozinho
+  const avisoId = `${game.sol}-${periodo}`;
   // aviso do fim de tarde / da noite (não bloqueia o mapa)
   const aviso =
     phase !== "mapa" || card || showTut
@@ -477,18 +480,13 @@ function GameInner({
             onFirstMove={() => setTut((x) => (x === 0 ? 1 : x))}
             periodo={periodo}
           >
-            {/* no caminho de cima, entre os painéis e a antena: não cobre nenhum ❗ */}
-            {aviso && (
-              <div
-                role="status"
-                className={`pointer-events-none absolute left-1/2 top-[3%] z-10 w-[40%] -translate-x-1/2 border-4 px-2 py-1.5 text-center text-xs font-bold leading-snug shadow-[0_4px_0_#4a2615] sm:text-sm ${
-                  noite
-                    ? "border-[#ffe9a8] bg-[#2b2350] text-[#ffe9a8]"
-                    : "border-[#4a2615] bg-[#ffd9a0] text-[#3a1f10]"
-                }`}
-              >
-                <PixelIcon name={noite ? "lua" : "entardecer"} size={18} /> {aviso}
-              </div>
+            {aviso && avisoFeito !== avisoId && (
+              <AvisoHora
+                key={avisoId}
+                texto={aviso}
+                noite={noite}
+                onFim={() => setAvisoFeito(avisoId)}
+              />
             )}
           </BaseMap>
         )}
@@ -583,5 +581,57 @@ function GameInner({
         />
       )}
     </main>
+  );
+}
+
+// ---------------------------------------------------------------- aviso do fim de tarde / noite
+/** Quanto tempo (ms) o aviso fica parado na tela antes de começar a sair. */
+const AVISO_FICA_MS = 4500;
+/** Duração da saída (tem que bater com a animação aviso-sai em styles.css). */
+const AVISO_SAI_MS = 1100;
+
+/**
+ * Aviso que cai do topo do mapa, fica alguns segundos (a barrinha embaixo mostra o tempo
+ * acabando) e depois sobe se apagando aos poucos. Não bloqueia o toque no mapa.
+ */
+function AvisoHora({ texto, noite, onFim }: { texto: string; noite: boolean; onFim: () => void }) {
+  const [saindo, setSaindo] = useState(false);
+  const fimRef = useRef(onFim);
+  fimRef.current = onFim;
+  useEffect(() => {
+    const a = setTimeout(() => setSaindo(true), AVISO_FICA_MS);
+    const b = setTimeout(() => fimRef.current(), AVISO_FICA_MS + AVISO_SAI_MS);
+    return () => {
+      clearTimeout(a);
+      clearTimeout(b);
+    };
+  }, []);
+  return (
+    // no caminho de cima, entre os painéis e a antena: não cobre nenhum ❗
+    <div className="pointer-events-none absolute left-1/2 top-[3%] z-10 w-[40%] -translate-x-1/2">
+      <div
+        role="status"
+        className={`relative overflow-hidden border-4 px-2 pb-2.5 pt-1.5 text-center text-xs font-bold leading-snug shadow-[0_4px_0_#4a2615] sm:text-sm ${
+          saindo ? "aviso-sai" : "aviso-entra"
+        } ${
+          noite
+            ? "border-[#ffe9a8] bg-[#2b2350] text-[#ffe9a8]"
+            : "border-[#4a2615] bg-[#ffd9a0] text-[#3a1f10]"
+        }`}
+      >
+        <span className="aviso-icone inline-block">
+          <PixelIcon name={noite ? "lua" : "entardecer"} size={18} />
+        </span>{" "}
+        {texto}
+        {/* barrinha do tempo: vai encolhendo até o aviso sair */}
+        <span
+          aria-hidden
+          className={`aviso-tempo absolute bottom-0 left-0 h-1 w-full origin-left ${
+            noite ? "bg-[#ffe9a8]" : "bg-[#e2672b]"
+          }`}
+          style={{ animationDuration: `${AVISO_FICA_MS}ms` }}
+        />
+      </div>
+    </div>
   );
 }
