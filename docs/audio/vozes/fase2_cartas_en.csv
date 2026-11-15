@@ -1,0 +1,116 @@
+﻿arquivo;personagem;emocao;texto
+en/astronauta_X/ev.chegada.explorar.outcome.mp3;astronauta (gravar menina e menino);[natural];You found amazing rocks, but the spacesuit used up air.
+en/astronauta_X/ev.chegada.arrumar.outcome.mp3;astronauta (gravar menina e menino);[natural];The robot piled sand on the base. Now it protects you better!
+en/astronauta_X/ev.poeira_vem.guardar.outcome.mp3;astronauta (gravar menina e menino);[natural];You saved energy for the dark days.
+en/astronauta_X/ev.poeira_vem.ignorar.outcome.mp3;astronauta (gravar menina e menino);[natural];A little more science today.
+en/astronauta_X/ev.painel_sujo.limpar.outcome.mp3;astronauta (gravar menina e menino);[natural];Shiny panels again! But the walk used air and exposed you to radiation.
+en/astronauta_X/ev.painel_sujo.esperar.outcome.mp3;astronauta (gravar menina e menino);[natural];You save air, but you will have little energy for a few sols.
+en/astronauta_X/ev.broto.luz.outcome.mp3;astronauta (gravar menina e menino);[natural];The greenhouse lamps used energy. The plants loved it!
+en/astronauta_X/ev.broto.economizar.outcome.mp3;astronauta (gravar menina e menino);[natural];You saved energy today, but the plants will grow less.
+en/astronauta_X/ev.filtro_entupido.peca.outcome.mp3;astronauta (gravar menina e menino);[natural];Fixed in no time! But now there is no spare part left.
+en/astronauta_X/ev.filtro_entupido.limpar.outcome.mp3;astronauta (gravar menina e menino);[natural];It worked, but it took all day and used energy.
+en/astronauta_X/ev.filtro_entupido.deixar.outcome.mp3;astronauta (gravar menina e menino);[natural];The air maker is making less air.
+en/astronauta_X/ev.rocha.robo.outcome.mp3;astronauta (gravar menina e menino);[natural];The robot went slowly and used battery, but brought back data.
+en/astronauta_X/ev.rocha.astronauta.outcome.mp3;astronauta (gravar menina e menino);[natural];What a discovery! But the trip used air and health.
+en/astronauta_X/ev.exercicio.treinar.outcome.mp3;astronauta (gravar menina e menino);[natural];Strong bodies! But the treadmill used energy and everyone got hungry.
+en/astronauta_X/ev.exercicio.pular.outcome.mp3;astronauta (gravar menina e menino);[natural];More time for science, but the body felt it.
+en/astronauta_X/ev.contato_terra.conselho.outcome.mp3;astronauta (gravar menina e menino);[natural];Message sent! The answer arrives tomorrow.
+en/astronauta_X/ev.contato_terra.fotos.outcome.mp3;astronauta (gravar menina e menino);[natural];The scientists loved the photos! The antenna used lots of energy.
+en/astronauta_X/ev.redemoinho.cobrir.outcome.mp3;astronauta (gravar menina e menino);[natural];The panels are safe, but covering them used energy.
+en/astronauta_X/ev.redemoinho.observar.outcome.mp3;astronauta (gravar menina e menino);[natural];You filmed the dust devil for the scientists. Tomorrow we'll see what it did to the panels.
+en/astronauta_X/ev.painel_rachado.consertar.outcome.mp3;astronauta (gravar menina e menino);[natural];The panel works again, but the repair used energy and air from the spacesuit.
+en/astronauta_X/ev.painel_rachado.desligar.outcome.mp3;astronauta (gravar menina e menino);[natural];Nobody had to go out, but the panels now make less energy.
+en/astronauta_X/ev.inverno.inclinar.outcome.mp3;astronauta (gravar menina e menino);[natural];The panels catch more light again, but moving them used energy.
+en/astronauta_X/ev.inverno.economizar.outcome.mp3;astronauta (gravar menina e menino);[natural];You saved power in the battery. The lab earns half its usual science today.
+en/astronauta_X/ev.vazamento.procurar.outcome.mp3;astronauta (gravar menina e menino);[natural];You found the hole and sealed it for good. But it took a whole day's energy.
+en/astronauta_X/ev.vazamento.remendo.outcome.mp3;astronauta (gravar menina e menino);[natural];The hissing stopped... for now. The patch might come loose.
+en/astronauta_X/ev.gerador_barulho.desligar.outcome.mp3;astronauta (gravar menina e menino);[natural];The loose part was tightened. But with the machine off, the base made less air today.
+en/astronauta_X/ev.gerador_barulho.continuar.outcome.mp3;astronauta (gravar menina e menino);[natural];The air kept flowing and you got more work done. But the noise is still there...
+en/astronauta_X/ev.agua_do_ar.coletar.outcome.mp3;astronauta (gravar menina e menino);[natural];You collected water for the greenhouse. The plants say thanks! The collector used energy.
+en/astronauta_X/ev.agua_do_ar.guardar.outcome.mp3;astronauta (gravar menina e menino);[natural];The battery is fuller, but the greenhouse got less water.
+en/astronauta_X/ev.mofo.cortar.outcome.mp3;astronauta (gravar menina e menino);[natural];The plants are saved, but you lost a little food.
+en/astronauta_X/ev.mofo.ventilar.outcome.mp3;astronauta (gravar menina e menino);[natural];The wind dried the leaves. The fans used energy, and some leaves wilted.
+en/astronauta_X/ev.rabanete.comer.outcome.mp3;astronauta (gravar menina e menino);[natural];What a feast! You got lots of food today, but no seeds are left.
+en/astronauta_X/ev.rabanete.sementes.outcome.mp3;astronauta (gravar menina e menino);[natural];You ate a few and replanted the rest. In a few sols there will be more!
+en/astronauta_X/ev.sementes_terra.alface.outcome.mp3;astronauta (gravar menina e menino);[natural];Lettuce grows fast, but it gives little food.
+en/astronauta_X/ev.sementes_terra.batata.outcome.mp3;astronauta (gravar menina e menino);[natural];Potatoes take a while, but they'll give lots of food.
+en/astronauta_X/ev.microscopio.imprimir.outcome.mp3;astronauta (gravar menina e menino);[natural];The 3D printer made the part! But it used lots of energy.
+en/astronauta_X/ev.microscopio.lupa.outcome.mp3;astronauta (gravar menina e menino);[natural];The magnifying glass showed fewer details. The lab earns half its usual science today.
+en/astronauta_X/ev.gelo.estudar.outcome.mp3;astronauta (gravar menina e menino);[natural];An important discovery for science! The tests used energy.
+en/astronauta_X/ev.gelo.derreter.outcome.mp3;astronauta (gravar menina e menino);[natural];The greenhouse got water. Without the ice sample, the lab earns half its usual science today.
+en/astronauta_X/ev.bacterias.caixa.outcome.mp3;astronauta (gravar menina e menino);[natural];Everything stayed safe and the research worked! But the box used lots of energy.
+en/astronauta_X/ev.bacterias.mesa.outcome.mp3;astronauta (gravar menina e menino);[natural];Faster and cheaper! But some bacteria may have escaped...
+en/astronauta_X/ev.rachadura.tapar.outcome.mp3;astronauta (gravar menina e menino);[natural];The robot covered the crack. The protection is whole, but it used energy.
+en/astronauta_X/ev.rachadura.depois.outcome.mp3;astronauta (gravar menina e menino);[natural];No energy used today, but the base lost one layer of protection.
+en/astronauta_X/ev.treino.treinar.outcome.mp3;astronauta (gravar menina e menino);[natural];The crew knows exactly what to do! But the drill used energy and research time.
+en/astronauta_X/ev.treino.adiar.outcome.mp3;astronauta (gravar menina e menino);[natural];You did more science today. But the crew isn't trained...
+en/astronauta_X/ev.aniversario.festa.outcome.mp3;astronauta (gravar menina e menino);[natural];There was cake, and everyone watched the video together. The crew is happy, but the party used food.
+en/astronauta_X/ev.aniversario.depois.outcome.mp3;astronauta (gravar menina e menino);[natural];The research moved on, but the birthday astronaut was sad all day.
+en/astronauta_X/ev.escola.video.outcome.mp3;astronauta (gravar menina e menino);[natural];The kids loved it! The crew is happy, but the antenna used energy.
+en/astronauta_X/ev.escola.dados.outcome.mp3;astronauta (gravar menina e menino);[natural];The scientists got new data, but the crew had no break and got tired.
+en/astronauta_X/ev.antena_torta.astronauta.outcome.mp3;astronauta (gravar menina e menino);[natural];The antenna is back in place! But the trip used spacesuit air and was tiring.
+en/astronauta_X/ev.antena_torta.robo.outcome.mp3;astronauta (gravar menina e menino);[natural];The robot fixed the antenna with nobody going out, but it used lots of energy.
+en/astronauta_X/ev.sem_sono.descansar.outcome.mp3;astronauta (gravar menina e menino);[natural];She woke up feeling better! The lab earns half its usual science today.
+en/astronauta_X/ev.sem_sono.luzes.outcome.mp3;astronauta (gravar menina e menino);[natural];The lights helped her body adjust little by little. But they used energy.
+en/astronauta_X/ev.saudade.folga.outcome.mp3;astronauta (gravar menina e menino);[natural];He rested and ate his favorite food. He feels much better, but it used food.
+en/astronauta_X/ev.saudade.plantas.outcome.mp3;astronauta (gravar menina e menino);[natural];Caring for the greenhouse together helped! But the extra light used energy.
+en/astronauta_X/ev.pneu.devagar.outcome.mp3;astronauta (gravar menina e menino);[natural];The wheel didn't get worse, but the trip was short and gave less science.
+en/astronauta_X/ev.pneu.seguir.outcome.mp3;astronauta (gravar menina e menino);[natural];You went farther and found new things! But the wheel got worse.
+en/astronauta_X/ev.dunas.entrar.outcome.mp3;astronauta (gravar menina e menino);[natural];New places and lots of science! But the sand looked soft...
+en/astronauta_X/ev.dunas.estudar.outcome.mp3;astronauta (gravar menina e menino);[natural];You found a safe path. It was slower and used energy.
+en/astronauta_X/ev.fossil.analisar.outcome.mp3;astronauta (gravar menina e menino);[natural];The rock went to the lab. The result is coming soon! Carrying it used energy.
+en/astronauta_X/ev.fossil.foto.outcome.mp3;astronauta (gravar menina e menino);[natural];The photos look great, but you may never know what it was.
+en/astronauta_X/ev.geada.esperar.outcome.mp3;astronauta (gravar menina e menino);[natural];The ice melted by itself, but the panels made less energy in the morning.
+en/astronauta_X/ev.geada.raspar.outcome.mp3;astronauta (gravar menina e menino);[natural];Clean panels in no time! But the trip used spacesuit air.
+en/astronauta_X/ev.eclipse_fobos.filmar.outcome.mp3;astronauta (gravar menina e menino);[natural];What an amazing video! The camera and telescope used energy.
+en/astronauta_X/ev.eclipse_fobos.guardar.outcome.mp3;astronauta (gravar menina e menino);[natural];The battery is fuller, but the lab had no energy and only works at half today.
+en/astronauta_X/ev.truque_areia.areia.outcome.mp3;astronauta (gravar menina e menino);[natural];The robot dropped sand near the panels. The wind carried the sand, and it swept away some dust!
+en/astronauta_X/ev.truque_areia.escovar.outcome.mp3;astronauta (gravar menina e menino);[natural];The panels are really clean! But the trip used spacesuit air.
+en/astronauta_X/ev.filtro_co2.reserva.outcome.mp3;astronauta (gravar menina e menino);[natural];New filter in place! But now there are no spares left.
+en/astronauta_X/ev.filtro_co2.improvisar.outcome.mp3;astronauta (gravar menina e menino);[natural];The filter made with tape and old parts worked, but not as well. The air got a little worse.
+en/astronauta_X/ev.eletrolise.fazer_ar.outcome.mp3;astronauta (gravar menina e menino);[natural];More oxygen for everyone! But the greenhouse got less water.
+en/astronauta_X/ev.eletrolise.guardar_agua.outcome.mp3;astronauta (gravar menina e menino);[natural];The plants drank well and grew. But the factory made less air today.
+en/astronauta_X/ev.poeira_dentro.aspirar.outcome.mp3;astronauta (gravar menina e menino);[natural];The base is spotless! The vacuum used energy.
+en/astronauta_X/ev.poeira_dentro.depois.outcome.mp3;astronauta (gravar menina e menino);[natural];No energy used, but the dust made the crew cough and sneeze.
+en/astronauta_X/ev.luz_rosa.rosa.outcome.mp3;astronauta (gravar menina e menino);[natural];The greenhouse turned pink and the plants grew well, using little energy.
+en/astronauta_X/ev.luz_rosa.branca.outcome.mp3;astronauta (gravar menina e menino);[natural];The plants grew and the crew liked seeing everything green. But white light used more energy.
+en/astronauta_X/ev.pimentas.verdes.outcome.mp3;astronauta (gravar menina e menino);[natural];New, spicy food today! Picking them was a bit of work.
+en/astronauta_X/ev.pimentas.vermelhas.outcome.mp3;astronauta (gravar menina e menino);[natural];The peppers keep growing. In a few sols, the harvest will be big!
+en/astronauta_X/ev.adubo.compostar.outcome.mp3;astronauta (gravar menina e menino);[natural];The leftovers will turn into compost. In a few sols, the plants will grow more!
+en/astronauta_X/ev.adubo.jogar_fora.outcome.mp3;astronauta (gravar menina e menino);[natural];The kitchen has more space, but the trash smelled bad and made the crew queasy.
+en/astronauta_X/ev.meteorito.analisar.outcome.mp3;astronauta (gravar menina e menino);[natural];It really was an iron meteorite! The tests used energy.
+en/astronauta_X/ev.meteorito.foto.outcome.mp3;astronauta (gravar menina e menino);[natural];Scientists on Earth loved the photos, but without tests the research gave less.
+en/astronauta_X/ev.tubo_amostra.cuidado.outcome.mp3;astronauta (gravar menina e menino);[natural];The rock was crumbly and turned to powder. The second try worked! It used energy.
+en/astronauta_X/ev.tubo_amostra.rapido.outcome.mp3;astronauta (gravar menina e menino);[natural];You got a sample right away! But nobody checked if it was good...
+en/astronauta_X/ev.nuvens.noite.outcome.mp3;astronauta (gravar menina e menino);[natural];Beautiful photos for science! But the crew went to bed late and got tired.
+en/astronauta_X/ev.nuvens.uma_foto.outcome.mp3;astronauta (gravar menina e menino);[natural];One pretty photo and a well-rested crew. The camera used a little energy.
+en/astronauta_X/ev.tijolos.imprimir.outcome.mp3;astronauta (gravar menina e menino);[natural];The 3D printer made sand bricks! The base is better protected. It used energy.
+en/astronauta_X/ev.tijolos.sacos.outcome.mp3;astronauta (gravar menina e menino);[natural];The bags are on top of the base. More protection! But the work outside used air and was tiring.
+en/astronauta_X/ev.tremor.conferir.outcome.mp3;astronauta (gravar menina e menino);[natural];You found a loose screw and fixed it. The check used energy.
+en/astronauta_X/ev.tremor.seguir.outcome.mp3;astronauta (gravar menina e menino);[natural];You did more science. But nobody checked if anything came loose...
+en/astronauta_X/ev.conjuncao.mandar_tudo.outcome.mp3;astronauta (gravar menina e menino);[natural];All the data reached Earth in time! The antenna used energy.
+en/astronauta_X/ev.conjuncao.silencio.outcome.mp3;astronauta (gravar menina e menino);[natural];The battery saved energy, but the crew felt lonely without news from Earth.
+en/astronauta_X/ev.satelite.satelite.outcome.mp3;astronauta (gravar menina e menino);[natural];The data went quickly and used little energy!
+en/astronauta_X/ev.satelite.direto.outcome.mp3;astronauta (gravar menina e menino);[natural];More data reached Earth, but the big antenna used lots of energy.
+en/astronauta_X/ev.musica.tocar.outcome.mp3;astronauta (gravar menina e menino);[natural];Everyone woke up dancing! The speakers used a little energy.
+en/astronauta_X/ev.musica.dormir_mais.outcome.mp3;astronauta (gravar menina e menino);[natural];The crew rested more, but the lab started late and only works at half today.
+en/astronauta_X/ev.cardapio.tempero.outcome.mp3;astronauta (gravar menina e menino);[natural];What a tasty dinner! Everyone is happy, but it used more food.
+en/astronauta_X/ev.cardapio.de_sempre.outcome.mp3;astronauta (gravar menina e menino);[natural];The food lasted longer, but the crew ate little and felt down.
+en/astronauta_X/ev.diario.escrever.outcome.mp3;astronauta (gravar menina e menino);[natural];She felt much better! But she stopped working, and the lab only works at half today.
+en/astronauta_X/ev.diario.trabalhar.outcome.mp3;astronauta (gravar menina e menino);[natural];The research moved on, but the astronaut got tired and worried.
+en/astronauta_X/ev.resfriado.isolar.outcome.mp3;astronauta (gravar menina e menino);[natural];He got better and nobody else caught it. But someone was missing at work, and the lab only works at half today.
+en/astronauta_X/ev.resfriado.seguir.outcome.mp3;astronauta (gravar menina e menino);[natural];The research moved on, but the cold spread to more people.
+en/astronauta_X/ev.noite_gelada.aquecer.outcome.mp3;astronauta (gravar menina e menino);[natural];The rover spent a warm night. The heater used energy.
+en/astronauta_X/ev.noite_gelada.deixar.outcome.mp3;astronauta (gravar menina e menino);[natural];You saved energy today. Will the battery hold up?
+en/astronauta_X/ev.drone.voar.outcome.mp3;astronauta (gravar menina e menino);[natural];The drone found the best path and new photos! The flight used energy.
+en/astronauta_X/ev.drone.sem_olhar.outcome.mp3;astronauta (gravar menina e menino);[natural];The rover got there faster and found new rocks. But the path was unknown...
+en/astronauta_X/ev.briga.conversar.outcome.mp3;astronauta (gravar menina e menino);[natural];They made up and shared the chores. The talk took time away from research.
+en/astronauta_X/ev.briga.separar.outcome.mp3;astronauta (gravar menina e menino);[natural];Each one did their part of the research, but nobody was happy.
+en/astronauta_X/ev.dor_cabeca.ventilar.outcome.mp3;astronauta (gravar menina e menino);[natural];The air got fresh and the headache went away. The fans used energy.
+en/astronauta_X/ev.dor_cabeca.seguir.outcome.mp3;astronauta (gravar menina e menino);[natural];He went back to work and helped with research. But the headache didn’t fully go away...
+en/astronauta_X/ev.esteira.correr.outcome.mp3;astronauta (gravar menina e menino);[natural];Everyone ran and got stronger. Then they got hungry and ate more.
+en/astronauta_X/ev.esteira.pular.outcome.mp3;astronauta (gravar menina e menino);[natural];There was more time for research, but the crew felt weak and tired.
+en/astronauta_X/ev.janela.trocar.outcome.mp3;astronauta (gravar menina e menino);[natural];New glass in place! The repair took hours and used energy.
+en/astronauta_X/ev.janela.fita.outcome.mp3;astronauta (gravar menina e menino);[natural];The tape held almost everything, but a little air leaked out.
+en/astronauta_X/ev.barulho.consertar.outcome.mp3;astronauta (gravar menina e menino);[natural];Quiet! The fan works like new, but making the part used energy.
+en/astronauta_X/ev.barulho.tampoes.outcome.mp3;astronauta (gravar menina e menino);[natural];It helped, but some woke up in the night because of the squeak.

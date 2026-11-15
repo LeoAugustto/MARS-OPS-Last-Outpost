@@ -1,0 +1,116 @@
+﻿arquivo;personagem;emocao;texto
+es/astronauta_X/ev.chegada.explorar.outcome.mp3;astronauta (gravar menina e menino);[natural];Encontraron rocas increíbles, pero el traje gastó aire.
+es/astronauta_X/ev.chegada.arrumar.outcome.mp3;astronauta (gravar menina e menino);[natural];El robot echó arena sobre la base. ¡Ahora protege más!
+es/astronauta_X/ev.poeira_vem.guardar.outcome.mp3;astronauta (gravar menina e menino);[natural];Guardaron energía para los días oscuros.
+es/astronauta_X/ev.poeira_vem.ignorar.outcome.mp3;astronauta (gravar menina e menino);[natural];Un poquito más de ciencia hoy.
+es/astronauta_X/ev.painel_sujo.limpar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Paneles brillantes otra vez! Pero el paseo gastó aire y los expuso a la radiación.
+es/astronauta_X/ev.painel_sujo.esperar.outcome.mp3;astronauta (gravar menina e menino);[natural];Ahorrarán aire, pero tendrán poca energía durante algunos soles.
+es/astronauta_X/ev.broto.luz.outcome.mp3;astronauta (gravar menina e menino);[natural];Las lámparas del invernadero gastaron energía. ¡A las plantas les encantó!
+es/astronauta_X/ev.broto.economizar.outcome.mp3;astronauta (gravar menina e menino);[natural];Sobró energía hoy, pero las plantas crecerán poco.
+es/astronauta_X/ev.filtro_entupido.peca.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Arreglado rapidito! Pero ya no queda pieza de repuesto.
+es/astronauta_X/ev.filtro_entupido.limpar.outcome.mp3;astronauta (gravar menina e menino);[natural];Funcionó, pero tomó todo el día y gastó energía.
+es/astronauta_X/ev.filtro_entupido.deixar.outcome.mp3;astronauta (gravar menina e menino);[natural];La fábrica de aire está haciendo menos aire.
+es/astronauta_X/ev.rocha.robo.outcome.mp3;astronauta (gravar menina e menino);[natural];El robot fue despacio y gastó batería, pero trajo datos.
+es/astronauta_X/ev.rocha.astronauta.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Qué descubrimiento! Pero el paseo gastó aire y salud.
+es/astronauta_X/ev.exercicio.treinar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Cuerpos fuertes! Pero la cinta gastó energía y todos tienen hambre.
+es/astronauta_X/ev.exercicio.pular.outcome.mp3;astronauta (gravar menina e menino);[natural];Más tiempo para la ciencia, pero el cuerpo lo sintió.
+es/astronauta_X/ev.contato_terra.conselho.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Mensaje enviado! La respuesta llega mañana.
+es/astronauta_X/ev.contato_terra.fotos.outcome.mp3;astronauta (gravar menina e menino);[natural];¡A los científicos les encantaron las fotos! La antena gastó mucha energía.
+es/astronauta_X/ev.redemoinho.cobrir.outcome.mp3;astronauta (gravar menina e menino);[natural];Los paneles quedaron protegidos, pero cubrirlos gastó energía.
+es/astronauta_X/ev.redemoinho.observar.outcome.mp3;astronauta (gravar menina e menino);[natural];Filmaron el remolino para los científicos. Mañana veremos qué les hizo a los paneles.
+es/astronauta_X/ev.painel_rachado.consertar.outcome.mp3;astronauta (gravar menina e menino);[natural];El panel volvió a funcionar, pero el arreglo gastó energía y el aire del traje.
+es/astronauta_X/ev.painel_rachado.desligar.outcome.mp3;astronauta (gravar menina e menino);[natural];Nadie tuvo que salir, pero ahora los paneles dan menos energía.
+es/astronauta_X/ev.inverno.inclinar.outcome.mp3;astronauta (gravar menina e menino);[natural];Los paneles reciben más luz otra vez, pero moverlos gastó energía.
+es/astronauta_X/ev.inverno.economizar.outcome.mp3;astronauta (gravar menina e menino);[natural];Guardaron energía en la batería. Hoy el laboratorio solo da la mitad de ciencia.
+es/astronauta_X/ev.vazamento.procurar.outcome.mp3;astronauta (gravar menina e menino);[natural];Encontraron el agujero y lo cerraron para siempre. Pero eso gastó la energía de un día de trabajo.
+es/astronauta_X/ev.vazamento.remendo.outcome.mp3;astronauta (gravar menina e menino);[natural];El silbido paró... por ahora. El parche se puede soltar.
+es/astronauta_X/ev.gerador_barulho.desligar.outcome.mp3;astronauta (gravar menina e menino);[natural];Ajustaron la pieza floja. Pero, con la máquina apagada, la base hizo menos aire hoy.
+es/astronauta_X/ev.gerador_barulho.continuar.outcome.mp3;astronauta (gravar menina e menino);[natural];El aire siguió saliendo y trabajaron más. Pero el ruido sigue...
+es/astronauta_X/ev.agua_do_ar.coletar.outcome.mp3;astronauta (gravar menina e menino);[natural];Juntaron agua para regar el invernadero. ¡Las plantas lo agradecen! El colector gastó energía.
+es/astronauta_X/ev.agua_do_ar.guardar.outcome.mp3;astronauta (gravar menina e menino);[natural];La batería quedó más llena, pero el invernadero recibió menos agua.
+es/astronauta_X/ev.mofo.cortar.outcome.mp3;astronauta (gravar menina e menino);[natural];Las plantas se salvaron, pero perdieron un poco de comida.
+es/astronauta_X/ev.mofo.ventilar.outcome.mp3;astronauta (gravar menina e menino);[natural];El viento secó las hojas. Los ventiladores gastaron energía y algunas hojas se marchitaron.
+es/astronauta_X/ev.rabanete.comer.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Qué banquete! Ganaron mucha comida hoy, pero no quedaron semillas.
+es/astronauta_X/ev.rabanete.sementes.outcome.mp3;astronauta (gravar menina e menino);[natural];Comieron un poco y replantaron el resto. ¡En unos soles habrá más!
+es/astronauta_X/ev.sementes_terra.alface.outcome.mp3;astronauta (gravar menina e menino);[natural];La lechuga crece rápido, pero da poca comida.
+es/astronauta_X/ev.sementes_terra.batata.outcome.mp3;astronauta (gravar menina e menino);[natural];Las papas van a tardar, pero darán mucha comida.
+es/astronauta_X/ev.microscopio.imprimir.outcome.mp3;astronauta (gravar menina e menino);[natural];¡La impresora 3D hizo la pieza! Pero gastó mucha energía.
+es/astronauta_X/ev.microscopio.lupa.outcome.mp3;astronauta (gravar menina e menino);[natural];Con la lupa se vieron menos detalles. Hoy el laboratorio solo da la mitad de ciencia.
+es/astronauta_X/ev.gelo.estudar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Un descubrimiento importante para la ciencia! El análisis gastó energía.
+es/astronauta_X/ev.gelo.derreter.outcome.mp3;astronauta (gravar menina e menino);[natural];El invernadero recibió agua. Sin la muestra de hielo, hoy el laboratorio solo da la mitad de ciencia.
+es/astronauta_X/ev.bacterias.caixa.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Todo seguro y la investigación salió bien! Pero la caja gastó mucha energía.
+es/astronauta_X/ev.bacterias.mesa.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Más rápido y más barato! Pero algunas bacterias pudieron escaparse...
+es/astronauta_X/ev.rachadura.tapar.outcome.mp3;astronauta (gravar menina e menino);[natural];El robot cubrió la grieta. La protección está entera, pero gastó energía.
+es/astronauta_X/ev.rachadura.depois.outcome.mp3;astronauta (gravar menina e menino);[natural];No se gastó energía hoy, pero la base perdió una capa de protección.
+es/astronauta_X/ev.treino.treinar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡El equipo sabe de memoria qué hacer! Pero el simulacro gastó energía y tiempo de investigación.
+es/astronauta_X/ev.treino.adiar.outcome.mp3;astronauta (gravar menina e menino);[natural];Hicieron más ciencia hoy. Pero el equipo no está entrenado...
+es/astronauta_X/ev.aniversario.festa.outcome.mp3;astronauta (gravar menina e menino);[natural];Hubo pastel y todos vieron el video juntos. El equipo está feliz, pero la fiesta gastó comida.
+es/astronauta_X/ev.aniversario.depois.outcome.mp3;astronauta (gravar menina e menino);[natural];La investigación avanzó, pero el cumpleañero estuvo triste todo el día.
+es/astronauta_X/ev.escola.video.outcome.mp3;astronauta (gravar menina e menino);[natural];¡A los niños les encantó! El equipo está feliz, pero la antena gastó energía.
+es/astronauta_X/ev.escola.dados.outcome.mp3;astronauta (gravar menina e menino);[natural];Los científicos recibieron datos nuevos, pero el equipo no tuvo pausa y se cansó.
+es/astronauta_X/ev.antena_torta.astronauta.outcome.mp3;astronauta (gravar menina e menino);[natural];¡La antena volvió a su lugar! Pero la salida gastó el aire del traje y cansó.
+es/astronauta_X/ev.antena_torta.robo.outcome.mp3;astronauta (gravar menina e menino);[natural];El robot arregló la antena sin que nadie saliera, pero gastó mucha energía.
+es/astronauta_X/ev.sem_sono.descansar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Se despertó con más ánimo! Hoy el laboratorio solo da la mitad de ciencia.
+es/astronauta_X/ev.sem_sono.luzes.outcome.mp3;astronauta (gravar menina e menino);[natural];Las luces ayudaron a su cuerpo a acostumbrarse poco a poco. Pero gastaron energía.
+es/astronauta_X/ev.saudade.folga.outcome.mp3;astronauta (gravar menina e menino);[natural];Descansó y comió su comida favorita. Está mucho mejor, pero gastó comida.
+es/astronauta_X/ev.saudade.plantas.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Cuidar el invernadero juntos ayudó! Pero la luz extra gastó energía.
+es/astronauta_X/ev.pneu.devagar.outcome.mp3;astronauta (gravar menina e menino);[natural];La rueda no empeoró, pero el paseo fue corto y dio menos ciencia.
+es/astronauta_X/ev.pneu.seguir.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Llegaron más lejos y encontraron cosas nuevas! Pero la rueda empeoró.
+es/astronauta_X/ev.dunas.entrar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Lugares nuevos y mucha ciencia! Pero la arena parecía blanda...
+es/astronauta_X/ev.dunas.estudar.outcome.mp3;astronauta (gravar menina e menino);[natural];Encontraron un camino seguro. Fue más lento y gastó energía.
+es/astronauta_X/ev.fossil.analisar.outcome.mp3;astronauta (gravar menina e menino);[natural];La piedra fue al laboratorio. ¡El resultado sale pronto! Llevarla gastó energía.
+es/astronauta_X/ev.fossil.foto.outcome.mp3;astronauta (gravar menina e menino);[natural];Las fotos quedaron geniales, pero quizás nunca sepan qué era.
+es/astronauta_X/ev.geada.esperar.outcome.mp3;astronauta (gravar menina e menino);[natural];El hielo se derritió solo, pero los paneles dieron menos energía en la mañana.
+es/astronauta_X/ev.geada.raspar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Paneles limpios en un momento! Pero la salida gastó el aire del traje.
+es/astronauta_X/ev.eclipse_fobos.filmar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Qué video increíble! La cámara y el telescopio gastaron energía.
+es/astronauta_X/ev.eclipse_fobos.guardar.outcome.mp3;astronauta (gravar menina e menino);[natural];La batería quedó más llena, pero el laboratorio se quedó sin energía y hoy rinde solo la mitad.
+es/astronauta_X/ev.truque_areia.areia.outcome.mp3;astronauta (gravar menina e menino);[natural];El robot soltó arena cerca de los paneles. ¡El viento se llevó la arena, y ella arrastró un poco de polvo!
+es/astronauta_X/ev.truque_areia.escovar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Los paneles quedaron muy limpios! Pero la salida gastó el aire del traje.
+es/astronauta_X/ev.filtro_co2.reserva.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Filtro nuevo en su lugar! Pero ya no queda ningún repuesto.
+es/astronauta_X/ev.filtro_co2.improvisar.outcome.mp3;astronauta (gravar menina e menino);[natural];El filtro hecho con cinta y piezas viejas funcionó, pero no tan bien. El aire empeoró un poco.
+es/astronauta_X/ev.eletrolise.fazer_ar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Más oxígeno para todos! Pero el invernadero recibió menos agua.
+es/astronauta_X/ev.eletrolise.guardar_agua.outcome.mp3;astronauta (gravar menina e menino);[natural];Las plantas tomaron agua y crecieron. Pero la fábrica hizo menos aire hoy.
+es/astronauta_X/ev.poeira_dentro.aspirar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡La base quedó limpita! La aspiradora gastó energía.
+es/astronauta_X/ev.poeira_dentro.depois.outcome.mp3;astronauta (gravar menina e menino);[natural];No se gastó energía, pero el polvo hizo toser y estornudar al equipo.
+es/astronauta_X/ev.luz_rosa.rosa.outcome.mp3;astronauta (gravar menina e menino);[natural];El invernadero quedó rosado y las plantas crecieron bien, gastando poca energía.
+es/astronauta_X/ev.luz_rosa.branca.outcome.mp3;astronauta (gravar menina e menino);[natural];Las plantas crecieron y al equipo le gustó ver todo verde. Pero la luz blanca gastó más energía.
+es/astronauta_X/ev.pimentas.verdes.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Hoy hay comida nueva y picante! Cosechar dio un poco de trabajo.
+es/astronauta_X/ev.pimentas.vermelhas.outcome.mp3;astronauta (gravar menina e menino);[natural];Los chiles siguen creciendo. ¡En unos soles, la cosecha será grande!
+es/astronauta_X/ev.adubo.compostar.outcome.mp3;astronauta (gravar menina e menino);[natural];Los restos se van a volver abono. ¡En unos soles, las plantas crecerán más!
+es/astronauta_X/ev.adubo.jogar_fora.outcome.mp3;astronauta (gravar menina e menino);[natural];La cocina quedó con más espacio, pero la basura olió mal y mareó al equipo.
+es/astronauta_X/ev.meteorito.analisar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Era de verdad un meteorito de hierro! El análisis gastó energía.
+es/astronauta_X/ev.meteorito.foto.outcome.mp3;astronauta (gravar menina e menino);[natural];A los científicos en la Tierra les encantaron las fotos, pero sin análisis la investigación rindió menos.
+es/astronauta_X/ev.tubo_amostra.cuidado.outcome.mp3;astronauta (gravar menina e menino);[natural];La roca era blanda y se hizo polvo. ¡La segunda vez funcionó! Gastó energía.
+es/astronauta_X/ev.tubo_amostra.rapido.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Tomaron una muestra enseguida! Pero nadie revisó si estaba bien...
+es/astronauta_X/ev.nuvens.noite.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Fotos lindas para la ciencia! Pero el equipo se durmió tarde y quedó cansado.
+es/astronauta_X/ev.nuvens.uma_foto.outcome.mp3;astronauta (gravar menina e menino);[natural];Una foto bonita y todos descansados. La cámara gastó un poco de energía.
+es/astronauta_X/ev.tijolos.imprimir.outcome.mp3;astronauta (gravar menina e menino);[natural];¡La impresora 3D hizo ladrillos de arena! La base está más protegida. Gastó energía.
+es/astronauta_X/ev.tijolos.sacos.outcome.mp3;astronauta (gravar menina e menino);[natural];Los sacos quedaron sobre la base. ¡Más protección! Pero el trabajo afuera gastó aire y cansó.
+es/astronauta_X/ev.tremor.conferir.outcome.mp3;astronauta (gravar menina e menino);[natural];Encontraron un tornillo flojo y lo arreglaron. La revisión gastó energía.
+es/astronauta_X/ev.tremor.seguir.outcome.mp3;astronauta (gravar menina e menino);[natural];Hicieron más ciencia. Pero nadie revisó si algo se aflojó...
+es/astronauta_X/ev.conjuncao.mandar_tudo.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Todos los datos llegaron a la Tierra a tiempo! La antena gastó energía.
+es/astronauta_X/ev.conjuncao.silencio.outcome.mp3;astronauta (gravar menina e menino);[natural];La batería guardó energía, pero el equipo se sintió solo sin noticias de la Tierra.
+es/astronauta_X/ev.satelite.satelite.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Los datos se fueron rapidito y gastaron poca energía!
+es/astronauta_X/ev.satelite.direto.outcome.mp3;astronauta (gravar menina e menino);[natural];Llegaron más datos a la Tierra, pero la antena grande gastó mucha energía.
+es/astronauta_X/ev.musica.tocar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Todos despertaron bailando! El sonido gastó un poquito de energía.
+es/astronauta_X/ev.musica.dormir_mais.outcome.mp3;astronauta (gravar menina e menino);[natural];El equipo descansó más, pero el laboratorio empezó tarde y hoy rinde solo la mitad.
+es/astronauta_X/ev.cardapio.tempero.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Qué cena tan rica! Todos quedaron felices, pero se gastó más comida.
+es/astronauta_X/ev.cardapio.de_sempre.outcome.mp3;astronauta (gravar menina e menino);[natural];La comida duró más, pero el equipo comió poco y quedó desanimado.
+es/astronauta_X/ev.diario.escrever.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Se sintió mucho mejor! Pero dejó de trabajar, y el laboratorio hoy rinde solo la mitad.
+es/astronauta_X/ev.diario.trabalhar.outcome.mp3;astronauta (gravar menina e menino);[natural];La investigación avanzó, pero la astronauta quedó cansada y preocupada.
+es/astronauta_X/ev.resfriado.isolar.outcome.mp3;astronauta (gravar menina e menino);[natural];Se mejoró y nadie más se contagió. Pero faltó alguien en el trabajo, y el laboratorio hoy rinde solo la mitad.
+es/astronauta_X/ev.resfriado.seguir.outcome.mp3;astronauta (gravar menina e menino);[natural];La investigación avanzó, pero el resfriado pasó a más gente.
+es/astronauta_X/ev.noite_gelada.aquecer.outcome.mp3;astronauta (gravar menina e menino);[natural];El rover pasó la noche calentito. La calefacción gastó energía.
+es/astronauta_X/ev.noite_gelada.deixar.outcome.mp3;astronauta (gravar menina e menino);[natural];Ahorraron energía hoy. ¿Aguantará la batería?
+es/astronauta_X/ev.drone.voar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡El dron encontró el mejor camino y fotos nuevas! El vuelo gastó energía.
+es/astronauta_X/ev.drone.sem_olhar.outcome.mp3;astronauta (gravar menina e menino);[natural];El rover llegó más rápido y encontró piedras nuevas. Pero el camino era desconocido...
+es/astronauta_X/ev.briga.conversar.outcome.mp3;astronauta (gravar menina e menino);[natural];Hicieron las paces y se repartieron las tareas. La charla quitó tiempo a la investigación.
+es/astronauta_X/ev.briga.separar.outcome.mp3;astronauta (gravar menina e menino);[natural];Cada uno hizo su parte de la investigación, pero nadie quedó contento.
+es/astronauta_X/ev.dor_cabeca.ventilar.outcome.mp3;astronauta (gravar menina e menino);[natural];El aire quedó fresco y el dolor se fue. Los ventiladores gastaron energía.
+es/astronauta_X/ev.dor_cabeca.seguir.outcome.mp3;astronauta (gravar menina e menino);[natural];Volvió al trabajo y ayudó con la investigación. Pero el dolor no se fue del todo...
+es/astronauta_X/ev.esteira.correr.outcome.mp3;astronauta (gravar menina e menino);[natural];Todos corrieron y se pusieron más fuertes. Después les dio hambre y comieron más.
+es/astronauta_X/ev.esteira.pular.outcome.mp3;astronauta (gravar menina e menino);[natural];Hubo más tiempo para investigar, pero el equipo quedó flojo y cansado.
+es/astronauta_X/ev.janela.trocar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Vidrio nuevo en su lugar! El arreglo llevó horas y gastó energía.
+es/astronauta_X/ev.janela.fita.outcome.mp3;astronauta (gravar menina e menino);[natural];La cinta aguantó casi todo, pero se escapó un poquito de aire.
+es/astronauta_X/ev.barulho.consertar.outcome.mp3;astronauta (gravar menina e menino);[natural];¡Silencio! El ventilador quedó como nuevo, pero hacer la pieza gastó energía.
+es/astronauta_X/ev.barulho.tampoes.outcome.mp3;astronauta (gravar menina e menino);[natural];Ayudó, pero algunos se despertaron de noche por el chirrido.

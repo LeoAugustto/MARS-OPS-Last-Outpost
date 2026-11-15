@@ -1,0 +1,69 @@
+﻿arquivo;personagem;emocao;texto_para_colar_v3;texto_sem_tags
+it/rovi/ui.abertura.1.mp3;rovi;[excited];[excited] Ciao! Questa è la tua base su Marte. Comandi tu!;Ciao! Questa è la tua base su Marte. Comandi tu!
+it/rovi/ui.abertura.2.mp3;rovi;[excited];[excited] Cura l’aria, il cibo e la salute. Nessuno deve arrivare a zero.;Cura l’aria, il cibo e la salute. Nessuno deve arrivare a zero.
+it/rovi/ui.abertura.3.mp3;rovi;[excited];[excited] Il vero Sole manderà sorprese. Questi eventi arrivano dalla NASA!;Il vero Sole manderà sorprese. Questi eventi arrivano dalla NASA!
+it/rovi/tut.andar.mp3;rovi;[cheerful];[cheerful] Ciao! Sono Rovi. Questo sei tu. Tocca il terreno per camminare (o usa le frecce della tastiera).;Ciao! Sono Rovi. Questo sei tu. Tocca il terreno per camminare (o usa le frecce della tastiera).
+it/rovi/tut.porta.mp3;rovi;[friendly];[friendly] Un segnale di allarme lampeggia su un edificio. Cammina fino alla porta per entrare.;Un segnale di allarme lampeggia su un edificio. Cammina fino alla porta per entrare.
+it/rovi/tut.vazio.mp3;rovi;[friendly];[friendly] Qui non c’è nessun allarme. Tocca Uscita e vai all’edificio che lampeggia.;Qui non c’è nessun allarme. Tocca Uscita e vai all’edificio che lampeggia.
+it/rovi/tut.computador.mp3;rovi;[friendly];[friendly] Tocca il computer per vedere l’allarme.;Tocca il computer per vedere l’allarme.
+it/rovi/tut.custo.mp3;rovi;[thoughtful];[thoughtful] Ogni scelta costa qualcosa. Guarda i numeri prima di scegliere. Anche non scegliere costa: il problema peggiora da solo.;Ogni scelta costa qualcosa. Guarda i numeri prima di scegliere. Anche non scegliere costa: il problema peggiora da solo.
+it/rovi/tut.barras.mp3;rovi;[serious];[serious] Queste barre sono Aria, Cibo e Salute. Se una arriva a zero, la missione torna sulla Terra.;Queste barre sono Aria, Cibo e Salute. Se una arriva a zero, la missione torna sulla Terra.
+it/rovi/tut.antena.mp3;rovi;[curious];[curious] L’antenna riceve gli allarmi del Sole. Sono eventi veri, misurati dalla NASA!;L’antenna riceve gli allarmi del Sole. Sono eventi veri, misurati dalla NASA!
+it/rovi/tut.energia.mp3;rovi;[helpful];[helpful] Tocca Energia. Dividi l’energia del giorno: aria, serra (cibo), laboratorio (scienza) e scudo. Se l’aria è bassa, metti più energia nell’aria.;Tocca Energia. Dividi l’energia del giorno: aria, serra (cibo), laboratorio (scienza) e scudo. Se l’aria è bassa, metti più energia nell’aria.
+it/rovi/tut.mais.mp3;rovi;[helpful];[helpful] Usa + e - per scegliere quanto va a ogni modulo. Se manca energia, toglila dal laboratorio.;Usa + e - per scegliere quanto va a ogni modulo. Se manca energia, toglila dal laboratorio.
+it/rovi/tut.pronto.mp3;rovi;[pleased];[pleased] Brava! Ora tocca Fatto per salvare.;Brava! Ora tocca Fatto per salvare.
+it/rovi/tut.relogio.mp3;rovi;[friendly];[friendly] L’orologio va avanti quando cammini e scegli. Risolvi gli allarmi e vai a dormire nel letto della Casa prima della notte.;L’orologio va avanti quando cammini e scegli. Risolvi gli allarmi e vai a dormire nel letto della Casa prima della notte.
+it/rovi/tut.casa.mp3;rovi;[friendly];[friendly] Questa è la Casa. Il letto è dentro.;Questa è la Casa. Il letto è dentro.
+it/rovi/tut.casa_sair.mp3;rovi;[friendly];[friendly] Per dormire, esci da qui e vai alla Casa, al centro della base. Il letto è dentro.;Per dormire, esci da qui e vai alla Casa, al centro della base. Il letto è dentro.
+it/rovi/tut.cama.mp3;rovi;[warm];[warm] Questo è il letto. Quando gli allarmi sono finiti, toccalo per dormire.;Questo è il letto. Quando gli allarmi sono finiti, toccalo per dormire.
+it/rovi/rovi.sol2.comida.mp3;rovi;[helpful];[helpful] Ieri il cibo è sceso. Tocca Energia e mettine di più nella serra per fare più cibo.;Ieri il cibo è sceso. Tocca Energia e mettine di più nella serra per fare più cibo.
+it/rovi/rovi.sol2.ar.mp3;rovi;[helpful];[helpful] Ieri l’aria è scesa. Tocca Energia e mettine di più nella fabbrica d’aria.;Ieri l’aria è scesa. Tocca Energia e mettine di più nella fabbrica d’aria.
+it/rovi/rovi.ar.mp3;rovi;[worried];[worried] L’aria sta finendo! Vai alla Fabbrica d’aria, oppure apri Energia e mettine di più nell’aria.;L’aria sta finendo! Vai alla Fabbrica d’aria, oppure apri Energia e mettine di più nell’aria.
+it/rovi/rovi.comida.mp3;rovi;[worried];[worried] Il cibo sta finendo! Vai alla Serra, oppure apri Energia e mettine di più nella serra.;Il cibo sta finendo! Vai alla Serra, oppure apri Energia e mettine di più nella serra.
+it/rovi/rovi.saude.mp3;rovi;[worried];[worried] La salute della squadra è bassa! Vai a dormire presto, fai lo scudo contro le radiazioni e scegli ciò che protegge la squadra.;La salute della squadra è bassa! Vai a dormire presto, fai lo scudo contro le radiazioni e scegli ciò che protegge la squadra.
+it/rovi/rovi.entardecer.mp3;rovi;[slightly urgent];[slightly urgent] Il Sole sta tramontando e ci sono ancora allarmi! Risolvili in fretta e vai a dormire nella Casa prima della notte.;Il Sole sta tramontando e ci sono ancora allarmi! Risolvili in fretta e vai a dormire nella Casa prima della notte.
+it/rovi/rovi.tempestade.mp3;rovi;[urgent];[urgent] Arriva una tempesta solare! Porta radiazioni, un’energia invisibile che fa male. Apri Energia e metti energia nello scudo (robot della sabbia).;Arriva una tempesta solare! Porta radiazioni, un’energia invisibile che fa male. Apri Energia e metti energia nello scudo (robot della sabbia).
+it/rovi/rovi.bateria.mp3;rovi;[cheerful];[cheerful] La batteria è piena e avanza energia! Metti l’energia in più nel laboratorio per guadagnare stelle.;La batteria è piena e avanza energia! Metti l’energia in più nel laboratorio per guadagnare stelle.
+it/rovi/rovi.depois.mp3;rovi;[thoughtful];[thoughtful] Ti ricordi quella scelta con la clessidra? Il suo costo è arrivato adesso.;Ti ricordi quella scelta con la clessidra? Il suo costo è arrivato adesso.
+it/rovi/rovi.falta.mp3;rovi;[worried];[worried] Manca energia per questa divisione! Il laboratorio si spegne per primo, poi lo scudo e la serra. L’aria è l’ultima.;Manca energia per questa divisione! Il laboratorio si spegne per primo, poi lo scudo e la serra. L’aria è l’ultima.
+it/rovi/ui.dica.energia.mp3;rovi;[helpful];[helpful] Ieri al laboratorio è mancata energia! In Energia, lasciane un po’ libera: anche le carte usano energia.;Ieri al laboratorio è mancata energia! In Energia, lasciane un po’ libera: anche le carte usano energia.
+it/rovi/ui.dica.escudo.mp3;rovi;[helpful];[helpful] Consiglio: il robot della sabbia fa lo scudo contro le radiazioni. In Energia, metti 2 di energia nello scudo prima della prossima tempesta del Sole!;Consiglio: il robot della sabbia fa lo scudo contro le radiazioni. In Energia, metti 2 di energia nello scudo prima della prossima tempesta del Sole!
+it/rovi/ui.entardecer.aviso.mp3;rovi;[slightly urgent];[slightly urgent] Il Sole sta tramontando. Risolvi gli allarmi e dormi nella Casa prima della notte, o la squadra si stanca (-4 di salute).;Il Sole sta tramontando. Risolvi gli allarmi e dormi nella Casa prima della notte, o la squadra si stanca (-4 di salute).
+it/rovi/ui.entardecer.dormir.mp3;rovi;[calm];[calm] Il Sole sta tramontando. Tutto risolto: vai a dormire nella Casa prima della notte, così la squadra non si stanca.;Il Sole sta tramontando. Tutto risolto: vai a dormire nella Casa prima della notte, così la squadra non si stanca.
+it/rovi/ui.noite.aviso.mp3;rovi;[concerned];[concerned] È arrivata la notte: la squadra è stanca (-4 di salute). Ogni allarme senza risposta costa -2 quando dormi, e il problema peggiora da solo. Vai al letto della Casa.;È arrivata la notte: la squadra è stanca (-4 di salute). Ogni allarme senza risposta costa -2 quando dormi, e il problema peggiora da solo. Vai al letto della Casa.
+it/rovi/ui.noite.sono.mp3;rovi;[calm] [soft];[calm] [soft] Dormire bene fa parte del lavoro di un astronauta. La NASA studia il sonno degli equipaggi, perché la stanchezza causa errori.;Dormire bene fa parte del lavoro di un astronauta. La NASA studia il sonno degli equipaggi, perché la stanchezza causa errori.
+it/controle/fim.vitoria.title.mp3;controle;[proud];[proud] Missione compiuta!;Missione compiuta!
+it/controle/fim.vitoria.body.mp3;controle;[warm] [proud];[warm] [proud] Il tuo equipaggio ha resistito a tutti i sol su Marte. Ottimo comando!;Il tuo equipaggio ha resistito a tutti i sol su Marte. Ottimo comando!
+it/controle/fim.resgate.title.mp3;controle;[calm];[calm] La Terra ha mandato a prendere l’equipaggio;La Terra ha mandato a prendere l’equipaggio
+it/controle/fim.resgate.body.mp3;controle;[calm] [reassuring];[calm] [reassuring] Nessuno si è fatto male: il Controllo Missione ha deciso di riportare tutti a casa. Vediamo cosa è successo?;Nessuno si è fatto male: il Controllo Missione ha deciso di riportare tutti a casa. Vediamo cosa è successo?
+it/controle/causa.ar.mp3;controle;[calm] [explaining];[calm] [explaining] L'aria è finita. Le persone respirano sempre, e la fabbrica d'aria ha bisogno di energia ogni sol.;L'aria è finita. Le persone respirano sempre, e la fabbrica d'aria ha bisogno di energia ogni sol.
+it/controle/causa.comida.mp3;controle;[calm] [explaining];[calm] [explaining] Il cibo è finito. La serra ha bisogno di luce (energia) e le piante ci mettono tempo a crescere.;Il cibo è finito. La serra ha bisogno di luce (energia) e le piante ci mettono tempo a crescere.
+it/controle/causa.saude.mp3;controle;[calm] [explaining];[calm] [explaining] La salute è scesa troppo. Radiazioni, fame e poca aria stancano il corpo.;La salute è scesa troppo. Radiazioni, fame e poca aria stancano il corpo.
+it/controle/dica.ar.mp3;controle;[encouraging];[encouraging] Consiglio: ogni 1 di energia nella fabbrica d’aria fa 4 di aria. Dagliene abbastanza per quello che la squadra respira.;Consiglio: ogni 1 di energia nella fabbrica d’aria fa 4 di aria. Dagliene abbastanza per quello che la squadra respira.
+it/controle/dica.comida.mp3;controle;[encouraging];[encouraging] Consiglio: ogni 1 di energia nella serra fa 3 di cibo. Non lasciare la serra senza energia.;Consiglio: ogni 1 di energia nella serra fa 3 di cibo. Non lasciare la serra senza energia.
+it/controle/dica.saude.mp3;controle;[encouraging];[encouraging] Consiglio: con 2 di energia, il robot mette uno strato di scudo contro le radiazioni. E dormi prima della notte, così la squadra non si stanca.;Consiglio: con 2 di energia, il robot mette uno strato di scudo contro le radiazioni. E dormi prima della notte, così la squadra non si stanca.
+it/controle/fim.estrela.1.mp3;controle;[happy];[happy] Siete sopravvissuti!;Siete sopravvissuti!
+it/controle/fim.estrela.2.mp3;controle;[excited];[excited] ...e avete fatto tanta scienza!;...e avete fatto tanta scienza!
+it/controle/fim.estrela.3.mp3;controle;[very excited];[very excited] ...e avete raggiunto l’obiettivo di scienza!;...e avete raggiunto l’obiettivo di scienza!
+it/controle/fim.estrela.falta.mp3;controle;[encouraging];[encouraging] Fai più scienza in laboratorio per guadagnare più stelle nella prossima missione.;Fai più scienza in laboratorio per guadagnare più stelle nella prossima missione.
+it/controle/fato.reabastecimento.mp3;controle;[curious] [storytelling];[curious] [storytelling] Lo sapevi? Una nave dalla Terra può arrivare su Marte più o meno ogni 26 mesi. Per questo pianificare è tutto!;Lo sapevi? Una nave dalla Terra può arrivare su Marte più o meno ogni 26 mesi. Per questo pianificare è tutto!
+it/astronauta_menina/astro.ok.mp3;astronauta_menina;[confident];[confident] Ricevuto!;Ricevuto!
+it/astronauta_menino/astro.ok.mp3;astronauta_menino;[confident];[confident] Ricevuto!;Ricevuto!
+it/astronauta_menina/astro.vamos.mp3;astronauta_menina;[excited];[excited] Andiamo!;Andiamo!
+it/astronauta_menino/astro.vamos.mp3;astronauta_menino;[excited];[excited] Andiamo!;Andiamo!
+it/astronauta_menina/astro.alerta.mp3;astronauta_menina;[surprised];[surprised] Oh, un allarme!;Oh, un allarme!
+it/astronauta_menino/astro.alerta.mp3;astronauta_menino;[surprised];[surprised] Oh, un allarme!;Oh, un allarme!
+it/astronauta_menina/astro.ufa.mp3;astronauta_menina;[sighs] [relieved];[sighs] [relieved] Uff... c'è mancato poco.;Uff... c'è mancato poco.
+it/astronauta_menino/astro.ufa.mp3;astronauta_menino;[sighs] [relieved];[sighs] [relieved] Uff... c'è mancato poco.;Uff... c'è mancato poco.
+it/astronauta_menina/astro.bomdia.mp3;astronauta_menina;[cheerful];[cheerful] Buongiorno, base!;Buongiorno, base!
+it/astronauta_menino/astro.bomdia.mp3;astronauta_menino;[cheerful];[cheerful] Buongiorno, base!;Buongiorno, base!
+it/astronauta_menina/astro.dormir.mp3;astronauta_menina;[yawns] [sleepy];[yawns] [sleepy] È ora di dormire...;È ora di dormire...
+it/astronauta_menino/astro.dormir.mp3;astronauta_menino;[yawns] [sleepy];[yawns] [sleepy] È ora di dormire...;È ora di dormire...
+it/astronauta_menina/astro.vitoria.mp3;astronauta_menina;[very excited];[very excited] Missione compiuta!;Missione compiuta!
+it/astronauta_menino/astro.vitoria.mp3;astronauta_menino;[very excited];[very excited] Missione compiuta!;Missione compiuta!
+it/astronauta_menina/astro.resgate.mp3;astronauta_menina;[calm] [hopeful];[calm] [hopeful] Va bene... riproviamo.;Va bene... riproviamo.
+it/astronauta_menino/astro.resgate.mp3;astronauta_menino;[calm] [hopeful];[calm] [hopeful] Va bene... riproviamo.;Va bene... riproviamo.
+it/astronauta_menina/astro.tempestade.mp3;astronauta_menina;[worried];[worried] Tempesta in arrivo! Tutti al rifugio!;Tempesta in arrivo! Tutti al rifugio!
+it/astronauta_menino/astro.tempestade.mp3;astronauta_menino;[worried];[worried] Tempesta in arrivo! Tutti al rifugio!;Tempesta in arrivo! Tutti al rifugio!
+it/astronauta_menina/astro.figurinha.mp3;astronauta_menina;[happy];[happy] Wow, un adesivo nuovo!;Wow, un adesivo nuovo!
+it/astronauta_menino/astro.figurinha.mp3;astronauta_menino;[happy];[happy] Wow, un adesivo nuovo!;Wow, un adesivo nuovo!

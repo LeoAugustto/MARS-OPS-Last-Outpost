@@ -1,0 +1,116 @@
+﻿arquivo;personagem;emocao;texto
+fr/astronauta_X/ev.chegada.explorar.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous avez trouvé des roches incroyables, mais la combinaison a utilisé de l’air.
+fr/astronauta_X/ev.chegada.arrumar.outcome.mp3;astronauta (gravar menina e menino);[natural];Le robot a mis du sable sur la base. Elle protège mieux maintenant !
+fr/astronauta_X/ev.poeira_vem.guardar.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous avez gardé de l’énergie pour les jours sombres.
+fr/astronauta_X/ev.poeira_vem.ignorar.outcome.mp3;astronauta (gravar menina e menino);[natural];Un petit peu plus de science aujourd’hui.
+fr/astronauta_X/ev.painel_sujo.limpar.outcome.mp3;astronauta (gravar menina e menino);[natural];Les panneaux brillent à nouveau ! Mais la sortie a utilisé de l’air et vous a exposés aux radiations.
+fr/astronauta_X/ev.painel_sujo.esperar.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous économisez de l’air, mais vous aurez peu d’énergie pendant quelques sols.
+fr/astronauta_X/ev.broto.luz.outcome.mp3;astronauta (gravar menina e menino);[natural];Les lampes de la serre ont utilisé de l’énergie. Les plantes ont adoré !
+fr/astronauta_X/ev.broto.economizar.outcome.mp3;astronauta (gravar menina e menino);[natural];Il reste de l’énergie aujourd’hui, mais les plantes pousseront peu.
+fr/astronauta_X/ev.filtro_entupido.peca.outcome.mp3;astronauta (gravar menina e menino);[natural];Réparé en un clin d’œil ! Mais il n’y a plus de pièce de rechange.
+fr/astronauta_X/ev.filtro_entupido.limpar.outcome.mp3;astronauta (gravar menina e menino);[natural];Ça a marché, mais ça a pris toute la journée et de l’énergie.
+fr/astronauta_X/ev.filtro_entupido.deixar.outcome.mp3;astronauta (gravar menina e menino);[natural];La fabrique d'air fait moins d'air.
+fr/astronauta_X/ev.rocha.robo.outcome.mp3;astronauta (gravar menina e menino);[natural];Le robot est allé lentement et a utilisé sa batterie, mais il a rapporté des données.
+fr/astronauta_X/ev.rocha.astronauta.outcome.mp3;astronauta (gravar menina e menino);[natural];Quelle découverte ! Mais la sortie a coûté de l’air et de la santé.
+fr/astronauta_X/ev.exercicio.treinar.outcome.mp3;astronauta (gravar menina e menino);[natural];Des corps forts ! Mais le tapis de course a utilisé de l’énergie et tout le monde a faim.
+fr/astronauta_X/ev.exercicio.pular.outcome.mp3;astronauta (gravar menina e menino);[natural];Plus de temps pour la science, mais le corps l’a senti.
+fr/astronauta_X/ev.contato_terra.conselho.outcome.mp3;astronauta (gravar menina e menino);[natural];Message envoyé ! La réponse arrive demain.
+fr/astronauta_X/ev.contato_terra.fotos.outcome.mp3;astronauta (gravar menina e menino);[natural];Les scientifiques ont adoré les photos ! L’antenne a utilisé beaucoup d’énergie.
+fr/astronauta_X/ev.redemoinho.cobrir.outcome.mp3;astronauta (gravar menina e menino);[natural];Les panneaux sont protégés, mais les couvrir a coûté de l'énergie.
+fr/astronauta_X/ev.redemoinho.observar.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous avez filmé le tourbillon pour les scientifiques. Demain, on verra ce qu'il a fait aux panneaux.
+fr/astronauta_X/ev.painel_rachado.consertar.outcome.mp3;astronauta (gravar menina e menino);[natural];Le panneau remarche, mais la réparation a coûté de l'énergie et l'air de la combinaison.
+fr/astronauta_X/ev.painel_rachado.desligar.outcome.mp3;astronauta (gravar menina e menino);[natural];Personne n'a dû sortir, mais les panneaux font maintenant moins d'énergie.
+fr/astronauta_X/ev.inverno.inclinar.outcome.mp3;astronauta (gravar menina e menino);[natural];Les panneaux captent plus de lumière, mais tout bouger a coûté de l'énergie.
+fr/astronauta_X/ev.inverno.economizar.outcome.mp3;astronauta (gravar menina e menino);[natural];La batterie a gardé de l’énergie. Aujourd’hui, le labo rapporte deux fois moins de points de science.
+fr/astronauta_X/ev.vazamento.procurar.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous avez trouvé le trou et l'avez bouché pour de bon. Mais ça a pris l'énergie d'une journée de travail.
+fr/astronauta_X/ev.vazamento.remendo.outcome.mp3;astronauta (gravar menina e menino);[natural];Le sifflement s'est arrêté... pour l'instant. La rustine peut se décoller.
+fr/astronauta_X/ev.gerador_barulho.desligar.outcome.mp3;astronauta (gravar menina e menino);[natural];La pièce desserrée a été resserrée. Mais, machine éteinte, la base a fait moins d'air aujourd'hui.
+fr/astronauta_X/ev.gerador_barulho.continuar.outcome.mp3;astronauta (gravar menina e menino);[natural];L'air a continué à sortir et vous avez travaillé plus. Mais le bruit est toujours là...
+fr/astronauta_X/ev.agua_do_ar.coletar.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous avez récupéré de l'eau pour arroser la serre. Les plantes disent merci ! Le collecteur a coûté de l'énergie.
+fr/astronauta_X/ev.agua_do_ar.guardar.outcome.mp3;astronauta (gravar menina e menino);[natural];La batterie est plus pleine, mais la serre a reçu moins d'eau.
+fr/astronauta_X/ev.mofo.cortar.outcome.mp3;astronauta (gravar menina e menino);[natural];Les plantes sont sauvées, mais vous avez perdu un peu de nourriture.
+fr/astronauta_X/ev.mofo.ventilar.outcome.mp3;astronauta (gravar menina e menino);[natural];Le vent a séché les feuilles. Les ventilateurs ont coûté de l'énergie et quelques feuilles ont fané.
+fr/astronauta_X/ev.rabanete.comer.outcome.mp3;astronauta (gravar menina e menino);[natural];Quel festin ! Beaucoup de nourriture aujourd'hui, mais il ne reste aucune graine.
+fr/astronauta_X/ev.rabanete.sementes.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous en avez mangé un peu et replanté le reste. Dans quelques sols, il y en aura encore !
+fr/astronauta_X/ev.sementes_terra.alface.outcome.mp3;astronauta (gravar menina e menino);[natural];La laitue pousse vite, mais donne peu de nourriture.
+fr/astronauta_X/ev.sementes_terra.batata.outcome.mp3;astronauta (gravar menina e menino);[natural];Les pommes de terre vont prendre du temps, mais donneront beaucoup de nourriture.
+fr/astronauta_X/ev.microscopio.imprimir.outcome.mp3;astronauta (gravar menina e menino);[natural];L'imprimante 3D a fait la pièce ! Mais elle a coûté beaucoup d'énergie.
+fr/astronauta_X/ev.microscopio.lupa.outcome.mp3;astronauta (gravar menina e menino);[natural];La loupe montre moins de détails. Aujourd’hui, le labo rapporte deux fois moins de points de science.
+fr/astronauta_X/ev.gelo.estudar.outcome.mp3;astronauta (gravar menina e menino);[natural];Une découverte importante pour la science ! L'analyse a coûté de l'énergie.
+fr/astronauta_X/ev.gelo.derreter.outcome.mp3;astronauta (gravar menina e menino);[natural];La serre a reçu de l’eau. Sans la glace à étudier, le labo rapporte deux fois moins de points de science aujourd’hui.
+fr/astronauta_X/ev.bacterias.caixa.outcome.mp3;astronauta (gravar menina e menino);[natural];Tout est sûr et la recherche a marché ! Mais la boîte a coûté beaucoup d'énergie.
+fr/astronauta_X/ev.bacterias.mesa.outcome.mp3;astronauta (gravar menina e menino);[natural];Plus rapide et moins cher ! Mais des bactéries se sont peut-être échappées...
+fr/astronauta_X/ev.rachadura.tapar.outcome.mp3;astronauta (gravar menina e menino);[natural];Le robot a couvert la fissure. La protection est complète, mais ça a coûté de l'énergie.
+fr/astronauta_X/ev.rachadura.depois.outcome.mp3;astronauta (gravar menina e menino);[natural];Aucune énergie dépensée aujourd'hui, mais la base a perdu une couche de protection.
+fr/astronauta_X/ev.treino.treinar.outcome.mp3;astronauta (gravar menina e menino);[natural];L'équipe sait par cœur quoi faire ! Mais l'exercice a coûté de l'énergie et du temps de recherche.
+fr/astronauta_X/ev.treino.adiar.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous avez fait plus de science aujourd'hui. Mais l'équipe n'est pas entraînée...
+fr/astronauta_X/ev.aniversario.festa.outcome.mp3;astronauta (gravar menina e menino);[natural];Il y a eu un gâteau, et tout le monde a regardé la vidéo ensemble. L'équipe est contente, mais la fête a coûté de la nourriture.
+fr/astronauta_X/ev.aniversario.depois.outcome.mp3;astronauta (gravar menina e menino);[natural];La recherche a avancé, mais l'astronaute a été triste toute la journée.
+fr/astronauta_X/ev.escola.video.outcome.mp3;astronauta (gravar menina e menino);[natural];Les enfants ont adoré ! L'équipe est contente, mais l'antenne a coûté de l'énergie.
+fr/astronauta_X/ev.escola.dados.outcome.mp3;astronauta (gravar menina e menino);[natural];Les scientifiques ont reçu de nouvelles données, mais l'équipe n'a pas eu de pause et s'est fatiguée.
+fr/astronauta_X/ev.antena_torta.astronauta.outcome.mp3;astronauta (gravar menina e menino);[natural];L'antenne est de retour en place ! Mais la sortie a utilisé l'air de la combinaison et a fatigué.
+fr/astronauta_X/ev.antena_torta.robo.outcome.mp3;astronauta (gravar menina e menino);[natural];Le robot a réparé l'antenne sans que personne sorte, mais il a coûté beaucoup d'énergie.
+fr/astronauta_X/ev.sem_sono.descansar.outcome.mp3;astronauta (gravar menina e menino);[natural];Elle se réveille en pleine forme ! Aujourd’hui, le labo rapporte deux fois moins de points de science.
+fr/astronauta_X/ev.sem_sono.luzes.outcome.mp3;astronauta (gravar menina e menino);[natural];Les lumières ont aidé son corps à s'habituer petit à petit. Mais elles ont coûté de l'énergie.
+fr/astronauta_X/ev.saudade.folga.outcome.mp3;astronauta (gravar menina e menino);[natural];Il s'est reposé et a mangé son plat préféré. Il va bien mieux, mais ça a coûté de la nourriture.
+fr/astronauta_X/ev.saudade.plantas.outcome.mp3;astronauta (gravar menina e menino);[natural];S'occuper de la serre ensemble a aidé ! Mais la lumière en plus a coûté de l'énergie.
+fr/astronauta_X/ev.pneu.devagar.outcome.mp3;astronauta (gravar menina e menino);[natural];La roue ne s'est pas abîmée plus, mais la sortie a été courte et a donné moins de science.
+fr/astronauta_X/ev.pneu.seguir.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous êtes allés plus loin et avez trouvé du nouveau ! Mais la roue s'est abîmée.
+fr/astronauta_X/ev.dunas.entrar.outcome.mp3;astronauta (gravar menina e menino);[natural];De nouveaux endroits et beaucoup de science ! Mais le sable avait l'air mou...
+fr/astronauta_X/ev.dunas.estudar.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous avez trouvé un chemin sûr. C'était plus lent et ça a coûté de l'énergie.
+fr/astronauta_X/ev.fossil.analisar.outcome.mp3;astronauta (gravar menina e menino);[natural];La pierre est partie au labo. Le résultat arrive bientôt ! Le transport a coûté de l'énergie.
+fr/astronauta_X/ev.fossil.foto.outcome.mp3;astronauta (gravar menina e menino);[natural];Les photos sont superbes, mais vous ne saurez peut-être jamais ce que c'était.
+fr/astronauta_X/ev.geada.esperar.outcome.mp3;astronauta (gravar menina e menino);[natural];La glace a fondu toute seule, mais les panneaux ont fait moins d'énergie le matin.
+fr/astronauta_X/ev.geada.raspar.outcome.mp3;astronauta (gravar menina e menino);[natural];Panneaux propres en un rien de temps ! Mais la sortie a utilisé l'air de la combinaison.
+fr/astronauta_X/ev.eclipse_fobos.filmar.outcome.mp3;astronauta (gravar menina e menino);[natural];Quelle vidéo incroyable ! La caméra et le télescope ont coûté de l'énergie.
+fr/astronauta_X/ev.eclipse_fobos.guardar.outcome.mp3;astronauta (gravar menina e menino);[natural];La batterie est plus pleine, mais le labo n'a pas eu d'énergie et ne marche qu'à moitié aujourd'hui.
+fr/astronauta_X/ev.truque_areia.areia.outcome.mp3;astronauta (gravar menina e menino);[natural];Le robot a lâché du sable près des panneaux. Le vent a emporté le sable, qui a entraîné un peu de poussière !
+fr/astronauta_X/ev.truque_areia.escovar.outcome.mp3;astronauta (gravar menina e menino);[natural];Les panneaux sont bien propres ! Mais la sortie a utilisé l'air de la combinaison.
+fr/astronauta_X/ev.filtro_co2.reserva.outcome.mp3;astronauta (gravar menina e menino);[natural];Nouveau filtre en place ! Mais il n'y a plus de rechange.
+fr/astronauta_X/ev.filtro_co2.improvisar.outcome.mp3;astronauta (gravar menina e menino);[natural];Le filtre fait avec du ruban et de vieilles pièces a marché, mais moins bien. L'air est un peu moins bon.
+fr/astronauta_X/ev.eletrolise.fazer_ar.outcome.mp3;astronauta (gravar menina e menino);[natural];Plus d'oxygène pour tout le monde ! Mais la serre a reçu moins d'eau.
+fr/astronauta_X/ev.eletrolise.guardar_agua.outcome.mp3;astronauta (gravar menina e menino);[natural];Les plantes ont bien bu et ont poussé. Mais l'usine a fait moins d'air aujourd'hui.
+fr/astronauta_X/ev.poeira_dentro.aspirar.outcome.mp3;astronauta (gravar menina e menino);[natural];La base est toute propre ! L'aspirateur a coûté de l'énergie.
+fr/astronauta_X/ev.poeira_dentro.depois.outcome.mp3;astronauta (gravar menina e menino);[natural];Aucune énergie dépensée, mais la poussière a fait tousser et éternuer l'équipe.
+fr/astronauta_X/ev.luz_rosa.rosa.outcome.mp3;astronauta (gravar menina e menino);[natural];La serre est devenue rose et les plantes ont bien poussé, avec peu d'énergie.
+fr/astronauta_X/ev.luz_rosa.branca.outcome.mp3;astronauta (gravar menina e menino);[natural];Les plantes ont poussé et l'équipe a aimé voir tout vert. Mais la lumière blanche a coûté plus d'énergie.
+fr/astronauta_X/ev.pimentas.verdes.outcome.mp3;astronauta (gravar menina e menino);[natural];Il y a de la nourriture nouvelle et piquante aujourd'hui ! La cueillette a demandé un peu de travail.
+fr/astronauta_X/ev.pimentas.vermelhas.outcome.mp3;astronauta (gravar menina e menino);[natural];Les piments continuent de pousser. Dans quelques sols, la récolte sera grande !
+fr/astronauta_X/ev.adubo.compostar.outcome.mp3;astronauta (gravar menina e menino);[natural];Les restes vont devenir du compost. Dans quelques sols, les plantes pousseront mieux !
+fr/astronauta_X/ev.adubo.jogar_fora.outcome.mp3;astronauta (gravar menina e menino);[natural];La cuisine a plus de place, mais les déchets sentaient mauvais et ont donné mal au cœur à l'équipe.
+fr/astronauta_X/ev.meteorito.analisar.outcome.mp3;astronauta (gravar menina e menino);[natural];C'était bien une météorite en fer ! L'analyse a coûté de l'énergie.
+fr/astronauta_X/ev.meteorito.foto.outcome.mp3;astronauta (gravar menina e menino);[natural];Les scientifiques sur Terre ont adoré les photos, mais sans analyse, la recherche a moins avancé.
+fr/astronauta_X/ev.tubo_amostra.cuidado.outcome.mp3;astronauta (gravar menina e menino);[natural];La roche était friable et s'est réduite en poudre. Le deuxième essai a marché ! Ça a coûté de l'énergie.
+fr/astronauta_X/ev.tubo_amostra.rapido.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous avez pris un échantillon tout de suite ! Mais personne n'a vérifié s'il était bon...
+fr/astronauta_X/ev.nuvens.noite.outcome.mp3;astronauta (gravar menina e menino);[natural];De belles photos pour la science ! Mais l'équipe s'est couchée tard et s'est fatiguée.
+fr/astronauta_X/ev.nuvens.uma_foto.outcome.mp3;astronauta (gravar menina e menino);[natural];Une jolie photo et une équipe reposée. La caméra a coûté un peu d'énergie.
+fr/astronauta_X/ev.tijolos.imprimir.outcome.mp3;astronauta (gravar menina e menino);[natural];L'imprimante 3D a fait des briques de sable ! La base est mieux protégée. Ça a coûté de l'énergie.
+fr/astronauta_X/ev.tijolos.sacos.outcome.mp3;astronauta (gravar menina e menino);[natural];Les sacs sont sur la base. Plus de protection ! Mais le travail dehors a coûté de l'air et a fatigué.
+fr/astronauta_X/ev.tremor.conferir.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous avez trouvé une vis desserrée et l'avez réparée. La vérification a coûté de l'énergie.
+fr/astronauta_X/ev.tremor.seguir.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous avez fait plus de science. Mais personne n'a vérifié si quelque chose s'était desserré...
+fr/astronauta_X/ev.conjuncao.mandar_tudo.outcome.mp3;astronauta (gravar menina e menino);[natural];Toutes les données sont arrivées sur Terre à temps ! L'antenne a coûté de l'énergie.
+fr/astronauta_X/ev.conjuncao.silencio.outcome.mp3;astronauta (gravar menina e menino);[natural];La batterie a gardé de l'énergie, mais l'équipe s'est sentie seule sans nouvelles de la Terre.
+fr/astronauta_X/ev.satelite.satelite.outcome.mp3;astronauta (gravar menina e menino);[natural];Les données sont parties vite, avec peu d'énergie !
+fr/astronauta_X/ev.satelite.direto.outcome.mp3;astronauta (gravar menina e menino);[natural];Plus de données sont arrivées sur Terre, mais la grande antenne a coûté beaucoup d'énergie.
+fr/astronauta_X/ev.musica.tocar.outcome.mp3;astronauta (gravar menina e menino);[natural];Tout le monde s'est réveillé en dansant ! Le son a coûté un tout petit peu d'énergie.
+fr/astronauta_X/ev.musica.dormir_mais.outcome.mp3;astronauta (gravar menina e menino);[natural];L'équipe s'est plus reposée, mais le labo a commencé tard et ne marche qu'à moitié aujourd'hui.
+fr/astronauta_X/ev.cardapio.tempero.outcome.mp3;astronauta (gravar menina e menino);[natural];Quel bon dîner ! Tout le monde est content, mais ça a coûté plus de nourriture.
+fr/astronauta_X/ev.cardapio.de_sempre.outcome.mp3;astronauta (gravar menina e menino);[natural];La nourriture a duré plus longtemps, mais l'équipe a peu mangé et s'est découragée.
+fr/astronauta_X/ev.diario.escrever.outcome.mp3;astronauta (gravar menina e menino);[natural];Elle se sent bien mieux ! Mais elle a arrêté de travailler, et le labo ne marche qu'à moitié aujourd'hui.
+fr/astronauta_X/ev.diario.trabalhar.outcome.mp3;astronauta (gravar menina e menino);[natural];La recherche a avancé, mais l'astronaute est fatiguée et inquiète.
+fr/astronauta_X/ev.resfriado.isolar.outcome.mp3;astronauta (gravar menina e menino);[natural];Il va mieux et personne d'autre ne l'a attrapé. Mais il manquait quelqu'un au travail, et le labo ne marche qu'à moitié aujourd'hui.
+fr/astronauta_X/ev.resfriado.seguir.outcome.mp3;astronauta (gravar menina e menino);[natural];La recherche a avancé, mais le rhume s'est transmis à d'autres.
+fr/astronauta_X/ev.noite_gelada.aquecer.outcome.mp3;astronauta (gravar menina e menino);[natural];Le rover a passé une nuit au chaud. Le chauffage a coûté de l'énergie.
+fr/astronauta_X/ev.noite_gelada.deixar.outcome.mp3;astronauta (gravar menina e menino);[natural];Vous avez économisé de l'énergie aujourd'hui. La batterie va-t-elle tenir ?
+fr/astronauta_X/ev.drone.voar.outcome.mp3;astronauta (gravar menina e menino);[natural];Le drone a trouvé le meilleur chemin et de nouvelles photos ! Le vol a coûté de l'énergie.
+fr/astronauta_X/ev.drone.sem_olhar.outcome.mp3;astronauta (gravar menina e menino);[natural];Le rover est arrivé plus vite et a trouvé de nouvelles pierres. Mais le chemin était inconnu...
+fr/astronauta_X/ev.briga.conversar.outcome.mp3;astronauta (gravar menina e menino);[natural];Ils se sont réconciliés et ont partagé les tâches. La discussion a pris du temps à la recherche.
+fr/astronauta_X/ev.briga.separar.outcome.mp3;astronauta (gravar menina e menino);[natural];Chacun a fait sa part de la recherche, mais personne n’était content.
+fr/astronauta_X/ev.dor_cabeca.ventilar.outcome.mp3;astronauta (gravar menina e menino);[natural];L’air est redevenu frais et le mal de tête est parti. Les ventilateurs ont utilisé de l’énergie.
+fr/astronauta_X/ev.dor_cabeca.seguir.outcome.mp3;astronauta (gravar menina e menino);[natural];Il est retourné au travail et a aidé la recherche. Mais le mal de tête n’est pas vraiment parti...
+fr/astronauta_X/ev.esteira.correr.outcome.mp3;astronauta (gravar menina e menino);[natural];Tout le monde a couru et s’est renforcé. Ensuite, la faim est arrivée : ils ont mangé plus.
+fr/astronauta_X/ev.esteira.pular.outcome.mp3;astronauta (gravar menina e menino);[natural];Il restait du temps pour la recherche, mais l’équipage s’est senti mou et fatigué.
+fr/astronauta_X/ev.janela.trocar.outcome.mp3;astronauta (gravar menina e menino);[natural];Nouvelle vitre en place ! La réparation a pris des heures et de l’énergie.
+fr/astronauta_X/ev.janela.fita.outcome.mp3;astronauta (gravar menina e menino);[natural];Le ruban a presque tout retenu, mais un peu d’air s’est échappé.
+fr/astronauta_X/ev.barulho.consertar.outcome.mp3;astronauta (gravar menina e menino);[natural];Silence ! Le ventilateur est comme neuf, mais fabriquer la pièce a pris de l’énergie.
+fr/astronauta_X/ev.barulho.tampoes.outcome.mp3;astronauta (gravar menina e menino);[natural];Ça a aidé, mais certains se sont réveillés la nuit à cause du grincement.

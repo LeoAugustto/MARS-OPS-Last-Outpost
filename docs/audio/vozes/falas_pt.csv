@@ -1,0 +1,69 @@
+﻿arquivo;personagem;emocao;texto_para_colar_v3;texto_sem_tags
+pt/rovi/ui.abertura.1.mp3;rovi;[excited];[excited] Oi! Esta é a sua base em Marte. Você é quem comanda!;Oi! Esta é a sua base em Marte. Você é quem comanda!
+pt/rovi/ui.abertura.2.mp3;rovi;[excited];[excited] Cuide do ar, da comida e da saúde. Nenhum pode chegar a zero.;Cuide do ar, da comida e da saúde. Nenhum pode chegar a zero.
+pt/rovi/ui.abertura.3.mp3;rovi;[excited];[excited] O Sol de verdade vai mandar surpresas. Esses eventos vêm da NASA!;O Sol de verdade vai mandar surpresas. Esses eventos vêm da NASA!
+pt/rovi/tut.andar.mp3;rovi;[cheerful];[cheerful] Oi! Eu sou o Rovi. Este é você. Toque no chão para andar (ou use as setas do teclado).;Oi! Eu sou o Rovi. Este é você. Toque no chão para andar (ou use as setas do teclado).
+pt/rovi/tut.porta.mp3;rovi;[friendly];[friendly] Um ponto de alerta piscou num prédio. Ande até a porta para entrar.;Um ponto de alerta piscou num prédio. Ande até a porta para entrar.
+pt/rovi/tut.vazio.mp3;rovi;[friendly];[friendly] Aqui não tem alerta. Toque em Sair e vá ao prédio que está piscando.;Aqui não tem alerta. Toque em Sair e vá ao prédio que está piscando.
+pt/rovi/tut.computador.mp3;rovi;[friendly];[friendly] Toque no computador para ver o alerta.;Toque no computador para ver o alerta.
+pt/rovi/tut.custo.mp3;rovi;[thoughtful];[thoughtful] Toda escolha custa algo. Olhe os números antes de escolher. Não escolher também custa: o problema piora sozinho.;Toda escolha custa algo. Olhe os números antes de escolher. Não escolher também custa: o problema piora sozinho.
+pt/rovi/tut.barras.mp3;rovi;[serious];[serious] Estas barras são Ar, Comida e Saúde. Se uma chegar a zero, a missão volta para a Terra.;Estas barras são Ar, Comida e Saúde. Se uma chegar a zero, a missão volta para a Terra.
+pt/rovi/tut.antena.mp3;rovi;[curious];[curious] A antena recebe alertas do Sol. São eventos reais, medidos pela NASA!;A antena recebe alertas do Sol. São eventos reais, medidos pela NASA!
+pt/rovi/tut.energia.mp3;rovi;[helpful];[helpful] Toque em Energia. Você divide a energia do dia: ar, estufa (comida), laboratório (ciência) e escudo. Se o ar estiver baixo, coloque mais energia no ar.;Toque em Energia. Você divide a energia do dia: ar, estufa (comida), laboratório (ciência) e escudo. Se o ar estiver baixo, coloque mais energia no ar.
+pt/rovi/tut.mais.mp3;rovi;[helpful];[helpful] Use + e - para escolher quanto vai para cada módulo. Se faltar energia, tire do laboratório.;Use + e - para escolher quanto vai para cada módulo. Se faltar energia, tire do laboratório.
+pt/rovi/tut.pronto.mp3;rovi;[pleased];[pleased] Isso! Agora toque em Pronto para guardar.;Isso! Agora toque em Pronto para guardar.
+pt/rovi/tut.relogio.mp3;rovi;[friendly];[friendly] O relógio anda quando você caminha e escolhe. Resolva os alertas e vá dormir na cama da Casa antes da noite.;O relógio anda quando você caminha e escolhe. Resolva os alertas e vá dormir na cama da Casa antes da noite.
+pt/rovi/tut.casa.mp3;rovi;[friendly];[friendly] A Casa é aqui. A cama fica lá dentro.;A Casa é aqui. A cama fica lá dentro.
+pt/rovi/tut.casa_sair.mp3;rovi;[friendly];[friendly] Para dormir, saia daqui e vá até a Casa, no meio da base. A cama fica lá dentro.;Para dormir, saia daqui e vá até a Casa, no meio da base. A cama fica lá dentro.
+pt/rovi/tut.cama.mp3;rovi;[warm];[warm] Esta é a cama. Quando os alertas acabarem, toque nela para dormir.;Esta é a cama. Quando os alertas acabarem, toque nela para dormir.
+pt/rovi/rovi.sol2.comida.mp3;rovi;[helpful];[helpful] Ontem a comida caiu. Toque em Energia e ponha mais na estufa para fazer mais comida.;Ontem a comida caiu. Toque em Energia e ponha mais na estufa para fazer mais comida.
+pt/rovi/rovi.sol2.ar.mp3;rovi;[helpful];[helpful] Ontem o ar caiu. Toque em Energia e ponha mais na fábrica de ar.;Ontem o ar caiu. Toque em Energia e ponha mais na fábrica de ar.
+pt/rovi/rovi.ar.mp3;rovi;[worried];[worried] O ar está acabando! Vá à Fábrica de ar ou abra Energia e coloque mais no ar.;O ar está acabando! Vá à Fábrica de ar ou abra Energia e coloque mais no ar.
+pt/rovi/rovi.comida.mp3;rovi;[worried];[worried] A comida está acabando! Vá à Estufa ou abra Energia e coloque mais na estufa.;A comida está acabando! Vá à Estufa ou abra Energia e coloque mais na estufa.
+pt/rovi/rovi.saude.mp3;rovi;[worried];[worried] A saúde da equipe está baixa! Durma cedo, faça escudo contra a radiação e escolha o que cuida da equipe.;A saúde da equipe está baixa! Durma cedo, faça escudo contra a radiação e escolha o que cuida da equipe.
+pt/rovi/rovi.entardecer.mp3;rovi;[slightly urgent];[slightly urgent] O Sol está se pondo e ainda tem alertas! Resolva logo e vá dormir na Casa antes da noite.;O Sol está se pondo e ainda tem alertas! Resolva logo e vá dormir na Casa antes da noite.
+pt/rovi/rovi.tempestade.mp3;rovi;[urgent];[urgent] Tempestade solar a caminho! Ela traz radiação, uma energia invisível que faz mal. Abra Energia e coloque energia no escudo (robô de areia).;Tempestade solar a caminho! Ela traz radiação, uma energia invisível que faz mal. Abra Energia e coloque energia no escudo (robô de areia).
+pt/rovi/rovi.bateria.mp3;rovi;[cheerful];[cheerful] A bateria encheu e sobrou energia! Coloque a energia sobrando no laboratório para ganhar estrelas.;A bateria encheu e sobrou energia! Coloque a energia sobrando no laboratório para ganhar estrelas.
+pt/rovi/rovi.depois.mp3;rovi;[thoughtful];[thoughtful] Lembra daquela escolha com a ampulheta? O custo dela chegou agora.;Lembra daquela escolha com a ampulheta? O custo dela chegou agora.
+pt/rovi/rovi.falta.mp3;rovi;[worried];[worried] Falta energia para essa divisão! O laboratório desliga primeiro, depois o escudo e a estufa. O ar é o último.;Falta energia para essa divisão! O laboratório desliga primeiro, depois o escudo e a estufa. O ar é o último.
+pt/rovi/ui.dica.energia.mp3;rovi;[helpful];[helpful] Ontem faltou energia para o laboratório! Em Energia, deixe um pouco livre: as cartas também gastam energia.;Ontem faltou energia para o laboratório! Em Energia, deixe um pouco livre: as cartas também gastam energia.
+pt/rovi/ui.dica.escudo.mp3;rovi;[helpful];[helpful] Dica: o robô de areia faz o escudo contra a radiação. Em Energia, coloque 2 de energia no escudo antes da próxima tempestade do Sol!;Dica: o robô de areia faz o escudo contra a radiação. Em Energia, coloque 2 de energia no escudo antes da próxima tempestade do Sol!
+pt/rovi/ui.entardecer.aviso.mp3;rovi;[slightly urgent];[slightly urgent] O Sol está se pondo. Resolva os alertas e durma na Casa antes da noite, senão a equipe cansa (-4 de saúde).;O Sol está se pondo. Resolva os alertas e durma na Casa antes da noite, senão a equipe cansa (-4 de saúde).
+pt/rovi/ui.entardecer.dormir.mp3;rovi;[calm];[calm] O Sol está se pondo. Tudo resolvido: vá dormir na Casa antes da noite para a equipe não cansar.;O Sol está se pondo. Tudo resolvido: vá dormir na Casa antes da noite para a equipe não cansar.
+pt/rovi/ui.noite.aviso.mp3;rovi;[concerned];[concerned] A noite chegou: a equipe está cansada (-4 de saúde). Cada alerta sem resposta custa -2 ao dormir, e o problema piora sozinho. Vá para a cama da Casa.;A noite chegou: a equipe está cansada (-4 de saúde). Cada alerta sem resposta custa -2 ao dormir, e o problema piora sozinho. Vá para a cama da Casa.
+pt/rovi/ui.noite.sono.mp3;rovi;[calm] [soft];[calm] [soft] Dormir bem também é trabalho de astronauta. A NASA estuda o sono das tripulações, porque cansaço causa erros.;Dormir bem também é trabalho de astronauta. A NASA estuda o sono das tripulações, porque cansaço causa erros.
+pt/controle/fim.vitoria.title.mp3;controle;[proud];[proud] Missão cumprida!;Missão cumprida!
+pt/controle/fim.vitoria.body.mp3;controle;[warm] [proud];[warm] [proud] Sua tripulação aguentou todos os sóis em Marte. Que comando!;Sua tripulação aguentou todos os sóis em Marte. Que comando!
+pt/controle/fim.resgate.title.mp3;controle;[calm];[calm] A Terra mandou buscar a tripulação;A Terra mandou buscar a tripulação
+pt/controle/fim.resgate.body.mp3;controle;[calm] [reassuring];[calm] [reassuring] Ninguém se machucou: o Controle de Missão decidiu trazer todos de volta. Vamos entender o que aconteceu?;Ninguém se machucou: o Controle de Missão decidiu trazer todos de volta. Vamos entender o que aconteceu?
+pt/controle/causa.ar.mp3;controle;[calm] [explaining];[calm] [explaining] O ar acabou. Cada pessoa respira o tempo todo, e a fábrica de ar precisa de energia todo sol.;O ar acabou. Cada pessoa respira o tempo todo, e a fábrica de ar precisa de energia todo sol.
+pt/controle/causa.comida.mp3;controle;[calm] [explaining];[calm] [explaining] A comida acabou. A estufa precisa de luz (energia) e as plantas demoram para crescer.;A comida acabou. A estufa precisa de luz (energia) e as plantas demoram para crescer.
+pt/controle/causa.saude.mp3;controle;[calm] [explaining];[calm] [explaining] A saúde ficou baixa demais. Radiação, fome e falta de ar cansam o corpo.;A saúde ficou baixa demais. Radiação, fome e falta de ar cansam o corpo.
+pt/controle/dica.ar.mp3;controle;[encouraging];[encouraging] Dica: cada 1 de energia na fábrica de ar faz 4 de ar. Dê energia suficiente para o que a equipe respira.;Dica: cada 1 de energia na fábrica de ar faz 4 de ar. Dê energia suficiente para o que a equipe respira.
+pt/controle/dica.comida.mp3;controle;[encouraging];[encouraging] Dica: cada 1 de energia na estufa faz 3 de comida. Não deixe a estufa sem energia.;Dica: cada 1 de energia na estufa faz 3 de comida. Não deixe a estufa sem energia.
+pt/controle/dica.saude.mp3;controle;[encouraging];[encouraging] Dica: com 2 de energia, o robô põe uma camada de escudo contra a radiação. E durma antes da noite para a equipe não cansar.;Dica: com 2 de energia, o robô põe uma camada de escudo contra a radiação. E durma antes da noite para a equipe não cansar.
+pt/controle/fim.estrela.1.mp3;controle;[happy];[happy] Vocês sobreviveram!;Vocês sobreviveram!
+pt/controle/fim.estrela.2.mp3;controle;[excited];[excited] ...e fizeram muita ciência!;...e fizeram muita ciência!
+pt/controle/fim.estrela.3.mp3;controle;[very excited];[very excited] ...e bateram a meta de ciência!;...e bateram a meta de ciência!
+pt/controle/fim.estrela.falta.mp3;controle;[encouraging];[encouraging] Faça mais ciência no laboratório para ganhar mais estrelas na próxima missão.;Faça mais ciência no laboratório para ganhar mais estrelas na próxima missão.
+pt/controle/fato.reabastecimento.mp3;controle;[curious] [storytelling];[curious] [storytelling] Você sabia? Uma nave da Terra só consegue chegar a Marte mais ou menos a cada 26 meses. Por isso planejar é tudo!;Você sabia? Uma nave da Terra só consegue chegar a Marte mais ou menos a cada 26 meses. Por isso planejar é tudo!
+pt/astronauta_menina/astro.ok.mp3;astronauta_menina;[confident];[confident] Entendido!;Entendido!
+pt/astronauta_menino/astro.ok.mp3;astronauta_menino;[confident];[confident] Entendido!;Entendido!
+pt/astronauta_menina/astro.vamos.mp3;astronauta_menina;[excited];[excited] Vamos lá!;Vamos lá!
+pt/astronauta_menino/astro.vamos.mp3;astronauta_menino;[excited];[excited] Vamos lá!;Vamos lá!
+pt/astronauta_menina/astro.alerta.mp3;astronauta_menina;[surprised];[surprised] Opa, um alerta!;Opa, um alerta!
+pt/astronauta_menino/astro.alerta.mp3;astronauta_menino;[surprised];[surprised] Opa, um alerta!;Opa, um alerta!
+pt/astronauta_menina/astro.ufa.mp3;astronauta_menina;[sighs] [relieved];[sighs] [relieved] Ufa... essa foi por pouco.;Ufa... essa foi por pouco.
+pt/astronauta_menino/astro.ufa.mp3;astronauta_menino;[sighs] [relieved];[sighs] [relieved] Ufa... essa foi por pouco.;Ufa... essa foi por pouco.
+pt/astronauta_menina/astro.bomdia.mp3;astronauta_menina;[cheerful];[cheerful] Bom dia, base!;Bom dia, base!
+pt/astronauta_menino/astro.bomdia.mp3;astronauta_menino;[cheerful];[cheerful] Bom dia, base!;Bom dia, base!
+pt/astronauta_menina/astro.dormir.mp3;astronauta_menina;[yawns] [sleepy];[yawns] [sleepy] Hora de dormir...;Hora de dormir...
+pt/astronauta_menino/astro.dormir.mp3;astronauta_menino;[yawns] [sleepy];[yawns] [sleepy] Hora de dormir...;Hora de dormir...
+pt/astronauta_menina/astro.vitoria.mp3;astronauta_menina;[very excited];[very excited] Missão cumprida!;Missão cumprida!
+pt/astronauta_menino/astro.vitoria.mp3;astronauta_menino;[very excited];[very excited] Missão cumprida!;Missão cumprida!
+pt/astronauta_menina/astro.resgate.mp3;astronauta_menina;[calm] [hopeful];[calm] [hopeful] Tudo bem... vamos tentar de novo.;Tudo bem... vamos tentar de novo.
+pt/astronauta_menino/astro.resgate.mp3;astronauta_menino;[calm] [hopeful];[calm] [hopeful] Tudo bem... vamos tentar de novo.;Tudo bem... vamos tentar de novo.
+pt/astronauta_menina/astro.tempestade.mp3;astronauta_menina;[worried];[worried] Tempestade chegando! Todos para o abrigo!;Tempestade chegando! Todos para o abrigo!
+pt/astronauta_menino/astro.tempestade.mp3;astronauta_menino;[worried];[worried] Tempestade chegando! Todos para o abrigo!;Tempestade chegando! Todos para o abrigo!
+pt/astronauta_menina/astro.figurinha.mp3;astronauta_menina;[happy];[happy] Uau, uma figurinha nova!;Uau, uma figurinha nova!
+pt/astronauta_menino/astro.figurinha.mp3;astronauta_menino;[happy];[happy] Uau, uma figurinha nova!;Uau, uma figurinha nova!

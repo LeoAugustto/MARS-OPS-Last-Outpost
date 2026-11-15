@@ -1,6 +1,8 @@
 # Sons, música e vozes: plano e prompts
 
-Estado em 15/11/2026: o jogo não tem som e a voz está desligada (`VOZ_ATIVA=false`). Este documento diz **onde** ter som, **com que ferramenta** gerar cada coisa e traz os **prompts prontos**.
+Estado em 15/11/2026: o jogo não tem som e a voz está desligada (`VOZ_ATIVA=false`).
+
+**Pedidos prontos para cada pessoa:** `docs/audio/1-ELEVENLABS-vozes-e-efeitos.md` (+ `docs/audio/vozes/*.csv`), `docs/audio/2-SUNO-musicas.md`, `docs/audio/3-LEO-gratis-efeitos-8bit.md`. Para regerar as falas depois de mudar textos: `python scripts/gerar-falas-audio.py .` Este documento diz **onde** ter som, **com que ferramenta** gerar cada coisa e traz os **prompts prontos**.
 
 ## 1. Ferramentas recomendadas
 
