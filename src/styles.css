@@ -181,6 +181,9 @@
 .contorno-alerta .c-meio { stroke: #ff4a2e; stroke-width: 5px; animation: contorno-pisca 0.6s steps(1) infinite; }
 .contorno-alerta .c-dentro { stroke: #ffe08a; stroke-width: 2px; stroke-dasharray: 6 6; animation: contorno-anda 0.5s steps(4) infinite; }
 @keyframes contorno-pisca { 0% { opacity: 1; } 50% { opacity: 0.45; } }
+/* esconde a barra de rolagem (a tela ainda rola se precisar, em telas muito baixas) */
+.sem-barra { scrollbar-width: none; }
+.sem-barra::-webkit-scrollbar { display: none; }
 @keyframes contorno-anda { to { stroke-dashoffset: -12; } }
 @media (prefers-reduced-motion: reduce) {
   .contorno polygon, .contorno-alerta polygon { animation: none; }
