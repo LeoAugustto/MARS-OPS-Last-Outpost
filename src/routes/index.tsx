@@ -235,7 +235,7 @@ function Home() {
         : Math.min(w * 0.42, 560);
     return Math.max(base, Math.min(271, w * 0.9)); // altura mínima para o dedo (48px)
   })();
-  const alturaBotao = Math.max(48, larguraBotao * (109 / 615));
+  const alturaBotao = Math.max(48, larguraBotao * (102 / 605));
   const tamBotao = (() => {
     if (!larguraBotao) return 0;
     // o texto (com contorno e sombra) fica dentro da arte, com folga dos dois lados
@@ -256,7 +256,7 @@ function Home() {
   const classeBotao =
     "pixelated flex items-center justify-center whitespace-nowrap font-sans font-normal leading-none text-[#f6e38c] transition hover:brightness-110 active:translate-y-[2px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-highlight";
   const botaoSemMedida =
-    "aspect-[615/109] w-[min(86vw,352px)] text-[clamp(1.25rem,6vw,2.1rem)] sm:w-[min(30vw,440px)] sm:text-[clamp(1.4rem,2.8vw,2.3rem)]";
+    "aspect-[605/102] w-[min(86vw,352px)] text-[clamp(1.25rem,6vw,2.1rem)] sm:w-[min(30vw,440px)] sm:text-[clamp(1.4rem,2.8vw,2.3rem)]";
 
   const botao = (to: "new" | "continue", texto: string) => (
     <Link

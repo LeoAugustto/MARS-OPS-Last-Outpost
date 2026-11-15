@@ -16,10 +16,10 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        chunky:
-          "rounded-sm bg-primary text-primary-foreground font-bold shadow-chunky active:translate-y-1 active:shadow-none hover:brightness-110",
+        // os dois usam a arte do botão laranja; o secundário fica um pouco mais apagado
+        chunky: "botao-arte font-bold hover:brightness-110 active:translate-y-0.5",
         chunkySand:
-          "rounded-sm bg-secondary text-secondary-foreground font-bold shadow-chunky-sand active:translate-y-1 active:shadow-none hover:brightness-110",
+          "botao-arte font-bold brightness-[0.9] saturate-[0.9] hover:brightness-100 active:translate-y-0.5",
       },
       size: {
         default: "h-9 px-4 py-2",

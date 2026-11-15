@@ -99,6 +99,8 @@
   --ring: #ffd23f;
   --frame: #a5461f;
   --frame-shadow: #6e2a10;
+  --button-art-foreground: #f6e38c;
+  --button-art-shadow: #5a1d07;
   --chart-1: #e2672b;
   --chart-2: #f7dfbd;
   --chart-3: #22806f;
@@ -132,6 +134,21 @@
   border: 4px solid var(--frame);
   box-shadow: 0 6px 0 var(--frame-shadow);
   border-radius: 0;
+}
+
+/* botão laranja de fliperama (public/assets/hub/botao.png) em 9 fatias: os cantos e as bordas
+   ficam do tamanho certo em qualquer botão (largo, estreito ou quadrado) e o meio estica */
+@utility botao-arte {
+  border-style: solid;
+  border-color: transparent;
+  border-width: 6px 6px 10px;
+  border-image: url(/assets/hub/botao.png) 12 12 20 fill / 6px 6px 10px stretch;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  image-rendering: pixelated;
+  color: var(--button-art-foreground);
+  text-shadow: 2px 2px 0 var(--button-art-shadow);
 }
 
 @utility pixelated {

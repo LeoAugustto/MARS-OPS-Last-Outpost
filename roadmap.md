@@ -52,3 +52,8 @@
 - [x] Tirar a pausa automática por "reduzir movimento" (decisão do dono do projeto)
 - [x] Botão pixel de pausar/continuar no canto de baixo à direita (48px), aria-label nos 5 idiomas, escolha guardada no aparelho
 - [x] Conferir com "reduzir movimento" ligado: vídeo segue tocando depois de 15 s
+
+## Yckler — novo desenho do botão em todas as telas
+- [x] Trocar a arte do botão (public/assets/hub/botao.png) pelo modelo enviado
+- [x] Botões principais do site e do jogo (chunky/chunkySand, hub, home, idioma, "Visitar", tela de erro) usando a arte
+- [x] Conferir home, /fontes e telas do jogo em celular e computador

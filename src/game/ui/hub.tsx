@@ -60,7 +60,7 @@ export function BotaoHub({
   style,
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & { principal?: boolean }) {
-  const tamanho = `aspect-[615/100] px-[8%] ${TEXTO_MENU} ${
+  const tamanho = `aspect-[605/102] px-[8%] ${TEXTO_MENU} ${
     principal ? "" : "brightness-[0.88] saturate-[0.9] hover:brightness-100"
   }`;
   return (
