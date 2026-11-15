@@ -388,7 +388,7 @@ export function StickerGrid({ ids, so }: { ids: string[]; so?: string[] }) {
 }
 
 /** 1 a 3 estrelas pixel (as que faltam ficam apagadas) e uma frase por estrela ganha. */
-function Estrelas({ n }: { n: 1 | 2 | 3 }) {
+function Estrelas({ n }: { n: number }) {
   const { t } = useGT();
   return (
     <section className="flex w-full max-w-md flex-col items-center gap-2">
