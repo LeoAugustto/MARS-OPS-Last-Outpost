@@ -100,6 +100,10 @@ export function SomPanel({ onClose }: { onClose: () => void }) {
             })}
           </ul>
 
+          <BotaoHub onClick={() => setPrefs({ letras: !p.letras })}>
+            {p.letras ? t("ui.som.letras_on") : t("ui.som.letras_off")}
+          </BotaoHub>
+
           <BotaoHub onClick={onClose}>
             <PixelIcon name="play" /> {t("ui.menu.voltar")}
           </BotaoHub>

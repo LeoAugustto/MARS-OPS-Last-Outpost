@@ -12,10 +12,12 @@ export interface PrefsSom {
   efeitos: number;
   ambiente: number;
   voz: number;
+  /** "tic" das letrinhas quando o Rovi fala */
+  letras: boolean;
 }
 
 const CHAVE = "marsops:som";
-const PADRAO: PrefsSom = { ligado: true, musica: 0.45, efeitos: 0.8, ambiente: 0.5, voz: 0.9 };
+const PADRAO: PrefsSom = { ligado: true, musica: 0.45, efeitos: 0.8, ambiente: 0.5, voz: 0.9, letras: true };
 
 function lerPrefs(): PrefsSom {
   try {

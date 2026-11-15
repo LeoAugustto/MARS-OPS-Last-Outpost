@@ -7,6 +7,7 @@ import { loadDonkiPool, type DonkiPool, type Famosa, type ModoSol } from "@/data
 import {
   BALANCE,
   anoitecer,
+  choiceEffect,
   canSleep,
   choose,
   endSol,
@@ -794,6 +795,12 @@ function GameInner({
             const a = game.alerts.find((x) => x.id === card);
             const c = a ? findEvent(a.eventId).choices?.find((x) => x.id === choiceId) : undefined;
             const horas = c ? (c.horas ?? 1) : 0;
+            // depois do "confirmar": um som só, conforme a escolha foi mais perda ou mais ganho
+            if (a && c) {
+              const e = choiceEffect(game, a, c);
+              const saldo = (e.ar ?? 0) + (e.comida ?? 0) + (e.saude ?? 0) * 2 + (e.ciencia ?? 0) + (e.energia ?? 0) * 3;
+              if (saldo !== 0) setTimeout(() => tocarEfeito(saldo < 0 ? "custo" : "ganho"), 180);
+            }
             if (horas) setRelogio((r) => Math.min(1, r + horas / BALANCE.HORAS_DO_SOL));
           }}
           onClose={closeCard}

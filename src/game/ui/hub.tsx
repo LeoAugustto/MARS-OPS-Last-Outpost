@@ -1,6 +1,7 @@
 // Peças visuais do "estilo hub" (o mesmo do menu inicial): arte da base ao fundo, moldura
 // marrom escura, título amarelo pixel e o botão laranja de fliperama (public/assets/hub/botao.png).
 // Usadas pelo menu do jogo, pela tela de escolher o astronauta e pela abertura com o Rovi.
+import { tocarEfeito } from "./audio";
 import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from "react";
 
 /** Fundo com a arte do hub, escurecida embaixo para o texto ler bem. */
@@ -76,6 +77,10 @@ export function BotaoHub({
     <button
       type="button"
       {...props}
+      onClick={(ev) => {
+        tocarEfeito("clique");
+        props.onClick?.(ev);
+      }}
       className={`${BASE_BOTAO} ${tamanho} ${className}`}
       style={{ ...TEXTO_BOTAO, ...style }}
     >

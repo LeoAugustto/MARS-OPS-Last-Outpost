@@ -1,4 +1,5 @@
 // Carta de evento: título, texto, selo da fonte, escolhas com custo, resultado e "Por quê?".
+import { tocarEfeito } from "./audio";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -133,9 +134,10 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
                 <button
                   key={c.id}
                   type="button"
-                  disabled={!ok}
-                  onClick={() => onChoose(c.id)}
-                  className="flex min-h-14 flex-col items-start gap-1 border-4 border-border bg-muted p-3 text-left transition hover:border-primary active:translate-y-0.5 disabled:opacity-45"
+                  aria-disabled={!ok}
+                  // bloqueada: não escolhe, só faz o "bzzt" de sem energia
+                  onClick={() => (ok ? onChoose(c.id) : tocarEfeito("sem_energia"))}
+                  className={`flex min-h-14 flex-col items-start gap-1 border-4 border-border bg-muted p-3 text-left transition ${ok ? "hover:border-primary active:translate-y-0.5" : "opacity-45"}`}
                 >
                   <span className="text-lg font-extrabold">
                     {t(eventKey.label(ev.id, c.id), vars)}
