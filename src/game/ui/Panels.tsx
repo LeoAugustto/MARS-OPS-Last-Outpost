@@ -315,12 +315,14 @@ export function Glossary({ onClose }: { onClose: () => void }) {
 export function GameMenu({
   onClose,
   onTutorial,
+  onHowTo,
   onGlossary,
   onRestart,
   onExit,
 }: {
   onClose: () => void;
   onTutorial: () => void;
+  onHowTo: () => void;
   onGlossary: () => void;
   onRestart: () => void;
   onExit: () => void;
@@ -328,6 +330,7 @@ export function GameMenu({
   const { t } = useGT();
   // mesmo estilo do menu inicial (hub): peças em hub.tsx
   const opcoes: { icone: ReactNode; texto: string; onClick: () => void }[] = [
+    { icone: <PixelIcon name="btn_ajuda" />, texto: t("ui.menu.ajuda"), onClick: onHowTo },
     {
       icone: <img src={ART.portraits.rovi.src} alt="" className="h-6 w-6 object-contain" />,
       texto: t("ui.menu.tutorial"),

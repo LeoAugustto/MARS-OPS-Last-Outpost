@@ -62,7 +62,7 @@
 - [x] 1. Números nos textos vindos de BALANCE (consumo, rende, dicas, aviso da noite e do entardecer)
 - [x] 2. Tutorial do sol 1 com setas que esperam a ação (andar, porta, computador, chips, HUD, energia, relógio/Casa)
 - [x] 3. Avisos do Rovi na hora certa (ar/comida/saúde baixos, entardecer, tempestade, bateria cheia, custo depois, falta energia)
-- [ ] 4. Menu "Como jogar" com páginas (menu do jogo e tela inicial)
+- [x] 4. Menu "Como jogar" com páginas (menu do jogo e tela inicial)
 - [ ] 5. Glossário ampliado
 - [ ] 6. Tela de fim com 1 a 3 estrelas; tirar "vitória parcial" e "A NASA está orgulhosa"
 - [ ] 7. Revisão de texto nas 5 línguas (plural, dormir_bloqueado, regras velhas)

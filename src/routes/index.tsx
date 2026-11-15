@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useDocumentTitle, useT } from "@/i18n";
 import { animacaoPausada, guardarAnimacaoPausada } from "@/lib/animacao";
 import { listSaves } from "@/lib/saves";
+import { ComoJogar } from "@/game/ui/ComoJogar";
 
 // vídeo da cena e o primeiro quadro, servidos como arquivos estáticos de public/:
 // funcionam no Lovable e em qualquer build Vite normal (sem depender de rota interna).
@@ -179,6 +180,8 @@ function Home() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   // a criança pode pausar a animação; a escolha fica guardada neste aparelho
   const [pausada, setPausada] = useState(false);
+  /** páginas "Como jogar" abertas por cima da tela inicial */
+  const [ajuda, setAjuda] = useState(false);
   useEffect(() => setPausada(animacaoPausada()), []);
   useCenaTocando(videoRef, pausada);
   const alternarAnimacao = () => {
@@ -329,6 +332,21 @@ function Home() {
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(28,7,3,0.9)_0%,rgba(28,7,3,0.62)_16%,rgba(28,7,3,0.18)_30%,rgba(28,7,3,0)_52%,rgba(28,7,3,0.8))]"
       />
+
+      {/* como jogar: canto de cima, à esquerda (abre as páginas de ajuda do jogo) */}
+      <div className="absolute left-2 top-2 z-20">
+        <Button
+          type="button"
+          variant="chunkySand"
+          size="tap"
+          className="h-12 gap-1.5 px-3 text-xl"
+          onClick={() => setAjuda(true)}
+        >
+          <img src="/assets/ui/btn_ajuda.png" alt="" aria-hidden className="pixelated h-7 w-7" />
+          {t("howToPlay")}
+        </Button>
+      </div>
+      {ajuda && <ComoJogar onClose={() => setAjuda(false)} />}
 
       {/* idioma: canto de cima, à direita */}
       <div className="absolute right-2 top-2 z-20">

@@ -41,6 +41,7 @@ import { PixelIcon } from "./PixelIcon";
 import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
 import { collectStickers } from "./stickers";
 import { ART, type Periodo } from "./art";
+import { ComoJogar } from "./ComoJogar";
 
 /** abaixo disto o Rovi avisa que o ar, a comida ou a saúde estão acabando (jogo; só a UI usa) */
 const LIMITE_AVISO_ROVI = 30;
@@ -58,7 +59,7 @@ function veioDeAmpulheta(g: GameState, eventId: string): boolean {
 const HORAS_VIAGEM_ROVER = 1;
 
 type Phase = "nivel" | "perfil" | "abertura" | "manha" | "mapa" | "noite" | "fim" | "relatorio";
-type Overlay = null | "energia" | "glossario" | "menu";
+type Overlay = null | "energia" | "glossario" | "menu" | "ajuda";
 
 interface SaveData {
   v: 2;
@@ -769,6 +770,7 @@ function GameInner({
         />
       )}
       {overlay === "glossario" && <Glossary onClose={() => setOverlay(null)} />}
+      {overlay === "ajuda" && <ComoJogar onClose={() => setOverlay(null)} />}
       {overlay === "menu" && (
         <GameMenu
           onClose={() => setOverlay(null)}
@@ -776,6 +778,7 @@ function GameInner({
             setTut(0);
             setOverlay(null);
           }}
+          onHowTo={() => setOverlay("ajuda")}
           onGlossary={() => setOverlay("glossario")}
           onRestart={backToLevels}
           onExit={() => navigate({ to: "/" })}
