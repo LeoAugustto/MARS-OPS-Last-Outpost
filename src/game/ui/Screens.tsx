@@ -17,6 +17,7 @@ import { FAMOSAS, type Famosa, type ModoSol } from "@/data/donki-live";
 import { STICKERS, loadStickers } from "./stickers";
 import { ART, type Gender } from "./art";
 import { PixelIcon } from "./PixelIcon";
+import { BOTAO_ESCURO, BotaoHub, FUNDO_HUB, MOLDURA_HUB, TituloHub } from "./hub";
 
 // ---------------------------------------------------------------- escolher nível
 const MODOS: ModoSol[] = ["surpresa", "semana", "famosa"];
@@ -194,63 +195,78 @@ export function ProfileScreen({
   const [gender, setGender] = useState<Gender>(initial.gender);
   const [name, setName] = useState(initial.name);
   const opcoes: Gender[] = ["f", "m"];
+  // mesmo estilo do menu inicial e do menu do jogo (ver hub.tsx)
   return (
     <form
-      className="flex h-full flex-col items-center gap-4 overflow-y-auto p-4"
+      className="flex h-full flex-col items-center overflow-y-auto p-3 sm:p-4"
+      style={FUNDO_HUB}
       onSubmit={(e) => {
         e.preventDefault();
         onDone({ gender, name: cleanName(name) });
       }}
     >
-      <div className="flex w-full max-w-xl 2xl:max-w-3xl">
-        <Button type="button" variant="ghost" size="tap" onClick={onBack}>
-          ← {t("ui.nivel.titulo")}
-        </Button>
-      </div>
-      <h1 className="text-center font-display text-3xl font-bold text-foreground">
-        {t("ui.perfil.titulo")}
-      </h1>
-      <p className="font-bold text-foreground">{t("ui.perfil.escolha")}</p>
-      <div
-        className="grid w-full max-w-md 2xl:max-w-xl grid-cols-2 gap-3"
-        role="radiogroup"
-        aria-label={t("ui.perfil.escolha")}
-      >
-        {opcoes.map((g) => (
-          <button
-            key={g}
-            type="button"
-            role="radio"
-            aria-checked={gender === g}
-            onClick={() => setGender(g)}
-            className={`flex flex-col items-center gap-2 border-4 bg-card p-3 text-card-foreground transition active:translate-y-1 ${
-              gender === g
-                ? "border-primary shadow-[0_6px_0_#9a3a14]"
-                : "border-border opacity-80 shadow-[0_6px_0_#6e2a10]"
-            }`}
-          >
-            <AstronautSprite gender={g} size={112} />
-            <span className="text-lg font-bold">
-              {t(`ui.perfil.${g === "f" ? "menina" : "menino"}`)}
-            </span>
+      <div className={`${MOLDURA_HUB} my-auto flex w-full max-w-xl 2xl:max-w-2xl flex-col gap-4 bg-[#2a0508]/80 p-4 sm:p-6`}>
+        <div className="flex items-center justify-between gap-2">
+          <button type="button" onClick={onBack} className={`${BOTAO_ESCURO} min-w-0 text-[clamp(0.7rem,3.2vw,0.95rem)]`}>
+            ← <span className="truncate">{t("ui.nivel.titulo")}</span>
           </button>
-        ))}
+          <div className="shrink-0">
+            <LangSelector />
+          </div>
+        </div>
+        <TituloHub className="text-center text-[clamp(1.25rem,5.2vw,2rem)]">
+          {t("ui.perfil.titulo")}
+        </TituloHub>
+        <p className="text-center font-display text-lg font-bold text-[#fbe6c8] [text-shadow:2px_2px_0_#1c0703]">
+          {t("ui.perfil.escolha")}
+        </p>
+        <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label={t("ui.perfil.escolha")}>
+          {opcoes.map((g) => {
+            const sel = gender === g;
+            return (
+              <button
+                key={g}
+                type="button"
+                role="radio"
+                aria-checked={sel}
+                onClick={() => setGender(g)}
+                className={`relative flex flex-col items-center gap-2 border-4 p-3 text-[#3a2015] transition active:translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-highlight ${
+                  sel
+                    ? "border-[#f3c916] bg-[#f8dfba] shadow-[0_6px_0_#a8400f]"
+                    : "border-[#5a1d07] bg-[#c9a27c] opacity-80 shadow-[0_6px_0_#1c0703] hover:opacity-100"
+                }`}
+              >
+                {sel && (
+                  <span className="absolute right-1 top-1" aria-hidden>
+                    <PixelIcon name="ok" size={24} />
+                  </span>
+                )}
+                <AstronautSprite gender={g} size={112} />
+                <span className="font-display text-[clamp(0.8rem,3.6vw,1.1rem)] font-bold">
+                  {t(`ui.perfil.${g === "f" ? "menina" : "menino"}`)}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        <label className="flex flex-col gap-1">
+          <span className="font-display text-lg font-bold text-[#fbe6c8] [text-shadow:2px_2px_0_#1c0703]">
+            {t("ui.perfil.nome")}
+          </span>
+          <input
+            value={name}
+            maxLength={NAME_MAX}
+            autoComplete="off"
+            onChange={(e) => setName(e.target.value)}
+            placeholder={t("ui.perfil.padrao")}
+            className="min-h-12 border-4 border-[#5a1d07] bg-[#f8dfba] px-3 text-xl font-bold text-[#3a2015] shadow-[inset_0_3px_0_#c9a27c] outline-none placeholder:text-[#3a2015]/45 focus:border-[#f3c916]"
+          />
+          <span className="text-sm text-[#fbe6c8]/80">{t("ui.perfil.dica")}</span>
+        </label>
+        <BotaoHub principal type="submit">
+          {t("ui.proximo")} <PixelIcon name="play" />
+        </BotaoHub>
       </div>
-      <label className="flex w-full max-w-md 2xl:max-w-xl flex-col gap-1">
-        <span className="font-bold text-foreground">{t("ui.perfil.nome")}</span>
-        <input
-          value={name}
-          maxLength={NAME_MAX}
-          autoComplete="off"
-          onChange={(e) => setName(e.target.value)}
-          placeholder={t("ui.perfil.padrao")}
-          className="min-h-12 border-4 border-border bg-card px-3 text-xl font-bold text-card-foreground outline-none focus:border-primary"
-        />
-        <span className="text-sm text-foreground/80">{t("ui.perfil.dica")}</span>
-      </label>
-      <Button type="submit" variant="chunky" size="tap" className="w-full max-w-md 2xl:max-w-xl text-lg">
-        {t("ui.proximo")} <PixelIcon name="play" />
-      </Button>
     </form>
   );
 }
@@ -268,36 +284,53 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
   const q = quadros[i]!;
   const ultimo = i === quadros.length - 1;
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-5 p-6 text-center">
-      <img src={ART.portraits.rovi.src} alt="" width={96} height={96} className="object-contain" />
-      <div className="max-w-md 2xl:max-w-xl border-4 border-border bg-card p-6 text-card-foreground shadow-[0_5px_0_#6e2a10]">
-        <div className="mb-3 flex justify-center gap-2">
-          {q.icons.map((name) => <PixelIcon key={name} name={name} size={48} />)}
+    <div className="flex h-full flex-col items-center overflow-y-auto p-3 text-center sm:p-4" style={FUNDO_HUB}>
+      <div className={`${MOLDURA_HUB} my-auto flex w-full max-w-xl 2xl:max-w-2xl flex-col items-center gap-4 bg-[#2a0508]/80 p-4 sm:p-6`}>
+        <img
+          src={ART.portraits.rovi.src}
+          alt=""
+          width={150}
+          height={150}
+          className="pixelated h-[clamp(96px,22vw,150px)] w-auto object-contain drop-shadow-[0_5px_0_#1c0703]"
+        />
+        {/* balão de fala do Rovi (a pontinha aponta para ele) */}
+        <div className={`${MOLDURA_HUB} relative w-full bg-[#f8dfba] p-5 text-[#3a2015] sm:p-6`}>
+          <span
+            className="absolute -top-[20px] left-1/2 -translate-x-1/2 border-x-[14px] border-b-[16px] border-x-transparent border-b-[#f8dfba]"
+            aria-hidden
+          />
+          <div className="mb-3 flex justify-center gap-2">
+            {q.icons.map((name) => <PixelIcon key={name} name={name} size={48} />)}
+          </div>
+          <p className="text-[clamp(1.25rem,4.5vw,1.6rem)] font-bold leading-snug">{q.text}</p>
+          {ultimo && (
+            <p className="mt-3 border-4 border-[#5a1d07] bg-[#2a0508] p-3 font-display text-lg font-bold text-[#f6e38c] shadow-[0_4px_0_#1c0703]">
+              {t("ui.abertura.meta", { sois: cfg.totalSols, meta: cfg.metaCiencia })}
+            </p>
+          )}
         </div>
-        <p className="text-xl font-bold leading-snug">{q.text}</p>
-        {ultimo && (
-          <p className="mt-3 rounded-2xl bg-accent p-3 text-lg text-accent-foreground">
-            {t("ui.abertura.meta", { sois: cfg.totalSols, meta: cfg.metaCiencia })}
-          </p>
-        )}
-      </div>
-      <div className="flex gap-2" aria-hidden>
-        {quadros.map((_, k) => (
-          <span key={k} className={`h-3 w-3 rounded-full ${k === i ? "bg-primary" : "bg-muted"}`} />
-        ))}
-      </div>
-      <div className="flex w-full max-w-md 2xl:max-w-xl gap-2">
-        <Button variant="ghost" size="tap" onClick={onDone}>
+        <div className="flex gap-2" aria-hidden>
+          {quadros.map((_, k) => (
+            <span
+              key={k}
+              className={`h-4 w-4 border-2 border-[#1c0703] ${k === i ? "bg-[#f3c916]" : "bg-[#fbe6c8]/35"}`}
+            />
+          ))}
+        </div>
+        <BotaoHub principal onClick={() => (ultimo ? onDone() : setI(i + 1))}>
+          {ultimo ? (
+            <>
+              <PixelIcon name="foguete" /> {t("ui.comecar")}
+            </>
+          ) : (
+            <>
+              {t("ui.proximo")} <PixelIcon name="play" />
+            </>
+          )}
+        </BotaoHub>
+        <button type="button" onClick={onDone} className={`${BOTAO_ESCURO} text-base`}>
           {t("ui.pular")}
-        </Button>
-        <Button
-          variant="chunky"
-          size="tap"
-          className="flex-1 text-lg"
-          onClick={() => (ultimo ? onDone() : setI(i + 1))}
-        >
-          {ultimo ? t("ui.comecar") : t("ui.proximo")}
-        </Button>
+        </button>
       </div>
     </div>
   );

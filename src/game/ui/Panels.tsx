@@ -1,5 +1,5 @@
 // Janelas do jogo: energia, manhã, noite, lugar, glossário e menu.
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { LangSelector } from "@/components/AppHeader";
 import {
@@ -12,6 +12,7 @@ import {
 } from "@/game/engine";
 import { ART } from "./art";
 import { PixelIcon } from "./PixelIcon";
+import { BOTAO_ESCURO, BotaoHub, MOLDURA_HUB, TEXTO_MENU, TituloHub } from "./hub";
 import { DialogBox, Modal, PlaceIcon, PlaceScene, useGT } from "./shared";
 
 // ---------------------------------------------------------------- energia
@@ -41,7 +42,9 @@ export function EnergyPanel({
   return (
     <Modal label={t("ui.energia.titulo")} onClose={onClose}>
       <div className="flex flex-col gap-3">
-        <h2 className="font-display text-2xl font-bold text-secondary"><PixelIcon name="raio" size={32} /> {t("ui.energia.titulo")}</h2>
+        <h2 className="font-display text-2xl font-bold text-secondary">
+          <PixelIcon name="raio" size={32} /> {t("ui.energia.titulo")}
+        </h2>
         <p className="text-sm text-muted-foreground">{t("ui.energia.explica")}</p>
         <p className="text-lg font-extrabold">{t("ui.energia.hoje", { n: hoje })}</p>
         {MODULOS.map(({ k, icon }) => (
@@ -178,7 +181,10 @@ export function NightModal({ state, onNext }: { state: GameState; onNext: () => 
         <h2 className="text-center font-display text-2xl font-bold text-secondary">{titulo}</h2>
         <ul className="flex flex-col gap-1.5">
           {linhas.map(({ icon, texto }) => (
-            <li key={texto} className="flex items-center gap-2 border border-border bg-muted px-3 py-2 text-base">
+            <li
+              key={texto}
+              className="flex items-center gap-2 border border-border bg-muted px-3 py-2 text-base"
+            >
               <PixelIcon name={icon} />
               <span>{texto}</span>
             </li>
@@ -290,39 +296,71 @@ export function GameMenu({
   onExit: () => void;
 }) {
   const { t } = useGT();
+  // mesmo estilo do menu inicial (hub): peças em hub.tsx
+  const opcoes: { icone: ReactNode; texto: string; onClick: () => void }[] = [
+    {
+      icone: <img src={ART.portraits.rovi.src} alt="" className="h-6 w-6 object-contain" />,
+      texto: t("ui.menu.tutorial"),
+      onClick: onTutorial,
+    },
+    { icone: <PixelIcon name="livro" />, texto: t("ui.menu.glossario"), onClick: onGlossary },
+    { icone: <PixelIcon name="recomecar" />, texto: t("ui.menu.reiniciar"), onClick: onRestart },
+  ];
   return (
-    <Modal label={t("ui.menu.titulo")} onClose={onClose}>
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
-          <h2 className="font-display text-2xl font-bold text-secondary">{t("ui.menu.titulo")}</h2>
-          <div className="flex items-center gap-2">
-            <LangSelector />
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={t("ui.menu.titulo")}
+      className="fixed inset-0 z-40 flex items-center justify-center bg-[#1c0703]/55 p-3 backdrop-blur-[2px]"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div
+        className={`${MOLDURA_HUB} relative max-h-[94dvh] w-full max-w-md overflow-y-auto bg-[#3a1206]`}
+        style={{ backgroundImage: "linear-gradient(to bottom, #4a1a08, #2a0508)" }}
+      >
+        <div className="relative flex flex-col gap-3 p-4 sm:p-5">
+          <div className="flex items-center justify-between gap-2">
+            <TituloHub as="h2" className="text-4xl leading-none">
+              {t("ui.menu.titulo")}
+            </TituloHub>
+            <div className="flex items-center gap-2">
+              <LangSelector />
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label={t("ui.fechar")}
+                className="grid h-12 w-12 place-items-center active:translate-y-0.5"
+              >
+                <PixelIcon name="btn_fechar" size={42} />
+              </button>
+            </div>
+          </div>
+
+          {/* principal: voltar a jogar (o maior, igual ao "Jogar agora" do início) */}
+          <BotaoHub principal onClick={onClose}>
+            <PixelIcon name="play" /> {t("ui.menu.voltar")}
+          </BotaoHub>
+
+          {opcoes.map((o) => (
+            <BotaoHub key={o.texto} onClick={o.onClick}>
+              {o.icone} {o.texto}
+            </BotaoHub>
+          ))}
+
+          {/* sair: separado e mais discreto, para ninguém sair sem querer */}
+          <div className="mt-1 border-t-2 border-dashed border-[#f6e38c]/30 pt-3">
             <button
               type="button"
-              onClick={onClose}
-              aria-label={t("ui.fechar")}
-              className="grid h-12 w-12 place-items-center active:translate-y-0.5"
+              onClick={onExit}
+              className={`${BOTAO_ESCURO} w-full gap-3 ${TEXTO_MENU}`}
             >
-              <PixelIcon name="btn_fechar" size={42} />
+              <PlaceIcon place="habitat" size={24} /> {t("ui.menu.sair")}
             </button>
           </div>
         </div>
-        <Button variant="chunky" size="tap" className="w-full" onClick={onClose}>
-          <PixelIcon name="play" /> {t("ui.menu.voltar")}
-        </Button>
-        <Button variant="chunkySand" size="tap" className="w-full" onClick={onTutorial}>
-          <img src={ART.portraits.rovi.src} alt="" className="h-8 w-8 object-contain" /> {t("ui.menu.tutorial")}
-        </Button>
-        <Button variant="chunkySand" size="tap" className="w-full" onClick={onGlossary}>
-          <PixelIcon name="livro" /> {t("ui.menu.glossario")}
-        </Button>
-        <Button variant="chunkySand" size="tap" className="w-full" onClick={onRestart}>
-          <PixelIcon name="recomecar" /> {t("ui.menu.reiniciar")}
-        </Button>
-        <Button variant="ghost" size="tap" className="w-full" onClick={onExit}>
-          <PlaceIcon place="habitat" size={24} /> {t("ui.menu.sair")}
-        </Button>
       </div>
-    </Modal>
+    </div>
   );
 }
