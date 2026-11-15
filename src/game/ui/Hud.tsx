@@ -15,11 +15,15 @@ function Bar({ icon, value, label }: { icon: string; value: number; label: strin
       aria-label={`${label}: ${value}`}
     >
       <PixelIcon name={icon} size={26} />
-      <div className="h-3.5 min-w-8 flex-1 overflow-hidden rounded-full border-2 border-[#c9a27c] bg-[#f3dcc0] sm:h-4">
-        <div
-          className={`h-full rounded-full transition-all duration-500 ${cor}`}
-          style={{ width: `${value}%` }}
-        />
+      <div className="flex min-w-8 flex-1 flex-col">
+        {/* nome escrito: quem pulou o tutorial também sabe o que é cada barra */}
+        <span className="truncate text-[11px] font-bold leading-none text-[#5a3424] sm:text-xs">{label}</span>
+        <div className="h-3.5 overflow-hidden rounded-full border-2 border-[#c9a27c] bg-[#f3dcc0] sm:h-4">
+          <div
+            className={`h-full rounded-full transition-all duration-500 ${cor}`}
+            style={{ width: `${value}%` }}
+          />
+        </div>
       </div>
       <span
         className={`w-8 text-right text-sm font-bold sm:text-base ${value < 25 ? "text-[#c2312b]" : ""}`}

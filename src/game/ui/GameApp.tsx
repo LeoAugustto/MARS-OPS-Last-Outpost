@@ -471,7 +471,11 @@ function GameInner({
     // baixo E caindo: na manhã do sol 1 nada caiu ainda, então o Rovi não assusta à toa
     const caindo = (k: "ar" | "comida" | "saude") =>
       r[k] < LIMITE_AVISO_ROVI && (game.night?.delta[k] ?? 0) < 0;
+    // manhã do sol 2: o que caiu ontem e como a energia resolve (ensina a dividir cedo)
+    const caiuOntem = (["comida", "ar"] as const).find((k) => (game.night?.delta[k] ?? 0) < 0);
     const lista: [boolean, string, string?][] = [
+      [game.sol === 2 && caiuOntem === "comida", "rovi.sol2.comida", "energia"],
+      [game.sol === 2 && caiuOntem === "ar", "rovi.sol2.ar", "energia"],
       [caindo("ar"), "rovi.ar", "energia"],
       [caindo("comida"), "rovi.comida", "energia"],
       [caindo("saude"), "rovi.saude", "barras"],
