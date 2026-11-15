@@ -164,6 +164,7 @@ export function LevelSelect({
           variant="chunky"
           size="tap"
           className={`w-full ${saveSol === null ? "sm:col-span-2" : ""}`}
+          disabled={loading}
           onClick={() => onStart(nivel)}
         >
           <PixelIcon name="foguete" /> {t("ui.iniciar")}

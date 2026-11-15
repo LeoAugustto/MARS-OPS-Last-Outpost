@@ -94,7 +94,7 @@ export function GameApp({ mode }: { mode?: "new" | "continue" | undefined }) {
   return (
     <div
       style={PIXEL_THEME}
-      className="[&_.font-display]:[font-family:'Pixelify_Sans',sans-serif] [&_img]:[image-rendering:pixelated]"
+      className="[&_.font-display]:[font-family:var(--font-display)] [&_img]:[image-rendering:pixelated]"
     >
       <link rel="stylesheet" href={PIXEL_FONT_URL} />
       <PlayerProvider player={player}>

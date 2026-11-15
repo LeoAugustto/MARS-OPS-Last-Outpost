@@ -20,6 +20,8 @@ Jogo educacional de navegador para crianças de 7 a 12 anos, criado para o desaf
 - Gestão de ar, comida, saúde e energia, alocação persistente ao longo dos sóis, cadeias de eventos da base e do Sol, relatório e retorno a um sol anterior.
 - Site e jogo em cinco idiomas. Os textos de eventos e de interface do jogo ficam em `src/content/locales/`.
 - Pixel art para mapa, astronautas, retratos e elementos de interface. A branch em andamento acrescenta arte dos interiores e ícones. Veja o estado específico em `SESSION_HANDOFF.md`.
+- Home com vídeo 4K de 8 segundos em loop, sem som, com poster e respeito a `prefers-reduced-motion`. MP4/poster em `public/assets/hub/`, servidos por URLs estáticas para também funcionar fora do Lovable.
+- Tipografia do site e do jogo: Press Start 2P nos títulos e VT323 nos textos/botões. Tokens em `src/styles.css` e carregamento em `src/routes/__root.tsx`; as medições da home usam a família de cada elemento. O jogo usa os mesmos tokens e mantém o carregamento das fontes em `shared.tsx`.
 
 ## Decisões para preservar
 

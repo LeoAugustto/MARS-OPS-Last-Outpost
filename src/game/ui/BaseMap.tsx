@@ -362,7 +362,10 @@ export function BaseMap({
                 if (noAviso || predioEm(x, y) === pl) goTo(p.x, p.y, pl);
                 else goTo(x, y);
               }}
-              className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center focus-visible:outline-none"
+              onClick={(e) => {
+                if (e.detail === 0) goTo(p.x, p.y, pl);
+              }}
+              className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#ffd23f]"
               style={{ left: `${p.x}%`, top: `${p.y}%`, width: size * (background ? 0.24 : 0.2) }}
               aria-label={t(`lugar.${pl}`) + (alerta ? ` · ${urgente ? t("ui.urgente") : t("ui.alerta")}` : "")}
             >
