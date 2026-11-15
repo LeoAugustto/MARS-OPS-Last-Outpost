@@ -22,5 +22,6 @@ export default defineConfig({
       "/assets/**": { headers: { "cache-control": "public, max-age=0, must-revalidate" } },
       "/audio/**": { headers: { "cache-control": "public, max-age=0, must-revalidate" } },
     },
-  },
+    // o tipo do pacote do Lovable só lista preset/output, mas as opções vão inteiras para o nitro
+  } as { preset?: string },
 });
