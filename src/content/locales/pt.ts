@@ -31,6 +31,7 @@ export const pt = {
   "botao.nova_missao": "Nova missão",
   "selo.ao_vivo": "Dado ao vivo da NASA",
   "selo.real": "Evento real de {data}",
+  "selo.missao": "Missão real: {missao}",
 
   // ---------------------------------------------------------------- fontes
   "fonte.donki": "NASA DONKI — clima espacial",

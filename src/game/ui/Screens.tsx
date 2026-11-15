@@ -450,15 +450,19 @@ export function Report({
   const { t, lang } = useGT();
   const d = debrief(state);
   return (
-    <div className="h-full overflow-y-auto p-4">
-      <div className="mx-auto flex max-w-2xl 2xl:max-w-4xl flex-col gap-4">
+    <div className="h-full overflow-y-auto p-4 2xl:overflow-hidden">
+      {/* telas grandes (1920+): 3 colunas, tudo na tela sem rolar */}
+      <div className="mx-auto flex max-w-2xl flex-col gap-4 2xl:grid 2xl:h-full 2xl:max-w-[1760px] 2xl:grid-cols-3 2xl:grid-rows-[auto_1fr] 2xl:gap-x-6 2xl:gap-y-3">
+        <header className="flex flex-col gap-2 2xl:col-span-3">
         <h1 className="text-center font-display text-3xl font-bold text-[#ffd23f]">
           <PixelIcon name="relatorio" /> {t("ui.relatorio.titulo")}
         </h1>
         <p className="text-center text-lg font-bold">
           {t(d.titleKey)} · {t("ui.relatorio.ciencia", { n: d.ciencia, meta: d.metaCiencia })}
         </p>
+        </header>
 
+        <div className="flex min-h-0 flex-col gap-4">
         <Chart history={d.history} />
 
         {d.causaKey && (
@@ -468,6 +472,28 @@ export function Report({
           </section>
         )}
 
+        <p className="rounded-2xl bg-accent p-3 text-accent-foreground"><PixelIcon name="lampada" size={20} /> {t(d.fatoKey)}</p>
+        <div className="flex flex-col gap-2 pb-4 2xl:pb-0">
+          {d.voltarAoSol !== undefined && state.status === "resgate" && (
+            <Button
+              variant="chunky"
+              size="tap"
+              className="w-full text-lg"
+              onClick={() => onRewind(d.voltarAoSol!)}
+            >
+              <PixelIcon name="voltar" /> {t("botao.voltar_sol", { sol: d.voltarAoSol })}
+            </Button>
+          )}
+          <Button variant="chunkySand" size="tap" className="w-full" onClick={onNew}>
+            <PixelIcon name="recomecar" /> {t("botao.nova_missao")}
+          </Button>
+          <Button asChild variant="ghost" size="tap" className="w-full">
+            <Link to="/"><PlaceIcon place="habitat" size={24} /> {t("ui.inicio")}</Link>
+          </Button>
+        </div>
+        </div>
+
+        <div className="flex min-h-0 flex-col gap-4 2xl:overflow-y-auto">
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-xl font-bold text-[#ffd23f]">
             {t("ui.relatorio.decisoes")}
@@ -489,7 +515,14 @@ export function Report({
             </div>
           ))}
         </section>
+        <section className="flex flex-col gap-2">
+          <h2 className="font-display text-xl font-bold text-[#ffd23f]">{t("ui.fig.album")}</h2>
 
+          <StickerGrid ids={loadStickers()} />
+        </section>
+        </div>
+
+        <div className="flex min-h-0 flex-col gap-4 2xl:overflow-y-auto">
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-xl font-bold text-[#ffd23f]">
             <PixelIcon name="sol" /> {t("ui.relatorio.reais")}
@@ -523,31 +556,8 @@ export function Report({
           ))}
         </section>
 
-        <section className="flex flex-col gap-2">
-          <h2 className="font-display text-xl font-bold text-[#ffd23f]">{t("ui.fig.album")}</h2>
 
-          <StickerGrid ids={loadStickers()} />
-        </section>
 
-        <p className="rounded-2xl bg-accent p-3 text-accent-foreground"><PixelIcon name="lampada" size={20} /> {t(d.fatoKey)}</p>
-
-        <div className="flex flex-col gap-2 pb-4">
-          {d.voltarAoSol !== undefined && state.status === "resgate" && (
-            <Button
-              variant="chunky"
-              size="tap"
-              className="w-full text-lg"
-              onClick={() => onRewind(d.voltarAoSol!)}
-            >
-              <PixelIcon name="voltar" /> {t("botao.voltar_sol", { sol: d.voltarAoSol })}
-            </Button>
-          )}
-          <Button variant="chunkySand" size="tap" className="w-full" onClick={onNew}>
-            <PixelIcon name="recomecar" /> {t("botao.nova_missao")}
-          </Button>
-          <Button asChild variant="ghost" size="tap" className="w-full">
-            <Link to="/"><PlaceIcon place="habitat" size={24} /> {t("ui.inicio")}</Link>
-          </Button>
         </div>
       </div>
     </div>

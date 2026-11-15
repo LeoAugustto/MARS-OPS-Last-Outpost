@@ -9,30 +9,60 @@ import { PixelIcon } from "./PixelIcon";
 
 type Obj = "terminal" | "saida" | "cama" | "energia";
 type Ponto = { x: number; y: number };
-/** Objeto da sala: centro (x, y) e tamanho (w, h) do móvel desenhado na cena, em % da sala. */
-type Caixa = Ponto & { w: number; h: number };
+/** Contorno do móvel desenhado na cena (pontos em % da sala, medidos nas artes 900×900). */
+type Contorno = [number, number][];
+type Caixa = Ponto & { w: number; h: number; pontos: Contorno };
 
-const SAIDA: Caixa = { x: 50, y: 92, w: 16, h: 12 };
-/** Onde fica cada móvel em cada cena (medido nas artes de public/assets/places, 900×900). */
-const SALAS: Record<PlaceId, Partial<Record<Obj, Caixa>>> = {
+const SALAS: Record<PlaceId, Partial<Record<Obj, Contorno>>> = {
   habitat: {
-    terminal: { x: 83, y: 34, w: 16, h: 18 },
-    cama: { x: 22, y: 34, w: 19, h: 24 },
-    saida: SAIDA,
+    cama: [[12.8,26.8],[25.5,24.5],[26.5,22.5],[31.3,22.5],[31.3,41.5],[30.3,45.2],[17.5,45.8],[16.5,43.5],[13,42]],
+    terminal: [[77,27.5],[83.6,27.5],[83.8,24.8],[85.8,24.8],[86,27.5],[88,27.5],[88,41],[86.8,44],[81,44],[80.5,42.5],[79.5,44.5],[77.5,44.5],[76.3,41.5],[76.8,38.5],[77.2,36]],
+    saida: [[41.2,86],[42.5,84.6],[57.5,84.6],[58.8,86],[58.8,97.5],[41.2,97.5]],
   },
   ar: {
-    terminal: { x: 89, y: 26, w: 10, h: 13 },
-    energia: { x: 25, y: 23, w: 34, h: 18 },
-    saida: SAIDA,
+    energia: [[8.8,14.5],[17,14.5],[17,13.8],[29.5,13.8],[30,15],[36,15.5],[37,16.8],[42.3,17.5],[42.3,30],[41,32.5],[10,32.5],[8.8,30]],
+    terminal: [[88.5,17.6],[90.6,17.6],[90.6,20.6],[92.3,20.8],[92.3,25.2],[93.3,25.6],[93.3,28.5],[92.3,31.5],[86,31.5],[85,28.5],[85,25.5],[86.6,25.2],[86.8,20.8],[88.5,20.6]],
+    saida: [[41.3,84.5],[43,82.8],[57,82.8],[58.9,84.5],[58.9,99],[41.3,99]],
   },
-  lab: { terminal: { x: 79, y: 28, w: 16, h: 17 }, saida: SAIDA },
-  estufa: { terminal: { x: 83, y: 27, w: 14, h: 16 }, saida: SAIDA },
-  abrigo: { terminal: { x: 80, y: 26, w: 17, h: 15 }, saida: { x: 50, y: 86, w: 20, h: 16 } },
-  antena: { terminal: { x: 82, y: 28, w: 14, h: 17 }, saida: SAIDA },
-  paineis: { terminal: { x: 88, y: 26, w: 12, h: 15 }, saida: SAIDA },
-  rover: { terminal: { x: 85, y: 24, w: 17, h: 17 }, saida: { x: 50, y: 93, w: 14, h: 10 } },
+  lab: {
+    terminal: [[71,22],[73.5,19],[82.5,19],[83,22],[86.5,23.5],[86.5,36.5],[85,37.5],[71,37.5],[70.8,35]],
+    saida: [[39.5,85],[41.5,83],[58.5,83],[60.5,85],[60.5,99],[39.5,99]],
+  },
+  estufa: {
+    terminal: [[76.5,23],[80,20.5],[87,20.5],[87.2,18],[88.5,17.5],[89.5,19],[89.5,30],[87,34],[76.5,34],[76,30]],
+    saida: [[39,86],[41,84.5],[59,84.5],[61,86],[61,99],[39,99]],
+  },
+  abrigo: {
+    terminal: [[72,28],[74.2,19],[83.5,19],[83.3,15],[86.5,14],[87,22],[88.3,25.5],[88.3,33],[72,33.5]],
+    saida: [[40,77.5],[42,75.5],[58,75.5],[60,77.5],[60,94.5],[40,94.5]],
+  },
+  antena: {
+    terminal: [[77.5,19.2],[86.7,19.2],[86.7,26.5],[88.5,27.5],[88.5,37],[77.5,37],[76.5,36],[70,36],[70,30],[75.5,29.5],[77.2,27]],
+    saida: [[41,87.5],[59,87.5],[59,97],[41,97]],
+  },
+  paineis: {
+    terminal: [[84.5,18],[92.5,18],[92.8,25],[93.2,27],[93.2,33.3],[83.5,33.3],[83.5,27],[84.2,25]],
+    saida: [[41.3,85],[43,83.8],[57,83.8],[58.7,85],[58.7,97.5],[41.3,97.5]],
+  },
+  rover: {
+    terminal: [[79.5,17],[90.5,17],[91.5,24],[91.5,29.5],[87,30],[86,35.5],[81.5,35.5],[81,30],[77,29.5],[76.7,24],[79.5,23]],
+    saida: [[44,90.5],[55.2,90.5],[55.2,98],[44,98]],
+  },
 };
-const objetos = (place: PlaceId) => SALAS[place] ?? { saida: SAIDA };
+
+/** Centro e tamanho do contorno: onde fica o botão (toque/teclado) e o nome do móvel. */
+function caixa(pontos: Contorno): Caixa {
+  const xs = pontos.map((p) => p[0]);
+  const ys = pontos.map((p) => p[1]);
+  const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+  return { x: (x0 + x1) / 2, y: (y0 + y1) / 2, w: x1 - x0, h: y1 - y0, pontos };
+}
+function objetos(place: PlaceId): Partial<Record<Obj, Caixa>> {
+  const sala = SALAS[place] ?? {};
+  return Object.fromEntries(
+    (Object.entries(sala) as [Obj, Contorno][]).map(([o, c]) => [o, caixa(c)]),
+  ) as Partial<Record<Obj, Caixa>>;
+}
 
 const SPEED = 34;
 const RAIO = 9;
@@ -217,6 +247,27 @@ export function Interior({
           {t(`lugar.${place}`)}
         </div>
 
+        {/* brilho retrô no contorno de cada móvel que dá para usar */}
+        <svg
+          className="pointer-events-none absolute inset-0 z-[5] h-full w-full"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          shapeRendering="crispEdges"
+          aria-hidden
+        >
+          {(Object.entries(objs) as [Obj, Caixa][]).map(([o, p]) => {
+            const pts = p.pontos.map((q) => q.join(",")).join(" ");
+            const cls = o === "terminal" && alerta ? "contorno-alerta" : "contorno";
+            return (
+              <g key={o} className={cls}>
+                <polygon points={pts} className="c-fora" vectorEffect="non-scaling-stroke" />
+                <polygon points={pts} className="c-meio" vectorEffect="non-scaling-stroke" />
+                <polygon points={pts} className="c-dentro" vectorEffect="non-scaling-stroke" />
+              </g>
+            );
+          })}
+        </svg>
+
         {(Object.entries(objs) as [Obj, Caixa][]).map(([o, p]) => {
           const aviso = o === "terminal" && alerta;
           return (
@@ -231,7 +282,7 @@ export function Interior({
                 // Enter, espaço e tecnologias assistivas ativam o botão sem pointerdown.
                 if (e.detail === 0) irPara(p, o);
               }}
-              className={`group absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-md focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#ffd23f] ${aviso ? "brilho-alerta" : "brilho-objeto"}`}
+              className={`group absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-md focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#ffd23f] `}
               style={{ left: `${p.x}%`, top: `${p.y}%`, width: `${p.w}%`, height: `${p.h}%` }}
               aria-label={t(`ui.interior.${o}`) + (aviso ? ` · ${t("ui.alerta")}` : "")}
             >

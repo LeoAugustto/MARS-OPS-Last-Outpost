@@ -88,6 +88,8 @@ export interface GameEvent {
   /** abre sozinho na hora (ex.: chuva de partículas) */
   urgent?: boolean;
   source?: "donki" | "osdr" | "radlab" | "marstrek" | "csa" | "nasa-fato";
+  /** missão real da NASA citada no evento (nome próprio, igual em todos os idiomas): vira selo na carta */
+  mission?: string;
   onlyScheduled?: boolean;
   canHappen?: (s: GameState) => boolean;
   weight?: number | ((s: GameState) => number);

@@ -29,7 +29,7 @@ import { PIXEL_FONT_URL, PIXEL_THEME, stopSpeaking, useGT } from "./shared";
 import { PixelIcon } from "./PixelIcon";
 import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
 import { collectStickers } from "./stickers";
-import type { Periodo } from "./art";
+import { ART, type Periodo } from "./art";
 
 type Phase = "nivel" | "perfil" | "abertura" | "manha" | "mapa" | "noite" | "fim" | "relatorio";
 type Overlay = null | "energia" | "glossario" | "menu";
@@ -439,7 +439,15 @@ function GameInner({
         relogio={relogio}
         periodo={periodo}
       />
-      <div className="relative min-h-0 flex-1 p-2">
+      <div className="relative min-h-0 flex-1 overflow-hidden p-2">
+        {/* fundo das laterais em tela larga/cheia: a própria cena, ampliada e escurecida (sem faixa vazia) */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-[-40px] scale-110 bg-cover bg-center blur-xl brightness-[0.35]"
+          style={{
+            backgroundImage: `url(${inside ? ART.placeScene(inside) : ART.mapPeriodo[periodo]})`,
+          }}
+        />
         {inside ? (
           <Interior
             key={inside}

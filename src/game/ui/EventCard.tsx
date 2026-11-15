@@ -62,8 +62,22 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
         {t("ui.relatorio.ver_nasa")}
       </a>
     </div>
-  ) : ev.source ? (
-    <span className="text-xs text-muted-foreground">{t(`fonte.${ev.source}`)}</span>
+  ) : ev.source || ev.mission ? (
+    // selos de "carimbo" pixel: missão real da NASA e fonte do fato
+    <div className="flex flex-wrap items-center gap-2 text-sm">
+      {ev.mission && (
+        <span className="inline-flex items-center gap-1 border-2 border-[#22806f] bg-[#d8f0e6] px-2 py-0.5 font-bold text-[#14524a] shadow-[0_2px_0_#14524a]">
+          <PlaceIcon place="rover" size={20} />
+          {t("selo.missao", { missao: ev.mission })}
+        </span>
+      )}
+      {ev.source && (
+        <span className="inline-flex items-center gap-1 border-2 border-border bg-accent px-2 py-0.5 font-bold text-secondary shadow-[0_2px_0_#6e2a10]">
+          <PixelIcon name="livro" size={18} />
+          {t(`fonte.${ev.source}`)}
+        </span>
+      )}
+    </div>
   ) : null;
 
   return (
