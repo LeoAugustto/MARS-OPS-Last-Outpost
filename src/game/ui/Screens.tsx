@@ -11,7 +11,7 @@ import {
   type HistoryPoint,
   type Level,
 } from "@/game/engine";
-import { AstronautSprite, DialogBox, formatarData, FullscreenButton, PlaceIcon, useGT } from "./shared";
+import { DialogBox, formatarData, FullscreenButton, PlaceIcon, useGT } from "./shared";
 import { NAME_MAX, cleanName, type Player } from "./player";
 import { FAMOSAS, type Famosa, type ModoSol } from "@/data/donki-live";
 import { STICKERS, loadStickers } from "./stickers";
@@ -198,14 +198,14 @@ export function ProfileScreen({
   // mesmo estilo do menu inicial e do menu do jogo (ver hub.tsx)
   return (
     <form
-      className="flex h-full flex-col items-center overflow-y-auto p-3 sm:p-4"
+      className="sem-barra flex h-full flex-col items-center overflow-y-auto p-[clamp(0.4rem,1.6dvh,1rem)]"
       style={FUNDO_HUB}
       onSubmit={(e) => {
         e.preventDefault();
         onDone({ gender, name: cleanName(name) });
       }}
     >
-      <div className={`${MOLDURA_HUB} my-auto flex w-full max-w-xl 2xl:max-w-2xl flex-col gap-4 bg-[#2a0508]/80 p-4 sm:p-6`}>
+      <div className={`${MOLDURA_HUB} my-auto flex w-full max-w-xl 2xl:max-w-2xl flex-col gap-[clamp(0.4rem,1.8dvh,1rem)] bg-[#2a0508]/80 p-[clamp(0.6rem,2.4dvh,1.5rem)]`}>
         <div className="flex items-center justify-between gap-2">
           <button type="button" onClick={onBack} className={`${BOTAO_ESCURO} min-w-0 text-[clamp(0.7rem,3.2vw,0.95rem)]`}>
             ← <span className="truncate">{t("ui.nivel.titulo")}</span>
@@ -214,10 +214,10 @@ export function ProfileScreen({
             <LangSelector />
           </div>
         </div>
-        <TituloHub className="text-center text-[clamp(1.25rem,5.2vw,2rem)]">
+        <TituloHub className="text-center text-[clamp(0.95rem,min(3.7vw,4.6dvh),2rem)]">
           {t("ui.perfil.titulo")}
         </TituloHub>
-        <p className="text-center font-display text-lg font-bold text-[#fbe6c8] [text-shadow:2px_2px_0_#1c0703]">
+        <p className="-mt-1 text-center font-display text-[clamp(0.85rem,2.8dvh,1.125rem)] font-bold text-[#fbe6c8] [text-shadow:2px_2px_0_#1c0703]">
           {t("ui.perfil.escolha")}
         </p>
         <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label={t("ui.perfil.escolha")}>
@@ -230,7 +230,7 @@ export function ProfileScreen({
                 role="radio"
                 aria-checked={sel}
                 onClick={() => setGender(g)}
-                className={`relative flex flex-col items-center gap-2 border-4 p-3 text-[#3a2015] transition active:translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-highlight ${
+                className={`relative flex flex-col items-center gap-1 border-4 p-[clamp(0.35rem,1.4dvh,0.75rem)] text-[#3a2015] transition active:translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-highlight ${
                   sel
                     ? "border-[#f3c916] bg-[#f8dfba] shadow-[0_6px_0_#a8400f]"
                     : "border-[#5a1d07] bg-[#c9a27c] opacity-80 shadow-[0_6px_0_#1c0703] hover:opacity-100"
@@ -241,8 +241,13 @@ export function ProfileScreen({
                     <PixelIcon name="ok" size={24} />
                   </span>
                 )}
-                <AstronautSprite gender={g} size={112} />
-                <span className="font-display text-[clamp(0.8rem,3.6vw,1.1rem)] font-bold">
+                {/* o desenho encolhe em telas baixas para tudo caber sem rolagem */}
+                <img
+                  src={ART.astronaut.frame(g, "s", 1)}
+                  alt=""
+                  className="pixelated h-[clamp(56px,15dvh,112px)] w-auto"
+                />
+                <span className="whitespace-nowrap font-display text-[clamp(0.62rem,min(2.6vw,2.6dvh),1.1rem)] font-bold">
                   {t(`ui.perfil.${g === "f" ? "menina" : "menino"}`)}
                 </span>
               </button>
@@ -250,7 +255,7 @@ export function ProfileScreen({
           })}
         </div>
         <label className="flex flex-col gap-1">
-          <span className="font-display text-lg font-bold text-[#fbe6c8] [text-shadow:2px_2px_0_#1c0703]">
+          <span className="font-display text-[clamp(0.85rem,2.8dvh,1.125rem)] font-bold text-[#fbe6c8] [text-shadow:2px_2px_0_#1c0703]">
             {t("ui.perfil.nome")}
           </span>
           <input
@@ -263,7 +268,7 @@ export function ProfileScreen({
           />
           <span className="text-sm text-[#fbe6c8]/80">{t("ui.perfil.dica")}</span>
         </label>
-        <BotaoHub principal type="submit">
+        <BotaoHub principal type="submit" className="mx-auto max-w-[max(240px,70dvh)]">
           {t("ui.proximo")} <PixelIcon name="play" />
         </BotaoHub>
       </div>
@@ -284,27 +289,34 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
   const q = quadros[i]!;
   const ultimo = i === quadros.length - 1;
   return (
-    <div className="flex h-full flex-col items-center overflow-y-auto p-3 text-center sm:p-4" style={FUNDO_HUB}>
-      <div className={`${MOLDURA_HUB} my-auto flex w-full max-w-xl 2xl:max-w-2xl flex-col items-center gap-4 bg-[#2a0508]/80 p-4 sm:p-6`}>
+    <div className="sem-barra flex h-full flex-col items-center overflow-y-auto p-[clamp(0.4rem,1.6dvh,1rem)] text-center" style={FUNDO_HUB}>
+      <div className={`${MOLDURA_HUB} my-auto flex w-full max-w-xl 2xl:max-w-2xl flex-col items-center gap-[clamp(0.4rem,1.8dvh,1rem)] bg-[#2a0508]/80 p-[clamp(0.6rem,2.4dvh,1.5rem)]`}>
         <img
           src={ART.portraits.rovi.src}
           alt=""
           width={150}
           height={150}
-          className="pixelated h-[clamp(96px,22vw,150px)] w-auto object-contain drop-shadow-[0_5px_0_#1c0703]"
+          className="pixelated h-[clamp(56px,min(22vw,17dvh),150px)] w-auto object-contain drop-shadow-[0_5px_0_#1c0703]"
         />
         {/* balão de fala do Rovi (a pontinha aponta para ele) */}
-        <div className={`${MOLDURA_HUB} relative w-full bg-[#f8dfba] p-5 text-[#3a2015] sm:p-6`}>
+        <div className={`${MOLDURA_HUB} relative w-full bg-[#f8dfba] p-[clamp(0.6rem,2.6dvh,1.5rem)] text-[#3a2015]`}>
           <span
             className="absolute -top-[20px] left-1/2 -translate-x-1/2 border-x-[14px] border-b-[16px] border-x-transparent border-b-[#f8dfba]"
             aria-hidden
           />
-          <div className="mb-3 flex justify-center gap-2">
-            {q.icons.map((name) => <PixelIcon key={name} name={name} size={48} />)}
+          <div className="mb-[clamp(0.25rem,1.4dvh,0.75rem)] flex justify-center gap-2">
+            {q.icons.map((name) => (
+              <img
+                key={name}
+                src={`/assets/ui/${name}.png`}
+                alt=""
+                className="pixelated h-[clamp(28px,7dvh,48px)] w-auto"
+              />
+            ))}
           </div>
-          <p className="text-[clamp(1.25rem,4.5vw,1.6rem)] font-bold leading-snug">{q.text}</p>
+          <p className="text-[clamp(1rem,min(4.5vw,3.6dvh),1.6rem)] font-bold leading-snug">{q.text}</p>
           {ultimo && (
-            <p className="mt-3 border-4 border-[#5a1d07] bg-[#2a0508] p-3 font-display text-lg font-bold text-[#f6e38c] shadow-[0_4px_0_#1c0703]">
+            <p className="mt-[clamp(0.35rem,1.6dvh,0.75rem)] border-4 border-[#5a1d07] bg-[#2a0508] p-[clamp(0.4rem,1.6dvh,0.75rem)] font-display text-[clamp(0.85rem,2.8dvh,1.125rem)] font-bold text-[#f6e38c] shadow-[0_4px_0_#1c0703]">
               {t("ui.abertura.meta", { sois: cfg.totalSols, meta: cfg.metaCiencia })}
             </p>
           )}
@@ -317,7 +329,11 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
             />
           ))}
         </div>
-        <BotaoHub principal onClick={() => (ultimo ? onDone() : setI(i + 1))}>
+        <BotaoHub
+          principal
+          className="max-w-[max(240px,70dvh)]"
+          onClick={() => (ultimo ? onDone() : setI(i + 1))}
+        >
           {ultimo ? (
             <>
               <PixelIcon name="foguete" /> {t("ui.comecar")}
