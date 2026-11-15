@@ -3,8 +3,11 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { LangSelector } from "@/components/AppHeader";
 import { useDocumentTitle, useT } from "@/i18n";
 import { listSaves } from "@/lib/saves";
-import cenaLoop from "@/assets/cena_loop_4k.mp4.asset.json";
-import cenaPoster from "@/assets/cena_poster_4k.webp.asset.json";
+
+// vídeo 4K original e o primeiro quadro, servidos como arquivos estáticos de public/:
+// funcionam no Lovable e em qualquer build Vite normal (sem depender de rota interna)
+const VIDEO_CENA = "/assets/hub/cena_loop_4k.mp4";
+const POSTER_CENA = "/assets/hub/cena_poster_4k.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,28 +30,46 @@ export const Route = createFileRoute("/")({
 });
 
 // ============================================================ tela inicial
+/** Espaço entre as 2 linhas do título (em "em"): os acentos de Ú/É ficam acima da letra. */
+const ESPACO_LINHAS = 0.32;
 // A cena é um vídeo em loop que cobre a tela INTEIRA (object-cover): não sobra borda em
 // nenhum tamanho de tela. Em telas muito deitadas ele corta em cima/embaixo, e em telas
 // muito em pé ele corta nas laterais — por isso o texto fica preso em cima e embaixo da
 // TELA (não do vídeo), sempre sobre o céu escuro ou sobre o chão.
 
-/** Largura do texto em "em" (1 = tamanho da fonte), medida com a fonte do jogo. */
-function larguraEm(texto: string): number {
-  if (typeof document === "undefined") return texto.length * 0.6;
+// Fontes pixel do site (as duas só têm peso 400): título em Press Start 2P, botões em VT323.
+const FONTE_TITULO = '400 100px "Press Start 2P"';
+const FONTE_BOTAO = "400 100px VT323";
+// letras com acento dos 5 idiomas: garante que a parte da fonte com elas também carregou
+const ACENTOS = "ÃÇÉÈŒÀÑÌÚãçéèœàñìúõâêôí";
+
+/** Largura do texto em "em" (1 = tamanho da fonte), medida com a fonte indicada. */
+function larguraEm(texto: string, fonte: string, porLetra: number): number {
+  if (typeof document === "undefined") return texto.length * porLetra;
   const c = document.createElement("canvas").getContext("2d");
-  if (!c) return texto.length * 0.6;
-  c.font = '700 100px "Pixelify Sans"';
+  if (!c) return texto.length * porLetra;
+  c.font = fonte;
   return c.measureText(texto).width / 100;
 }
+const larguraTitulo = (texto: string) => larguraEm(texto, FONTE_TITULO, 1);
+const larguraBotaoEm = (texto: string) => larguraEm(texto, FONTE_BOTAO, 0.6);
 
-/** Recalcula quando a fonte pixel art termina de carregar (antes disso a medida sai errada). */
+/** Recalcula quando as fontes pixel terminam de carregar (antes disso a medida sai errada). */
 function useFonteCarregada(): number {
   const [n, setN] = useState(0);
   useEffect(() => {
     let vivo = true;
-    document.fonts?.load('700 100px "Pixelify Sans"').then(() => vivo && setN((x) => x + 1));
+    const recalcular = () => vivo && setN((x) => x + 1);
+    const fontes = document.fonts;
+    if (!fontes) return;
+    void Promise.all([fontes.load(FONTE_TITULO, ACENTOS), fontes.load(FONTE_BOTAO, ACENTOS)])
+      .then(recalcular)
+      .catch(() => {});
+    void fontes.ready.then(recalcular);
+    fontes.addEventListener?.("loadingdone", recalcular);
     return () => {
       vivo = false;
+      fontes.removeEventListener?.("loadingdone", recalcular);
     };
   }, []);
   return n;
@@ -117,12 +138,12 @@ function Home() {
     void fonte;
     if (!w || !h) return 0;
     const linhas = [l1, l2].filter(Boolean);
-    // as duas linhas juntas não podem passar de 30% da altura da tela
-    const porAltura = (h * 0.3) / (linhas.length + 0.25);
+    // as duas linhas juntas (com o espaço entre elas) não podem passar de 30% da altura da tela
+    const porAltura = (h * 0.3) / (linhas.length + ESPACO_LINHAS * (linhas.length - 1) + 0.25);
     // cada linha precisa caber em 88% da largura, em qualquer idioma
-    const porLargura = Math.min(...linhas.map((l) => (w * 0.88) / larguraEm(l)));
+    const porLargura = Math.min(...linhas.map((l) => (w * 0.88) / larguraTitulo(l)));
     // no desenho original a 1ª linha tem ~46% da largura: não passa muito disso
-    const comoNoDesenho = (w * 0.52) / Math.max(larguraEm(l1), 0.01);
+    const comoNoDesenho = (w * 0.52) / Math.max(larguraTitulo(l1), 0.01);
     return Math.max(14, Math.min(porAltura, porLargura, comoNoDesenho));
   })();
 
@@ -141,8 +162,9 @@ function Home() {
     void fonte;
     if (!larguraBotao) return 0;
     const textos = [t("playNow"), t("continueMission")];
-    const porLargura = Math.min(...textos.map((x) => (larguraBotao * 0.86) / larguraEm(x)));
-    return Math.max(14, Math.min(porLargura, alturaBotao * 0.58));
+    const porLargura = Math.min(...textos.map((x) => (larguraBotao * 0.86) / larguraBotaoEm(x)));
+    // a VT323 tem letra baixinha para o tamanho: deixa ocupar mais da altura do botão
+    return Math.max(16, Math.min(porLargura, alturaBotao * 0.72));
   })();
 
   // enquanto a tela não é medida (primeiro paint), os tamanhos vêm do CSS com clamp()
@@ -156,9 +178,9 @@ function Home() {
     textShadow: "0.035em 0.045em 0 #5a1d07",
   } as const;
   const classeBotao =
-    "pixelated flex items-center justify-center whitespace-nowrap font-bold text-[#f6e38c] transition hover:brightness-110 active:translate-y-[2px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-highlight";
+    "pixelated flex items-center justify-center whitespace-nowrap font-sans font-normal leading-none text-[#f6e38c] transition hover:brightness-110 active:translate-y-[2px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-highlight";
   const botaoSemMedida =
-    "aspect-[615/109] w-[min(86vw,352px)] text-[clamp(1rem,4.2vw,1.6rem)] sm:w-[min(30vw,440px)] sm:text-[clamp(1.1rem,2.2vw,1.8rem)]";
+    "aspect-[615/109] w-[min(86vw,352px)] text-[clamp(1.25rem,6vw,2.1rem)] sm:w-[min(30vw,440px)] sm:text-[clamp(1.4rem,2.8vw,2.3rem)]";
 
   const botao = (to: "new" | "continue", texto: string) => (
     <Link
@@ -177,8 +199,8 @@ function Home() {
 
   /** "De onde vêm os dados?" · "Sobre o projeto" + crédito do Space Apps */
   const rodape = (
-    <div className="flex flex-col items-center gap-0.5 text-center [text-shadow:1px_1px_0_#1c0703]">
-      <nav className="flex flex-wrap items-center justify-center gap-x-3 font-semibold">
+    <div className="flex flex-col items-center gap-0.5 text-center text-xl leading-tight [text-shadow:1px_1px_0_#1c0703]">
+      <nav className="flex flex-wrap items-center justify-center gap-x-3">
         <Link
           to="/fontes"
           className="flex min-h-8 items-center text-highlight underline underline-offset-4"
@@ -195,7 +217,7 @@ function Home() {
           {t("about")}
         </Link>
       </nav>
-      <p className="text-[0.8em] text-[#fbe6c8]/75">{t("footer")}</p>
+      <p className="text-[0.85em] text-[#fbe6c8]/80">{t("footer")}</p>
     </div>
   );
 
@@ -208,8 +230,8 @@ function Home() {
       <video
         ref={videoRef}
         className="pixelated pointer-events-none absolute inset-0 h-full w-full select-none object-cover"
-        src={cenaLoop.url}
-        poster={cenaPoster.url}
+        src={VIDEO_CENA}
+        poster={POSTER_CENA}
         autoPlay={!semMovimento}
         muted
         loop
@@ -235,13 +257,14 @@ function Home() {
           o topo respeita o seletor de idioma para o título não encostar nele */}
       <div className="relative z-10 flex h-full flex-col items-center justify-between px-4 pb-[3vh] pt-[max(3vh,54px)]">
         <h1
-          className={`flex flex-col items-center gap-[0.08em] text-center font-display font-bold leading-none text-[#f3c916] ${
-            medido ? "" : "text-[clamp(1.1rem,7.2vw,3.4rem)]"
+          className={`flex flex-col items-center text-center font-display font-normal leading-none text-[#f3c916] ${
+            medido ? "" : "text-[clamp(0.9rem,5.2vw,2.6rem)]"
           }`}
           style={{
             ...(medido ? { fontSize: tamTitulo } : {}),
-            // letra grossa como no desenho (contorno da mesma cor) + sombra
-            WebkitTextStroke: "0.05em #f3c916",
+            gap: `${ESPACO_LINHAS}em`,
+            // contorno fino da mesma cor (a Press Start 2P já é grossa) + sombra
+            WebkitTextStroke: "0.03em #f3c916",
             paintOrder: "stroke fill",
             textShadow: "0 0.05em 0 #a86a00, 0.045em 0.09em 0 #2a0508",
           }}

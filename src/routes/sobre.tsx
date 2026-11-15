@@ -22,11 +22,11 @@ function Sobre() {
   return (
     <main className="bg-mars min-h-screen">
       <AppHeader />
-      <section className="mx-auto grid max-w-3xl gap-5 px-4 pb-12">
-        <h1 className="text-3xl font-bold text-highlight sm:text-4xl">{t("aboutTitle")}</h1>
-        <p className="text-lg">{t("aboutIntro", { app: t("app.title") })}</p>
+      <section className="mx-auto grid max-w-3xl gap-5 px-4 pb-12 text-xl">
+        <h1 className="text-xl leading-normal text-highlight sm:text-2xl">{t("aboutTitle")}</h1>
+        <p className="text-2xl leading-snug">{t("aboutIntro", { app: t("app.title") })}</p>
         <div className="pixel-frame bg-card text-card-foreground p-6">
-          <h2 className="text-2xl font-bold">{t("aboutLearnTitle")}</h2>
+          <h2 className="text-base leading-normal sm:text-lg">{t("aboutLearnTitle")}</h2>
           <ul className="mt-3 grid gap-2">
             {(["aboutLearn1", "aboutLearn2", "aboutLearn3", "aboutLearn4"] as const).map((k) => t(k)).map((item) => (
               <li key={item} className="flex gap-2"><img src="/assets/ui/estrela.png" alt="" width={18} height={18} className="pixelated h-[18px] w-[18px] shrink-0" />{item}</li>
@@ -35,12 +35,12 @@ function Sobre() {
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
           <div className="pixel-frame bg-card text-card-foreground p-6">
-            <h2 className="text-xl font-bold">{t("aboutTeamTitle")}</h2>
+            <h2 className="text-sm leading-normal sm:text-base">{t("aboutTeamTitle")}</h2>
             <p className="mt-2 text-card-foreground/85">{t("aboutTeam")}</p>
-            <p className="mt-2 font-semibold text-highlight">NASA Space Apps Challenge 2026</p>
+            <p className="mt-2 text-highlight">NASA Space Apps Challenge 2026</p>
           </div>
           <div className="pixel-frame bg-card text-card-foreground p-6">
-            <h2 className="text-xl font-bold">{t("aboutPrivacyTitle")}</h2>
+            <h2 className="text-sm leading-normal sm:text-base">{t("aboutPrivacyTitle")}</h2>
             <p className="mt-2 text-card-foreground/85">{t("aboutPrivacy")}</p>
           </div>
         </div>

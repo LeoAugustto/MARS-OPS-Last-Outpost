@@ -56,18 +56,18 @@ function Fontes() {
   return (
     <main className="bg-mars min-h-screen">
       <AppHeader />
-      <section className="mx-auto max-w-3xl px-4 pb-12">
-        <h1 className="text-3xl font-bold text-highlight sm:text-4xl">{t("sourcesTitle")}</h1>
-        <p className="mt-2 text-lg">{t("sourcesIntro")}</p>
+      <section className="mx-auto max-w-3xl px-4 pb-12 text-xl">
+        <h1 className="text-xl leading-normal text-highlight sm:text-2xl">{t("sourcesTitle")}</h1>
+        <p className="mt-2 text-2xl leading-snug">{t("sourcesIntro")}</p>
         <ul className="mt-6 grid gap-4">
           {SOURCES.map((s) => (
             <li key={s.name} className="flex flex-col gap-3 pixel-frame bg-card text-card-foreground p-5 sm:flex-row sm:items-center">
               <img src={s.icon} alt="" aria-hidden width={64} height={64} className="pixelated h-16 w-16 shrink-0" />
               <div className="flex-1">
-                <h2 className="text-xl font-bold">{s.name}</h2>
+                <h2 className="text-sm leading-normal sm:text-base">{s.name}</h2>
                 <p className="text-card-foreground/85">{t(s.key)}</p>
               </div>
-              <Button asChild variant="chunkySand" size="tap">
+              <Button asChild variant="chunkySand" size="tap" className="text-xl">
                 <a href={s.url} target="_blank" rel="noreferrer" aria-label={t("visitSite", { name: s.name })}>{t("visit")} ↗</a>
               </Button>
             </li>

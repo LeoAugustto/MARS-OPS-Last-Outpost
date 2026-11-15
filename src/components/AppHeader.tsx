@@ -29,7 +29,7 @@ export function LangSelector() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="chunkySand" size="tap" className="gap-2 px-3" aria-label={`${t("chooseLanguage")}: ${LANG_NAMES[lang]}`}>
+        <Button variant="chunkySand" size="tap" className="gap-2 px-3 text-xl" aria-label={`${t("chooseLanguage")}: ${LANG_NAMES[lang]}`}>
           <Flag lang={lang} />
           <span className="uppercase">{lang}</span>
           <ChevronDown aria-hidden />
@@ -38,7 +38,7 @@ export function LangSelector() {
       <DropdownMenuContent align="end" className="min-w-48 pixel-frame p-2">
         {LANGS.map((l) => (
           <DropdownMenuItem key={l} onSelect={() => setLang(l)} lang={l}
-            className="min-h-12 gap-3 rounded-sm text-base" aria-current={l === lang}>
+            className="min-h-12 gap-3 rounded-sm text-xl" aria-current={l === lang}>
             <Flag lang={l} />
             <span className="flex-1">{LANG_NAMES[l]}</span>
             {l === lang && <Check aria-hidden />}
@@ -54,13 +54,13 @@ export function AppHeader({ showBack = true }: { showBack?: boolean }) {
   return (
     <header className="mx-auto flex w-full max-w-3xl items-center justify-between gap-3 p-4">
       {showBack ? (
-        <Button asChild variant="ghost" size="tap" className="text-highlight hover:bg-muted hover:text-highlight">
+        <Button asChild variant="ghost" size="tap" className="text-xl text-highlight hover:bg-muted hover:text-highlight">
           <Link to="/" aria-label={t("backHome")}>← {t("home")}</Link>
         </Button>
       ) : (
         <span />
       )}
-      <Link to="/" className="hidden flex-1 truncate text-center font-display text-lg font-bold text-highlight sm:block">
+      <Link to="/" className="hidden flex-1 truncate text-center font-display text-xs leading-normal text-highlight sm:block md:text-sm">
         {t("app.title")}
       </Link>
       <LangSelector />
@@ -72,11 +72,11 @@ export function AppFooter({ compact = false }: { compact?: boolean }) {
   const t = useT();
   if (compact)
     return (
-      <footer className="shrink-0 px-4 pb-2 pt-1 text-center text-xs text-muted-foreground">{t("footer")}</footer>
+      <footer className="shrink-0 px-4 pb-2 pt-1 text-center text-base text-muted-foreground">{t("footer")}</footer>
     );
   return (
-    <footer className="mx-auto max-w-3xl px-4 py-8 text-center text-sm text-muted-foreground">
-      <p className="font-display text-base font-bold text-highlight">{t("app.title")}</p>
+    <footer className="mx-auto max-w-3xl px-4 py-8 text-center text-lg text-muted-foreground">
+      <p className="mb-2 font-display text-xs leading-normal text-highlight sm:text-sm">{t("app.title")}</p>
       <p>{t("footer")}</p>
     </footer>
   );

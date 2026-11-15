@@ -27,3 +27,10 @@
 
 ## Pendente (fora do escopo desta tarefa)
 - [ ] Home: tela em branco por "Importing a module script failed." — só relatar, não corrigir agora
+
+## Leo — tipografia pixel do site + mídia estática da home
+- [x] Trocar Pixelify por Press Start 2P (títulos) e VT323 (leitura/botões) em __root.tsx, styles.css, home, /sobre, /fontes, cabeçalho e rodapé
+- [x] Home: medir título com Press Start 2P e botões com VT323, recalcular quando as fontes carregarem
+- [x] Copiar o MP4 4K original (4240998 bytes, SHA256 304cc211…a2) e o poster para public/assets/hub/ e usar /assets/hub/... na home (funciona no Lovable e num build Vite normal)
+- [x] Conferir home, /sobre, /fontes em celular e desktop, 5 idiomas e acentos; vídeo responde com mídia real e toca em loop
+- [x] Não publicar

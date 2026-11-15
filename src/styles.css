@@ -117,8 +117,9 @@
 }
 
 @theme inline {
-  --font-sans: "Pixelify Sans", system-ui, sans-serif;
-  --font-display: "Pixelify Sans", system-ui, sans-serif;
+  /* títulos: Press Start 2P · leitura e botões: VT323 (as duas só têm peso 400) */
+  --font-sans: "VT323", ui-monospace, monospace;
+  --font-display: "Press Start 2P", ui-monospace, monospace;
   --color-highlight: var(--highlight);
   --color-frame: var(--frame);
   --color-frame-shadow: var(--frame-shadow);
@@ -154,6 +155,8 @@
   html, body, button, input {
     font-variant-ligatures: none;
     font-feature-settings: "liga" 0, "clig" 0;
+    /* as fontes pixel só têm peso 400: nada de negrito "falso" borrando os pixels */
+    font-synthesis-weight: none;
   }
   h1, h2, h3 {
     font-family: var(--font-display);
