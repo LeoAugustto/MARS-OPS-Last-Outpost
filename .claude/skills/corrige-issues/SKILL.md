@@ -46,10 +46,11 @@ Argumento opcional: número da issue (ex.: `12`). Sem número: liste as abertas 
 4. Monte uma imagem **antes | depois** (Python + Pillow) e mande ao usuário.
 
 ## 5. Commit (sem enviar)
-- Commit em português, curto, no imperativo, com a issue: `corrige botão cortado no celular (fecha #<n>)`
+- Commit em português, curto, no imperativo: `corrige botão cortado no celular (#<n>)`
+- No corpo da mensagem, escreva uma linha `Closes #<n>` (**em inglês**: o GitHub só fecha a issue sozinho com `closes`, `fixes` ou `resolves`; "fecha" não funciona).
 - Termine a mensagem com a linha de co-autoria do Claude.
 - **Não dê push nem junte na main** sem o usuário pedir. Nunca force push, rebase ou amend de commit já enviado (o Lovable perde o histórico).
-- Quando o usuário pedir "enviar e juntar": push da branch → `git checkout --detach origin/main` → `git merge --no-ff <branch>` → tsc, testes e build → confira que `origin/main` não mudou (`git rev-parse origin/main` igual a `HEAD^1`) → `git push origin HEAD:main`. O "fecha #n" fecha a issue sozinho.
+- Quando o usuário pedir "enviar e juntar": push da branch → `git checkout --detach origin/main` → `git merge --no-ff <branch>` → tsc, testes e build → confira que `origin/main` não mudou (`git rev-parse origin/main` igual a `HEAD^1`) → `git push origin HEAD:main`. O `Closes #n` fecha a issue sozinho; confira com `node .claude/ferramentas/issues.mjs <n>` (estado `closed`).
 
 ## 6. Resumo para o usuário (por issue)
 - O que a issue dizia, em uma linha.
