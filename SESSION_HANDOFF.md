@@ -1,5 +1,13 @@
 # Passagem de bastão
 
+## 2026-11-15 · Codex · baterias complementares para lançamento
+
+- **Entrega anterior** — O usuário autorizou o commit local. As correções e a rodada inicial estão em b6f5507 (corrige interface e registra bateria de testes), branch feat/qa-bateria-missoes. 45 testes, TypeScript e build padrão passaram antes do commit.
+- **Nova validação** — 8.640 missões com parâmetros atuais e 2.160 contrafactuais. 25 continuações isoladas no limite e 24 colisões de agenda induzidas. 9/10 cenários de recuperação passaram. Chrome local em 17 perfis de leiaute e 187 leituras, sem rolagem horizontal nem alvos abaixo de 44 px nas telas amostradas. Build local com NITRO_PRESET=vercel gerou .vercel/output/config.json.
+- **Pendente** — Save v2 com estrutura incompleta chega à tela de erro (ver reprodução). Notícias ignoradas e conflitos no último sol continuam precisando de regra. No conjunto maior, o perfil atento com reserva teve 95,4% no Piloto e 56,3% no Comandante. A seção 8 de docs/RELATORIO-TESTES-CHATGPT.md tem tabelas e cenários para o Claude.
+- **Estado da entrega** — Código no commit local b6f5507. Complemento do relatório e este registro são mudanças locais de documentação. Nenhum push ou deploy foi executado nesta rodada.
+
+
 ## 2026-11-15 · Codex · bateria de testes de lançamento
 
 - **Base e objetivo** — Branch local feat/qa-bateria-missoes, em 8c1f82d. Executada a bateria de docs/PROMPT-TESTES-CHATGPT.md com correções pequenas de navegador e de texto. Sem commit, push ou publicação.

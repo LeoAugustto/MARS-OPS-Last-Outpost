@@ -2,6 +2,8 @@
 
 15/11/2026 · Base `8c1f82d` · Alterações locais em `feat/qa-bateria-missoes`
 
+> Atualização após o commit local b6f5507. A seção 8 complementa a primeira rodada e usa uma amostra maior para as decisões de equilíbrio.
+
 ## 1. Resumo
 
 - **Motor:** 1.260 missões analisadas, 63 combinações × 20 sementes (1 a 20). Outras 1.260 reproduziram as mesmas ações para verificar determinismo. Execução do teste temporário em 106,8 s.
@@ -20,7 +22,7 @@
 | `src/content/locales/*.ts` | O laboratório dizia que gastara exatamente 2 de energia mesmo se havia menos energia disponível. Algumas frases de ajuda e do evento da areia eram longas, e a frase inglesa sobre o escudo tinha concordância errada. | Texto da limpeza sem valor fixo, custo mostrado pelos chips quando aplicado. Frases curtas em FR/IT e instrução inglesa do escudo revisada. |
 | `src/game/ui/GameApp.tsx`, `src/game/ui/Panels.tsx` | O computador da Casa tinha um botão que encerrava o sol. Tocar na cama com alertas pendentes durante o dia também podia não explicar o bloqueio. | Dormir ficou disponível pela cama. Se ainda for cedo e houver alertas, a cama abre a explicação existente com quantidade e custo. |
 
-Sem alteração das regras ou do balanceamento. Correções e relatório ainda sem commit.
+Regras e balanceamento preservados. As correções e a primeira rodada do relatório estão no commit local `b6f5507`.
 
 ## 3. Bugs e questões de regra pendentes
 
@@ -218,3 +220,99 @@ Com 20 sementes por célula, uma missão altera a taxa em **5 pontos percentuais
 | 33 | cadete | surpresa | pt | 360×640 | Vitória | 7 | 1 | 1/24 |
 | 34 | cadete | famosa | pt | 375×812 | Vitória | 7 | 2 | 22/24 |
 | 35 | cadete | surpresa | pt | 375×812 | Vitória | 7 | 3 | 37/24 |
+
+## 8. Quatro baterias complementares · 15/11/2026
+
+Base `b6f5507`. Nesta rodada foram 8.640 simulações com as regras atuais, 2.160 com alternativas em memória, 10 cenários de recuperação e 17 perfis de leiaute no Chrome. O objetivo foi ampliar a cobertura e reproduzir os problemas prioritários. O código do jogo permaneceu no mesmo commit.
+
+### A. Equilíbrio com uma amostra maior
+
+Sementes 1001–1240, diferentes da primeira rodada. Cada célula abaixo resume 240 partidas. O cenário sem Sol retira as cartas DONKI do catálogo apenas durante o ensaio. Os perfis seguem as heurísticas da seção 4.
+
+| Nível | Perfil | Reserva | Força 1 | Sem eventos do Sol |
+| --- | --- | ---: | ---: | ---: |
+| Cadete | aleatória | 96,3% (231/240) | 96,7% (232/240) | 98,3% (236/240) |
+| Cadete | média | 100,0% (240/240) | 100,0% (240/240) | 98,8% (237/240) |
+| Cadete | atenta | 100,0% (240/240) | 100,0% (240/240) | 100,0% (240/240) |
+| Cadete | escudo | 100,0% (240/240) | 100,0% (240/240) | 100,0% (240/240) |
+| Piloto | aleatória | 20,8% (50/240) | 26,7% (64/240) | 43,3% (104/240) |
+| Piloto | média | 90,4% (217/240) | 92,9% (223/240) | 92,5% (222/240) |
+| Piloto | atenta | 95,4% (229/240) | 98,8% (237/240) | 98,3% (236/240) |
+| Piloto | escudo | 99,2% (238/240) | 99,6% (239/240) | 98,8% (237/240) |
+| Comandante | aleatória | 1,7% (4/240) | 1,7% (4/240) | 5,8% (14/240) |
+| Comandante | média | 55,4% (133/240) | 84,6% (203/240) | 88,3% (212/240) |
+| Comandante | atenta | 56,3% (135/240) | 91,7% (220/240) | 96,7% (232/240) |
+| Comandante | escudo | 95,0% (228/240) | 98,8% (237/240) | 96,3% (231/240) |
+
+**Experimentos pareados com o perfil atento.** Cada comparação usa as mesmas 240 sementes. Os parâmetros alternativos só foram aplicados no processo de teste.
+
+| Nível | Cenário | Ajuste experimental | Atual | Alternativa | Virou derrota / vitória |
+| --- | --- | --- | ---: | ---: | ---: |
+| Piloto | reserva | comida inicial 28 | 95,4% (229/240) | 95,0% (228/240) | 2 / 1 |
+| Piloto | fracos | comida inicial 28 | 98,8% (237/240) | 99,2% (238/240) | 0 / 1 |
+| Piloto | sem-sol | comida inicial 28 | 98,3% (236/240) | 98,8% (237/240) | 0 / 1 |
+| Comandante | reserva | radiação ×3,2 | 56,3% (135/240) | 47,1% (113/240) | 23 / 1 |
+| Comandante | fracos | radiação ×3,2 | 91,7% (220/240) | 83,8% (201/240) | 19 / 0 |
+| Comandante | sem-sol | radiação ×3,2 | 96,7% (232/240) | 96,3% (231/240) | 1 / 0 |
+| Comandante | reserva | radiação ×3,5 | 56,3% (135/240) | 35,8% (86/240) | 50 / 1 |
+| Comandante | fracos | radiação ×3,5 | 91,7% (220/240) | 69,6% (167/240) | 53 / 0 |
+| Comandante | sem-sol | radiação ×3,5 | 96,7% (232/240) | 94,2% (226/240) | 6 / 0 |
+
+- **Piloto com reserva:** 95,4% de vitórias no perfil atento, acima da faixa de 70–85%. Tirar dois pontos de comida inicial trocou o resultado líquido de uma partida. O ajuste isolado teve pouco efeito.
+- **Comandante com reserva:** 56,3%, perto da faixa de 40–55%. A taxa de 80% da amostra de 20 sementes caiu com a amostra maior. Radiação ×3,2 resultou em 47,1% com reserva e em 83,8% com eventos de força 1. Radiação ×3,5 levou a reserva a 35,8%. A mistura solar escolhida muda a interpretação da meta.
+- **Escudo:** em Comandante com reserva, o perfil que reserva energia para o escudo chegou a 95,0%. O perfil atento sem essa estratégia ficou em 56,3%. A facilidade de entender e usar o escudo importa para a dificuldade percebida.
+
+### B. Custos e continuações no último sol
+
+- **Limite de agenda:** 25/25 continuações disponíveis no penúltimo sol apareceram no último, quando estavam sozinhas. Guardar sementes de rabanete e plantar batata ficaram indisponíveis.
+- **Conflito de lugar:** 24 casos em que o teste colocou uma notícia concorrente na frente, no mesmo local. A segunda foi adiada para depois do fim. Exemplo controlado: no Piloto, coloque `alarme_teste` antes de `sol_nuvem_chega` no Abrigo no sol 10. Essa contagem mede a reprodução em estados preparados. A frequência natural permanece por medir.
+- **Perdas evitáveis:** 10 eventos custaram menos ao serem ignorados no ensaio isolado, pelo critério ponderado da seção 3. No Piloto, escudo zero e força 2, abrir `sol_nuvem_chega` tira 26 de saúde antes da escolha. Ignorá-la tira 4 pela pior opção e 2 pelo alerta pendente, além da radiação comum às duas rotas.
+- **Laboratório desligado:** em 5 opções testadas, `radio_mudo` foi aplicado com alocação zero no laboratório. As escolhas registraram zero de perda imediata e a noite continuou rendendo zero de ciência.
+
+| Evento | Perda ao abrir no estado de teste |
+| --- | --- |
+| `sol_nuvem_chega` | saude -26 |
+| `vazamento_volta` | ar -5 |
+| `gerador_quebrou` | ar -8, energia -2 |
+| `lab_contaminado` | energia -2 |
+| `alarme_teste` | saude -2, energia -3 |
+| `roda_conserto` | energia -3 |
+| `rover_atolou` | energia -3 |
+| `tremor_estrago` | saude -1, energia -2 |
+| `dor_cabeca_piora` | saude -4, ciencia -1 |
+| `rover_frio` | energia -3 |
+
+### C. Saves e falhas do DONKI
+
+9/10 cenários passaram. As respostas do DONKI foram controladas no Chrome. O jogo usou seu caminho normal de carregamento, reserva e retomada.
+
+| Cenário | Rede simulada | Resultado |
+| --- | --- | --- |
+| donki-fixture | fixture | Processou resposta válida e marcou um registro simulado como ao vivo. |
+| donki-timeout | timeout | 16 requisições abortadas pelo cliente. Nova missão abriu com a reserva. |
+| gravacao-bloqueada | http503 | Chegou à manhã com leitura e gravação negadas no slot do jogo. |
+| json-quebrado | malformado | Descartou o JSON inválido e iniciou nova missão com a reserva. |
+| resgate-salvo | vazio | Abriu o relatório e voltou ao checkpoint com os mesmos alertas. |
+| save-alerta-aberto | fixture | Preservou o alerta já aberto e os recursos após o efeito da tempestade. |
+| save-manha | timeout | Restaurou semente, recursos e alertas da manhã. |
+| save-noite | erro | Restaurou o resumo da noite e permitiu avançar à manhã. |
+| v2-incompleto | vazio | Falhou. A tela mostrou: Algo deu errado na base. |
+| versao-antiga | erro | Descartou a versão antiga e iniciou nova missão com a reserva. |
+
+**Reprodução do save incompleto:** grave JSON válido no slot `marsops:save:1` com `state.v = 2`, `game.version = 2` e `phase = mapa`, sem os campos `game.alerts` e `game.resources`. Abra `/play?mode=continue`. O leitor aceita a versão e a tela cai no tratamento de erro. Validar a estrutura mínima e voltar à seleção permitiria recuperar a sessão.
+
+### D. Leiaute em telas menores e build Vercel
+
+17/17 perfis concluídos e 187 leituras. Os cinco idiomas foram exercitados em 320×568, 390×844 e 1280×720. FR e IT também foram testados em paisagem, a 740×390 e 667×375. O Chrome visitou Início, as sete telas da ajuda, Fontes, Sobre e Seleção de missão.
+
+| Medida no conjunto observado | Capturas com ocorrência |
+| --- | ---: |
+| Rolagem horizontal | 0 |
+| Título ou controle fora da largura | 0 |
+| Alvo interativo menor que 44 px | 0 |
+| Variável sem substituição | 0 |
+| Imagem carregada sem dados | 0 |
+
+**Build local direcionado à Vercel:** `NITRO_PRESET=vercel npm run build` retornou código 0. Preset registrado: `vercel`. Manifesto `.vercel/output/config.json`: presente. Ainda falta conferir o deploy, o domínio, o DONKI ao vivo e o celular físico.
+
+**Ordem sugerida para o Claude:** tratar o save v2 incompleto, decidir a cobrança das notícias ignoradas e das duas continuações do mesmo prédio, depois revisar a dificuldade de Piloto e os cenários solares. As alternativas de balanceamento acima são resultados de teste.
