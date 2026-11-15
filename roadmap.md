@@ -22,3 +22,8 @@
 - [x] Substituir o texto provisório de `aboutTeam` por `cavalodetroia.exe` nos 5 idiomas (nome próprio, sem traduzir)
 - [x] Conferir a página /sobre nos 5 idiomas no navegador
 - [x] Não publicar o site (nada foi publicado)
+- [ ] Sincronizar o commit do nome da equipe com o GitHub (remote ainda em 31eab2c)
+- [ ] Relatar o problema preexistente da home (erro de execução "Importing a module script failed.") — fora do escopo desta tarefa, sem corrigir
+
+## Pendente (fora do escopo desta tarefa)
+- [ ] Home: tela em branco por "Importing a module script failed." — só relatar, não corrigir agora
