@@ -128,11 +128,14 @@ export function TopHud({
           data-tut="energia"
           onClick={onEnergy}
           aria-label={`${t("ui.energia.abrir")}: ${state.energiaHoje}`}
-          className="flex h-12 min-w-12 shrink-0 items-center justify-center gap-0.5 border-2 border-[#a8400f] bg-[#3b1206] px-0.5 text-base min-[400px]:border-[3px] min-[400px]:px-1 font-bold text-[#f6e38c] shadow-[0_3px_0_#1c0703] hover:brightness-125 active:translate-y-0.5 focus-visible:outline-4 focus-visible:outline-[#ffd23f] sm:gap-1 sm:px-2"
+          // área de toque com 48px de altura, mas o desenho é um selo do mesmo tamanho do de ciência
+          className="group flex h-12 min-w-12 shrink-0 items-center justify-center focus-visible:outline-none"
         >
-          <PixelIcon name="raio" size={18} />
-          <span className="hidden sm:inline">{t("ui.energia.abrir")}</span>
-          <span>{state.energiaHoje}</span>
+          <span className="flex items-center gap-0.5 border-2 border-[#a8400f] bg-[#3b1206] px-0.5 py-0.5 text-sm font-bold text-[#f6e38c] shadow-[0_2px_0_#1c0703] group-hover:brightness-125 group-focus-visible:outline-4 group-focus-visible:outline-[#ffd23f] group-active:translate-y-0.5 min-[400px]:gap-1 min-[400px]:px-1 sm:px-2 sm:text-base">
+            <PixelIcon name="raio" size={18} />
+            <span className="hidden sm:inline">{t("ui.energia.abrir")}</span>
+            <span>{state.energiaHoje}</span>
+          </span>
         </button>
         <Pill icon="microscopio" label={t("recurso.ciencia")}>
           {state.ciencia}/{state.metaCiencia}
