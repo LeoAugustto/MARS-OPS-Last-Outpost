@@ -171,25 +171,17 @@
   }
 }
 
-/* móveis que dá para usar dentro das salas: contorno brilhando de leve (jogo) */
-@keyframes brilho-pulsa {
-  0%, 100% { box-shadow: 0 0 0 2px rgb(255 210 63 / 0.55), 0 0 10px 2px rgb(255 210 63 / 0.35); }
-  50% { box-shadow: 0 0 0 3px rgb(255 230 120 / 0.95), 0 0 20px 6px rgb(255 210 63 / 0.6); }
-}
-@keyframes brilho-pulsa-alerta {
-  0%, 100% { box-shadow: 0 0 0 2px rgb(255 90 60 / 0.6), 0 0 12px 3px rgb(255 90 60 / 0.4); }
-  50% { box-shadow: 0 0 0 4px rgb(255 120 80 / 1), 0 0 24px 8px rgb(255 90 60 / 0.65); }
-}
-.brilho-objeto {
-  background: rgb(255 220 120 / 0.12);
-  animation: brilho-pulsa 1.8s ease-in-out infinite;
-}
-.brilho-alerta {
-  background: rgb(255 120 80 / 0.15);
-  animation: brilho-pulsa-alerta 1s ease-in-out infinite;
-}
-.brilho-objeto:hover, .brilho-alerta:hover { background: rgb(255 230 140 / 0.28); }
+/* móveis que dá para usar dentro das salas: contorno pixelado em 3 camadas que pisca em degraus,
+   com um tracejado "andando" (estilo seleção de jogo antigo) */
+.contorno polygon, .contorno-alerta polygon { fill: none; stroke-linejoin: miter; }
+.contorno .c-fora { stroke: #6e2a10; stroke-width: 7px; opacity: 0.55; }
+.contorno .c-meio { stroke: #ff9f1c; stroke-width: 4px; animation: contorno-pisca 1.2s steps(1) infinite; }
+.contorno .c-dentro { stroke: #fff3a0; stroke-width: 2px; stroke-dasharray: 6 6; animation: contorno-anda 0.8s steps(4) infinite; }
+.contorno-alerta .c-fora { stroke: #4a0d0d; stroke-width: 8px; opacity: 0.6; }
+.contorno-alerta .c-meio { stroke: #ff4a2e; stroke-width: 5px; animation: contorno-pisca 0.6s steps(1) infinite; }
+.contorno-alerta .c-dentro { stroke: #ffe08a; stroke-width: 2px; stroke-dasharray: 6 6; animation: contorno-anda 0.5s steps(4) infinite; }
+@keyframes contorno-pisca { 0% { opacity: 1; } 50% { opacity: 0.45; } }
+@keyframes contorno-anda { to { stroke-dashoffset: -12; } }
 @media (prefers-reduced-motion: reduce) {
-  .brilho-objeto { animation: none; box-shadow: 0 0 0 3px rgb(255 210 63 / 0.85); }
-  .brilho-alerta { animation: none; box-shadow: 0 0 0 4px rgb(255 90 60 / 0.95); }
+  .contorno polygon, .contorno-alerta polygon { animation: none; }
 }

@@ -28,6 +28,7 @@ export const fr: Dict = {
   "botao.nova_missao": "Nouvelle mission",
   "selo.ao_vivo": "Donnée de la NASA en direct",
   "selo.real": "Événement réel du {data}",
+  "selo.missao": "Vraie mission : {missao}",
 
   "fonte.donki": "NASA DONKI — météo de l’espace",
   "fonte.osdr": "NASA OSDR — santé des astronautes",

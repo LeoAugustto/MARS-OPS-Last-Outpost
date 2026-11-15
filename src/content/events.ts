@@ -140,6 +140,7 @@ export const EVENTS: GameEvent[] = [
   // ============================================================ painéis: poeira
   {
     id: "poeira_vem",
+    mission: "Opportunity",
     chain: "poeira",
     place: "paineis",
     icon: "🌪️",
@@ -162,6 +163,7 @@ export const EVENTS: GameEvent[] = [
   },
   {
     id: "painel_sujo",
+    mission: "Opportunity",
     chain: "poeira",
     place: "paineis",
     icon: "🔆",
@@ -268,6 +270,7 @@ export const EVENTS: GameEvent[] = [
   },
   {
     id: "laboratorio",
+    mission: "Perseverance",
     chain: "ciencia",
     place: "lab",
     icon: "🔬",
@@ -332,6 +335,7 @@ export const EVENTS: GameEvent[] = [
   {
     // Redemoinho de poeira: o resultado depende do estado do painel (sujo → limpa; limpo → suja um pouco).
     id: "redemoinho",
+    mission: "Spirit",
     chain: "poeira",
     place: "paineis",
     icon: "🌀",
@@ -360,6 +364,7 @@ export const EVENTS: GameEvent[] = [
   },
   {
     id: "painel_rachado",
+    mission: "InSight",
     chain: "paineis",
     place: "paineis",
     icon: "💥",
@@ -375,6 +380,7 @@ export const EVENTS: GameEvent[] = [
   {
     // Só nas missões mais longas (Piloto e Comandante), da metade em diante.
     id: "inverno",
+    mission: "Opportunity",
     chain: "paineis",
     place: "paineis",
     icon: "❄️",
@@ -421,6 +427,7 @@ export const EVENTS: GameEvent[] = [
   },
   {
     id: "gerador_barulho",
+    mission: "Perseverance · MOXIE",
     chain: "ar",
     place: "ar",
     icon: "🔊",
@@ -560,6 +567,7 @@ export const EVENTS: GameEvent[] = [
   },
   {
     id: "gelo",
+    mission: "Phoenix",
     chain: "ciencia",
     place: "lab",
     icon: "🧊",
@@ -714,6 +722,7 @@ export const EVENTS: GameEvent[] = [
   // ------------------------------------------------------------ 🚙 rover
   {
     id: "pneu",
+    mission: "Curiosity",
     chain: "rover",
     place: "rover",
     icon: "🛞",
@@ -741,6 +750,7 @@ export const EVENTS: GameEvent[] = [
   },
   {
     id: "dunas",
+    mission: "Spirit",
     chain: "rover",
     place: "rover",
     icon: "🏜️",
@@ -768,6 +778,7 @@ export const EVENTS: GameEvent[] = [
   },
   {
     id: "fossil",
+    mission: "Perseverance",
     chain: "rover",
     place: "rover",
     icon: "🐚",
@@ -799,6 +810,7 @@ export const EVENTS: GameEvent[] = [
   // ------------------------------------------------------------ ☀️ painéis solares
   {
     id: "geada",
+    mission: "Viking",
     chain: "paineis",
     place: "paineis",
     icon: "🧊",
@@ -812,6 +824,7 @@ export const EVENTS: GameEvent[] = [
   },
   {
     id: "eclipse_fobos",
+    mission: "Perseverance",
     chain: "ceu",
     place: "paineis",
     icon: "🌑",
@@ -826,6 +839,7 @@ export const EVENTS: GameEvent[] = [
   {
     // painel com poeira: o truque da InSight (jogar areia no vento) ou escovar lá fora
     id: "truque_areia",
+    mission: "InSight",
     chain: "poeira",
     place: "paineis",
     icon: "🪣",
@@ -957,6 +971,7 @@ export const EVENTS: GameEvent[] = [
   // ------------------------------------------------------------ 🔬 laboratório
   {
     id: "meteorito",
+    mission: "Opportunity",
     chain: "ciencia",
     place: "lab",
     icon: "☄️",
@@ -970,6 +985,7 @@ export const EVENTS: GameEvent[] = [
   },
   {
     id: "tubo_amostra",
+    mission: "Perseverance",
     chain: "ciencia",
     place: "lab",
     icon: "🧪",
@@ -997,6 +1013,7 @@ export const EVENTS: GameEvent[] = [
   },
   {
     id: "nuvens",
+    mission: "Curiosity",
     chain: "ceu",
     place: "lab",
     icon: "☁️",
@@ -1025,6 +1042,7 @@ export const EVENTS: GameEvent[] = [
   },
   {
     id: "tremor",
+    mission: "InSight",
     chain: "abrigo",
     place: "abrigo",
     icon: "🫨",
@@ -1163,6 +1181,7 @@ export const EVENTS: GameEvent[] = [
   },
   {
     id: "drone",
+    mission: "Ingenuity",
     chain: "rover",
     place: "rover",
     icon: "🚁",
