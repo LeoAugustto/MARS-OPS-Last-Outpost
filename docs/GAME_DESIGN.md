@@ -11,7 +11,9 @@
 - **Energia:** painéis fazem 11 × limpeza. Ar 4 por energia, comida 3, ciência 2, escudo 2 energia = 1 camada (−20% de radiação, até 4). Divisão inicial: ar 4, estufa 4, laboratório 2.
 - **Relógio:** 07:00 a 19:00; andar e escolher gastam horas. A noite chegou com a equipe acordada: −4 de saúde, uma vez. Dormir só na cama da Casa.
 - **Alerta sem resposta ao dormir:** −2 de saúde e o problema piora sozinho (perdas da pior escolha e o que ele faria ao abrir, como a dose da tempestade). No último sol as continuações aparecem mesmo com o lugar ocupado.
-- **Equilíbrio simulado (400 missões):** criança atenta vence 98% / 84% / 53%; criança média 92% / 67% / 23%; quem ignora tudo 27% / 0% / 0%.
+- **Custos que chegam depois (ampulheta):** sempre cobram de verdade. O validador reprova ampulheta cuja continuação não tenha perda nem decisão. Dia de rádio mudo: o laboratório rende metade e perde pelo menos 2 de ciência. Colheita fraca: −3 de comida. Vento que limpa os painéis: −3 de ar (poeira no filtro).
+- **Meta de ciência:** Cadete 18, Piloto 34, Comandante 36.
+- **Equilíbrio simulado (400 missões):** criança atenta vence 97% / 84% / 52%; criança média 91% / 65% / 22%; quem ignora tudo 27% / 0% / 0%.
 
 
 ## Ideia em uma frase

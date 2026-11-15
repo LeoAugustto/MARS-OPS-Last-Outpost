@@ -178,7 +178,7 @@ export const EVENTS: GameEvent[] = [
     place: "paineis",
     source: "nasa-fato",
     onlyScheduled: true,
-    onOpen: () => ({ solar: 0.4 }),
+    onOpen: () => ({ solar: 0.4, ar: -3 }),
   },
 
   // ============================================================ estufa
@@ -214,7 +214,7 @@ export const EVENTS: GameEvent[] = [
     place: "estufa",
     source: "csa",
     onlyScheduled: true,
-    onOpen: () => ({ comida: 4 }),
+    onOpen: () => ({ comida: -3 }),
   },
 
   // ============================================================ fábrica de ar

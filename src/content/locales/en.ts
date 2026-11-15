@@ -101,7 +101,7 @@ export const en: Dict = {
     "This really happened: gusts of wind cleaned the panels of the Spirit and Opportunity rovers!",
 
   "ev.vento_limpa.title": "The wind cleaned the panels!",
-  "ev.vento_limpa.body": "A gust of wind blew the dust away. The energy is back!",
+  "ev.vento_limpa.body": "A gust of wind blew the dust off the panels. The energy is back, but the dust clogged the air filter a little.",
 
   "ev.broto.title": "The potatoes sprouted!",
   "ev.broto.body": "The greenhouse plants are growing, but they need light.",
@@ -117,7 +117,7 @@ export const en: Dict = {
   "ev.colheita_boa.title": "Great harvest!",
   "ev.colheita_boa.body": "With plenty of light, the greenhouse grew lots of potatoes.",
   "ev.colheita_fraca.title": "Small harvest",
-  "ev.colheita_fraca.body": "With little light, the plants grew only a little.",
+  "ev.colheita_fraca.body": "With little light, the plants wilted. The crew had to use stored food to replant.",
 
   "ev.filtro_entupido.title": "The air filter is clogged!",
   "ev.filtro_entupido.body": "Fine Martian dust got into the air maker.",

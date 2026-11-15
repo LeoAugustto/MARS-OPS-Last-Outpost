@@ -104,7 +104,7 @@ export const es: Dict = {
     "¡Esto pasó de verdad: ráfagas de viento limpiaron los paneles de los robots Spirit y Opportunity!",
 
   "ev.vento_limpa.title": "¡El viento limpió los paneles!",
-  "ev.vento_limpa.body": "Una ráfaga de viento sopló el polvo. ¡Volvió la energía!",
+  "ev.vento_limpa.body": "Una ráfaga de viento sopló el polvo de los paneles. Volvió la energía, pero el polvo tapó un poco el filtro de aire.",
 
   "ev.broto.title": "¡Brotaron las papas!",
   "ev.broto.body": "Las plantitas del invernadero están creciendo, pero necesitan luz.",
@@ -121,7 +121,7 @@ export const es: Dict = {
   "ev.colheita_boa.title": "¡Buena cosecha!",
   "ev.colheita_boa.body": "Con mucha luz, el invernadero dio muchas papas.",
   "ev.colheita_fraca.title": "Cosecha pequeña",
-  "ev.colheita_fraca.body": "Con poca luz, las plantas crecieron poco.",
+  "ev.colheita_fraca.body": "Con poca luz, las plantas se marchitaron. Hubo que usar comida guardada para replantar.",
 
   "ev.filtro_entupido.title": "¡Se tapó el filtro de aire!",
   "ev.filtro_entupido.body": "El polvo fino de Marte entró en la fábrica de aire.",

@@ -588,7 +588,11 @@ export function endSol(
   const comidaFeita = real.estufa * B.COMIDA_POR_ENERGIA;
   // rádio mudo hoje (clarão do Sol / esperando a Terra): o laboratório só envia metade dos dados
   const radioMudo = s.flags["radio_mudo"] === s.sol;
-  const ciencia = Math.floor(real.ciencia * B.CIENCIA_POR_ENERGIA * (radioMudo ? 0.5 : 1));
+  const cienciaCheia = Math.floor(real.ciencia * B.CIENCIA_POR_ENERGIA);
+  // rádio mudo sempre custa: metade do laboratório, e pelo menos RADIO_MUDO_PERDA de dados perdidos
+  const ciencia = radioMudo
+    ? cienciaCheia - Math.max(B.RADIO_MUDO_PERDA, cienciaCheia - Math.floor(cienciaCheia * 0.5))
+    : cienciaCheia;
 
   let saude = -dose - danoPerdidos;
   if (s.resources.ar < B.LIMITE_CRITICO) saude -= B.DANO_CRITICO;

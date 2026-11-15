@@ -110,7 +110,7 @@ export const pt = {
     "Isso aconteceu de verdade: rajadas de vento limparam os painéis dos robôs Spirit e Opportunity!",
 
   "ev.vento_limpa.title": "O vento limpou os painéis!",
-  "ev.vento_limpa.body": "Uma rajada de vento soprou a poeira. A energia voltou!",
+  "ev.vento_limpa.body": "Uma rajada de vento soprou a poeira dos painéis. A energia voltou, mas a poeira entupiu um pouco o filtro de ar.",
 
   "ev.broto.title": "As batatas brotaram!",
   "ev.broto.body": "As plantinhas da estufa estão crescendo, mas precisam de luz.",
@@ -126,7 +126,7 @@ export const pt = {
   "ev.colheita_boa.title": "Colheita boa!",
   "ev.colheita_boa.body": "Com bastante luz, a estufa deu muitas batatas.",
   "ev.colheita_fraca.title": "Colheita pequena",
-  "ev.colheita_fraca.body": "Com pouca luz, as plantas cresceram pouco.",
+  "ev.colheita_fraca.body": "Com pouca luz, as plantas murcharam. Foi preciso usar comida guardada para replantar.",
 
   "ev.filtro_entupido.title": "O filtro de ar entupiu!",
   "ev.filtro_entupido.body": "A poeira fina de Marte entrou na fábrica de ar.",

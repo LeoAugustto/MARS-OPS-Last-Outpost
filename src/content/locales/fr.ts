@@ -108,7 +108,7 @@ export const fr: Dict = {
     "C’est vraiment arrivé : des coups de vent ont nettoyé les panneaux des robots Spirit et Opportunity !",
 
   "ev.vento_limpa.title": "Le vent a nettoyé les panneaux !",
-  "ev.vento_limpa.body": "Un coup de vent a soufflé la poussière. L’énergie est revenue !",
+  "ev.vento_limpa.body": "Un coup de vent a soufflé la poussière des panneaux. L’énergie est revenue, mais la poussière a un peu bouché le filtre à air.",
 
   "ev.broto.title": "Les pommes de terre ont germé !",
   "ev.broto.body": "Les petites plantes de la serre poussent, mais elles ont besoin de lumière.",
@@ -126,7 +126,7 @@ export const fr: Dict = {
   "ev.colheita_boa.title": "Belle récolte !",
   "ev.colheita_boa.body": "Avec beaucoup de lumière, la serre a donné plein de pommes de terre.",
   "ev.colheita_fraca.title": "Petite récolte",
-  "ev.colheita_fraca.body": "Avec peu de lumière, les plantes ont peu poussé.",
+  "ev.colheita_fraca.body": "Avec peu de lumière, les plantes ont fané. Il a fallu utiliser de la nourriture en réserve pour replanter.",
 
   "ev.filtro_entupido.title": "Le filtre à air est bouché !",
   "ev.filtro_entupido.body": "La fine poussière de Mars est entrée dans la fabrique d'air.",

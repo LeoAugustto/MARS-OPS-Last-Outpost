@@ -6,6 +6,12 @@ import { LANGS, PLACES } from "./types";
 import { LOCALES } from "../../content/i18n";
 import { eventKey } from "../../content/i18n";
 
+/** estado de exemplo só para conferir se a continuação cobra algo */
+const AMOSTRA = {
+  sol: 3, totalSols: 10, level: "piloto", escudo: 0, solar: 1, flags: {}, vars: {},
+  resources: { ar: 50, comida: 50, saude: 80 },
+} as never;
+
 const temCusto = (e: Effect) => Object.values(e).some((v) => typeof v === "number" && v < 0);
 
 export function validateCatalog(events: GameEvent[]): string[] {
@@ -30,6 +36,20 @@ export function validateCatalog(events: GameEvent[]): string[] {
       for (const sc of c.schedule ?? [])
         if (!ids.has(sc.eventId))
           erros.push(`${ev.id}.${c.id}: agenda evento inexistente ${sc.eventId}`);
+      // ampulheta tem que cobrar de verdade: alguma continuação com perda ou com decisão
+      if (c.deferredCost && c.schedule?.length && !c.setFlags?.length) {
+        const cobra = c.schedule.some((sc) => {
+          const alvo = events.find((e) => e.id === sc.eventId);
+          if (!alvo) return true;
+          if (alvo.choices?.length) return true;
+          try {
+            return temCusto(alvo.onOpen?.(AMOSTRA, { vars: {} } as never) ?? {});
+          } catch {
+            return true;
+          }
+        });
+        if (!cobra) erros.push(`${ev.id}.${c.id}: ampulheta sem perda na continuação`);
+      }
       chaves.push(
         eventKey.label(ev.id, c.id),
         eventKey.outcome(ev.id, c.id),

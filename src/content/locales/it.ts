@@ -102,7 +102,7 @@ export const it: Dict = {
     "È successo davvero: raffiche di vento hanno pulito i pannelli dei robot Spirit e Opportunity!",
 
   "ev.vento_limpa.title": "Il vento ha pulito i pannelli!",
-  "ev.vento_limpa.body": "Una raffica di vento ha soffiato via la polvere. L’energia è tornata!",
+  "ev.vento_limpa.body": "Una raffica di vento ha soffiato via la polvere dai pannelli. L’energia è tornata, ma la polvere ha intasato un po’ il filtro dell’aria.",
 
   "ev.broto.title": "Le patate sono spuntate!",
   "ev.broto.body": "Le piantine della serra crescono, ma hanno bisogno di luce.",
@@ -118,7 +118,7 @@ export const it: Dict = {
   "ev.colheita_boa.title": "Bel raccolto!",
   "ev.colheita_boa.body": "Con tanta luce, la serra ha dato tantissime patate.",
   "ev.colheita_fraca.title": "Raccolto piccolo",
-  "ev.colheita_fraca.body": "Con poca luce, le piante sono cresciute poco.",
+  "ev.colheita_fraca.body": "Con poca luce, le piante sono appassite. È servito usare cibo di scorta per ripiantare.",
 
   "ev.filtro_entupido.title": "Il filtro dell’aria è intasato!",
   "ev.filtro_entupido.body": "La polvere fine di Marte è entrata nella fabbrica d'aria.",

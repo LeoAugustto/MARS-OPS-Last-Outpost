@@ -22,7 +22,7 @@ export const LEVELS: Record<
     inicioComida: number;
   }
 > = {
-  cadete: { inicioAr: 38, inicioComida: 32, totalSols: 7, metaCiencia: 24, doseMult: 0.8, consumoAr: 16, consumoComida: 12 }, // 7–9 anos
+  cadete: { inicioAr: 38, inicioComida: 32, totalSols: 7, metaCiencia: 18, doseMult: 0.8, consumoAr: 16, consumoComida: 12 }, // 7–9 anos
   piloto: { inicioAr: 40, inicioComida: 30, totalSols: 10, metaCiencia: 34, doseMult: 1.6, consumoAr: 16, consumoComida: 12 },
   comandante: { inicioAr: 38, inicioComida: 28, totalSols: 10, metaCiencia: 36, doseMult: 2.8, consumoAr: 16, consumoComida: 13 },
 };
@@ -77,6 +77,8 @@ export const MAX_ALERTAS = 4;
 export const ALERTAS_POR_NIVEL: Record<Level, number> = { cadete: 3, piloto: 3, comandante: 3 };
 /** com ar, comida e saúde todos acima disto, o sol tem 1 alerta a mais (jogo) */
 export const ALERTAS_MAIS_ACIMA = 45;
+/** dia de rádio mudo: o laboratório perde pelo menos isto de ciência (dados que não chegam à Terra) (jogo) */
+export const RADIO_MUDO_PERDA = 2;
 /** evento real do Sol: pelo menos 1 a cada tantos sóis, e esta chance nos outros dias (jogo) */
 export const SOL_A_CADA = 3;
 export const CHANCE_SOL_EXTRA = 0.2;
