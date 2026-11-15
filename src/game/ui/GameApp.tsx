@@ -42,6 +42,7 @@ import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
 import { collectStickers } from "./stickers";
 import { ART, type Periodo } from "./art";
 import { ComoJogar } from "./ComoJogar";
+import { AvisoTelaCheia } from "./AvisoTelaCheia";
 
 /** abaixo disto (e caindo desde a última noite) o Rovi avisa que o recurso está acabando (jogo; só a UI usa) */
 const LIMITE_AVISO_ROVI = 40;
@@ -133,6 +134,7 @@ export function GameApp({ mode }: { mode?: "new" | "continue" | undefined }) {
       <link rel="stylesheet" href={PIXEL_FONT_URL} />
       <PlayerProvider player={player}>
         <GameInner mode={mode} player={player} onPlayer={onPlayer} />
+        <AvisoTelaCheia />
       </PlayerProvider>
     </div>
   );
