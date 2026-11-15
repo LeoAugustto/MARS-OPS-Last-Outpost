@@ -79,12 +79,15 @@ export function TopHud({
   state,
   onMenu,
   onHelp,
+  onEnergy,
   relogio,
   periodo,
 }: {
   state: GameState;
   onMenu: () => void;
   onHelp: () => void;
+  /** abre a divisão de energia do dia */
+  onEnergy: () => void;
   relogio?: number;
   periodo?: Periodo;
 }) {
@@ -100,6 +103,7 @@ export function TopHud({
           </span>
           {relogio !== undefined && periodo && (
             <span
+              data-tut="relogio"
               className={`inline-flex items-center gap-1 px-1 text-sm font-black ${
                 periodo === "noite"
                   ? "bg-[#2b2350] text-[#ffe9a8]"
@@ -114,16 +118,25 @@ export function TopHud({
             </span>
           )}
         </div>
-        <Pill icon="raio" label={t("recurso.energia")}>
-          {state.energiaHoje}
-        </Pill>
+        {/* botão Energia: abre a divisão de energia do dia (ar, estufa, laboratório, escudo) */}
+        <button
+          type="button"
+          data-tut="energia"
+          onClick={onEnergy}
+          aria-label={`${t("ui.energia.abrir")}: ${state.energiaHoje}`}
+          className="flex h-12 min-w-12 shrink-0 items-center justify-center gap-0.5 border-[3px] border-[#a5461f] bg-[#fbe2c2] px-1 text-base font-bold text-[#4a2615] shadow-[0_3px_0_#6e2a10] hover:brightness-105 active:translate-y-0.5 focus-visible:outline-4 focus-visible:outline-[#ffd23f] sm:gap-1 sm:px-2"
+        >
+          <PixelIcon name="raio" size={18} />
+          <span className="hidden sm:inline">{t("ui.energia.abrir")}</span>
+          <span>{state.energiaHoje}</span>
+        </button>
         <Pill icon="microscopio" label={t("recurso.ciencia")}>
           {state.ciencia}/{state.metaCiencia}
         </Pill>
         <SquareBtn img="btn_ajuda" label={t("ui.glossario.titulo")} onClick={onHelp} />
         <FullscreenButton />
       </div>
-      <div className="flex items-center gap-3 px-1">
+      <div data-tut="barras" className="flex items-center gap-3 px-1">
         <Bar icon="o2" value={r.ar} label={t("recurso.ar")} />
         <Bar icon="batata" value={r.comida} label={t("recurso.comida")} />
         <Bar icon="coracao" value={r.saude} label={t("recurso.saude")} />

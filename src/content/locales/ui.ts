@@ -174,13 +174,6 @@ const pt = {
   "donki.SEP": "Chuva de partículas",
   "donki.GST": "Tempestade magnética na Terra",
 
-  "tut.1": "Oi, {nome}! Eu sou o Rovi. Toque no chão para andar (ou use as setas do teclado).",
-  "tut.2": "Viu o sinal de alerta? Vá até ele para abrir.",
-  "tut.3": "Toda escolha custa algo. Olhe o custo antes de escolher!",
-  "tut.4": "Lá em cima: ar, comida e saúde. Nenhum pode chegar a zero.",
-  "tut.5": "Na fábrica de ar, o painel de energia divide a energia do dia.",
-  "tut.6": "A antena recebe alertas do Sol. São eventos REAIS, medidos pela NASA!",
-  "tut.7": "Tudo resolvido? Vá até a casa e durma.",
   "tut.ok": "Entendi!",
   "tut.pular": "Pular tutorial",
 
@@ -203,6 +196,20 @@ const pt = {
   "ui.menu.sair": "Sair para o início",
   "ui.menu.voltar": "Voltar ao jogo",
   "ui.entardecer.dormir": "O Sol está se pondo. Tudo resolvido: vá dormir na Casa antes da noite para a equipe não cansar.",
+  "tut.andar": "Oi, {nome}! Eu sou o Rovi. Este é você. Toque no chão para andar (ou use as setas do teclado).",
+  "tut.porta": "Um ponto de alerta piscou num prédio. Ande até a porta para entrar.",
+  "tut.vazio": "Aqui não tem alerta. Toque em Sair e vá ao prédio que está piscando.",
+  "tut.computador": "Toque no computador para ver o alerta.",
+  "tut.custo": "Toda escolha custa algo. Olhe os números antes de escolher.",
+  "tut.barras": "Estas barras são Ar, Comida e Saúde. Se uma chegar a zero, a missão volta para a Terra.",
+  "tut.antena": "A antena recebe alertas do Sol. São eventos reais, medidos pela NASA!",
+  "tut.energia": "Toque em Energia. Você divide a energia do dia: ar, estufa (comida), laboratório (ciência) e escudo. Se o ar estiver baixo, coloque mais energia no ar.",
+  "tut.mais": "Aperte + em um módulo para dar mais energia a ele.",
+  "tut.pronto": "Isso! Agora toque em Pronto para guardar.",
+  "tut.relogio": "O relógio anda quando você caminha e escolhe. Resolva os alertas e vá dormir na cama da Casa antes da noite.",
+  "tut.casa": "A Casa é aqui. A cama fica lá dentro.",
+  "tut.casa_sair": "Para dormir, saia daqui e vá até a Casa, no meio da base. A cama fica lá dentro.",
+  "tut.cama": "Esta é a cama. Quando os alertas acabarem, toque nela para dormir.",
 } as const;
 
 export type UiKey = keyof typeof pt;
@@ -378,13 +385,6 @@ const en: UiDict = {
   "donki.SEP": "Particle shower",
   "donki.GST": "Magnetic storm on Earth",
 
-  "tut.1": "Hi, {nome}! I’m Rovi. Tap the ground to walk (or use the arrow keys).",
-  "tut.2": "See the alert marker? Walk to it to open it.",
-  "tut.3": "Every choice costs something. Check the cost before you choose!",
-  "tut.4": "Up top: air, food and health. None of them can reach zero.",
-  "tut.5": "At the air maker, the energy panel shares the day’s energy.",
-  "tut.6": "The antenna gets Sun alerts. They are REAL events measured by NASA!",
-  "tut.7": "All done? Walk to the home and sleep.",
   "tut.ok": "Got it!",
   "tut.pular": "Skip tutorial",
 
@@ -407,6 +407,20 @@ const en: UiDict = {
   "ui.menu.sair": "Exit to home",
   "ui.menu.voltar": "Back to the game",
   "ui.entardecer.dormir": "The Sun is setting. All done: go to sleep in the Home before night so the crew doesn’t get tired.",
+  "tut.andar": "Hi, {nome}! I’m Rovi. This is you. Tap the ground to walk (or use the arrow keys).",
+  "tut.porta": "An alert sign is blinking on a building. Walk to the door to go in.",
+  "tut.vazio": "There’s no alert here. Tap Exit and go to the blinking building.",
+  "tut.computador": "Tap the computer to see the alert.",
+  "tut.custo": "Every choice costs something. Look at the numbers before you choose.",
+  "tut.barras": "These bars are Air, Food and Health. If one reaches zero, the mission goes back to Earth.",
+  "tut.antena": "The antenna gets Sun alerts. They are real events, measured by NASA!",
+  "tut.energia": "Tap Energy. You share the day’s energy: air, greenhouse (food), lab (science) and shield. If air is low, put more energy into air.",
+  "tut.mais": "Press + on a module to give it more energy.",
+  "tut.pronto": "Nice! Now tap Done to save.",
+  "tut.relogio": "The clock moves when you walk and choose. Solve the alerts and go to bed in the Home before night.",
+  "tut.casa": "This is the Home. The bed is inside.",
+  "tut.casa_sair": "To sleep, leave here and go to the Home, in the middle of the base. The bed is inside.",
+  "tut.cama": "This is the bed. When the alerts are done, tap it to sleep.",
 };
 
 const es: UiDict = {
@@ -583,14 +597,6 @@ const es: UiDict = {
   "donki.SEP": "Lluvia de partículas",
   "donki.GST": "Tormenta magnética en la Tierra",
 
-  "tut.1":
-    "¡Hola, {nome}! Soy Rovi. Toca el suelo para caminar (o usa las flechas del teclado).",
-  "tut.2": "¿Ves la señal de alerta? Ve hasta ella para abrirla.",
-  "tut.3": "Toda elección cuesta algo. ¡Mira el costo antes de elegir!",
-  "tut.4": "Arriba: aire, comida y salud. Ninguno puede llegar a cero.",
-  "tut.5": "En la fábrica de aire, el panel de energía reparte la energía del día.",
-  "tut.6": "La antena recibe alertas del Sol. ¡Son eventos REALES medidos por la NASA!",
-  "tut.7": "¿Todo resuelto? Ve a la casa y duerme.",
   "tut.ok": "¡Entendido!",
   "tut.pular": "Saltar tutorial",
 
@@ -614,6 +620,20 @@ const es: UiDict = {
   "ui.menu.sair": "Salir al inicio",
   "ui.menu.voltar": "Volver al juego",
   "ui.entardecer.dormir": "El Sol se está poniendo. Todo resuelto: ve a dormir a la Casa antes de la noche para que el equipo no se canse.",
+  "tut.andar": "¡Hola, {nome}! Soy Rovi. Este eres tú. Toca el suelo para caminar (o usa las flechas del teclado).",
+  "tut.porta": "Una señal de alerta parpadea en un edificio. Camina hasta la puerta para entrar.",
+  "tut.vazio": "Aquí no hay alerta. Toca Salir y ve al edificio que parpadea.",
+  "tut.computador": "Toca la computadora para ver la alerta.",
+  "tut.custo": "Toda elección cuesta algo. Mira los números antes de elegir.",
+  "tut.barras": "Estas barras son Aire, Comida y Salud. Si una llega a cero, la misión vuelve a la Tierra.",
+  "tut.antena": "La antena recibe alertas del Sol. ¡Son eventos reales, medidos por la NASA!",
+  "tut.energia": "Toca Energía. Repartes la energía del día: aire, invernadero (comida), laboratorio (ciencia) y escudo. Si el aire está bajo, pon más energía en el aire.",
+  "tut.mais": "Pulsa + en un módulo para darle más energía.",
+  "tut.pronto": "¡Eso es! Ahora toca Listo para guardar.",
+  "tut.relogio": "El reloj avanza cuando caminas y eliges. Resuelve las alertas y ve a dormir a la cama de la Casa antes de la noche.",
+  "tut.casa": "Esta es la Casa. La cama está adentro.",
+  "tut.casa_sair": "Para dormir, sal de aquí y ve a la Casa, en el centro de la base. La cama está adentro.",
+  "tut.cama": "Esta es la cama. Cuando terminen las alertas, tócala para dormir.",
 };
 
 const fr: UiDict = {
@@ -793,15 +813,6 @@ const fr: UiDict = {
   "donki.SEP": "Pluie de particules",
   "donki.GST": "Tempête magnétique sur Terre",
 
-  "tut.1":
-    "Salut, {nome} ! Je suis Rovi. Touche le sol pour marcher (ou utilise les flèches du clavier).",
-  "tut.2": "Tu vois le signal d’alerte ? Approche-toi pour l’ouvrir.",
-  "tut.3": "Chaque choix coûte quelque chose. Regarde le coût avant de choisir !",
-  "tut.4": "En haut : air, nourriture et santé. Aucun ne doit tomber à zéro.",
-  "tut.5": "À la fabrique d’air, le panneau d’énergie partage l’énergie du jour.",
-  "tut.6":
-    "L’antenne reçoit les alertes du Soleil. Ce sont de VRAIS événements mesurés par la NASA !",
-  "tut.7": "Tout est réglé ? Va à la maison et dors.",
   "tut.ok": "Compris !",
   "tut.pular": "Passer le tutoriel",
 
@@ -826,6 +837,20 @@ const fr: UiDict = {
   "ui.menu.sair": "Retour à l’accueil",
   "ui.menu.voltar": "Retour au jeu",
   "ui.entardecer.dormir": "Le Soleil se couche. Tout est réglé : va dormir dans la Maison avant la nuit pour que l’équipe ne se fatigue pas.",
+  "tut.andar": "Salut, {nome} ! Je suis Rovi. Ça, c’est toi. Touche le sol pour marcher (ou utilise les flèches du clavier).",
+  "tut.porta": "Un signal d’alerte clignote sur un bâtiment. Marche jusqu’à la porte pour entrer.",
+  "tut.vazio": "Il n’y a pas d’alerte ici. Touche Sortie et va au bâtiment qui clignote.",
+  "tut.computador": "Touche l’ordinateur pour voir l’alerte.",
+  "tut.custo": "Chaque choix coûte quelque chose. Regarde les nombres avant de choisir.",
+  "tut.barras": "Ces barres sont l’Air, la Nourriture et la Santé. Si l’une tombe à zéro, la mission rentre sur Terre.",
+  "tut.antena": "L’antenne reçoit les alertes du Soleil. Ce sont de vrais événements, mesurés par la NASA !",
+  "tut.energia": "Touche Énergie. Tu partages l’énergie du jour : air, serre (nourriture), labo (science) et bouclier. Si l’air est bas, mets plus d’énergie dans l’air.",
+  "tut.mais": "Appuie sur + sur un module pour lui donner plus d’énergie.",
+  "tut.pronto": "Bravo ! Maintenant, touche Terminé pour enregistrer.",
+  "tut.relogio": "L’horloge avance quand tu marches et quand tu choisis. Règle les alertes et va dormir dans le lit de la Maison avant la nuit.",
+  "tut.casa": "Voici la Maison. Le lit est à l’intérieur.",
+  "tut.casa_sair": "Pour dormir, sors d’ici et va à la Maison, au milieu de la base. Le lit est à l’intérieur.",
+  "tut.cama": "Voici le lit. Quand les alertes sont finies, touche-le pour dormir.",
 };
 
 const it: UiDict = {
@@ -1002,14 +1027,6 @@ const it: UiDict = {
   "donki.SEP": "Pioggia di particelle",
   "donki.GST": "Tempesta magnetica sulla Terra",
 
-  "tut.1":
-    "Ciao, {nome}! Sono Rovi. Tocca il terreno per camminare (o usa le frecce della tastiera).",
-  "tut.2": "Vedi il segnale d’allarme? Avvicinati per aprirlo.",
-  "tut.3": "Ogni scelta costa qualcosa. Guarda il costo prima di scegliere!",
-  "tut.4": "In alto: aria, cibo e salute. Nessuno deve arrivare a zero.",
-  "tut.5": "Nella fabbrica d’aria, il pannello energia divide l’energia del giorno.",
-  "tut.6": "L’antenna riceve gli allarmi del Sole. Sono eventi VERI misurati dalla NASA!",
-  "tut.7": "Tutto risolto? Vai a casa e dormi.",
   "tut.ok": "Capito!",
   "tut.pular": "Salta il tutorial",
 
@@ -1034,6 +1051,20 @@ const it: UiDict = {
   "ui.menu.sair": "Esci all’inizio",
   "ui.menu.voltar": "Torna al gioco",
   "ui.entardecer.dormir": "Il Sole sta tramontando. Tutto risolto: vai a dormire nella Casa prima della notte, così la squadra non si stanca.",
+  "tut.andar": "Ciao, {nome}! Sono Rovi. Questo sei tu. Tocca il terreno per camminare (o usa le frecce della tastiera).",
+  "tut.porta": "Un segnale di allarme lampeggia su un edificio. Cammina fino alla porta per entrare.",
+  "tut.vazio": "Qui non c’è nessun allarme. Tocca Uscita e vai all’edificio che lampeggia.",
+  "tut.computador": "Tocca il computer per vedere l’allarme.",
+  "tut.custo": "Ogni scelta costa qualcosa. Guarda i numeri prima di scegliere.",
+  "tut.barras": "Queste barre sono Aria, Cibo e Salute. Se una arriva a zero, la missione torna sulla Terra.",
+  "tut.antena": "L’antenna riceve gli allarmi del Sole. Sono eventi veri, misurati dalla NASA!",
+  "tut.energia": "Tocca Energia. Dividi l’energia del giorno: aria, serra (cibo), laboratorio (scienza) e scudo. Se l’aria è bassa, metti più energia nell’aria.",
+  "tut.mais": "Premi + su un modulo per dargli più energia.",
+  "tut.pronto": "Brava! Ora tocca Fatto per salvare.",
+  "tut.relogio": "L’orologio va avanti quando cammini e scegli. Risolvi gli allarmi e vai a dormire nel letto della Casa prima della notte.",
+  "tut.casa": "Questa è la Casa. Il letto è dentro.",
+  "tut.casa_sair": "Per dormire, esci da qui e vai alla Casa, al centro della base. Il letto è dentro.",
+  "tut.cama": "Questo è il letto. Quando gli allarmi sono finiti, toccalo per dormire.",
 };
 
 export const UI_TEXTS = { pt, en, es, fr, it };

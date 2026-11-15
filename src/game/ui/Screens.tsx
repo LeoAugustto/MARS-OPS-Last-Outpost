@@ -1,4 +1,4 @@
-// Telas fora do mapa: escolher nível, abertura, fim da missão, relatório; e o robô guia (tutorial).
+// Telas fora do mapa: escolher nível, abertura, fim da missão, relatório. O tutorial fica em Tutorial.tsx.
 import { NUMEROS_ENERGIA } from "./Panels";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
@@ -12,7 +12,7 @@ import {
   type HistoryPoint,
   type Level,
 } from "@/game/engine";
-import { DialogBox, formatarData, FullscreenButton, PlaceIcon, useGT } from "./shared";
+import { formatarData, FullscreenButton, PlaceIcon, useGT } from "./shared";
 import { NAME_MAX, cleanName, type Player } from "./player";
 import { FAMOSAS, type Famosa, type ModoSol } from "@/data/donki-live";
 import { STICKERS, loadStickers } from "./stickers";
@@ -609,40 +609,6 @@ export function Report({
             ))}
           </section>
         </div>
-      </div>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------- robô guia (tutorial)
-export function TutorialBubble({
-  step,
-  onOk,
-  onSkip,
-}: {
-  step: number;
-  onOk: () => void;
-  onSkip: () => void;
-}) {
-  const { t } = useGT();
-  const texto = t(`tut.${step + 1}`);
-  return (
-    <div
-      className="pointer-events-auto absolute inset-x-2 bottom-2 z-30 mx-auto flex max-w-md flex-col gap-1 sm:max-w-xl 2xl:max-w-3xl"
-      role="status"
-    >
-      <DialogBox speaker="rovi" text={texto} compact />
-      <div className="flex items-center gap-2">
-        <Button variant="chunky" size="sm" className="min-h-12 min-w-0 flex-1 text-lg" onClick={onOk}>
-          {t("tut.ok")}
-        </Button>
-        <button
-          type="button"
-          className="min-h-12 shrink-0 whitespace-nowrap border-4 border-[#a5461f] bg-[#fbe2c2] px-3 text-lg text-[#4a2615] underline shadow-[0_4px_0_#6e2a10]"
-          onClick={onSkip}
-        >
-          {t("tut.pular")}
-        </button>
       </div>
     </div>
   );

@@ -35,10 +35,13 @@ export function EnergyPanel({
   state,
   onSave,
   onClose,
+  onMais,
 }: {
   state: GameState;
   onSave: (a: Allocation) => void;
   onClose: () => void;
+  /** apertou + em algum módulo (o tutorial espera por isso) */
+  onMais?: () => void;
 }) {
   const { t } = useGT();
   const [a, setA] = useState<Allocation>(state.allocation);
@@ -78,7 +81,11 @@ export function EnergyPanel({
               variant="chunky"
               size="tap"
               className="w-12 text-xl"
-              onClick={() => muda(k, 1)}
+              data-tut={k === "ar" ? "mais" : undefined}
+              onClick={() => {
+                muda(k, 1);
+                onMais?.();
+              }}
               aria-label={`+ ${t(`modulo.${k}`)}`}
             >
               +
@@ -100,6 +107,7 @@ export function EnergyPanel({
           variant="chunky"
           size="tap"
           className="w-full text-lg"
+          data-tut="pronto"
           onClick={() => {
             onSave(a);
             onClose();
