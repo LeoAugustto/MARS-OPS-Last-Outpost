@@ -173,7 +173,7 @@ function startSol(s: GameState, catalog: GameEvent[]): void {
     const ev = findEvent(item.eventId, catalog);
     // no último sol não dá para adiar: a continuação aparece mesmo com o lugar ocupado
     const ultimo = s.sol >= s.totalSols;
-    if (ultimo || (s.alerts.length < B.MAX_ALERTAS && !placeTaken(s, ev))) addAlert(s, ev, item.vars ?? {});
+    if (s.alerts.length < B.MAX_ALERTAS && (ultimo || !placeTaken(s, ev))) addAlert(s, ev, item.vars ?? {});
     else s.scheduled.push({ ...item, sol: s.sol + 1 });
   }
 

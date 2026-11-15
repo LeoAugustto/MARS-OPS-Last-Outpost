@@ -91,7 +91,8 @@ describe("motor v2", () => {
       while (s.status === "jogando") {
         expect(s.alerts.length).toBeGreaterThanOrEqual(2);
         expect(s.alerts.length).toBeLessThanOrEqual(4);
-        expect(new Set(s.alerts.map((a) => a.place)).size).toBe(s.alerts.length);
+        // no último sol uma continuação pode dividir o prédio com outra (não dá para adiar)
+        if (s.sol < s.totalSols) expect(new Set(s.alerts.map((a) => a.place)).size).toBe(s.alerts.length);
         expect(s.alerts.filter((a) => a.urgent).length).toBeLessThanOrEqual(1);
         for (const a of s.alerts) {
           const todas = choicesFor(s, a.id);
