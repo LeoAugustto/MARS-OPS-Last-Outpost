@@ -153,8 +153,9 @@ export function LevelSelect({
       {/* embaixo da fonte dos dados: continuar a missão salva ou começar uma nova */}
       <div className="sticky bottom-0 z-10 -mb-4 grid w-full max-w-xl gap-3 bg-gradient-to-t from-[#1c0408] from-60% to-transparent pb-4 pt-4 sm:static sm:mb-0 sm:grid-cols-2 sm:bg-none sm:p-0 2xl:max-w-3xl">
         {saveSol !== null && (
-          <BotaoHub onClick={onContinue}>
-            <PixelIcon name="play" /> {t("ui.continuar", { sol: saveSol })}
+          // texto curto no botão (o longo não cabe em meia largura); o nome completo vai no aria-label
+          <BotaoHub onClick={onContinue} aria-label={t("ui.continuar", { sol: saveSol })}>
+            <PixelIcon name="play" /> {t("ui.continuar.curto", { sol: saveSol })}
           </BotaoHub>
         )}
         <BotaoHub
