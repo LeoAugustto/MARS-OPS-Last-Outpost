@@ -578,7 +578,13 @@ function GameInner({
       )}
       {cena === "ida" && <RoverCena modo="ida" periodo={periodo} onFim={chegouExpedicao} />}
       {cena === "volta" && (
-        <RoverCena modo="volta" periodo={periodo} relogio={relogioExp.current} onFim={voltouExpedicao} />
+        <RoverCena
+          modo="volta"
+          periodo={periodo}
+          periodoFim={periodoDe(relogioExp.current.ate)}
+          relogio={relogioExp.current}
+          onFim={voltouExpedicao}
+        />
       )}
       {card && (
         <EventCard

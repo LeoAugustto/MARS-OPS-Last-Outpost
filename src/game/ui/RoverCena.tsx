@@ -373,8 +373,16 @@ const VEU: Record<Periodo, string | undefined> = {
   noite: "rgba(40, 18, 70, 0.55)",
 };
 
-function Palco({ q, periodo }: { q: Quadro; periodo: Periodo }) {
+/**
+ * `periodo`: horário do começo da cena. `periodoFim` (só na volta): horário depois do tempo
+ * passado na estação. Enquanto o relógio da cena corre (q.relogio 0→1), a cor vai de um ao outro;
+ * depois disso (viagem de volta e chegada na base) já vale o horário final.
+ */
+function Palco({ q, periodo, periodoFim }: { q: Quadro; periodo: Periodo; periodoFim?: Periodo | undefined }) {
   const { gender } = usePlayer();
+  const fim = periodoFim ?? periodo;
+  const mistura = periodoFim && periodoFim !== periodo ? clamp01(q.relogio) : 0; // 0 = começo, 1 = fim
+  const agora = mistura >= 0.5 ? fim : periodo;
   const roverImg = q.rover && q.cena !== "preto" && (
     <img
       key="rover"
@@ -386,7 +394,7 @@ function Palco({ q, periodo }: { q: Quadro; periodo: Periodo }) {
         top: `${q.y - CHAO_Y * ROVER_W}%`,
         width: `${ROVER_W}%`,
         height: `${ROVER_W}%`,
-        filter: q.cena === "base" ? FILTRO[periodo] : undefined,
+        filter: q.cena === "base" ? FILTRO[agora] : undefined,
       }}
       draggable={false}
     />
@@ -405,7 +413,7 @@ function Palco({ q, periodo }: { q: Quadro; periodo: Periodo }) {
         opacity: q.astro.o,
         transform: `scale(${q.astro.sx}, ${q.astro.sy})`,
         transformOrigin: "50% 100%",
-        filter: q.cena === "base" ? FILTRO[periodo] : undefined,
+        filter: q.cena === "base" ? FILTRO[agora] : undefined,
       }}
       draggable={false}
     />
@@ -426,10 +434,10 @@ function Palco({ q, periodo }: { q: Quadro; periodo: Periodo }) {
       <div className="absolute inset-0" style={zoom}>
         {q.cena === "base" && (
           <>
-            <img src={ART.mapPeriodo[periodo]} alt="" className="absolute inset-0 h-full w-full" draggable={false} />
+            <img src={ART.mapPeriodo[agora]} alt="" className="absolute inset-0 h-full w-full" draggable={false} />
             {q.garagem && (
               <img
-                src={`/assets/rover/garagem_${periodo}.png`}
+                src={`/assets/rover/garagem_${agora}.png`}
                 alt=""
                 className="absolute"
                 style={{ left: `${GARAGEM.x}%`, top: `${GARAGEM.y}%`, width: `${GARAGEM.w}%`, height: `${GARAGEM.h}%` }}
@@ -491,9 +499,20 @@ function Palco({ q, periodo }: { q: Quadro; periodo: Periodo }) {
         {astroAtras ? [astroImg, roverImg] : [roverImg, astroImg]}
       </div>
       {/* fora da base (viagem e estação), a cor do horário vem por cima de tudo */}
-      {q.cena !== "base" && VEU[periodo] && (
-        <div className="pointer-events-none absolute inset-0" style={{ background: VEU[periodo], mixBlendMode: "multiply" }} aria-hidden />
-      )}
+      {q.cena !== "base" &&
+        ([
+          [periodo, 1 - mistura],
+          [fim, mistura],
+        ] as [Periodo, number][]).map(([p, o], i) =>
+          VEU[p] && o > 0 ? (
+            <div
+              key={i}
+              className="pointer-events-none absolute inset-0"
+              style={{ background: VEU[p], mixBlendMode: "multiply", opacity: o }}
+              aria-hidden
+            />
+          ) : null,
+        )}
       {/* o tempo passando: o céu de Marte esquenta e escurece um pouco */}
       {q.luz > 0 && (
         <div
@@ -517,11 +536,14 @@ const LADO = "min(94vw, calc(100dvh - 7rem))";
 export function RoverCena({
   modo,
   periodo,
+  periodoFim,
   relogio,
   onFim,
 }: {
   modo: ModoCena;
   periodo: Periodo;
+  /** só na volta: o horário depois do tempo passado na estação (a chegada na base já usa ele) */
+  periodoFim?: Periodo | undefined;
   relogio?: { de: number; ate: number };
   onFim: () => void;
 }) {
@@ -546,10 +568,9 @@ export function RoverCena({
       ...DIRS.flatMap((d) => [0, 1, 2, 3].map((f) => roverSrc(d, f))),
       ...[0, 1, 2, 3].map(portaSrc),
       ...DIRS.flatMap((d) => [0, 1, 2].map((f) => ART.astronaut.frame(gender, d, f))),
-      `/assets/rover/garagem_${periodo}.png`,
+      ...[periodo, periodoFim ?? periodo].flatMap((p) => [`/assets/rover/garagem_${p}.png`, ART.mapPeriodo[p]]),
       "/assets/rover/viagem_chao.webp",
       "/assets/rover/estacao.webp",
-      ART.mapPeriodo[periodo],
     ];
     let vivo = true;
     const espera = urls.map(
@@ -564,7 +585,7 @@ export function RoverCena({
     return () => {
       vivo = false;
     };
-  }, [periodo, gender]);
+  }, [periodo, periodoFim, gender]);
 
   useEffect(() => {
     if (!pronto) return;
@@ -596,7 +617,7 @@ export function RoverCena({
       className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-3 bg-[#120403] p-3"
     >
       <div className="relative" style={{ width: LADO }}>
-        <Palco q={q} periodo={periodo} />
+        <Palco q={q} periodo={periodo} periodoFim={periodoFim} />
         {hora && (
           // relógio da cena: as horas passam enquanto o astronauta trabalha na estação
           <div
