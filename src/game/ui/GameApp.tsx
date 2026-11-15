@@ -382,7 +382,9 @@ function GameInner({
     stopSpeaking();
     setPlace(null);
     setGame(endSol(game, undefined, { forcado }));
-    setInside(null);
+    // acorda dentro da Casa (dormiu na cama): para ir ao mapa, sai pela porta da Casa
+    setInside("habitat");
+    setSaiuDe("habitat");
     setPhase("noite");
   };
 
@@ -595,6 +597,8 @@ function GameInner({
           onRewind={(sol) => {
             setGame(rewindTo(game, sol));
             setRelogio(0);
+            setInside("habitat");
+            setSaiuDe("habitat");
             setPhase("manha");
           }}
           onNew={backToLevels}
@@ -645,7 +649,7 @@ function GameInner({
           <ExpedicaoFundo periodo={periodo} />
         ) : inside ? (
           <Interior
-            key={inside}
+            key={`${inside}-${game.sol}`}
             place={inside}
             alerts={game.alerts}
             paused={algoAberto}
