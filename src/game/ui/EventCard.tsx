@@ -58,7 +58,7 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
         href={alert.real.link}
         target="_blank"
         rel="noreferrer"
-        className="font-semibold text-secondary underline underline-offset-4"
+        className="inline-flex min-h-11 items-center font-semibold text-secondary underline underline-offset-4"
       >
         {t("ui.relatorio.ver_nasa")}
       </a>

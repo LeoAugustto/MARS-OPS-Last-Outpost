@@ -283,7 +283,7 @@ export function Interior({
                 // Enter, espaço e tecnologias assistivas ativam o botão sem pointerdown.
                 if (e.detail === 0) irPara(p, o);
               }}
-              className={`group absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-md focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#ffd23f] `}
+              className={`group absolute z-10 min-h-12 min-w-12 -translate-x-1/2 -translate-y-1/2 rounded-md focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#ffd23f] `}
               style={{ left: `${p.x}%`, top: `${p.y}%`, width: `${p.w}%`, height: `${p.h}%` }}
               aria-label={t(`ui.interior.${o}`) + (aviso ? ` · ${t("ui.alerta")}` : "")}
             >

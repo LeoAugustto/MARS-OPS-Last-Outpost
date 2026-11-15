@@ -47,10 +47,10 @@ export const AR_POR_ENERGIA = 4;
 export const COMIDA_POR_ENERGIA = 3;
 export const CIENCIA_POR_ENERGIA = 2;
 /** energia para o robô cobrir a base com mais um nível de areia (regolito) */
-export const ENERGIA_POR_ESCUDO = 3;
+export const ENERGIA_POR_ESCUDO = 2;
 export const ESCUDO_MAX = 4;
 /** cada nível de escudo corta 15% da radiação (jogo, inspirado em blindagem por regolito) */
-export const ESCUDO_REDUCAO = 0.15;
+export const ESCUDO_REDUCAO = 0.2;
 
 /**
  * Radiação diária normal na superfície de Marte, em "pontos de saúde".

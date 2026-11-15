@@ -1,5 +1,13 @@
 # Passagem de bastão
 
+## 2026-11-15 · Claude Code · rodadas de teste e equilíbrio
+
+- **Commits** — `cb6dd63` (ignorar alerta aplica as perdas da pior escolha; divisão padrão 4/4/2; laboratório 2 de ciência por energia; 2ª estrela em 40%; Piloto com 32 de comida; Rovi avisa recurso abaixo de 40 e caindo; tutorial de energia aceita + ou −; cama só sem alertas; cansaço no relatório da noite; "Escudo de areia"; dificuldade em foguetes) e o commit desta rodada (escudo custa 2 de energia e corta 20%; pontos da ajuda, saída dos prédios e link da NASA com 44px ou mais).
+- **Simulação (400 missões por nível)** — atenta: Cadete 100%, Piloto 82%, Comandante 41%. Média: 96/67/23%. Ao acaso: 97/37/6%. Ignora tudo: 21/0/0%.
+- **Robustez** — 2700 missões caóticas (energia aleatória até 20, voltar ao sol, sem eventos do Sol): 0 erros, determinismo ok. Todos os eventos aparecem (o "inverno" só fora do Cadete).
+- **Textos** — 851 chaves; nenhuma faltando; variáveis iguais nos 5 idiomas; nenhum número de regra escrito à mão.
+- **Pendências** — Nome padrão "Comandante" aparece como "Missão de Comandante" numa partida Cadete (trocar o nome padrão?). Links "De onde vêm os dados?" e "Sobre" da tela inicial têm 32px (feito para caber sem rolagem). Energia apertada: quase nunca sobra para o escudo. Alertas por sol quase sempre 2 (regra de piedade com recurso abaixo de 30; 4 alertas quase nunca). Eventos do Sol são 1/3 das cartas.
+
 ## 2026-11-15 · Claude Code · regras de vitória, noite e equilíbrio
 
 - **Feito (commit `ea620b9`, main)** — Sobreviver até o fim = vitória; ciência vira 1–3 estrelas (`estrelasDe`, `debrief().estrelas`). Noite com a equipe acordada: −4 de saúde uma vez por sol (`anoitecer`, `SAUDE_AO_ANOITECER`); alerta sem resposta: −2 (`SAUDE_POR_ALERTA_PERDIDO`). Comandante com 10 sóis. Textos de energia recebem números das constantes (`NUMEROS_ENERGIA` em Panels.tsx).
