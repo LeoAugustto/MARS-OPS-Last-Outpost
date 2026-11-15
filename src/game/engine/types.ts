@@ -82,7 +82,6 @@ export interface GameEvent {
   chain: string;
   /** onde o alerta aparece no mapa */
   place: PlaceId;
-  icon: string;
   /** evento do Sol: usa um evento real do DONKI desse tipo */
   donki?: DonkiKind;
   /** abre sozinho na hora (ex.: chuva de partículas) */

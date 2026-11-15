@@ -204,6 +204,14 @@ export function NightModal({ state, onNext }: { state: GameState; onNext: () => 
       icon: "cansado",
       texto: t("ui.noite.perdidos", { n: n.perdidos, dano: n.danoPerdidos ?? 0 }),
     },
+    !!n.piora && Object.keys(n.piora).length > 0 && {
+      icon: "ampulheta",
+      texto: t("ui.noite.piora", {
+        lista: Object.entries(n.piora)
+          .map(([k, v]) => `−${Math.abs(v ?? 0)} ${t(`recurso.${k}`).toLowerCase()}`)
+          .join(", "),
+      }),
+    },
     (!!n.perdidos || state.flags["anoiteceu"] === n.sol) && { icon: "cama", texto: t("ui.noite.sono") },
     { icon: "bateria", texto: t("ui.noite.bateria", { n: n.bateria }) },
   ].filter((linha) => linha !== false);

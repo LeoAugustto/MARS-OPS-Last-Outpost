@@ -22,9 +22,9 @@ export const LEVELS: Record<
     inicioComida: number;
   }
 > = {
-  cadete: { inicioAr: 40, inicioComida: 35, totalSols: 7, metaCiencia: 20, doseMult: 0.8, consumoAr: 15, consumoComida: 11 }, // 7–9 anos
-  piloto: { inicioAr: 40, inicioComida: 32, totalSols: 10, metaCiencia: 28, doseMult: 1.2, consumoAr: 15, consumoComida: 12 },
-  comandante: { inicioAr: 40, inicioComida: 28, totalSols: 10, metaCiencia: 30, doseMult: 2.2, consumoAr: 16, consumoComida: 12 },
+  cadete: { inicioAr: 38, inicioComida: 32, totalSols: 7, metaCiencia: 24, doseMult: 0.8, consumoAr: 16, consumoComida: 12 }, // 7–9 anos
+  piloto: { inicioAr: 40, inicioComida: 30, totalSols: 10, metaCiencia: 34, doseMult: 1.6, consumoAr: 16, consumoComida: 12 },
+  comandante: { inicioAr: 38, inicioComida: 28, totalSols: 10, metaCiencia: 36, doseMult: 2.8, consumoAr: 16, consumoComida: 13 },
 };
 
 export const START = {
@@ -35,7 +35,7 @@ export const START = {
 };
 
 /** energia produzida pelos painéis num sol com céu limpo (jogo) */
-export const PAINEIS = 10;
+export const PAINEIS = 11;
 export const BATERIA_MAX = 10;
 
 /** consumo diário da tripulação no nível mais fácil (jogo); cada nível tem o seu em LEVELS */
@@ -73,6 +73,13 @@ export const SOLAR_MIN = 0.2;
 
 /** alertas por sol: 2 a 4 (ver alertCount em engine.ts) */
 export const MAX_ALERTAS = 4;
+/** alertas por sol em cada nível (jogo): +1 com a base tranquila, −1 com recurso crítico (mínimo 2) */
+export const ALERTAS_POR_NIVEL: Record<Level, number> = { cadete: 3, piloto: 3, comandante: 3 };
+/** com ar, comida e saúde todos acima disto, o sol tem 1 alerta a mais (jogo) */
+export const ALERTAS_MAIS_ACIMA = 45;
+/** evento real do Sol: pelo menos 1 a cada tantos sóis, e esta chance nos outros dias (jogo) */
+export const SOL_A_CADA = 3;
+export const CHANCE_SOL_EXTRA = 0.2;
 /** limite por módulo no painel de energia */
 export const ALOCACAO_MAX = 20;
 /** sem energia para uma escolha: a tripulação faz "no braço" (jogo) */

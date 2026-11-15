@@ -282,7 +282,7 @@ function Home() {
       <nav className="flex flex-wrap items-center justify-center gap-x-3">
         <Link
           to="/fontes"
-          className="flex min-h-8 items-center text-highlight underline underline-offset-4"
+          className="flex min-h-11 items-center text-highlight underline underline-offset-4"
         >
           {t("dataSources")}
         </Link>
@@ -291,7 +291,7 @@ function Home() {
         </span>
         <Link
           to="/sobre"
-          className="flex min-h-8 items-center text-[#fbe6c8] underline underline-offset-4"
+          className="flex min-h-11 items-center text-[#fbe6c8] underline underline-offset-4"
         >
           {t("about")}
         </Link>

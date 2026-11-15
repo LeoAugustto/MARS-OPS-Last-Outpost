@@ -90,7 +90,7 @@ const pt = {
   "ui.perfil.menino": "Astronauta menino",
   "ui.perfil.nome": "Seu nome ou apelido",
   "ui.perfil.dica": "Não é obrigatório. Seu nome fica só neste aparelho.",
-  "ui.perfil.padrao": "Comandante",
+  "ui.perfil.padrao": "Astronauta",
   "ui.fim.quem": "Missão de {nome}",
   "ui.custo_depois": "tem custo depois",
   "ui.falante.astronauta": "Você",
@@ -152,6 +152,7 @@ const pt = {
   "ui.noite.perdidos":
     "{n} alertas ficaram sem resposta. A equipe dormiu preocupada (−{dano} de saúde) e o que ficou sem resposta piorou sozinho.",
   "ui.noite.cansaco": "A noite chegou com a equipe acordada. Cansaço: −{n} de saúde.",
+  "ui.noite.piora": "O que ficou sem resposta piorou: {lista}.",
   "ui.noite.sono":
     "Dormir bem também é trabalho de astronauta. A NASA estuda o sono das tripulações, porque cansaço causa erros.",
 
@@ -369,7 +370,7 @@ const en: UiDict = {
   "ui.perfil.menino": "Boy astronaut",
   "ui.perfil.nome": "Your name or nickname",
   "ui.perfil.dica": "Optional. Your name stays only on this device.",
-  "ui.perfil.padrao": "Commander",
+  "ui.perfil.padrao": "Astronaut",
   "ui.fim.quem": "{nome}'s mission",
   "ui.custo_depois": "costs something later",
   "ui.falante.astronauta": "You",
@@ -430,6 +431,7 @@ const en: UiDict = {
   "ui.dormir_custo": "Sleep (−{dano} health)",
   "ui.noite.perdidos": "{n} alerts were left undone. The crew went to bed worried (−{dano} health) and what was left undone got worse on its own.",
   "ui.noite.cansaco": "Night came while the crew was still awake. Tiredness: −{n} health.",
+  "ui.noite.piora": "What was left undone got worse: {lista}.",
   "ui.noite.sono":
     "Sleeping well is part of an astronaut’s job. NASA studies how crews sleep, because being tired causes mistakes.",
 
@@ -643,7 +645,7 @@ const es: UiDict = {
   "ui.perfil.menino": "Astronauta niño",
   "ui.perfil.nome": "Tu nombre o apodo",
   "ui.perfil.dica": "No es obligatorio. Tu nombre se queda solo en este aparato.",
-  "ui.perfil.padrao": "Comandante",
+  "ui.perfil.padrao": "Astronauta",
   "ui.fim.quem": "Misión de {nome}",
   "ui.custo_depois": "cuesta algo después",
   "ui.falante.astronauta": "Tú",
@@ -707,6 +709,7 @@ const es: UiDict = {
   "ui.noite.perdidos":
     "{n} alertas quedaron sin respuesta. El equipo durmió preocupado (−{dano} de salud) y lo que quedó sin respuesta empeoró solo.",
   "ui.noite.cansaco": "La noche llegó con el equipo despierto. Cansancio: −{n} de salud.",
+  "ui.noite.piora": "Lo que quedó sin respuesta empeoró: {lista}.",
   "ui.noite.sono":
     "Dormir bien también es trabajo de astronauta. La NASA estudia el sueño de las tripulaciones, porque el cansancio causa errores.",
 
@@ -922,7 +925,7 @@ const fr: UiDict = {
   "ui.perfil.menino": "Astronaute garçon",
   "ui.perfil.nome": "Ton prénom ou surnom",
   "ui.perfil.dica": "Facultatif. Ton prénom reste seulement sur cet appareil.",
-  "ui.perfil.padrao": "Commandant",
+  "ui.perfil.padrao": "Astronaute",
   "ui.fim.quem": "Mission de {nome}",
   "ui.custo_depois": "coûte quelque chose plus tard",
   "ui.falante.astronauta": "Toi",
@@ -987,6 +990,7 @@ const fr: UiDict = {
   "ui.noite.perdidos":
     "{n} alertes sont restées sans réponse. L’équipe s’est couchée inquiète (−{dano} de santé) et ce qui est resté sans réponse s’est aggravé tout seul.",
   "ui.noite.cansaco": "La nuit est arrivée et l’équipe était encore debout. Fatigue : −{n} de santé.",
+  "ui.noite.piora": "Ce qui est resté sans réponse s’est aggravé : {lista}.",
   "ui.noite.sono":
     "Bien dormir fait aussi partie du travail d’astronaute. La NASA étudie le sommeil des équipages, car la fatigue cause des erreurs.",
 
@@ -1202,7 +1206,7 @@ const it: UiDict = {
   "ui.perfil.menino": "Astronauta bambino",
   "ui.perfil.nome": "Il tuo nome o soprannome",
   "ui.perfil.dica": "Non è obbligatorio. Il tuo nome resta solo su questo dispositivo.",
-  "ui.perfil.padrao": "Comandante",
+  "ui.perfil.padrao": "Astronauta",
   "ui.fim.quem": "Missione di {nome}",
   "ui.custo_depois": "costa qualcosa dopo",
   "ui.falante.astronauta": "Tu",
@@ -1265,6 +1269,7 @@ const it: UiDict = {
   "ui.noite.perdidos":
     "{n} allarmi sono rimasti senza risposta. La squadra è andata a letto preoccupata (−{dano} di salute) e ciò che è rimasto senza risposta è peggiorato da solo.",
   "ui.noite.cansaco": "La notte è arrivata con la squadra ancora sveglia. Stanchezza: −{n} di salute.",
+  "ui.noite.piora": "Ciò che è rimasto senza risposta è peggiorato: {lista}.",
   "ui.noite.sono":
     "Dormire bene fa parte del lavoro di un astronauta. La NASA studia il sonno degli equipaggi, perché la stanchezza causa errori.",
 

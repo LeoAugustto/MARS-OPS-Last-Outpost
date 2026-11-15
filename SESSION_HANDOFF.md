@@ -1,5 +1,12 @@
 # Passagem de bastão
 
+## 2026-11-15 · Claude Code · correções das pendências
+
+- **Feito** — Nome padrão "Astronauta" (5 idiomas). Links da tela inicial com 44px (cabe sem rolar em 360×640). Painéis fazem 11 de energia. Alertas por sol vêm de `ALERTAS_POR_NIVEL` (3), +1 com tudo acima de 45, −1 com recurso crítico. Evento do Sol pelo menos a cada 3 sóis e 20% nos outros (era 2 sóis e 35%): agora são ~20% das cartas. Relatório da noite mostra o que os alertas ignorados pioraram (`night.piora`). Raio refeito a partir de `art-source/novos huds/hud.png` (inteiro, com margem); microscópio, batata e O2 sem restos de fundo. Removidos os emoji não usados (`icon` dos eventos e "⭐" da força).
+- **Níveis** — Cadete 38/32, consumo 16/12, meta 24. Piloto 40/30, 16/12, radiação 1.6, meta 34. Comandante 38/28, 16/13, radiação 2.8, meta 36.
+- **Simulação (400 missões)** — atenta 98/84/54%; média 92/69/25%; ao acaso 99/30/4%; ignora tudo 27/0/0%.
+- **Testes** — 45 passando, `tsc` e build ok; relatório da noite conferido no navegador.
+
 ## 2026-11-15 · Claude Code · rodadas de teste e equilíbrio
 
 - **Commits** — `cb6dd63` (ignorar alerta aplica as perdas da pior escolha; divisão padrão 4/4/2; laboratório 2 de ciência por energia; 2ª estrela em 40%; Piloto com 32 de comida; Rovi avisa recurso abaixo de 40 e caindo; tutorial de energia aceita + ou −; cama só sem alertas; cansaço no relatório da noite; "Escudo de areia"; dificuldade em foguetes) e o commit desta rodada (escudo custa 2 de energia e corta 20%; pontos da ajuda, saída dos prédios e link da NASA com 44px ou mais).

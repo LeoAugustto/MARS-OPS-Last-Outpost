@@ -1,5 +1,5 @@
 // Textos dos EVENTOS DO SOL (DONKI) nos 5 idiomas. Dono: Bruno.
-// Variáveis vindas do evento real: {data} (AAAA-MM-DD), {tamanho} (classe X9.3 / velocidade km/s), {estrelas} (⭐ a ⭐⭐⭐).
+// Variáveis vindas do evento real: {data} (AAAA-MM-DD), {tamanho} (classe X9.3 / velocidade km/s), {estrelas} (1/3 a 3/3).
 
 const pt = {
   "ev.sol_clarao.title": "Clarão do Sol!",

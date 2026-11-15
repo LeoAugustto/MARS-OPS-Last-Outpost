@@ -149,9 +149,12 @@ export function newMission(
 export function alertCount(s: GameState): number {
   if (s.sol === 1) return 2;
   const r = s.resources;
-  if (r.ar < 30 || r.comida < 30 || r.saude < 30) return 2;
-  if (r.ar > 70 && r.comida > 70 && r.saude > 70) return 4;
-  return 3;
+  let n = B.ALERTAS_POR_NIVEL[s.level];
+  // piedade: com um recurso crítico, menos problemas de uma vez
+  if (r.ar < B.LIMITE_CRITICO || r.comida < B.LIMITE_CRITICO || r.saude < B.LIMITE_CRITICO) n -= 1;
+  // base tranquila: mais coisas acontecendo
+  else if (r.ar > B.ALERTAS_MAIS_ACIMA && r.comida > B.ALERTAS_MAIS_ACIMA && r.saude > B.ALERTAS_MAIS_ACIMA) n += 1;
+  return Math.max(2, Math.min(B.MAX_ALERTAS, n));
 }
 
 function startSol(s: GameState, catalog: GameEvent[]): void {
@@ -178,8 +181,9 @@ function startSol(s: GameState, catalog: GameEvent[]): void {
     if (chegada) addAlert(s, chegada, {});
   }
 
-  // 3) evento real do Sol (DONKI): pelo menos 1 a cada 2 sóis
-  const precisaSol = s.sol === 1 || s.sol - s.lastDonkiSol >= 2 || rng() < 0.35;
+  // 3) evento real do Sol (DONKI): pelo menos 1 a cada SOL_A_CADA sóis, às vezes antes
+  const precisaSol =
+    s.sol === 1 || s.sol - s.lastDonkiSol >= B.SOL_A_CADA || rng() < B.CHANCE_SOL_EXTRA;
   if (precisaSol && s.alerts.length < Math.max(alvo, 2)) pickDonkiEvent(s, catalog, rng);
 
   // 4) eventos da base até completar
@@ -277,7 +281,7 @@ export function varsFromReal(e: SolarEvent): Record<string, string | number> {
     data: e.date,
     tamanho: e.label,
     forca: e.forca,
-    estrelas: "⭐".repeat(e.forca),
+    estrelas: `${e.forca}/3`,
     link: e.link,
   };
 }

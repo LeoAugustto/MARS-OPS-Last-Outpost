@@ -105,11 +105,11 @@ describe("motor v2", () => {
     }
   });
 
-  it("eventos reais do Sol aparecem com frequência (≈ 1 a cada 2 sóis)", () => {
+  it("eventos reais do Sol aparecem com frequência (pelo menos 1 a cada SOL_A_CADA sóis)", () => {
     for (let i = 0; i < 100; i++) {
       const s = autoplay(i, lcg(i + 3), "comandante");
       const sois = s.history.length - 1;
-      expect(s.realEvents.length).toBeGreaterThanOrEqual(Math.floor(sois / 2) - 1);
+      expect(s.realEvents.length).toBeGreaterThanOrEqual(Math.floor(sois / BALANCE.SOL_A_CADA) - 1);
     }
   });
 
