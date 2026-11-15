@@ -105,11 +105,11 @@ if "--so-estacao" not in sys.argv:
 LAB = (30, 650, 316, 868)  # laboratório (vira a estação de pesquisa)
 CAIXAS = (44, 843, 166, 919)  # caixotes da frente do laboratório
 PAINEIS = (58, 98, 368, 293)
-ANTENA = (684, 14, 884, 292)
+ANTENA = (684, 10, 922, 292)  # inclui a ponta da antena parabólica
 CHAO_COR = COR
 
 
-def sprite(caixa, escala, limiar=46, tirar=(), fonte=None):
+def sprite(caixa, escala, limiar=46, tirar=(), fonte=None, forcar=()):
     """recorte sólido: o que difere do chão vira prédio; buracos dentro são preenchidos."""
     x0, y0, x1, y1 = caixa
     p = (base if fonte is None else fonte)[y0:y1, x0:x1].copy()
@@ -120,6 +120,10 @@ def sprite(caixa, escala, limiar=46, tirar=(), fonte=None):
     m = ((dif > limiar) & ~((resto < 95) & (k < 1.02))).astype(np.uint8)
     for zx0, zy0, zx1, zy1 in tirar:
         m[zy0 - y0 : zy1 - y0, zx0 - x0 : zx1 - x0] = 0
+    # partes da cor do chão que são prédio (ex.: o poste marrom que segura a antena parabólica)
+    for zx0, zy0, zx1, zy1 in forcar:
+        z = m[zy0 - y0 : zy1 - y0, zx0 - x0 : zx1 - x0]
+        z[dif[zy0 - y0 : zy1 - y0, zx0 - x0 : zx1 - x0] > 22] = 1
     m = cv2.morphologyEx(m, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
     m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, np.ones((7, 7), np.uint8))
     # preenche buracos: tudo que não é alcançado a partir da borda é prédio
@@ -209,24 +213,27 @@ for p, onde in zip(PEDRAS[:9], [(160, 640), (830, 640), (440, 175), (610, 160), 
     colar(e, p, onde, 1.0, bool(rng.integers(0, 2)))
 
 PAD_X, PAD_Y = 398, 500  # plataforma do rover (garagem vazia do mapa)
-lab = sprite(LAB, 1.25, tirar=[(30, 838, 168, 868)])  # sem os caixotes (vão à parte)
+# no mapa, a tampa de um caixote cobre a base da parede: completa a parede com a faixa ao lado
+base_lab = base.copy()
+base_lab[845:861, 52:104] = base[845:861, 104:156]
+lab = sprite(LAB, 1.25, tirar=[(30, 861, 150, 868)], fonte=base_lab)  # sem os caixotes (vão à parte), mas com a parede inteira ao lado da porta
 LAB_XY = (522 - int((203 - LAB[0]) * 1.25), 516 - int((862 - LAB[1]) * 1.25))
-pain = sprite(PAINEIS, 0.6)
-PAIN_XY = (150, 172)
-ant = sprite(ANTENA, 0.72)
-ANT_XY = (708, 182)
+pain = sprite(PAINEIS, 0.55)
+PAIN_XY = (160, 268)  # bem dentro do que a câmera mostra
+ant = sprite(ANTENA, 0.62, forcar=[(808, 125, 852, 245)])
+ANT_XY = (692, 262)  # abaixo do relógio do canto
 cx = sprite(CAIXAS, 0.75)
-CX_XY = (664, 440)
+CX_XY = (650, 452)
 
 # piso: uma rua na frente da estação ligando painéis, porta e antena; a calçada da esquerda é o
 # caminho a pé do astronauta (RoverCena.tsx: A_PE) e a ligação da porta com a plataforma
-porta_pain = PAIN_XY[0] + int((207 - PAINEIS[0]) * 0.6)
-porta_ant = ANT_XY[0] + int((793 - ANTENA[0]) * 0.72)
+porta_pain = PAIN_XY[0] + int((207 - PAINEIS[0]) * 0.55)
+porta_ant = ANT_XY[0] + int((793 - ANTENA[0]) * 0.62)
 caminhos(e, [
     (190, 512, 864, 562),  # rua da frente
     (430, 540, 614, 548),  # encosta na plataforma
-    (porta_pain - 24, 282, porta_pain + 24, 540),  # painéis
-    (porta_ant - 24, ANT_XY[1] + 196, porta_ant + 24, 540),  # antena
+    (porta_pain - 22, PAIN_XY[1] + int((PAINEIS[3] - PAINEIS[1]) * 0.55) - 16, porta_pain + 22, 540),  # painéis (entra por baixo da porta)
+    (porta_ant - 22, ANT_XY[1] + int((ANTENA[3] - ANTENA[1]) * 0.62) - 16, porta_ant + 22, 540),  # antena
     (352, 512, 404, 776),  # calçada do astronauta
     (352, 726, 470, 776),
     (497, 500, 547, 548),  # porta → plataforma
@@ -235,8 +242,9 @@ pad = np.asarray(Image.open(garagem).convert("RGB")).astype(np.float32)
 pad_sp = sprite((4, 44, 248, 206), 1.0, fonte=pad)  # só a plataforma, sem o chão em volta
 pregar(e, pad_sp, (PAD_X + 4, PAD_Y + 44))
 
-for sp, xy in [(pain, PAIN_XY), (ant, ANT_XY), (lab, LAB_XY), (cx, CX_XY)]:
-    sombra(e, sp[1], xy)
+# sombra curta, colada no prédio (prédio pequeno com sombra longa parece flutuar)
+for sp, xy, dx, dy in [(pain, PAIN_XY, 5, 4), (ant, ANT_XY, 5, 4), (lab, LAB_XY, 12, 7), (cx, CX_XY, 5, 4)]:
+    sombra(e, sp[1], xy, dx, dy)
 for sp, xy in [(pain, PAIN_XY), (ant, ANT_XY), (lab, LAB_XY), (cx, CX_XY)]:
     pregar(e, sp, xy)
 for x, y in [(338, 566), (668, 566), (190, 566), (864, 566)]:
