@@ -1,5 +1,13 @@
 # Passagem de bastão
 
+## 2026-11-15 · Claude Code · regras de vitória, noite e equilíbrio
+
+- **Feito (commit `ea620b9`, main)** — Sobreviver até o fim = vitória; ciência vira 1–3 estrelas (`estrelasDe`, `debrief().estrelas`). Noite com a equipe acordada: −4 de saúde uma vez por sol (`anoitecer`, `SAUDE_AO_ANOITECER`); alerta sem resposta: −2 (`SAUDE_POR_ALERTA_PERDIDO`). Comandante com 10 sóis. Textos de energia recebem números das constantes (`NUMEROS_ENERGIA` em Panels.tsx).
+- **Simulação (300 missões, perfil atento = divide energia pelo que falta, aleatório = escolhe ao acaso e esquece 25% dos alertas)** — Cadete: atento 100%, aleatório 99%. Piloto: atento 81%, aleatório 5%. Comandante: atento 43%, aleatório 0%.
+- **Testes** — 28 testes passaram, `tsc` e `npm run build` ok.
+- **Lovable (pedido enviado, `umsg_01m7fyf81cfm7ramyqvc3k4bbh`)** — tutorial do sol 1 com setas, avisos do Rovi, menu "Como jogar", glossário ampliado, estrelas na tela de fim, revisão de textos nas 5 línguas, 5 eventos novos no Abrigo. Autorizado só nesta tarefa a editar `src/game/ui` e `src/content`.
+- **Próximo passo** — Revisar o que o Lovable fizer (testes, build, textos); testar áreas de toque e uma missão por nível; publicar na Vercel (`NITRO_PRESET=vercel`, falta autorizar o time no MCP da Vercel pelo link).
+
 ## 2026-11-14 · Codex
 
 - **Última etapa** — Codex configurou a continuidade entre agentes e registrou no Orca o checkout existente. O autor da edição mais recente do jogo na árvore de trabalho não foi confirmado.
