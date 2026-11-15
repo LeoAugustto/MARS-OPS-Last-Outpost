@@ -1,4 +1,4 @@
-// Telas fora do mapa: escolher nível, abertura, fim da missão, relatório; e o robô guia (tutorial).
+// Telas fora do mapa: escolher nível, abertura, fim da missão, relatório. O tutorial fica em Tutorial.tsx.
 import { NUMEROS_ENERGIA } from "./Panels";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
@@ -12,7 +12,7 @@ import {
   type HistoryPoint,
   type Level,
 } from "@/game/engine";
-import { DialogBox, formatarData, FullscreenButton, PlaceIcon, useGT } from "./shared";
+import { formatarData, FullscreenButton, PlaceIcon, useGT } from "./shared";
 import { NAME_MAX, cleanName, type Player } from "./player";
 import { FAMOSAS, type Famosa, type ModoSol } from "@/data/donki-live";
 import { STICKERS, loadStickers } from "./stickers";
@@ -96,7 +96,7 @@ export function LevelSelect({
                 {t(`nivel.${l}`)}
                 {nivel === l && <PixelIcon name="ok" size={22} />}
               </span>
-              <span className="block text-[#5a3424]">{t(`ui.nivel.${l}`)}</span>
+              <span className="block text-[#5a3424]">{t(`ui.nivel.${l}`, { sois: BALANCE.LEVELS[l].totalSols })}</span>
             </span>
             <span
               className="flex w-24 shrink-0 items-center justify-center gap-0.5 border-4 border-[#e8c39c] bg-[#c99a72] sm:w-28"
@@ -370,7 +370,7 @@ export function StickerGrid({ ids, so }: { ids: string[]; so?: string[] }) {
                 ? "border-[#f3c916] bg-[#f8dfba] text-[#3a2015] shadow-[0_5px_0_#a8400f]"
                 : "border-[#5a1d07] bg-[#3b1206]/85 text-[#c9a27c] shadow-[0_5px_0_#1c0703]"
             }`}
-            title={t(`fig.${k.id}.desc`)}
+            title={t(`fig.${k.id}.desc`, { max: BALANCE.ESCUDO_MAX })}
           >
             <img
               src={k.icone}
@@ -379,11 +379,39 @@ export function StickerGrid({ ids, so }: { ids: string[]; so?: string[] }) {
               style={{ imageRendering: "pixelated" }}
             />
             <span className="font-display text-sm font-bold leading-tight">{t(`fig.${k.id}`)}</span>
-            <span className="text-xs leading-tight">{t(`fig.${k.id}.desc`)}</span>
+            <span className="text-xs leading-tight">{t(`fig.${k.id}.desc`, { max: BALANCE.ESCUDO_MAX })}</span>
           </div>
         );
       })}
     </div>
+  );
+}
+
+/** 1 a 3 estrelas pixel (as que faltam ficam apagadas) e uma frase por estrela ganha. */
+function Estrelas({ n }: { n: number }) {
+  const { t } = useGT();
+  return (
+    <section className="flex w-full max-w-md flex-col items-center gap-2">
+      <div className="flex items-end justify-center gap-2" role="img" aria-label={t("fim.estrelas", { n })}>
+        {[1, 2, 3].map((k) => (
+          <img
+            key={k}
+            src="/assets/ui/estrela.png"
+            alt=""
+            className={`pixelated ${k === 2 ? "h-20 w-20 sm:h-24 sm:w-24" : "h-16 w-16 sm:h-20 sm:w-20"} ${
+              k <= n ? "estrela-ganha drop-shadow-[0_4px_0_#1c0703]" : "opacity-30 grayscale"
+            }`}
+            style={k <= n ? { animationDelay: `${(k - 1) * 250}ms` } : undefined}
+          />
+        ))}
+      </div>
+      <ul className="flex flex-col items-center gap-0.5 font-display text-sm font-bold text-[#f6e38c] [text-shadow:2px_2px_0_#1c0703] sm:text-base">
+        {Array.from({ length: n }, (_, k) => (
+          <li key={k}>{t(`fim.estrela.${k + 1}`)}</li>
+        ))}
+      </ul>
+      {n < 3 && <p className="text-base text-[#fbe6c8]/85">{t("fim.estrela.falta")}</p>}
+    </section>
   );
 }
 
@@ -410,6 +438,7 @@ export function EndScreen({
         <p className={`${DESTAQUE} px-3 py-1 font-display text-sm font-bold`}>{t("ui.fim.quem")}</p>
         <TituloHub className="text-[clamp(1.5rem,5.5vw,2.5rem)]">{t(d.titleKey)}</TituloHub>
         <p className="max-w-lg text-lg leading-snug text-[#fbe6c8] sm:text-xl">{t(d.bodyKey)}</p>
+        {d.estrelas > 0 && <Estrelas n={d.estrelas} />}
         {/* números da missão em duas caixinhas */}
         <div className="grid w-full max-w-md grid-cols-2 gap-3">
           <p className={`${DESTAQUE} flex items-center justify-center gap-2 px-2 py-2 font-display text-sm font-bold sm:text-base`}>
@@ -609,40 +638,6 @@ export function Report({
             ))}
           </section>
         </div>
-      </div>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------- robô guia (tutorial)
-export function TutorialBubble({
-  step,
-  onOk,
-  onSkip,
-}: {
-  step: number;
-  onOk: () => void;
-  onSkip: () => void;
-}) {
-  const { t } = useGT();
-  const texto = t(`tut.${step + 1}`);
-  return (
-    <div
-      className="pointer-events-auto absolute inset-x-2 bottom-2 z-30 mx-auto flex max-w-md flex-col gap-1 sm:max-w-xl 2xl:max-w-3xl"
-      role="status"
-    >
-      <DialogBox speaker="rovi" text={texto} compact />
-      <div className="flex items-center gap-2">
-        <Button variant="chunky" size="sm" className="min-h-12 min-w-0 flex-1 text-lg" onClick={onOk}>
-          {t("tut.ok")}
-        </Button>
-        <button
-          type="button"
-          className="min-h-12 shrink-0 whitespace-nowrap border-4 border-[#a5461f] bg-[#fbe2c2] px-3 text-lg text-[#4a2615] underline shadow-[0_4px_0_#6e2a10]"
-          onClick={onSkip}
-        >
-          {t("tut.pular")}
-        </button>
       </div>
     </div>
   );

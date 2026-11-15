@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
+  BALANCE,
   choiceEffect,
   choicesFor,
   energiaFaltando,
@@ -125,7 +126,7 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
         {/* ---- antes de escolher ---- */}
         {!alert.done && todas.length > 0 && (
           <div className="flex flex-col gap-2">
-            {todas.map((c) => {
+            {todas.map((c, i) => {
               const ok = isChoiceAvailable(state, c, todas);
               const falta = energiaFaltando(state, c);
               return (
@@ -139,7 +140,10 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
                   <span className="text-lg font-extrabold">
                     {t(eventKey.label(ev.id, c.id), vars)}
                   </span>
-                  <span className="flex flex-wrap items-center gap-1">
+                  <span
+                    className="flex flex-wrap items-center gap-1"
+                    data-tut={i === 0 ? "chips" : undefined}
+                  >
                     <EffectChips effect={choiceEffect(state, alert, c)} />
                     {c.deferredCost && (
                       <span className="inline-flex items-center gap-1 border border-border bg-primary/15 px-2 py-0.5 text-sm font-extrabold text-secondary">
@@ -154,7 +158,7 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
                   )}
                   {ok && falta > 0 && (
                     <span className="text-sm font-bold text-destructive">
-                      {t("ui.no_braco", { n: falta * 2 })}
+                      {t("ui.no_braco", { n: falta * BALANCE.SAUDE_POR_ENERGIA_FALTANDO })}
                     </span>
                   )}
                 </button>

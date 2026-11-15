@@ -1,12 +1,22 @@
 // Peças compartilhadas das telas do jogo: tradução, voz, chips de efeito, modal.
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { useLang } from "@/i18n";
-import { t as translate } from "@/content/i18n";
+import { t as translate, LOCALES } from "@/content/i18n";
 import type { Effect, Lang, PlaceId } from "@/game/engine";
 import type { CSSProperties } from "react";
 import { ART, type Gender, type Speaker } from "./art";
 import { usePlayer } from "./player";
 import { PixelIcon } from "./PixelIcon";
+
+/**
+ * Singular/plural: quando {n} é 1 e existe a chave "<chave>.um", usa ela
+ * ("1 alerta" em vez de "1 alertas"). Se não existir, fica a chave normal.
+ */
+export function chavePlural(key: string, lang: Lang, vars?: Record<string, string | number>): string {
+  if (vars?.["n"] !== 1) return key;
+  const um = `${key}.um`;
+  return LOCALES[lang]?.[um] !== undefined ? um : key;
+}
 
 /** Tradutor dos textos do jogo no idioma escolhido no site. Já preenche {nome} com o nome da criança. */
 export function useGT() {
@@ -22,7 +32,7 @@ export function useGT() {
       if (typeof v["estrelas"] === "string") {
         v["estrelas"] = v["estrelas"].replace(/⭐+/g, (stars) => `${stars.length}/3`);
       }
-      return translate(key, lang, v);
+      return translate(chavePlural(key, lang, v), lang, v);
     },
     [lang, name],
   );

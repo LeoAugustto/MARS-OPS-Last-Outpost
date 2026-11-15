@@ -91,6 +91,12 @@ Referências para as lições das cartas. As linhas com ⚠️ ainda precisam de
 | Antes de ir ao espaço, astronautas ficam uns dias em quarentena | `resfriado` | NASA, Health Stabilization Program | ⚠️ |
 | Robôs em Marte usam aquecedores para proteger peças e baterias nas noites geladas | `noite_gelada` | NASA/JPL | ⚠️ |
 | O Ingenuity voou 72 vezes (2021–2024); foi feito para 5 voos | `drone` | NASA/JPL (jan/2024) | ✅ |
+| A NASA estuda equipes isoladas por meses para aprender a conviver bem (HERA) | `briga` | NASA HRP, HERA | ⚠️ |
+| Na ISS, ar com muito CO₂ está ligado a dor de cabeça; a ventilação ajuda | `dor_cabeca` | NASA HRP (CO₂ e sintomas na ISS) | ⚠️ |
+| Gravidade de Marte ≈ 38% da Terra; na ISS os astronautas se exercitam ~2 h por dia para proteger ossos e músculos | `esteira` | NASA (Mars Fact Sheet) · NASA, exercício na ISS | ⚠️ |
+| Janelas de naves têm várias camadas de vidro (ex.: Cupola da ISS) | `janela` | NASA, ISS Cupola | ⚠️ |
+| 2019–2020: a tripulação da ISS passou dias procurando um vazamento pequeno de ar | `janela` | NASA Space Station blog (2020) | ⚠️ |
+| A ISS é barulhenta por causa dos ventiladores; muitos astronautas dormem com protetor de ouvido | `barulho` | NASA, acústica e sono na ISS | ⚠️ |
 
 Simplificações do lote 2 (🎮): "meteorito de ferro" é história do jogo; a água para fazer ar sai da comida (a estufa), porque o jogo não tem barra de água; os prazos (pimentas, adubo) e os estragos das continuações são regras da simulação.
 

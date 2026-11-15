@@ -26,24 +26,48 @@ import { EventCard } from "./EventCard";
 import { ExpedicaoFundo, RoverCena } from "./RoverCena";
 import { BottomBar, TopHud } from "./Hud";
 import { EnergyPanel, GameMenu, Glossary, MorningModal, NightModal, PlaceInfo } from "./Panels";
-import { EndScreen, Intro, LevelSelect, ProfileScreen, Report, TutorialBubble } from "./Screens";
+import { EndScreen, Intro, LevelSelect, ProfileScreen, Report } from "./Screens";
+import {
+  RoviAviso,
+  TUT_FIM,
+  TUT_PASSOS,
+  TutorialGuia,
+  tutIndice,
+  type TutAgora,
+  type TutPasso,
+} from "./Tutorial";
 import { PIXEL_FONT_URL, PIXEL_THEME, stopSpeaking, useGT } from "./shared";
 import { PixelIcon } from "./PixelIcon";
 import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
 import { collectStickers } from "./stickers";
 import { ART, type Periodo } from "./art";
+import { ComoJogar } from "./ComoJogar";
+
+/** abaixo disto o Rovi avisa que o ar, a comida ou a saúde estão acabando (jogo; só a UI usa) */
+const LIMITE_AVISO_ROVI = 30;
+
+/** Este alerta é o custo que chegou depois de uma escolha com ampulheta (deferredCost)? */
+function veioDeAmpulheta(g: GameState, eventId: string): boolean {
+  return g.log.some((e) => {
+    if (e.kind !== "evento" || !e.eventId || !e.choiceId) return false;
+    const c = findEvent(e.eventId).choices?.find((x) => x.id === e.choiceId);
+    return !!c?.deferredCost && !!c.schedule?.some((sc) => sc.eventId === eventId);
+  });
+}
 
 /** horas de jogo gastas na viagem de ida e volta do rover até a estação (jogo, não é dado real) */
 const HORAS_VIAGEM_ROVER = 1;
 
 type Phase = "nivel" | "perfil" | "abertura" | "manha" | "mapa" | "noite" | "fim" | "relatorio";
-type Overlay = null | "energia" | "glossario" | "menu";
+type Overlay = null | "energia" | "glossario" | "menu" | "ajuda";
 
 interface SaveData {
   v: 2;
   game: GameState;
   phase: Phase;
   tut: number;
+  /** versão do tutorial (2 = passos com seta, ver Tutorial.tsx) */
+  tutV?: 2;
   seen: string[];
   player?: Player;
   /** relógio do sol (0 = manhã, 1 = hora de dormir) */
@@ -51,7 +75,6 @@ interface SaveData {
 }
 
 const SLOT = 1;
-const TUT_FIM = 7;
 
 /** Em que parte do sol estamos (troca a arte do mapa). */
 function periodoDe(relogio: number): Periodo {
@@ -155,6 +178,16 @@ function GameInner({
   const [relogio, setRelogio] = useState(0);
   const [avisoFeito, setAvisoFeito] = useState("");
   const solDoRelogio = useRef<number | null>(null);
+  /** tutorial: passa para o próximo passo só se a criança está neste passo */
+  const tutFeito = useCallback(
+    (p: TutPasso) => setTut((x) => (TUT_PASSOS[x] === p ? x + 1 : x)),
+    [],
+  );
+  /** tutorial: pula direto para este passo (se ainda não passou dele) */
+  const tutVaiPara = useCallback(
+    (p: TutPasso) => setTut((x) => (x < tutIndice(p) ? tutIndice(p) : x)),
+    [],
+  );
 
   // ao abrir: lê o save e busca os eventos do Sol na NASA
   useEffect(() => {
@@ -176,7 +209,8 @@ function GameInner({
     solDoRelogio.current = s.game.sol;
     setRelogio(s.relogio ?? 0);
     setGame(s.game);
-    setTut(s.tut);
+    // save antigo (tutorial de 7 balões): terminado continua terminado; senão recomeça
+    setTut(s.tutV === 2 ? Math.min(s.tut, TUT_FIM) : s.tut >= 7 ? TUT_FIM : 0);
     setSeen(s.seen);
     const p =
       s.phase === "nivel" || s.phase === "abertura" || s.phase === "perfil" ? "manha" : s.phase;
@@ -189,7 +223,7 @@ function GameInner({
     if (!game || phase === "nivel" || phase === "perfil") return;
     writeSave(
       SLOT,
-      { v: 2, game, phase, tut, seen, player, relogio: relogioSalvo } satisfies SaveData,
+      { v: 2, game, phase, tut, tutV: 2, seen, player, relogio: relogioSalvo } satisfies SaveData,
       game.sol,
     );
   }, [game, phase, tut, seen, player, relogioSalvo]);
@@ -252,8 +286,9 @@ function GameInner({
       setPlace(null);
       setGame((g) => (g ? openAlert(g, urgente.id) : g));
       setCard(urgente.id);
+      tutVaiPara("custo");
     }
-  }, [phase, game, card, overlay]);
+  }, [phase, game, card, overlay, tutVaiPara]);
 
   const onPlace = useCallback(
     (pl: PlaceId) => {
@@ -265,8 +300,9 @@ function GameInner({
         return;
       }
       setInside(pl);
+      tutFeito("porta");
     },
-    [game, card, overlay],
+    [game, card, overlay, tutFeito],
   );
 
   /** fim da cena do rover: chegou no lugar da expedição e abre o alerta do rover */
@@ -280,8 +316,8 @@ function GameInner({
     }
     setGame((g) => (g ? openAlert(g, a.id) : g));
     setCard(a.id);
-    setTut((x) => (x < 2 ? 2 : x));
-  }, [game, relogio]);
+    tutVaiPara("custo");
+  }, [game, relogio, tutVaiPara]);
 
   /** fim da volta: o rover estacionou na base; o relógio pula para a hora da volta */
   const voltouExpedicao = useCallback(() => {
@@ -298,10 +334,10 @@ function GameInner({
       if (a) {
         setGame((g) => (g ? openAlert(g, a.id) : g));
         setCard(a.id);
-        setTut((x) => (x < 2 ? 2 : x)); // abriu a 1ª carta: tutorial pula para "toda escolha custa"
+        tutVaiPara("custo"); // abriu a 1ª carta: tutorial pula para "toda escolha custa"
       } else setPlace(pl);
     },
-    [game, card, overlay],
+    [game, card, overlay, tutVaiPara],
   );
 
   const closeCard = () => {
@@ -321,7 +357,7 @@ function GameInner({
       }
     }
     // fechou sem escolher (alerta adiado): o tutorial continua esperando a 1ª escolha
-    if (a?.done) setTut((x) => (x === 2 ? 3 : x));
+    if (a?.done) tutFeito("custo");
     if (game && game.status !== "jogando") setPhase("fim");
   };
 
@@ -349,19 +385,104 @@ function GameInner({
     setPhase("noite");
   };
 
-  // o tutorial (balão do robô) está na tela? (calculado aqui para pausar o relógio)
+  // tutorial: o que o Rovi mostra agora (calculado aqui para pausar o relógio)
   const algoAberto = !!card || !!place || !!overlay || !!cena || phase !== "mapa";
-  const tutVisivel = (() => {
-    if (!game || phase !== "mapa" || tut >= TUT_FIM || overlay) return false;
-    const algumFeito = game.alerts.some((a) => a.done) || game.sol > 1;
-    if (tut === 0 || tut === 1) return !algoAberto;
-    if (tut === 2) return !!card;
-    if (tut <= 5) return !algoAberto && algumFeito;
-    return !algoAberto && canSleep(game);
+  const tutAgora = ((): TutAgora | null => {
+    if (!game || phase !== "mapa" || tut >= TUT_FIM) return null;
+    const passo = TUT_PASSOS[tut]!;
+    const livre = !card && !place && !overlay && !cena;
+    const pendentes = game.alerts.filter((a) => !a.done);
+    const alertaAqui = !!inside && pendentes.some((a) => a.place === inside);
+    // prédio para onde a seta aponta: o 1º com alerta (o rover sai em viagem, fica por último)
+    const predio = (pendentes.find((a) => a.place !== "rover") ?? pendentes[0])?.place;
+    const irAoPredio = (): TutAgora | null =>
+      inside
+        ? { passo, texto: "tut.vazio", alvo: "obj-saida" }
+        : predio
+          ? { passo, texto: "tut.porta", alvo: `lugar-${predio}` }
+          : null;
+    switch (passo) {
+      case "andar":
+        return livre && !inside ? { passo, texto: "tut.andar", alvo: "astronauta" } : null;
+      case "porta":
+        return livre ? irAoPredio() : null;
+      case "computador":
+        if (!livre) return null;
+        return alertaAqui ? { passo, texto: "tut.computador", alvo: "obj-terminal" } : irAoPredio();
+      case "custo": {
+        const a = card ? game.alerts.find((x) => x.id === card) : undefined;
+        const temEscolha = !!a && !a.done && !!findEvent(a.eventId).choices?.length;
+        return temEscolha ? { passo, texto: "tut.custo", alvo: "chips" } : null;
+      }
+      case "barras":
+        return livre ? { passo, texto: "tut.barras", alvo: "barras" } : null;
+      case "antena":
+        return livre && pendentes.some((a) => a.place === "antena")
+          ? { passo, texto: "tut.antena", alvo: inside ? undefined : "lugar-antena" }
+          : null;
+      case "energia":
+        return livre ? { passo, texto: "tut.energia", alvo: "energia" } : null;
+      case "mais":
+        return overlay === "energia" ? { passo, texto: "tut.mais", alvo: "mais" } : null;
+      case "pronto":
+        return overlay === "energia" ? { passo, texto: "tut.pronto", alvo: "pronto" } : null;
+      case "relogio":
+        return livre ? { passo, texto: "tut.relogio", alvo: "relogio" } : null;
+      case "casa":
+        if (!livre) return null;
+        if (inside === "habitat") return { passo, texto: "tut.cama", alvo: "obj-cama" };
+        if (inside) return { passo, texto: "tut.casa_sair", alvo: "obj-saida" };
+        return { passo, texto: "tut.casa", alvo: "lugar-habitat" };
+    }
+  })();
+  const tutVisivel = !!tutAgora;
+
+  // passo da antena só existe quando há alerta na antena: sem alerta, o tutorial segue
+  const antenaPendente = !!game?.alerts.some((a) => a.place === "antena" && !a.done);
+  useEffect(() => {
+    if (TUT_PASSOS[tut] === "antena" && !antenaPendente) tutFeito("antena");
+  }, [tut, antenaPendente, tutFeito]);
+
+  /** abre a divisão de energia (botão Energia, painel da fábrica de ar ou informações) */
+  const abrirEnergia = () => {
+    setPlace(null);
+    setOverlay("energia");
+    tutFeito("energia");
+  };
+  /** fechou a energia: se ainda não apertou +, o tutorial volta a pedir "toque em Energia" */
+  const fecharEnergia = () => {
+    setOverlay(null);
+    setTut((x) =>
+      TUT_PASSOS[x] === "mais" ? tutIndice("energia") : TUT_PASSOS[x] === "pronto" ? x + 1 : x,
+    );
+  };
+
+  // avisos do Rovi na hora certa, cada um uma vez por missão (guardados em `seen`)
+  const roviAviso = ((): { k: string; alvo?: string } | null => {
+    if (!game || phase !== "mapa" || game.status !== "jogando" || algoAberto || tutVisivel)
+      return null;
+    const r = game.resources;
+    const pendentes = game.alerts.filter((a) => !a.done);
+    const tempestade = game.alerts.some((a) => {
+      const ch = findEvent(a.eventId).chain;
+      return ch === "sol-nuvem" || ch === "sol-chuva";
+    });
+    const lista: [boolean, string, string?][] = [
+      [r.ar < LIMITE_AVISO_ROVI, "rovi.ar", "energia"],
+      [r.comida < LIMITE_AVISO_ROVI, "rovi.comida", "energia"],
+      [r.saude < LIMITE_AVISO_ROVI, "rovi.saude", "barras"],
+      [tempestade, "rovi.tempestade", "energia"],
+      [game.alerts.some((a) => veioDeAmpulheta(game, a.eventId)), "rovi.depois"],
+      [(game.night?.bateria ?? 0) >= BALANCE.BATERIA_MAX, "rovi.bateria", "energia"],
+      [periodoDe(relogio) === "entardecer" && pendentes.length > 0, "rovi.entardecer", "relogio"],
+    ];
+    const achou = lista.find(([ok, k]) => ok && !seen.includes(k));
+    return achou ? { k: achou[1], ...(achou[2] ? { alvo: achou[2] } : {}) } : null;
   })();
 
-  // relógio do sol: anda só com o mapa livre (carta, painel, menu ou tutorial abertos pausam)
-  const relogioRodando = !!game && game.status === "jogando" && !algoAberto && !tutVisivel;
+  // relógio do sol: anda só com o mapa livre (carta, painel, menu, tutorial ou Rovi abertos pausam)
+  const relogioRodando =
+    !!game && game.status === "jogando" && !algoAberto && !tutVisivel && !roviAviso;
   const segundosPorSol = game ? BALANCE.SEGUNDOS_POR_SOL[game.level] : 120;
   useEffect(() => {
     if (!relogioRodando) return;
@@ -473,20 +594,22 @@ function GameInner({
     );
 
   // ---------------------------------------------------------------- mapa
-  const showTut = tutVisivel;
   const faltam = game.alerts.filter((a) => !a.done).length;
   // cada aviso aparece uma vez por período de cada sol e depois some sozinho
   const avisoId = `${game.sol}-${periodo}`;
   // aviso do fim de tarde / da noite (não bloqueia o mapa)
   const aviso =
-    phase !== "mapa" || card || showTut
+    phase !== "mapa" || card || tutVisivel || roviAviso
       ? ""
       : noite
-        ? faltam
-          ? t("ui.noite.aviso", { dano: BALANCE.SAUDE_POR_ALERTA_PERDIDO, cansaco: BALANCE.SAUDE_AO_ANOITECER })
-          : ""
-        : periodo === "entardecer" && faltam
-          ? t("ui.entardecer.aviso")
+        ? t("ui.noite.aviso", {
+            dano: BALANCE.SAUDE_POR_ALERTA_PERDIDO,
+            cansaco: BALANCE.SAUDE_AO_ANOITECER,
+          })
+        : periodo === "entardecer"
+          ? faltam
+            ? t("ui.entardecer.aviso", { cansaco: BALANCE.SAUDE_AO_ANOITECER })
+            : t("ui.entardecer.dormir")
           : "";
 
   return (
@@ -495,6 +618,7 @@ function GameInner({
         state={game}
         onMenu={() => setOverlay("menu")}
         onHelp={() => setOverlay("glossario")}
+        onEnergy={abrirEnergia}
         relogio={relogio}
         periodo={periodo}
       />
@@ -517,7 +641,7 @@ function GameInner({
             paused={algoAberto}
             noite={noite}
             onTerminal={() => abrirTerminal(inside)}
-            onEnergy={() => setOverlay("energia")}
+            onEnergy={abrirEnergia}
             onSleep={sleep}
             onWalk={andou}
             onExit={() => {
@@ -535,7 +659,7 @@ function GameInner({
             escudo={game.escudo}
             onPlace={onPlace}
             paused={algoAberto}
-            onFirstMove={() => setTut((x) => (x === 0 ? 1 : x))}
+            onFirstMove={() => tutFeito("andar")}
             periodo={periodo}
           >
             {aviso && avisoFeito !== avisoId && (
@@ -547,15 +671,6 @@ function GameInner({
               />
             )}
           </BaseMap>
-        )}
-        {showTut && (
-          <div className={card ? "fixed inset-x-0 top-2 z-50" : ""}>
-            <TutorialBubble
-              step={tut}
-              onOk={() => setTut((x) => x + 1)}
-              onSkip={() => setTut(TUT_FIM)}
-            />
-          </div>
         )}
       </div>
       <BottomBar state={game} noite={noite} />
@@ -620,10 +735,7 @@ function GameInner({
           state={game}
           place={place}
           onClose={() => setPlace(null)}
-          onEnergy={() => {
-            setPlace(null);
-            setOverlay("energia");
-          }}
+          onEnergy={abrirEnergia}
           onSleep={sleep}
           noite={noite}
         />
@@ -632,10 +744,33 @@ function GameInner({
         <EnergyPanel
           state={game}
           onSave={(a) => setGame((g) => (g ? setAllocation(g, a) : g))}
-          onClose={() => setOverlay(null)}
+          onMais={() => tutFeito("mais")}
+          onClose={fecharEnergia}
+          faltaVisto={seen.includes("rovi.falta")}
+          onFaltaVisto={() => setSeen((s) => (s.includes("rovi.falta") ? s : [...s, "rovi.falta"]))}
+        />
+      )}
+      {roviAviso && (
+        <RoviAviso
+          key={roviAviso.k}
+          texto={roviAviso.k}
+          alvo={roviAviso.alvo}
+          onOk={() => {
+            setSeen((s) => [...s, roviAviso.k]);
+            // o Rovi já avisou do entardecer: o aviso que cai do topo não repete hoje
+            if (roviAviso.k === "rovi.entardecer") setAvisoFeito(avisoId);
+          }}
+        />
+      )}
+      {tutAgora && (
+        <TutorialGuia
+          agora={tutAgora}
+          onOk={() => tutFeito(tutAgora.passo)}
+          onSkip={() => setTut(TUT_FIM)}
         />
       )}
       {overlay === "glossario" && <Glossary onClose={() => setOverlay(null)} />}
+      {overlay === "ajuda" && <ComoJogar onClose={() => setOverlay(null)} />}
       {overlay === "menu" && (
         <GameMenu
           onClose={() => setOverlay(null)}
@@ -643,6 +778,7 @@ function GameInner({
             setTut(0);
             setOverlay(null);
           }}
+          onHowTo={() => setOverlay("ajuda")}
           onGlossary={() => setOverlay("glossario")}
           onRestart={backToLevels}
           onExit={() => navigate({ to: "/" })}

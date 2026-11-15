@@ -1,5 +1,5 @@
 // Janelas do jogo: energia, manhã, noite, lugar, glossário e menu.
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { LangSelector } from "@/components/AppHeader";
 import {
@@ -35,15 +35,31 @@ export function EnergyPanel({
   state,
   onSave,
   onClose,
+  onMais,
+  faltaVisto = true,
+  onFaltaVisto,
 }: {
   state: GameState;
   onSave: (a: Allocation) => void;
   onClose: () => void;
+  /** apertou + em algum módulo (o tutorial espera por isso) */
+  onMais?: () => void;
+  /** o Rovi já explicou nesta missão o que acontece quando falta energia? */
+  faltaVisto?: boolean;
+  onFaltaVisto?: () => void;
 }) {
   const { t } = useGT();
   const [a, setA] = useState<Allocation>(state.allocation);
   const total = allocationTotal(a);
   const hoje = state.energiaHoje;
+  // a divisão pede mais energia do que há: o Rovi explica (uma vez por missão) o que desliga primeiro
+  const [roviFalta, setRoviFalta] = useState(false);
+  useEffect(() => {
+    if (total > hoje && !faltaVisto && !roviFalta) {
+      setRoviFalta(true);
+      onFaltaVisto?.();
+    }
+  }, [total, hoje, faltaVisto, roviFalta, onFaltaVisto]);
   const muda = (k: ModuleKey, d: number) =>
     setA((cur) => ({ ...cur, [k]: Math.max(0, Math.min(BALANCE.ALOCACAO_MAX, cur[k] + d)) }));
 
@@ -78,7 +94,11 @@ export function EnergyPanel({
               variant="chunky"
               size="tap"
               className="w-12 text-xl"
-              onClick={() => muda(k, 1)}
+              data-tut={k === "ar" ? "mais" : undefined}
+              onClick={() => {
+                muda(k, 1);
+                onMais?.();
+              }}
               aria-label={`+ ${t(`modulo.${k}`)}`}
             >
               +
@@ -95,11 +115,13 @@ export function EnergyPanel({
             {t("ui.energia.falta", { n: total - hoje })}
           </p>
         )}
+        {roviFalta && total > hoje && <DialogBox speaker="rovi" text={t("rovi.falta")} compact />}
         <p className="text-sm text-muted-foreground">{t("ui.energia.consumo", { ar: BALANCE.LEVELS[state.level].consumoAr, comida: BALANCE.LEVELS[state.level].consumoComida })}</p>
         <Button
           variant="chunky"
           size="tap"
           className="w-full text-lg"
+          data-tut="pronto"
           onClick={() => {
             onSave(a);
             onClose();
@@ -146,7 +168,7 @@ export function MorningModal({
             {l}
           </p>
         ))}
-        {dica && <DialogBox speaker="rovi" text={t(dica)} compact />}
+        {dica && <DialogBox speaker="rovi" text={t(dica, NUMEROS_ENERGIA)} compact />}
         <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onGo}>
           {t("ui.vamos")}
         </Button>
@@ -231,7 +253,7 @@ export function PlaceInfo({
       <div className="flex flex-col gap-3">
         <PlaceScene place={place} />
         <h2 className="font-display text-2xl font-bold text-secondary">{t(`lugar.${place}`)}</h2>
-        <p className="text-lg">{t(`lugar.${place}.info`, { n: state.escudo })}</p>
+        <p className="text-lg">{t(`lugar.${place}.info`, { n: state.escudo, max: BALANCE.ESCUDO_MAX, ...NUMEROS_ENERGIA })}</p>
         {place === "ar" && (
           <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onEnergy}>
             <PixelIcon name="raio" /> {t("ui.energia.titulo")}
@@ -244,7 +266,7 @@ export function PlaceInfo({
             </Button>
           ) : (
             <p className="border border-border bg-accent p-3 font-bold">
-              {t("ui.dormir_bloqueado", { n: faltam })}
+              {t("ui.dormir_bloqueado", { n: faltam, cada: BALANCE.SAUDE_POR_ALERTA_PERDIDO })}
             </p>
           ))}
         <Button variant="chunkySand" size="tap" className="w-full" onClick={onClose}>
@@ -256,31 +278,51 @@ export function PlaceInfo({
 }
 
 // ---------------------------------------------------------------- glossário
+/** Palavras do espaço, na ordem em que aparecem no jogo. Texto: "Termo = frase simples." */
 const GLOSSARIO = [
   "sol",
   "radiacao",
   "tempestade",
-  "escudo",
-  "abrigo",
   "clarao",
   "nuvem",
   "chuva",
   "terra",
+  "escudo",
+  "abrigo",
+  "estufa",
+  "moxie",
+  "rover",
+  "atraso",
+  "painel",
+  "poeira",
+  "bateria",
+  "energia",
+  "donki",
+  "controle",
 ];
 
 export function Glossary({ onClose }: { onClose: () => void }) {
   const { t } = useGT();
   return (
-    <Modal label={t("ui.glossario.titulo")} onClose={onClose}>
+    <Modal label={t("ui.glossario.titulo")} onClose={onClose} wide>
       <div className="flex flex-col gap-2">
         <h2 className="font-display text-2xl font-bold text-secondary">
           <PixelIcon name="livro" /> {t("ui.glossario.titulo")}
         </h2>
-        {GLOSSARIO.map((k) => (
-          <p key={k} className="border border-border bg-muted p-3">
-            {t(`glossario.${k}`)}
-          </p>
-        ))}
+        <dl className="grid gap-2 lg:grid-cols-2">
+          {GLOSSARIO.map((k) => {
+            const texto = t(`glossario.${k}`);
+            const i = texto.indexOf(" = ");
+            const termo = i > 0 ? texto.slice(0, i) : "";
+            const frase = i > 0 ? texto.slice(i + 3) : texto;
+            return (
+              <div key={k} className="border border-border bg-muted p-3 leading-snug">
+                {termo && <dt className="font-extrabold text-secondary">{termo}</dt>}
+                <dd>{frase}</dd>
+              </div>
+            );
+          })}
+        </dl>
         <Button variant="chunky" size="tap" className="w-full" onClick={onClose}>
           {t("ui.fechar")}
         </Button>
@@ -293,12 +335,14 @@ export function Glossary({ onClose }: { onClose: () => void }) {
 export function GameMenu({
   onClose,
   onTutorial,
+  onHowTo,
   onGlossary,
   onRestart,
   onExit,
 }: {
   onClose: () => void;
   onTutorial: () => void;
+  onHowTo: () => void;
   onGlossary: () => void;
   onRestart: () => void;
   onExit: () => void;
@@ -306,6 +350,7 @@ export function GameMenu({
   const { t } = useGT();
   // mesmo estilo do menu inicial (hub): peças em hub.tsx
   const opcoes: { icone: ReactNode; texto: string; onClick: () => void }[] = [
+    { icone: <PixelIcon name="btn_ajuda" />, texto: t("ui.menu.ajuda"), onClick: onHowTo },
     {
       icone: <img src={ART.portraits.rovi.src} alt="" className="h-6 w-6 object-contain" />,
       texto: t("ui.menu.tutorial"),

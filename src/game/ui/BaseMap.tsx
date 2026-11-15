@@ -351,6 +351,7 @@ export function BaseMap({
             <button
               key={pl}
               type="button"
+              data-tut={`lugar-${pl}`}
               onPointerDown={(e) => {
                 e.stopPropagation();
                 // o botão é maior que o prédio: tocar no chão em volta (onde fica o "!") só anda até
@@ -436,6 +437,7 @@ export function BaseMap({
         {/* astronauta */}
         {/* largura fixa: perto da borda direita a caixa "encolhia" e espremia a imagem */}
         <div
+          data-tut="astronauta"
           className="pointer-events-none absolute -translate-x-1/2 -translate-y-full"
           style={{
             left: `${pos.x}%`,

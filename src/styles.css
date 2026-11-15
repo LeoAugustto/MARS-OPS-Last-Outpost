@@ -225,7 +225,11 @@
 @keyframes aviso-icone { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
 @keyframes aviso-tempo { from { transform: scaleX(1); } to { transform: scaleX(0); } }
 @keyframes aviso-some-calmo { to { opacity: 0; } }
+/* estrelas da tela de fim: cada uma "pula" para dentro, uma depois da outra */
+.estrela-ganha { animation: estrela-ganha 0.5s steps(5) both; }
+@keyframes estrela-ganha { from { transform: scale(0.2); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
+  .estrela-ganha { animation: none; }
   .aviso-entra, .aviso-entra .aviso-icone { animation: none; }
   .aviso-sai { animation: aviso-some-calmo 1.1s linear forwards; }
 }

@@ -274,6 +274,7 @@ export function Interior({
             <button
               key={o}
               type="button"
+              data-tut={`obj-${o}`}
               onPointerDown={(e) => {
                 e.stopPropagation();
                 irPara(p, o);
