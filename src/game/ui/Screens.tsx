@@ -17,7 +17,7 @@ import { FAMOSAS, type Famosa, type ModoSol } from "@/data/donki-live";
 import { STICKERS, loadStickers } from "./stickers";
 import { ART, type Gender } from "./art";
 import { PixelIcon } from "./PixelIcon";
-import { BOTAO_ESCURO, BotaoHub, FUNDO_HUB, MOLDURA_HUB, TituloHub } from "./hub";
+import { BOTAO_ESCURO, BotaoHub, CARTAO_ESCURO, DESTAQUE, FUNDO_HUB, MOLDURA_HUB, PAINEL_HUB, TituloHub } from "./hub";
 
 // ---------------------------------------------------------------- escolher nível
 const MODOS: ModoSol[] = ["surpresa", "semana", "famosa"];
@@ -353,12 +353,12 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
 }
 
 // ---------------------------------------------------------------- fim da missão
-/** Figurinhas: as que tem ficam coloridas; as que faltam, apagadas. */
+/** Figurinhas: as que tem ficam coloridas (cartão claro com borda amarela); as que faltam, escuras. */
 export function StickerGrid({ ids, so }: { ids: string[]; so?: string[] }) {
   const { t } = useGT();
   const lista = so ? STICKERS.filter((k) => so.includes(k.id)) : STICKERS;
   return (
-    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
       {lista.map((k) => {
         const tem = ids.includes(k.id);
         return (
@@ -366,18 +366,18 @@ export function StickerGrid({ ids, so }: { ids: string[]; so?: string[] }) {
             key={k.id}
             className={`flex flex-col items-center gap-1 border-4 p-2 text-center ${
               tem
-                ? "border-[#e2672b] bg-[#ffe9cc] text-[#3a2015]"
-                : "border-[#8a6a52] bg-[#5a3a2c] text-[#c9a27c] opacity-70"
+                ? "border-[#f3c916] bg-[#f8dfba] text-[#3a2015] shadow-[0_5px_0_#a8400f]"
+                : "border-[#5a1d07] bg-[#3b1206]/85 text-[#c9a27c] shadow-[0_5px_0_#1c0703]"
             }`}
             title={t(`fig.${k.id}.desc`)}
           >
             <img
               src={k.icone}
               alt=""
-              className={`h-12 w-12 ${tem ? "" : "grayscale"}`}
+              className={`h-12 w-12 ${tem ? "" : "opacity-50 grayscale"}`}
               style={{ imageRendering: "pixelated" }}
             />
-            <span className="text-sm font-bold leading-tight">{t(`fig.${k.id}`)}</span>
+            <span className="font-display text-sm font-bold leading-tight">{t(`fig.${k.id}`)}</span>
             <span className="text-xs leading-tight">{t(`fig.${k.id}.desc`)}</span>
           </div>
         );
@@ -401,33 +401,43 @@ export function EndScreen({
   const { t } = useGT();
   const d = debrief(state);
   const icon = state.status === "vitoria" ? "vitoria" : state.status === "vitoria-parcial" ? "ok" : "foguete";
+  // mesmo estilo do menu inicial: arte da base ao fundo e painel com moldura (ver hub.tsx)
   return (
-    <div className="flex h-full flex-col items-center gap-4 overflow-y-auto p-6 text-center">
-      <PixelIcon name={icon} size={96} />
-      <p className="border-2 border-border bg-card px-3 py-1 font-bold text-card-foreground">
-        {t("ui.fim.quem")}
-      </p>
-      <h1 className="font-display text-4xl font-bold text-[#ffd23f]">{t(d.titleKey)}</h1>
-      <p className="max-w-md 2xl:max-w-xl text-xl">{t(d.bodyKey)}</p>
-      <p className="text-lg font-bold">
-        {t("ui.relatorio.ciencia", { n: d.ciencia, meta: d.metaCiencia })} ·{" "}
-        {t("ui.relatorio.sois", { n: Math.max(0, d.soisCompletos), total: d.totalSols })}
-      </p>
-      {novas.length > 0 && (
-        <section className="w-full max-w-xl 2xl:max-w-3xl">
-          <h2 className="mb-2 font-display text-2xl font-bold text-[#ffd23f]">
-            {t("ui.fig.novas")}
-          </h2>
-          <StickerGrid ids={novas} so={novas} />
-        </section>
-      )}
-      <div className="flex w-full max-w-md 2xl:max-w-xl flex-col gap-2">
-        <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onReport}>
-          <PixelIcon name="relatorio" /> {t("ui.relatorio.ver")}
-        </Button>
-        <Button variant="chunkySand" size="tap" className="w-full" onClick={onNew}>
-          <PixelIcon name="recomecar" /> {t("botao.nova_missao")}
-        </Button>
+    <div className="flex h-full flex-col items-center overflow-y-auto p-3 text-center sm:p-4" style={FUNDO_HUB}>
+      <div className={`${PAINEL_HUB} my-auto flex w-full max-w-2xl 2xl:max-w-3xl flex-col items-center gap-[clamp(0.5rem,2dvh,1rem)] p-[clamp(0.75rem,2.6dvh,1.5rem)]`}>
+        <PixelIcon name={icon} size={88} />
+        <p className={`${DESTAQUE} px-3 py-1 font-display text-sm font-bold`}>{t("ui.fim.quem")}</p>
+        <TituloHub className="text-[clamp(1.5rem,5.5vw,2.5rem)]">{t(d.titleKey)}</TituloHub>
+        <p className="max-w-lg text-lg leading-snug text-[#fbe6c8] sm:text-xl">{t(d.bodyKey)}</p>
+        {/* números da missão em duas caixinhas */}
+        <div className="grid w-full max-w-md grid-cols-2 gap-3">
+          <p className={`${DESTAQUE} flex items-center justify-center gap-2 px-2 py-2 font-display text-sm font-bold sm:text-base`}>
+            <PixelIcon name="microscopio" size={22} /> {d.ciencia}/{d.metaCiencia}
+          </p>
+          <p className={`${DESTAQUE} flex items-center justify-center gap-2 px-2 py-2 font-display text-sm font-bold sm:text-base`}>
+            <PixelIcon name="sol" size={22} /> {Math.max(0, d.soisCompletos)}/{d.totalSols}
+          </p>
+        </div>
+        <p className="sr-only">
+          {t("ui.relatorio.ciencia", { n: d.ciencia, meta: d.metaCiencia })} ·{" "}
+          {t("ui.relatorio.sois", { n: Math.max(0, d.soisCompletos), total: d.totalSols })}
+        </p>
+        {novas.length > 0 && (
+          <section className="w-full">
+            <TituloHub as="h2" className="mb-3 text-[clamp(1.1rem,3.6vw,1.6rem)]">
+              {t("ui.fig.novas")}
+            </TituloHub>
+            <StickerGrid ids={novas} so={novas} />
+          </section>
+        )}
+        <div className="flex w-full max-w-md flex-col gap-2 pt-1">
+          <BotaoHub principal onClick={onReport}>
+            <PixelIcon name="relatorio" /> {t("ui.relatorio.ver")}
+          </BotaoHub>
+          <BotaoHub onClick={onNew}>
+            <PixelIcon name="recomecar" /> {t("botao.nova_missao")}
+          </BotaoHub>
+        </div>
       </div>
     </div>
   );
@@ -439,46 +449,44 @@ function Chart({ history }: { history: HistoryPoint[] }) {
   const W = 300;
   const H = 120;
   const n = Math.max(1, history.length - 1);
-  const xy = (i: number, v: number) =>
-    `${(i / n) * (W - 20) + 10},${H - 10 - (v / 100) * (H - 20)}`;
+  const xy = (i: number, v: number) => `${(i / n) * (W - 20) + 10},${H - 10 - (v / 100) * (H - 20)}`;
   const linhas = [
-    { k: "ar" as const, cor: "oklch(0.7 0.12 230)", icon: "o2" },
-    { k: "comida" as const, cor: "oklch(0.8 0.12 85)", icon: "batata" },
-    { k: "saude" as const, cor: "oklch(0.65 0.2 25)", icon: "coracao" },
+    { k: "ar" as const, cor: "#6cc6ff", icon: "o2" },
+    { k: "comida" as const, cor: "#ffd23f", icon: "batata" },
+    { k: "saude" as const, cor: "#ff6b5e", icon: "coracao" },
   ];
   return (
-    <figure className="rounded-2xl bg-muted p-3 text-card-foreground">
-      <figcaption className="mb-2 font-bold">{t("ui.relatorio.grafico")}</figcaption>
-      <svg
-        viewBox={`0 0 ${W} ${H}`}
-        className="h-auto w-full"
-        role="img"
-        aria-label={t("ui.relatorio.grafico")}
-      >
-        <line
-          x1="10"
-          y1={H - 10}
-          x2={W - 10}
-          y2={H - 10}
-          stroke="currentColor"
-          strokeOpacity="0.3"
-        />
-        <line x1="10" y1={10} x2={W - 10} y2={10} stroke="currentColor" strokeOpacity="0.1" />
+    <figure className={`${CARTAO_ESCURO} p-3`}>
+      <figcaption className="mb-2 font-display font-bold text-[#f6e38c]">{t("ui.relatorio.grafico")}</figcaption>
+      <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label={t("ui.relatorio.grafico")}>
+        {/* grade em "pixels" */}
+        {[0, 25, 50, 75, 100].map((v) => (
+          <line
+            key={v}
+            x1="10"
+            x2={W - 10}
+            y1={H - 10 - (v / 100) * (H - 20)}
+            y2={H - 10 - (v / 100) * (H - 20)}
+            stroke="#fbe6c8"
+            strokeOpacity={v === 0 ? 0.45 : 0.12}
+            strokeDasharray={v === 0 ? undefined : "3 3"}
+          />
+        ))}
         {linhas.map((l) => (
           <polyline
             key={l.k}
             fill="none"
             stroke={l.cor}
             strokeWidth="3"
-            strokeLinejoin="round"
+            strokeLinejoin="miter"
             points={history.map((h, i) => xy(i, h[l.k])).join(" ")}
           />
         ))}
       </svg>
-      <div className="mt-1 flex justify-center gap-4 text-sm">
+      <div className="mt-2 flex flex-wrap justify-center gap-4 text-sm">
         {linhas.map((l) => (
           <span key={l.k} className="flex items-center gap-1">
-            <span className="inline-block h-2 w-4 rounded" style={{ background: l.cor }} />
+            <span className="inline-block h-2 w-4" style={{ background: l.cor }} />
             <PixelIcon name={l.icon} size={18} /> {t(`recurso.${l.k}`)}
           </span>
         ))}
@@ -498,115 +506,107 @@ export function Report({
 }) {
   const { t, lang } = useGT();
   const d = debrief(state);
+  const subtitulo = "font-display text-[clamp(0.95rem,2.6vw,1.25rem)]";
   return (
-    <div className="h-full overflow-y-auto p-4 2xl:overflow-hidden">
+    <div className="h-full overflow-y-auto p-3 sm:p-4 2xl:overflow-hidden" style={FUNDO_HUB}>
       {/* telas grandes (1920+): 3 colunas, tudo na tela sem rolar */}
       <div className="mx-auto flex max-w-2xl flex-col gap-4 2xl:grid 2xl:h-full 2xl:max-w-[1760px] 2xl:grid-cols-3 2xl:grid-rows-[auto_1fr] 2xl:gap-x-6 2xl:gap-y-3">
-        <header className="flex flex-col gap-2 2xl:col-span-3">
-        <h1 className="text-center font-display text-3xl font-bold text-[#ffd23f]">
-          <PixelIcon name="relatorio" /> {t("ui.relatorio.titulo")}
-        </h1>
-        <p className="text-center text-lg font-bold">
-          {t(d.titleKey)} · {t("ui.relatorio.ciencia", { n: d.ciencia, meta: d.metaCiencia })}
-        </p>
+        <header className={`${PAINEL_HUB} flex flex-col items-center gap-2 p-4 text-center 2xl:col-span-3`}>
+          <TituloHub className="text-[clamp(1.25rem,4.5vw,2.25rem)]">
+            <PixelIcon name="relatorio" size={32} /> {t("ui.relatorio.titulo")}
+          </TituloHub>
+          <p className="font-display text-sm font-bold text-[#fbe6c8] sm:text-base">
+            {t(d.titleKey)} · {t("ui.relatorio.ciencia", { n: d.ciencia, meta: d.metaCiencia })}
+          </p>
         </header>
 
-        <div className="flex min-h-0 flex-col gap-4">
-        <Chart history={d.history} />
+        <div className={`${PAINEL_HUB} flex min-h-0 flex-col gap-4 p-4`}>
+          <Chart history={d.history} />
 
-        {d.causaKey && (
-          <section className="rounded-2xl border-4 border-destructive/50 bg-card p-3 text-card-foreground">
-            <p className="text-lg font-bold">{t(d.causaKey)}</p>
-            {d.dicaKey && <p className="mt-1">{t(d.dicaKey)}</p>}
-          </section>
-        )}
-
-        <p className="rounded-2xl bg-accent p-3 text-accent-foreground"><PixelIcon name="lampada" size={20} /> {t(d.fatoKey)}</p>
-        <div className="flex flex-col gap-2 pb-4 2xl:pb-0">
-          {d.voltarAoSol !== undefined && state.status === "resgate" && (
-            <Button
-              variant="chunky"
-              size="tap"
-              className="w-full text-lg"
-              onClick={() => onRewind(d.voltarAoSol!)}
-            >
-              <PixelIcon name="voltar" /> {t("botao.voltar_sol", { sol: d.voltarAoSol })}
-            </Button>
+          {d.causaKey && (
+            <section className="border-4 border-[#ff6b5e] bg-[#3b1206]/90 p-3 text-[#fbe6c8] shadow-[0_4px_0_#1c0703]">
+              <p className="text-lg font-bold">{t(d.causaKey)}</p>
+              {d.dicaKey && <p className="mt-1">{t(d.dicaKey)}</p>}
+            </section>
           )}
-          <Button variant="chunkySand" size="tap" className="w-full" onClick={onNew}>
-            <PixelIcon name="recomecar" /> {t("botao.nova_missao")}
-          </Button>
-          <Button asChild variant="ghost" size="tap" className="w-full">
-            <Link to="/"><PlaceIcon place="habitat" size={24} /> {t("ui.inicio")}</Link>
-          </Button>
-        </div>
-        </div>
 
-        <div className="flex min-h-0 flex-col gap-4 2xl:overflow-y-auto">
-        <section className="flex flex-col gap-2">
-          <h2 className="font-display text-xl font-bold text-[#ffd23f]">
-            {t("ui.relatorio.decisoes")}
-          </h2>
-          {d.momentos.length === 0 && <p>{t("ui.relatorio.sem_decisoes")}</p>}
-          {d.momentos.map((m) => (
-            <div
-              key={`${m.sol}-${m.eventId}-${m.choiceId}`}
-              className="rounded-2xl bg-muted p-3 text-card-foreground"
-            >
-              <p className="text-sm font-bold text-muted-foreground">
-                {t("ui.relatorio.sol", { sol: m.sol })}
-              </p>
-              {m.eventId && <p className="font-bold">{t(eventKey.title(m.eventId))}</p>}
-              {m.eventId && m.choiceId && m.choiceId !== "inicio" && (
-                <p>→ {t(eventKey.label(m.eventId, m.choiceId))}</p>
-              )}
-              {m.lessonKey && <p className="mt-1 rounded-xl bg-accent p-2"><PixelIcon name="lampada" size={20} /> {t(m.lessonKey)}</p>}
-            </div>
-          ))}
-        </section>
-        <section className="flex flex-col gap-2">
-          <h2 className="font-display text-xl font-bold text-[#ffd23f]">{t("ui.fig.album")}</h2>
-
-          <StickerGrid ids={loadStickers()} />
-        </section>
+          <p className={`${DESTAQUE} flex gap-2 p-3 text-left`}>
+            <PixelIcon name="lampada" size={22} />
+            <span>{t(d.fatoKey)}</span>
+          </p>
+          <div className="flex flex-col gap-2 pb-1">
+            {d.voltarAoSol !== undefined && state.status === "resgate" && (
+              <BotaoHub principal onClick={() => onRewind(d.voltarAoSol!)}>
+                <PixelIcon name="voltar" /> {t("botao.voltar_sol", { sol: d.voltarAoSol })}
+              </BotaoHub>
+            )}
+            <BotaoHub principal={!(d.voltarAoSol !== undefined && state.status === "resgate")} onClick={onNew}>
+              <PixelIcon name="recomecar" /> {t("botao.nova_missao")}
+            </BotaoHub>
+            <Link to="/" className={`${BOTAO_ESCURO} w-full text-base`}>
+              <PlaceIcon place="habitat" size={24} /> {t("ui.inicio")}
+            </Link>
+          </div>
         </div>
 
-        <div className="flex min-h-0 flex-col gap-4 2xl:overflow-y-auto">
-        <section className="flex flex-col gap-2">
-          <h2 className="font-display text-xl font-bold text-[#ffd23f]">
-            <PixelIcon name="sol" /> {t("ui.relatorio.reais")}
-          </h2>
-          <p className="text-sm text-foreground/80">{t("ui.relatorio.reais_explica")}</p>
-          {d.realEvents.length === 0 && <p>{t("ui.relatorio.nenhum")}</p>}
-          {d.realEvents.map(({ sol, event }) => (
-            <div
-              key={`${sol}-${event.donkiId}`}
-              className="flex flex-wrap items-center gap-2 rounded-2xl bg-muted p-3 text-card-foreground"
-            >
-              <span className="font-bold">{t(`donki.${event.kind}`)}</span>
-              <span className="inline-flex" role="img" aria-label={t("ui.forca", { n: event.forca })}>
-                {Array.from({ length: event.forca }, (_, i) => <PixelIcon key={i} name="estrela" size={18} />)}
-              </span>
-              <span className="text-sm">
-                {formatarData(event.date, lang)} · {event.label}
-              </span>
-              <span className="text-xs text-muted-foreground">
-                {event.live ? t("selo.ao_vivo") : ""}
-              </span>
-              <a
-                href={event.link}
-                target="_blank"
-                rel="noreferrer"
-                className="ml-auto text-sm font-semibold text-secondary underline underline-offset-4"
-              >
-                {t("ui.relatorio.ver_nasa")}
-              </a>
-            </div>
-          ))}
-        </section>
+        <div className={`${PAINEL_HUB} flex min-h-0 flex-col gap-4 p-4 2xl:overflow-y-auto`}>
+          <section className="flex flex-col gap-2">
+            <TituloHub as="h2" className={subtitulo}>
+              {t("ui.relatorio.decisoes")}
+            </TituloHub>
+            {d.momentos.length === 0 && <p className="text-[#fbe6c8]">{t("ui.relatorio.sem_decisoes")}</p>}
+            {d.momentos.map((m) => (
+              <div key={`${m.sol}-${m.eventId}-${m.choiceId}`} className={`${CARTAO_ESCURO} p-3 text-left`}>
+                <p className="font-display text-xs font-bold text-[#f3c916]">{t("ui.relatorio.sol", { sol: m.sol })}</p>
+                {m.eventId && <p className="font-bold">{t(eventKey.title(m.eventId))}</p>}
+                {m.eventId && m.choiceId && m.choiceId !== "inicio" && (
+                  <p>→ {t(eventKey.label(m.eventId, m.choiceId))}</p>
+                )}
+                {m.lessonKey && (
+                  <p className={`${DESTAQUE} mt-2 flex gap-2 p-2 text-sm`}>
+                    <PixelIcon name="lampada" size={20} />
+                    <span>{t(m.lessonKey)}</span>
+                  </p>
+                )}
+              </div>
+            ))}
+          </section>
+          <section className="flex flex-col gap-2">
+            <TituloHub as="h2" className={subtitulo}>
+              {t("ui.fig.album")}
+            </TituloHub>
+            <StickerGrid ids={loadStickers()} />
+          </section>
+        </div>
 
-
-
+        <div className={`${PAINEL_HUB} flex min-h-0 flex-col gap-4 p-4 2xl:overflow-y-auto`}>
+          <section className="flex flex-col gap-2">
+            <TituloHub as="h2" className={subtitulo}>
+              <PixelIcon name="sol" /> {t("ui.relatorio.reais")}
+            </TituloHub>
+            <p className="text-sm text-[#fbe6c8]/85">{t("ui.relatorio.reais_explica")}</p>
+            {d.realEvents.length === 0 && <p className="text-[#fbe6c8]">{t("ui.relatorio.nenhum")}</p>}
+            {d.realEvents.map(({ sol, event }) => (
+              <div key={`${sol}-${event.donkiId}`} className={`${CARTAO_ESCURO} flex flex-wrap items-center gap-2 p-3 text-left`}>
+                <span className="font-bold">{t(`donki.${event.kind}`)}</span>
+                <span className="inline-flex" role="img" aria-label={t("ui.forca", { n: event.forca })}>
+                  {Array.from({ length: event.forca }, (_, i) => <PixelIcon key={i} name="estrela" size={18} />)}
+                </span>
+                <span className="text-sm">
+                  {formatarData(event.date, lang)} · {event.label}
+                </span>
+                <span className="text-xs text-[#fbe6c8]/70">{event.live ? t("selo.ao_vivo") : ""}</span>
+                <a
+                  href={event.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ml-auto text-sm font-semibold text-[#f3c916] underline underline-offset-4"
+                >
+                  {t("ui.relatorio.ver_nasa")}
+                </a>
+              </div>
+            ))}
+          </section>
         </div>
       </div>
     </div>

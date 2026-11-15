@@ -10,68 +10,102 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
-import { I18nProvider } from "@/i18n";
+import { I18nProvider, useT, type MessageKey } from "@/i18n";
+import { FUNDO_HUB, PAINEL_HUB, TituloHub } from "@/game/ui/hub";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
+/**
+ * Moldura das páginas de aviso (404 e erro), no mesmo estilo do menu inicial: arte da base ao
+ * fundo, painel com moldura, rover "perdido" e título amarelo. Tem o próprio I18nProvider porque a
+ * página de erro aparece no lugar do layout inteiro (fora do provider do site).
+ */
+function PaginaAviso({ numero, titulo, texto, children }: { numero?: string; titulo: MessageKey; texto: MessageKey; children: ReactNode }) {
+  const t = useT();
+  return (
+    <main className="flex min-h-screen items-center justify-center p-4" style={FUNDO_HUB}>
+      <div className={`${PAINEL_HUB} flex w-full max-w-lg flex-col items-center gap-4 p-6 text-center`}>
+        <div className="relative">
+          <img src="/assets/rover/sw_0.png" alt="" width={168} height={168} className="pixelated h-[clamp(110px,22vw,168px)] w-auto" />
+          <span
+            className="absolute right-2 top-2 grid h-10 w-10 place-items-center border-4 border-[#5a1d07] bg-[#f3c916] font-display text-xl font-bold text-[#2a0508] shadow-[0_4px_0_#1c0703]"
+            aria-hidden
+          >
+            ?
+          </span>
+        </div>
+        {numero && <TituloHub className="text-[clamp(2.5rem,10vw,4rem)] leading-none">{numero}</TituloHub>}
+        <TituloHub as={numero ? "h2" : "h1"} className="text-[clamp(1rem,4vw,1.5rem)]">
+          {t(titulo)}
+        </TituloHub>
+        <p className="text-lg leading-snug text-[#fbe6c8]">{t(texto)}</p>
+        <div className="flex w-full flex-col gap-2 pt-1">{children}</div>
+      </div>
+    </main>
+  );
+}
+
+function BotaoLink({ href, principal = false, children }: { href: string; principal?: boolean; children: ReactNode }) {
+  return (
+    <a
+      href={href}
+      className={`botao-arte flex min-h-14 w-full items-center justify-center px-5 font-display text-base ${principal ? "" : "brightness-[0.88] saturate-[0.9]"} hover:brightness-110`}
+    >
+      {children}
+    </a>
+  );
+}
+
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="botao-arte inline-flex min-h-12 items-center justify-center px-5 text-lg hover:brightness-110"
-          >
-            Go home
-          </Link>
-        </div>
-      </div>
-    </div>
+    <I18nProvider>
+      <NotFoundConteudo />
+    </I18nProvider>
+  );
+}
+function NotFoundConteudo() {
+  const t = useT();
+  return (
+    <PaginaAviso numero="404" titulo="notFoundTitle" texto="notFoundText">
+      <Link
+        to="/"
+        className="botao-arte flex min-h-14 w-full items-center justify-center px-5 font-display text-base hover:brightness-110"
+      >
+        {t("backHome")}
+      </Link>
+    </PaginaAviso>
   );
 }
 
 function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
-  const router = useRouter();
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
-
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="botao-arte inline-flex min-h-12 items-center justify-center px-5 text-lg hover:brightness-110"
-          >
-            Try again
-          </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-          >
-            Go home
-          </a>
-        </div>
-      </div>
-    </div>
+    <I18nProvider>
+      <ErroConteudo reset={reset} />
+    </I18nProvider>
+  );
+}
+function ErroConteudo({ reset }: { reset: () => void }) {
+  const t = useT();
+  const router = useRouter();
+  return (
+    <PaginaAviso titulo="errorTitle" texto="errorText">
+      <button
+        type="button"
+        onClick={() => {
+          router.invalidate();
+          reset();
+        }}
+        className="botao-arte flex min-h-14 w-full items-center justify-center px-5 font-display text-base hover:brightness-110"
+      >
+        {t("tryAgain")}
+      </button>
+      <BotaoLink href="/">{t("backHome")}</BotaoLink>
+    </PaginaAviso>
   );
 }
 

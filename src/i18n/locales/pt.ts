@@ -40,6 +40,11 @@ export const pt = {
   footer: "Feito para o NASA Space Apps Challenge 2026",
   pauseAnimation: "Pausar animação",
   playAnimation: "Continuar animação",
+  notFoundTitle: "Ops! Essa página se perdeu em Marte.",
+  notFoundText: "O rover procurou por todo lado, mas não achou nada aqui.",
+  errorTitle: "Algo deu errado na base.",
+  errorText: "Não foi culpa sua. Tente de novo ou volte ao início.",
+  tryAgain: "Tentar de novo",
 };
 
 export type MessageKey = keyof typeof pt;

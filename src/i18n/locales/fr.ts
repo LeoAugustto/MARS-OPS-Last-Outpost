@@ -41,4 +41,9 @@ export const fr: Messages = {
   footer: "Créé pour le NASA Space Apps Challenge 2026",
   pauseAnimation: "Mettre l'animation en pause",
   playAnimation: "Relancer l'animation",
+  notFoundTitle: "Oups ! Cette page s'est perdue sur Mars.",
+  notFoundText: "Le rover a cherché partout, mais n'a rien trouvé ici.",
+  errorTitle: "Quelque chose s'est mal passé à la base.",
+  errorText: "Ce n'est pas ta faute. Réessaie ou reviens au début.",
+  tryAgain: "Réessayer",
 };
