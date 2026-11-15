@@ -12,7 +12,7 @@ import {
 } from "@/game/engine";
 import { ART } from "./art";
 import { PixelIcon } from "./PixelIcon";
-import { BOTAO_ESCURO, BotaoHub, MOLDURA_HUB, TEXTO_MENU, TituloHub } from "./hub";
+import { BOTAO_CONTAINER, BOTAO_ESCURO, BotaoHub, LETRA_BOTAO, MOLDURA_HUB, TituloHub } from "./hub";
 import { DialogBox, Modal, PlaceIcon, PlaceScene, useGT } from "./shared";
 
 // ---------------------------------------------------------------- energia
@@ -365,7 +365,7 @@ export function GameMenu({
   const { t } = useGT();
   // mesmo estilo do menu inicial (hub): peças em hub.tsx
   const opcoes: { icone: ReactNode; texto: string; onClick: () => void }[] = [
-    { icone: <PixelIcon name="btn_ajuda" />, texto: t("ui.menu.ajuda"), onClick: onHowTo },
+    { icone: <PixelIcon name="ajuda" />, texto: t("ui.menu.ajuda"), onClick: onHowTo },
     {
       icone: <img src={ART.portraits.rovi.src} alt="" className="h-6 w-6 object-contain" />,
       texto: t("ui.menu.tutorial"),
@@ -422,9 +422,11 @@ export function GameMenu({
             <button
               type="button"
               onClick={onExit}
-              className={`${BOTAO_ESCURO} w-full gap-3 ${TEXTO_MENU}`}
+              className={`${BOTAO_ESCURO} w-full ${BOTAO_CONTAINER}`}
             >
-              <PlaceIcon place="habitat" size={24} /> {t("ui.menu.sair")}
+              <span className={LETRA_BOTAO}>
+                <PlaceIcon place="habitat" size={24} /> {t("ui.menu.sair")}
+              </span>
             </button>
           </div>
         </div>

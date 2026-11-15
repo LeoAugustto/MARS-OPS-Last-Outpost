@@ -91,13 +91,18 @@ export const SAUDE_POR_ENERGIA_FALTANDO = 2;
  * tutorial abertos pausam o relógio). Cadete tem mais tempo. (jogo)
  */
 export const SEGUNDOS_POR_SOL: Record<Level, number> = {
-  cadete: 150,
-  piloto: 120,
-  comandante: 100,
+  // 16 s por hora do relógio: a noite (18h30) chega em ~3 min de mapa livre
+  cadete: 272,
+  // 13 s por hora: ~2,5 min até a noite
+  piloto: 221,
+  // 11 s por hora: ~2 min até a noite
+  comandante: 187,
 };
-/** fração do sol em que começa o entardecer e a noite (0 = manhã, 1 = hora de dormir) (jogo) */
-export const ENTARDECER_EM = 0.6;
-export const NOITE_EM = 0.82;
+/** duração do sol no relógio do jogo: 07:00 → 24:00 (meia-noite: o relógio para e espera a cama) (jogo) */
+export const HORAS_DO_SOL = 17;
+/** fração do sol em que começa o entardecer (16h30) e a noite (18h30) (0 = 07:00, 1 = 24:00) (jogo) */
+export const ENTARDECER_EM = 9.5 / HORAS_DO_SOL;
+export const NOITE_EM = 11.5 / HORAS_DO_SOL;
 /** a noite chegou e a tripulação ainda está acordada: cansaço, uma vez por sol (jogo) */
 export const SAUDE_AO_ANOITECER = 4;
 /** dormir com alerta sem resposta: a tripulação dorme preocupada, por alerta (jogo) */
@@ -115,7 +120,5 @@ export const PESO_LUGAR_ONTEM = 0.6;
 /** quantos eventos das últimas missões o aparelho lembra (só ids de eventos, nada pessoal) */
 export const RECENTES_MAX = 40;
 
-/** duração do sol no relógio do jogo: 07:00 → 19:00 (jogo) */
-export const HORAS_DO_SOL = 12;
 /** andar o lado inteiro do mapa gasta 1 hora (jogo) */
 export const HORAS_POR_MAPA_ANDADO = 1;

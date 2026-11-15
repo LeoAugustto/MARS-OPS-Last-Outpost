@@ -45,11 +45,8 @@ export function LevelSelect({
 }) {
   const { t } = useGT();
   const [nivel, setNivel] = useState<Level>("cadete");
-  const niveis: { l: Level; estrelas: number }[] = [
-    { l: "cadete", estrelas: 1 },
-    { l: "piloto", estrelas: 2 },
-    { l: "comandante", estrelas: 3 },
-  ];
+  // insígnia de cada nível (public/assets/ui/nivel_<nivel>.png): listras, asas, asas com coroa
+  const niveis: Level[] = ["cadete", "piloto", "comandante"];
   return (
     <div className="flex h-full flex-col items-center gap-3 overflow-y-auto p-4" style={FUNDO_HUB}>
       <div className="flex w-full max-w-xl 2xl:max-w-3xl items-center justify-between">
@@ -63,7 +60,7 @@ export function LevelSelect({
       </div>
       <TituloHub className="text-center text-[clamp(1.4rem,5vw,2.25rem)]">{t("ui.nivel.titulo")}</TituloHub>
       <div className="grid w-full max-w-xl 2xl:max-w-3xl gap-3" role="radiogroup" aria-label={t("ui.nivel.titulo")}>
-        {niveis.map(({ l, estrelas }) => (
+        {niveis.map((l) => (
           <button
             key={l}
             type="button"
@@ -71,7 +68,7 @@ export function LevelSelect({
             aria-checked={nivel === l}
             disabled={loading}
             onClick={() => setNivel(l)}
-            className={`relative flex min-h-20 items-stretch gap-2 border-4 p-1.5 text-left text-[#fbe6c8] shadow-[0_6px_0_#1c0703] transition hover:brightness-110 active:translate-y-1 active:shadow-none disabled:opacity-50 ${
+            className={`relative flex min-h-16 items-stretch gap-2 border-4 p-1.5 text-left sm:min-h-20 text-[#fbe6c8] shadow-[0_6px_0_#1c0703] transition hover:brightness-110 active:translate-y-1 active:shadow-none disabled:opacity-50 ${
               nivel === l
                 ? "border-[#f3c916] bg-[#5a1d07] ring-4 ring-[#f3c916]/35"
                 : "border-[#5a1d07] bg-[#2a0508]/90"
@@ -89,33 +86,29 @@ export function LevelSelect({
                 aria-hidden
               />
             ))}
-            <span className="flex flex-1 flex-col justify-center px-3 py-1">
-              <span className={`flex items-center gap-2 font-display text-2xl font-bold ${nivel === l ? "text-[#f3c916]" : ""}`}>
+            <span className="flex min-w-0 flex-1 flex-col justify-center px-2 py-1 sm:px-3">
+              <span className={`flex items-center gap-2 font-display text-[clamp(1rem,4.4vw,1.5rem)] font-bold leading-tight ${nivel === l ? "text-[#f3c916]" : ""}`}>
                 {t(`nivel.${l}`)}
                 {nivel === l && <PixelIcon name="ok" size={22} />}
               </span>
               <span className="block text-[#e0c09a]">{t(`ui.nivel.${l}`, { sois: BALANCE.LEVELS[l].totalSols })}</span>
             </span>
             <span
-              className="flex w-24 shrink-0 items-center justify-center gap-0.5 border-4 border-[#5a1d07] bg-[#1c0703]/70 sm:w-28"
+              className="flex w-20 shrink-0 items-center justify-center border-4 border-[#5a1d07] bg-[#1c0703]/70 p-1 sm:w-32"
               aria-hidden
             >
-              {/* dificuldade em foguetes (estrela é o prêmio de ciência do fim da missão) */}
-              {Array.from({ length: estrelas }, (_, i) => (
-                <img
-                  key={i}
-                  src="/assets/ui/foguete.png"
-                  alt=""
-                  className="h-7 w-7 sm:h-8 sm:w-8"
-                  style={{ imageRendering: "pixelated" }}
-                />
-              ))}
+              <img
+                src={`/assets/ui/nivel_${l}.png`}
+                alt=""
+                className={`h-10 w-full object-contain transition sm:h-14 ${nivel === l ? "" : "opacity-80 saturate-[0.8]"}`}
+                style={{ imageRendering: "pixelated" }}
+              />
             </span>
           </button>
         ))}
       </div>
       <fieldset className={`${PAINEL_HUB} w-full max-w-xl 2xl:max-w-3xl p-3 text-[#fbe6c8]`}>
-        <legend className="border-4 border-[#a8400f] bg-[#2a0508] px-2 font-display text-lg font-bold text-[#f3c916]">
+        <legend className="border-4 border-[#a8400f] bg-[#2a0508] px-2 font-display text-base font-bold text-[#f3c916] sm:text-lg">
           {t("ui.fonte.titulo")}
         </legend>
         <div className="grid gap-2 sm:grid-cols-3" role="radiogroup">
@@ -158,7 +151,7 @@ export function LevelSelect({
       </fieldset>
 
       {/* embaixo da fonte dos dados: continuar a missão salva ou começar uma nova */}
-      <div className="grid w-full max-w-xl 2xl:max-w-3xl gap-3 sm:grid-cols-2">
+      <div className="sticky bottom-0 z-10 -mb-4 grid w-full max-w-xl gap-3 bg-gradient-to-t from-[#1c0408] from-60% to-transparent pb-4 pt-4 sm:static sm:mb-0 sm:grid-cols-2 sm:bg-none sm:p-0 2xl:max-w-3xl">
         {saveSol !== null && (
           <BotaoHub onClick={onContinue}>
             <PixelIcon name="play" /> {t("ui.continuar", { sol: saveSol })}
@@ -209,7 +202,8 @@ export function ProfileScreen({
           <button type="button" onClick={onBack} className={`${BOTAO_ESCURO} min-w-0 text-[clamp(0.7rem,3.2vw,0.95rem)]`}>
             ← <span className="truncate">{t("ui.nivel.titulo")}</span>
           </button>
-          <div className="shrink-0">
+          <div className="flex shrink-0 items-center gap-2">
+            <FullscreenButton />
             <LangSelector />
           </div>
         </div>
@@ -268,7 +262,7 @@ export function ProfileScreen({
           <span className="text-sm text-[#fbe6c8]/80">{t("ui.perfil.dica")}</span>
         </label>
         <BotaoHub principal type="submit" className="mx-auto max-w-[max(240px,70dvh)]">
-          {t("ui.proximo")} <PixelIcon name="play" />
+          {t("ui.proximo")}
         </BotaoHub>
       </div>
     </form>
@@ -289,7 +283,8 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
   const ultimo = i === quadros.length - 1;
   return (
     <div className="sem-barra flex h-full flex-col items-center overflow-y-auto p-[clamp(0.4rem,1.6dvh,1rem)] text-center" style={FUNDO_HUB}>
-      <div className={`${MOLDURA_HUB} my-auto flex w-full max-w-xl 2xl:max-w-2xl flex-col items-center gap-[clamp(0.4rem,1.8dvh,1rem)] bg-[#2a0508]/80 p-[clamp(0.6rem,2.4dvh,1.5rem)]`}>
+      <div className={`${MOLDURA_HUB} relative my-auto flex w-full max-w-xl 2xl:max-w-2xl flex-col items-center gap-[clamp(0.4rem,1.8dvh,1rem)] bg-[#2a0508]/80 p-[clamp(0.6rem,2.4dvh,1.5rem)]`}>
+        <FullscreenButton className="absolute right-2 top-2" />
         <img
           src={ART.portraits.rovi.src}
           alt=""
@@ -339,7 +334,7 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
             </>
           ) : (
             <>
-              {t("ui.proximo")} <PixelIcon name="play" />
+              {t("ui.proximo")}
             </>
           )}
         </BotaoHub>
@@ -357,13 +352,13 @@ export function StickerGrid({ ids, so }: { ids: string[]; so?: string[] }) {
   const { t } = useGT();
   const lista = so ? STICKERS.filter((k) => so.includes(k.id)) : STICKERS;
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,8.5rem),1fr))] gap-3">
       {lista.map((k) => {
         const tem = ids.includes(k.id);
         return (
           <div
             key={k.id}
-            className={`flex flex-col items-center gap-1 border-4 p-2 text-center ${
+            className={`flex min-w-0 flex-col items-center gap-1 border-4 p-2 text-center ${
               tem
                 ? "border-[#f3c916] bg-[#f8dfba] text-[#3a2015] shadow-[0_5px_0_#a8400f]"
                 : "border-[#5a1d07] bg-[#3b1206]/85 text-[#c9a27c] shadow-[0_5px_0_#1c0703]"
@@ -376,8 +371,10 @@ export function StickerGrid({ ids, so }: { ids: string[]; so?: string[] }) {
               className={`h-12 w-12 ${tem ? "" : "opacity-50 grayscale"}`}
               style={{ imageRendering: "pixelated" }}
             />
-            <span className="font-display text-sm font-bold leading-tight">{t(`fig.${k.id}`)}</span>
-            <span className="text-xs leading-tight">{t(`fig.${k.id}.desc`, { max: BALANCE.ESCUDO_MAX })}</span>
+            <span className="w-full font-display text-[0.7rem] font-bold leading-snug [overflow-wrap:anywhere] [hyphens:auto] sm:text-xs">
+              {t(`fig.${k.id}`)}
+            </span>
+            <span className="w-full text-sm leading-tight [overflow-wrap:anywhere]">{t(`fig.${k.id}.desc`, { max: BALANCE.ESCUDO_MAX })}</span>
           </div>
         );
       })}
@@ -431,7 +428,8 @@ export function EndScreen({
   // mesmo estilo do menu inicial: arte da base ao fundo e painel com moldura (ver hub.tsx)
   return (
     <div className="flex h-full flex-col items-center overflow-y-auto p-3 text-center sm:p-4" style={FUNDO_HUB}>
-      <div className={`${PAINEL_HUB} my-auto flex w-full max-w-2xl 2xl:max-w-3xl flex-col items-center gap-[clamp(0.5rem,2dvh,1rem)] p-[clamp(0.75rem,2.6dvh,1.5rem)]`}>
+      <div className={`${PAINEL_HUB} relative my-auto flex w-full max-w-2xl 2xl:max-w-3xl flex-col items-center gap-[clamp(0.5rem,2dvh,1rem)] p-[clamp(0.75rem,2.6dvh,1.5rem)]`}>
+        <FullscreenButton className="absolute right-2 top-2" />
         <PixelIcon name={icon} size={88} />
         <p className={`${DESTAQUE} px-3 py-1 font-display text-sm font-bold`}>{t("ui.fim.quem")}</p>
         <TituloHub className="text-[clamp(1.5rem,5.5vw,2.5rem)]">{t(d.titleKey)}</TituloHub>
@@ -527,19 +525,28 @@ export function Report({
   state,
   onRewind,
   onNew,
+  onBack,
 }: {
   state: GameState;
   onRewind: (sol: number) => void;
   onNew: () => void;
+  /** volta para a tela final (estrelas e figurinhas novas) */
+  onBack: () => void;
 }) {
   const { t, lang } = useGT();
   const d = debrief(state);
   const subtitulo = "font-display text-[clamp(0.95rem,2.6vw,1.25rem)]";
   return (
-    <div className="h-full overflow-y-auto p-3 sm:p-4 2xl:overflow-hidden" style={FUNDO_HUB}>
+    <div className="h-full overflow-y-auto p-3 sm:p-4" style={FUNDO_HUB}>
       {/* telas grandes (1920+): 3 colunas, tudo na tela sem rolar */}
       <div className="mx-auto flex max-w-2xl flex-col gap-4 2xl:grid 2xl:h-full 2xl:max-w-[1760px] 2xl:grid-cols-3 2xl:grid-rows-[auto_1fr] 2xl:gap-x-6 2xl:gap-y-3">
-        <header className={`${PAINEL_HUB} flex flex-col items-center gap-2 p-4 text-center 2xl:col-span-3`}>
+        <header className={`${PAINEL_HUB} flex flex-col items-center gap-2 p-3 text-center sm:p-4 2xl:col-span-3`}>
+          <div className="flex w-full items-center justify-between gap-2">
+            <button type="button" onClick={onBack} className={`${BOTAO_ESCURO} text-base`}>
+              ← {t("ui.relatorio.voltar_fim")}
+            </button>
+            <FullscreenButton />
+          </div>
           <TituloHub className="text-[clamp(1.25rem,4.5vw,2.25rem)]">
             <PixelIcon name="relatorio" size={32} /> {t("ui.relatorio.titulo")}
           </TituloHub>
@@ -548,7 +555,7 @@ export function Report({
           </p>
         </header>
 
-        <div className={`${PAINEL_HUB} flex min-h-0 flex-col gap-4 p-4`}>
+        <div className={`${PAINEL_HUB} flex min-h-0 flex-col gap-4 p-4 2xl:overflow-y-auto`}>
           <Chart history={d.history} />
 
           {d.causaKey && (
@@ -571,7 +578,7 @@ export function Report({
             <BotaoHub principal={!(d.voltarAoSol !== undefined && state.status === "resgate")} onClick={onNew}>
               <PixelIcon name="recomecar" /> {t("botao.nova_missao")}
             </BotaoHub>
-            <Link to="/" className={`${BOTAO_ESCURO} w-full text-base`}>
+            <Link to="/" className={`${BOTAO_ESCURO} w-full shrink-0 text-base`}>
               <PlaceIcon place="habitat" size={24} /> {t("ui.inicio")}
             </Link>
           </div>

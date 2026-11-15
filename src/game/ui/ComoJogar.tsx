@@ -145,7 +145,7 @@ export function ComoJogar({ onClose }: { onClose: () => void }) {
 
           <div className="mx-auto flex w-full max-w-sm flex-col gap-2">
             <BotaoHub principal onClick={() => (ultima ? onClose() : setI((x) => x + 1))}>
-              {ultima ? t("ui.fechar") : `${t("ui.proximo")} →`}
+              {ultima ? t("ui.fechar") : t("ui.proximo")}
             </BotaoHub>
             <button
               type="button"

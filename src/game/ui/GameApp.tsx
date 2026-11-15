@@ -598,6 +598,7 @@ function GameInner({
             setPhase("manha");
           }}
           onNew={backToLevels}
+          onBack={() => setPhase("fim")}
         />
       </main>
     );

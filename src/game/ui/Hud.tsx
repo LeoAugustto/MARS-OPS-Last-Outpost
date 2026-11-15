@@ -163,8 +163,11 @@ export function BottomBar({ state, noite = false }: { state: GameState; noite?: 
       : faltam > 0
         ? `${t("ui.dormir_dica")} ${t("ui.dormir_custo", { dano })}`
         : t("ui.dormir_dica");
+  // celular deitado (pouca altura): a barra vira um aviso no canto e o mapa ganha a altura
   return (
-    <footer className="flex shrink-0 items-center justify-center gap-2 border-t-[6px] border-[#a8400f] bg-[#2a0508] p-2 text-[#fbe6c8]">
+    <footer
+      className="flex shrink-0 items-center justify-center gap-2 border-t-[6px] border-[#a8400f] bg-[#2a0508] p-2 text-[#fbe6c8] [@media(max-height:500px)_and_(min-width:640px)]:fixed [@media(max-height:500px)_and_(min-width:640px)]:bottom-2 [@media(max-height:500px)_and_(min-width:640px)]:left-2 [@media(max-height:500px)_and_(min-width:640px)]:z-20 [@media(max-height:500px)_and_(min-width:640px)]:max-w-[28vw] [@media(max-height:500px)_and_(min-width:640px)]:border-4 [@media(max-height:500px)_and_(min-width:640px)]:justify-start [@media(max-height:500px)_and_(min-width:640px)]:shadow-[0_4px_0_#1c0703]"
+    >
       <PixelIcon name={faltam > 0 && !noite ? "alerta" : "cama"} size={24} />
       <span
         className={`text-center text-sm font-bold sm:text-base ${noite ? "animate-pulse" : ""}`}

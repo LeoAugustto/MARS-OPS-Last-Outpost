@@ -47,6 +47,14 @@ const TEXTO_BOTAO: CSSProperties = {
 /** Tamanho único de letra para os botões do hub (cabe em 1 linha no celular). */
 export const TEXTO_MENU = "text-[clamp(0.72rem,3.4vw,1.1rem)]";
 
+/**
+ * Letra medida pela largura do próprio botão (o botão vira "container"): todos os botões
+ * da mesma coluna ficam com a mesma letra, e o texto cabe mesmo quando o botão é estreito.
+ */
+export const BOTAO_CONTAINER = "[container-type:inline-size]";
+export const LETRA_BOTAO =
+  "flex min-w-0 items-center justify-center gap-[0.5em] text-[clamp(0.62rem,5.6cqw,1.1rem)]";
+
 const BASE_BOTAO =
   "pixelated flex w-full items-center justify-center gap-3 whitespace-nowrap bg-[length:100%_100%] bg-center bg-no-repeat font-display font-bold text-[#f6e38c] transition hover:brightness-110 active:translate-y-[2px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-highlight disabled:opacity-60";
 
@@ -58,9 +66,10 @@ export function BotaoHub({
   principal = false,
   className = "",
   style,
+  children,
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & { principal?: boolean }) {
-  const tamanho = `aspect-[605/102] px-[8%] ${TEXTO_MENU} ${
+  const tamanho = `aspect-[605/102] px-[8%] ${BOTAO_CONTAINER} ${
     principal ? "" : "brightness-[0.88] saturate-[0.9] hover:brightness-100"
   }`;
   return (
@@ -69,7 +78,12 @@ export function BotaoHub({
       {...props}
       className={`${BASE_BOTAO} ${tamanho} ${className}`}
       style={{ ...TEXTO_BOTAO, ...style }}
-    />
+    >
+      {/* letra pela largura do PRÓPRIO botão (cqw): cabe em 1 linha mesmo em botão estreito */}
+      <span className={LETRA_BOTAO}>
+        {children}
+      </span>
+    </button>
   );
 }
 
