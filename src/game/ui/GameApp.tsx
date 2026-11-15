@@ -6,6 +6,7 @@ import { loadSave, writeSave } from "@/lib/saves";
 import { loadDonkiPool, type DonkiPool, type Famosa, type ModoSol } from "@/data/donki-live";
 import {
   BALANCE,
+  anoitecer,
   canSleep,
   choose,
   endSol,
@@ -327,6 +328,15 @@ function GameInner({
   const periodo = periodoDe(relogio);
   const noite = periodo === "noite";
 
+  // a noite chegou com a tripulação acordada: cansaço (SAUDE_AO_ANOITECER), uma vez por sol
+  useEffect(() => {
+    if (!noite || !game || game.status !== "jogando" || phase !== "mapa") return;
+    if (game.flags["anoiteceu"] === game.sol) return;
+    const depois = anoitecer(game);
+    setGame(depois);
+    if (depois.status !== "jogando") setPhase("fim");
+  }, [noite, game, phase]);
+
   /** Dormir. De noite pode dormir com alerta aberto: cada um que ficou para trás custa saúde. */
   const sleep = () => {
     if (!game || game.status !== "jogando") return;
@@ -473,7 +483,7 @@ function GameInner({
       ? ""
       : noite
         ? faltam
-          ? t("ui.noite.aviso", { dano: BALANCE.SAUDE_POR_ALERTA_PERDIDO })
+          ? t("ui.noite.aviso", { dano: BALANCE.SAUDE_POR_ALERTA_PERDIDO, cansaco: BALANCE.SAUDE_AO_ANOITECER })
           : ""
         : periodo === "entardecer" && faltam
           ? t("ui.entardecer.aviso")

@@ -15,6 +15,9 @@ import {
   rewindTo,
   setAllocation,
   sleepPenalty,
+  anoitecer,
+  estrelasDe,
+  BALANCE,
 } from "./index";
 import type { Allocation, GameState, Level } from "./types";
 
@@ -140,13 +143,30 @@ describe("motor v2", () => {
   it("a noite chegou: dormir à força custa saúde por alerta sem resposta", () => {
     const s = newMission({ seed: 3, donkiPool: RESERVE_EVENTS });
     const faltam = s.alerts.filter((a) => !a.done).length;
-    expect(sleepPenalty(s)).toBe(faltam * 4);
+    const P = BALANCE.SAUDE_POR_ALERTA_PERDIDO;
+    expect(sleepPenalty(s)).toBe(faltam * P);
     const depois = endSol(s, undefined, { forcado: true });
     expect(depois.sol).toBe(2);
     expect(depois.night?.perdidos).toBe(faltam);
-    expect(depois.night?.danoPerdidos).toBe(faltam * 4);
+    expect(depois.night?.danoPerdidos).toBe(faltam * P);
     // mesma noite com todos os alertas resolvidos não teria esse dano
-    expect(depois.night?.delta.saude).toBeLessThanOrEqual(-(faltam * 4));
+    expect(depois.night?.delta.saude).toBeLessThanOrEqual(-(faltam * P));
+  });
+
+  it("anoitecer acordado cansa uma vez por sol", () => {
+    const s = newMission({ seed: 3, donkiPool: RESERVE_EVENTS });
+    const a = anoitecer(s);
+    expect(a.resources.saude).toBe(s.resources.saude - BALANCE.SAUDE_AO_ANOITECER);
+    expect(anoitecer(a).resources.saude).toBe(a.resources.saude);
+  });
+
+  it("sobreviver até o fim é vitória; a ciência vira estrelas", () => {
+    let s = newMission({ seed: 5, level: "cadete", donkiPool: RESERVE_EVENTS });
+    s = { ...s, status: "vitoria", ciencia: 0 };
+    expect(estrelasDe(s)).toBe(1);
+    expect(estrelasDe({ ...s, ciencia: s.metaCiencia })).toBe(3);
+    expect(estrelasDe({ ...s, ciencia: Math.ceil(s.metaCiencia * BALANCE.ESTRELA_2_EM) })).toBe(2);
+    expect(estrelasDe({ ...s, status: "resgate" })).toBe(0);
   });
 
   it("a divisão de energia continua de um sol para o outro", () => {

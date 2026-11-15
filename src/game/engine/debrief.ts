@@ -1,6 +1,7 @@
 // Relatório do Controle de Missão: em vez de "game over", explica POR QUÊ.
 // Devolve só chaves de texto + dados; a UI traduz com t().
 
+import { ESTRELA_2_EM } from "./balance";
 import type { GameState, HistoryPoint, LogEntry, RealEventSeen, TextKey } from "./types";
 
 export interface Debrief {
@@ -30,6 +31,16 @@ export interface Debrief {
   metaCiencia: number;
   soisCompletos: number;
   totalSols: number;
+  /** estrelas de ciência (1 a 3) quando a tripulação sobreviveu; 0 no resgate */
+  estrelas: 0 | 1 | 2 | 3;
+}
+
+/** 1 estrela = sobreviveu; 2 = chegou perto da meta de ciência; 3 = bateu a meta. */
+export function estrelasDe(s: Pick<GameState, "status" | "ciencia" | "metaCiencia">): 0 | 1 | 2 | 3 {
+  if (s.status !== "vitoria" && s.status !== "vitoria-parcial") return 0;
+  if (s.ciencia >= s.metaCiencia) return 3;
+  if (s.ciencia >= Math.ceil(s.metaCiencia * ESTRELA_2_EM)) return 2;
+  return 1;
 }
 
 export function debrief(s: GameState): Debrief {
@@ -41,20 +52,13 @@ export function debrief(s: GameState): Debrief {
     metaCiencia: s.metaCiencia,
     soisCompletos: s.history.filter((h) => h.sol > 0).length - (s.status === "resgate" ? 1 : 0),
     totalSols: s.totalSols,
+    estrelas: estrelasDe(s),
   };
-  if (s.status === "vitoria")
+  if (s.status === "vitoria" || s.status === "vitoria-parcial")
     return {
       status: s.status,
       titleKey: "fim.vitoria.title",
       bodyKey: "fim.vitoria.body",
-      momentos: momentosQueMaisPesaram(s),
-      ...base,
-    };
-  if (s.status === "vitoria-parcial")
-    return {
-      status: s.status,
-      titleKey: "fim.parcial.title",
-      bodyKey: "fim.parcial.body",
       momentos: momentosQueMaisPesaram(s),
       ...base,
     };

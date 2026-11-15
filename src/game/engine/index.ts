@@ -15,6 +15,8 @@ export {
   canSleep,
   endSol,
   sleepPenalty,
+  anoitecer,
+  jaAnoiteceu,
   recentesDepois,
   rewindTo,
   findEvent,
@@ -22,6 +24,6 @@ export {
   alertCount,
   ORDEM_CORTE,
 } from "./engine";
-export { debrief, type Debrief } from "./debrief";
+export { debrief, estrelasDe, type Debrief } from "./debrief";
 export * as BALANCE from "./balance";
 export { t, eventKey } from "../../content/i18n";

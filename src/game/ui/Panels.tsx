@@ -23,6 +23,14 @@ const MODULOS: { k: ModuleKey; icon: string }[] = [
   { k: "escudo", icon: "escudo" },
 ];
 
+/** números do jogo para os textos de energia (nunca escritos à mão no texto) */
+export const NUMEROS_ENERGIA = {
+  ar: BALANCE.AR_POR_ENERGIA,
+  comida: BALANCE.COMIDA_POR_ENERGIA,
+  ciencia: BALANCE.CIENCIA_POR_ENERGIA,
+  escudo: BALANCE.ENERGIA_POR_ESCUDO,
+};
+
 export function EnergyPanel({
   state,
   onSave,
@@ -52,7 +60,7 @@ export function EnergyPanel({
             <PixelIcon name={icon} size={32} />
             <div className="flex-1">
               <div className="font-bold">{t(`modulo.${k}`)}</div>
-              <div className="text-xs text-muted-foreground">{t(`ui.energia.rende.${k}`)}</div>
+              <div className="text-xs text-muted-foreground">{t(`ui.energia.rende.${k}`, NUMEROS_ENERGIA)}</div>
             </div>
             <Button
               variant="chunkySand"
@@ -87,7 +95,7 @@ export function EnergyPanel({
             {t("ui.energia.falta", { n: total - hoje })}
           </p>
         )}
-        <p className="text-sm text-muted-foreground">{t("ui.energia.consumo")}</p>
+        <p className="text-sm text-muted-foreground">{t("ui.energia.consumo", { ar: BALANCE.LEVELS[state.level].consumoAr, comida: BALANCE.LEVELS[state.level].consumoComida })}</p>
         <Button
           variant="chunky"
           size="tap"

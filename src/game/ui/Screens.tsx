@@ -1,4 +1,5 @@
 // Telas fora do mapa: escolher nível, abertura, fim da missão, relatório; e o robô guia (tutorial).
+import { NUMEROS_ENERGIA } from "./Panels";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
@@ -400,7 +401,7 @@ export function EndScreen({
 }) {
   const { t } = useGT();
   const d = debrief(state);
-  const icon = state.status === "vitoria" ? "vitoria" : state.status === "vitoria-parcial" ? "ok" : "foguete";
+  const icon = state.status === "resgate" ? "foguete" : "vitoria";
   // mesmo estilo do menu inicial: arte da base ao fundo e painel com moldura (ver hub.tsx)
   return (
     <div className="flex h-full flex-col items-center overflow-y-auto p-3 text-center sm:p-4" style={FUNDO_HUB}>
@@ -526,7 +527,7 @@ export function Report({
           {d.causaKey && (
             <section className="border-4 border-[#ff6b5e] bg-[#3b1206]/90 p-3 text-[#fbe6c8] shadow-[0_4px_0_#1c0703]">
               <p className="text-lg font-bold">{t(d.causaKey)}</p>
-              {d.dicaKey && <p className="mt-1">{t(d.dicaKey)}</p>}
+              {d.dicaKey && <p className="mt-1">{t(d.dicaKey, NUMEROS_ENERGIA)}</p>}
             </section>
           )}
 

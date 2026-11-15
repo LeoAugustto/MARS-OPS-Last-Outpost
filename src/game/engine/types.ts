@@ -120,13 +120,14 @@ export interface Alert {
 
 export interface LogEntry {
   sol: number;
-  kind: "evento" | "fim-do-sol";
+  kind: "evento" | "fim-do-sol" | "cansaco";
   eventId?: string;
   choiceId?: string;
   delta: Effect;
   lessonKey?: TextKey;
 }
 
+/** "vitoria-parcial" só existe em saves antigos: hoje sobreviver = vitória */
 export type Status = "jogando" | "vitoria" | "vitoria-parcial" | "resgate";
 
 /** Resumo da última noite (para a tela "Boa noite"). */

@@ -491,6 +491,25 @@ export function sleepPenalty(s: GameState): number {
   return s.alerts.filter((a) => !a.done).length * B.SAUDE_POR_ALERTA_PERDIDO;
 }
 
+/** A tripulação ainda está acordada quando a noite chega? Já pagou o cansaço deste sol? */
+export function jaAnoiteceu(s: GameState): boolean {
+  return s.flags["anoiteceu"] === s.sol;
+}
+
+/**
+ * A noite chegou e a tripulação ainda está acordada: cansaço, perde SAUDE_AO_ANOITECER uma vez
+ * por sol. Quem foi dormir antes (todos os alertas resolvidos) não paga.
+ */
+export function anoitecer(state: GameState): GameState {
+  if (state.status !== "jogando" || jaAnoiteceu(state)) return state;
+  const s = cloneState(state);
+  s.flags["anoiteceu"] = s.sol;
+  const delta = applyEffect(s, { saude: -B.SAUDE_AO_ANOITECER });
+  s.log.push({ sol: s.sol, kind: "cansaco", delta });
+  checkRescue(s);
+  return s;
+}
+
 /**
  * Dormir: aplica a divisão de energia, calcula a noite e começa o próximo sol.
  * `forcado`: a noite chegou e a tripulação vai dormir mesmo com alertas sem resposta.
@@ -566,7 +585,8 @@ export function endSol(
   checkRescue(s);
   if (s.status !== "jogando") return s;
   if (s.sol >= s.totalSols) {
-    s.status = s.ciencia >= s.metaCiencia ? "vitoria" : "vitoria-parcial";
+    // sobreviveu até o fim = venceu; a ciência vira estrelas no relatório
+    s.status = "vitoria";
     return s;
   }
   s.sol += 1;

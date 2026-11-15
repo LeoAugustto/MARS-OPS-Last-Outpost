@@ -22,9 +22,9 @@ export const LEVELS: Record<
     inicioComida: number;
   }
 > = {
-  cadete: { inicioAr: 40, inicioComida: 35, totalSols: 7, metaCiencia: 24, doseMult: 0.8, consumoAr: 15, consumoComida: 11 }, // 7–9 anos
-  piloto: { inicioAr: 45, inicioComida: 35, totalSols: 10, metaCiencia: 38, doseMult: 1.2, consumoAr: 15, consumoComida: 11 },
-  comandante: { inicioAr: 50, inicioComida: 40, totalSols: 14, metaCiencia: 56, doseMult: 1.5, consumoAr: 14, consumoComida: 11 },
+  cadete: { inicioAr: 40, inicioComida: 35, totalSols: 7, metaCiencia: 20, doseMult: 0.8, consumoAr: 15, consumoComida: 11 }, // 7–9 anos
+  piloto: { inicioAr: 40, inicioComida: 30, totalSols: 10, metaCiencia: 28, doseMult: 1.2, consumoAr: 15, consumoComida: 12 },
+  comandante: { inicioAr: 40, inicioComida: 28, totalSols: 10, metaCiencia: 30, doseMult: 2.2, consumoAr: 16, consumoComida: 12 },
 };
 
 export const START = {
@@ -91,8 +91,12 @@ export const SEGUNDOS_POR_SOL: Record<Level, number> = {
 /** fração do sol em que começa o entardecer e a noite (0 = manhã, 1 = hora de dormir) (jogo) */
 export const ENTARDECER_EM = 0.6;
 export const NOITE_EM = 0.82;
-/** dormir com alerta sem resposta: a tripulação dorme preocupada e cansada, por alerta (jogo) */
-export const SAUDE_POR_ALERTA_PERDIDO = 4;
+/** a noite chegou e a tripulação ainda está acordada: cansaço, uma vez por sol (jogo) */
+export const SAUDE_AO_ANOITECER = 4;
+/** dormir com alerta sem resposta: a tripulação dorme preocupada, por alerta (jogo) */
+export const SAUDE_POR_ALERTA_PERDIDO = 2;
+/** estrelas de ciência no fim: 2 estrelas a partir desta fração da meta, 3 na meta (jogo) */
+export const ESTRELA_2_EM = 0.6;
 
 // ---------------------------------------------------------------- variedade do sorteio (jogo)
 /** evento da base que já apareceu nesta missão: peso multiplicado por isto */
