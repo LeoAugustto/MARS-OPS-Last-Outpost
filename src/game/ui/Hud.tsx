@@ -16,8 +16,13 @@ function Bar({ icon, value, label }: { icon: string; value: number; label: strin
     >
       <PixelIcon name={icon} size={26} />
       <div className="flex min-w-8 flex-1 flex-col">
-        {/* nome escrito: quem pulou o tutorial também sabe o que é cada barra */}
-        <span className="truncate text-[11px] font-bold leading-none text-[#e0c09a] sm:text-xs">{label}</span>
+        {/* nome e número em cima da própria barra: o número nunca fica perto do ícone do vizinho */}
+        <span className="flex items-baseline justify-between gap-1 leading-none">
+          <span className="truncate text-[11px] font-bold text-[#e0c09a] sm:text-xs">{label}</span>
+          <span className={`text-xs font-black sm:text-sm ${value < 25 ? "text-[#ff7a6b]" : "text-[#fbe6c8]"}`}>
+            {value}
+          </span>
+        </span>
         <div className="h-3.5 overflow-hidden rounded-full border-2 border-[#5a1d07] bg-[#1c0703] sm:h-4">
           <div
             className={`h-full rounded-full transition-all duration-500 ${cor}`}
@@ -25,11 +30,6 @@ function Bar({ icon, value, label }: { icon: string; value: number; label: strin
           />
         </div>
       </div>
-      <span
-        className={`w-8 text-right text-sm font-bold sm:text-base ${value < 25 ? "text-[#ff7a6b]" : ""}`}
-      >
-        {value}
-      </span>
     </div>
   );
 }
@@ -143,7 +143,7 @@ export function TopHud({
         <SquareBtn img="btn_ajuda" label={t("ui.glossario.titulo")} onClick={onHelp} />
         <FullscreenButton />
       </div>
-      <div data-tut="barras" className="flex items-center gap-3 px-1">
+      <div data-tut="barras" className="flex items-center gap-4 px-1 sm:gap-6">
         <Bar icon="o2" value={r.ar} label={t("recurso.ar")} />
         <Bar icon="batata" value={r.comida} label={t("recurso.comida")} />
         <Bar icon="coracao" value={r.saude} label={t("recurso.saude")} />
