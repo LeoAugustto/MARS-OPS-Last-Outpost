@@ -255,7 +255,7 @@ function Home() {
 
       {/* texto por cima da cena: título no alto (sobre o céu), botões embaixo (sobre o chão).
           o topo respeita o seletor de idioma para o título não encostar nele */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-between px-4 pb-[3vh] pt-[max(3vh,54px)]">
+      <div className="relative z-10 flex h-full flex-col items-center justify-between px-4 pb-[3vh] pt-[max(3vh,80px)]">
         <h1
           className={`flex flex-col items-center text-center font-display font-normal leading-none text-[#f3c916] ${
             medido ? "" : "text-[clamp(0.9rem,5.2vw,2.6rem)]"

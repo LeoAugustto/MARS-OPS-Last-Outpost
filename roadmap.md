@@ -34,3 +34,9 @@
 - [x] Copiar o MP4 4K original (4240998 bytes, SHA256 304cc211…a2) e o poster para public/assets/hub/ e usar /assets/hub/... na home (funciona no Lovable e num build Vite normal)
 - [x] Conferir home, /sobre, /fontes em celular e desktop, 5 idiomas e acentos; vídeo responde com mídia real e toca em loop
 - [x] Não publicar
+
+## Leo — folga do título na home (commit 5f5edd7)
+- [x] Aumentar a folga superior do bloco do título (pt-[max(3vh,54px)] → pt-[max(3vh,80px)]) para a 1ª linha ficar abaixo do seletor de idioma
+- [x] Preservar o cálculo responsivo e os controles do rodapé
+- [x] Conferir 390x844, 360x640 e telas deitadas baixas (844x390, 640x360)
+- [x] Não publicar (nada foi publicado)
