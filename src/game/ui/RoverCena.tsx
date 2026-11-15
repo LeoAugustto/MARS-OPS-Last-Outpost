@@ -50,8 +50,17 @@ const ESC = 420; // esmaecer (ms)
 
 /** estação (art-source/rover/estacao.py): onde o rover para e onde fica a porta */
 const EST = { roverX: 51, roverY: 62, portaX: 51, portaY: 50.5 };
+/** luzes da estação [x, y, largura, altura, força] em % (estacao.py imprime as posições) */
+const LUZES: [number, number, number, number, number][] = [
+  [44.6, 41.8, 18.2, 4.6, 0.45], // janela do laboratório
+  [51, 44.9, 3, 0.9, 0.95], // luz em cima da porta
+  [18.6, 51.1, 1.2, 0.6, 0.95], // postes
+  [33, 51.1, 1.2, 0.6, 0.95],
+  [65.2, 51.1, 1.2, 0.6, 0.95],
+  [84.4, 51.1, 1.2, 0.6, 0.95],
+];
 const DESCE_Y = EST.roverY + 11; // onde o astronauta aterrissa (na frente do rover)
-/** caminho a pé do rover até a porta, contornando o rover pela esquerda */
+/** caminho a pé do rover até a porta, contornando o rover pela esquerda (pela calçada da estação) */
 const A_PE: [number, number][] = [
   [EST.roverX - 1, DESCE_Y],
   [37, DESCE_Y],
@@ -369,7 +378,7 @@ const FILTRO: Record<Periodo, string | undefined> = {
 };
 const VEU: Record<Periodo, string | undefined> = {
   dia: undefined,
-  entardecer: "rgba(255, 120, 50, 0.22)",
+  entardecer: "rgba(255, 110, 45, 0.32)",
   noite: "rgba(40, 18, 70, 0.55)",
 };
 
@@ -383,6 +392,7 @@ function Palco({ q, periodo, periodoFim }: { q: Quadro; periodo: Periodo; period
   const fim = periodoFim ?? periodo;
   const mistura = periodoFim && periodoFim !== periodo ? clamp01(q.relogio) : 0; // 0 = começo, 1 = fim
   const agora = mistura >= 0.5 ? fim : periodo;
+  const aceso = Math.max(q.luz, agora === "noite" ? 0.85 : 0);
   const roverImg = q.rover && q.cena !== "preto" && (
     <img
       key="rover"
@@ -456,28 +466,6 @@ function Palco({ q, periodo, periodoFim }: { q: Quadro; periodo: Periodo; period
         {q.cena === "estacao" && (
           <>
             <img src="/assets/rover/estacao.webp" alt="" className="absolute inset-0 h-full w-full" draggable={false} />
-            {/* janelas e luz da porta acendendo enquanto o astronauta trabalha lá dentro */}
-            {q.luz > 0 &&
-              [
-                [41.5, 43.4],
-                [61.4, 43.4],
-                [50.9, 37.6],
-              ].map(([x, y], i) => (
-                <span
-                  key={i}
-                  className="absolute rounded-sm bg-[#ffe27a]"
-                  style={{
-                    left: `${x}%`,
-                    top: `${y}%`,
-                    width: "3%",
-                    height: "1.6%",
-                    transform: "translate(-50%, -50%)",
-                    opacity: q.luz * (i === 2 ? 0.9 : 0.75 + 0.25 * Math.sin(q.luz * 9 + i)),
-                    boxShadow: `0 0 ${10 * q.luz}px ${4 * q.luz}px rgba(255, 210, 90, ${0.6 * q.luz})`,
-                  }}
-                  aria-hidden
-                />
-              ))}
           </>
         )}
         {q.cena !== "preto" &&
@@ -521,6 +509,29 @@ function Palco({ q, periodo, periodoFim }: { q: Quadro; periodo: Periodo; period
           aria-hidden
         />
       )}
+      {/* luzes da estação por cima do véu do horário (com o mesmo zoom do palco) */}
+      <div className="pointer-events-none absolute inset-0" style={zoom}>
+        {/* janela do laboratório, luz da porta e postes: acendem enquanto o astronauta trabalha
+            lá dentro e ficam acesos à noite */}
+        {q.cena === "estacao" && aceso > 0 &&
+          LUZES.map(([x, y, w, h, forca], i) => (
+            <span
+              key={i}
+              className="absolute bg-[#ffe27a]"
+              style={{
+                left: `${x}%`,
+                top: `${y}%`,
+                width: `${w}%`,
+                height: `${h}%`,
+                transform: "translate(-50%, -50%)",
+                mixBlendMode: i === 0 ? "screen" : undefined,
+                opacity: aceso * forca,
+                boxShadow: `0 0 ${10 * aceso}px ${4 * aceso}px rgba(255, 210, 90, ${0.5 * aceso})`,
+              }}
+              aria-hidden
+            />
+          ))}
+    </div>
       <div className="pointer-events-none absolute inset-0 bg-black" style={{ opacity: q.preto }} aria-hidden />
     </div>
   );
