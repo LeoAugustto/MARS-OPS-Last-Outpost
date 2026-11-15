@@ -11,42 +11,42 @@ export type Periodo = "dia" | "entardecer" | "noite";
 
 export const ART = {
   /** Mapa da base visto de cima (1024×1024). */
-  map: { ready: true, src: "/assets/map/base.png" },
+  map: { ready: true, src: "/assets/map/base.png?v=2" },
 
   /** O mesmo mapa em 3 horas do sol (1024×1024, mesmas posições do mapa de cima). */
   mapPeriodo: {
-    dia: "/assets/map/base_dia.webp",
-    entardecer: "/assets/map/base_entardecer.webp",
-    noite: "/assets/map/base_noite.webp",
+    dia: "/assets/map/base_dia.webp?v=2",
+    entardecer: "/assets/map/base_entardecer.webp?v=2",
+    noite: "/assets/map/base_noite.webp?v=2",
   } as Record<Periodo, string>,
 
   /** Astronauta andando: 8 direções × 3 quadros (128×128, pés embaixo). Tocar 0,1,2,1. */
   astronaut: {
     ready: true,
-    frame: (g: Gender, d: Dir8, i: number) => `/assets/astronaut/${g}/${d}_${i}.png`,
+    frame: (g: Gender, d: Dir8, i: number) => `/assets/astronaut/${g}/${d}_${i}.png?v=2`,
   },
 
   /** Retratos da caixa de diálogo (256×256). */
   portraits: {
-    astronauta: { ready: true, src: (g: Gender) => `/assets/portraits/astronauta_${g}.png` },
-    controle: { ready: true, src: "/assets/portraits/controle.png" },
-    rovi: { ready: true, src: "/assets/portraits/rovi.png" },
+    astronauta: { ready: true, src: (g: Gender) => `/assets/portraits/astronauta_${g}.png?v=2` },
+    controle: { ready: true, src: "/assets/portraits/controle.png?v=2" },
+    rovi: { ready: true, src: "/assets/portraits/rovi.png?v=2" },
   },
 
   /** Ícones redondos dos lugares (128×128). */
   icons: {
-    habitat: "/assets/icons/habitat.png",
-    paineis: "/assets/icons/paineis.png",
-    antena: "/assets/icons/antena.png",
-    ar: "/assets/icons/ar.png",
-    estufa: "/assets/icons/estufa.png",
-    lab: "/assets/icons/lab.png",
-    abrigo: "/assets/icons/abrigo.png",
-    rover: "/assets/icons/rover.png",
+    habitat: "/assets/icons/habitat.png?v=2",
+    paineis: "/assets/icons/paineis.png?v=2",
+    antena: "/assets/icons/antena.png?v=2",
+    ar: "/assets/icons/ar.png?v=2",
+    estufa: "/assets/icons/estufa.png?v=2",
+    lab: "/assets/icons/lab.png?v=2",
+    abrigo: "/assets/icons/abrigo.png?v=2",
+    rover: "/assets/icons/rover.png?v=2",
   } as Record<PlaceId, string>,
 
   /** Cena quadrada de cada interior, vista de cima (900×900). */
-  placeScene: (place: PlaceId) => `/assets/places/${place}.jpg`,
+  placeScene: (place: PlaceId) => `/assets/places/${place}.jpg?v=2`,
 } as const;
 
 /** Direção (8) a partir do movimento. y cresce para baixo. */

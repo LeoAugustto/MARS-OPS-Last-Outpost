@@ -46,7 +46,7 @@ export function LevelSelect({
 }) {
   const { t } = useGT();
   const [nivel, setNivel] = useState<Level>("cadete");
-  // insígnia de cada nível (public/assets/ui/nivel_<nivel>.png): listras, asas, asas com coroa
+  // insígnia de cada nível (public/assets/ui/nivel_<nivel>.png?v=2): listras, asas, asas com coroa
   const niveis: Level[] = ["cadete", "piloto", "comandante"];
   return (
     <div className="flex h-full flex-col items-center gap-3 overflow-y-auto p-4" style={FUNDO_HUB}>
@@ -99,7 +99,7 @@ export function LevelSelect({
               aria-hidden
             >
               <img
-                src={`/assets/ui/nivel_${l}.png`}
+                src={`/assets/ui/nivel_${l}.png?v=2`}
                 alt=""
                 className={`h-10 w-full object-contain transition sm:h-14 ${nivel === l ? "" : "opacity-80 saturate-[0.8]"}`}
                 style={{ imageRendering: "pixelated" }}
@@ -304,7 +304,7 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
             {q.icons.map((name) => (
               <img
                 key={name}
-                src={`/assets/ui/${name}.png`}
+                src={`/assets/ui/${name}.png?v=2`}
                 alt=""
                 className="pixelated h-[clamp(28px,7dvh,48px)] w-auto"
               />
@@ -393,7 +393,7 @@ function Estrelas({ n }: { n: number }) {
         {[1, 2, 3].map((k) => (
           <img
             key={k}
-            src="/assets/ui/estrela.png"
+            src="/assets/ui/estrela.png?v=2"
             alt=""
             className={`pixelated ${k === 2 ? "h-20 w-20 sm:h-24 sm:w-24" : "h-16 w-16 sm:h-20 sm:w-20"} ${
               k <= n ? "estrela-ganha drop-shadow-[0_4px_0_#1c0703]" : "opacity-30 grayscale"

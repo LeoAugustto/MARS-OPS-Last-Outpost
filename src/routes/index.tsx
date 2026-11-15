@@ -12,9 +12,9 @@ import { tocarMusica } from "@/game/ui/audio";
 // vídeo da cena e o primeiro quadro, servidos como arquivos estáticos de public/:
 // funcionam no Lovable e em qualquer build Vite normal (sem depender de rota interna).
 // Telas grandes recebem o 4K original; celular e telas menores, a cópia 1080p (mais leve).
-const VIDEO_CENA_4K = "/assets/hub/cena_loop_4k.mp4";
-const VIDEO_CENA_1080 = "/assets/hub/cena_loop_1080.mp4";
-const POSTER_CENA = "/assets/hub/cena_poster_1080.webp";
+const VIDEO_CENA_4K = "/assets/hub/cena_loop_4k.mp4?v=2";
+const VIDEO_CENA_1080 = "/assets/hub/cena_loop_1080.mp4?v=2";
+const POSTER_CENA = "/assets/hub/cena_poster_1080.webp?v=2";
 /** A partir desta largura de tela o navegador escolhe o vídeo 4K. */
 const TELA_4K = "(min-width: 1440px)";
 
@@ -255,7 +255,7 @@ function Home() {
 
   // estilo dos botões: o próprio desenho do botão (sem texto) + texto grosso como no desenho
   const estiloBotao = {
-    background: "center / 100% 100% no-repeat url(/assets/hub/botao.png)",
+    background: "center / 100% 100% no-repeat url(/assets/hub/botao.png?v=2)",
     WebkitTextStroke: "0.022em #f6e38c",
     paintOrder: "stroke fill",
     textShadow: "0.035em 0.045em 0 #5a1d07",
@@ -346,7 +346,7 @@ function Home() {
           className="h-12 gap-1.5 px-3 text-xl"
           onClick={() => setAjuda(true)}
         >
-          <img src="/assets/ui/ajuda.png" alt="" aria-hidden className="pixelated h-7 w-7" />
+          <img src="/assets/ui/ajuda.png?v=2" alt="" aria-hidden className="pixelated h-7 w-7" />
           {t("howToPlay")}
         </Button>
       </div>

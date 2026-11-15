@@ -35,7 +35,7 @@ function Sobre() {
           <ul className="mt-4 grid gap-2">
             {(["aboutLearn1", "aboutLearn2", "aboutLearn3", "aboutLearn4"] as const).map((k) => t(k)).map((item) => (
               <li key={item} className={`${CARTAO_ESCURO} flex gap-3 p-3`}>
-                <img src="/assets/ui/estrela.png" alt="" width={22} height={22} className="pixelated mt-1 h-[22px] w-[22px] shrink-0" />
+                <img src="/assets/ui/estrela.png?v=2" alt="" width={22} height={22} className="pixelated mt-1 h-[22px] w-[22px] shrink-0" />
                 {item}
               </li>
             ))}

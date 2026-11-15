@@ -2,7 +2,7 @@
 export function PixelIcon({ name, size = 24 }: { name: string; size?: number }) {
   return (
     <img
-      src={`/assets/ui/${name}.png`}
+      src={`/assets/ui/${name}.png?v=2`}
       alt=""
       width={size}
       height={size}

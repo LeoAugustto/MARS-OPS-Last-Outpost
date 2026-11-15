@@ -20,31 +20,31 @@ export const Route = createFileRoute("/fontes")({
 
 const SOURCES = [
   {
-    icon: "/assets/icons/paineis.png",
+    icon: "/assets/icons/paineis.png?v=2",
     name: "NASA DONKI",
     key: "srcDonki" as const,
     url: "https://ccmc.gsfc.nasa.gov/tools/DONKI/",
   },
   {
-    icon: "/assets/icons/lab.png",
+    icon: "/assets/icons/lab.png?v=2",
     name: "NASA OSDR",
     key: "srcOsdr" as const,
     url: "https://osdr.nasa.gov/",
   },
   {
-    icon: "/assets/icons/abrigo.png",
+    icon: "/assets/icons/abrigo.png?v=2",
     name: "NASA RadLab",
     key: "srcRadlab" as const,
     url: "https://visualization.osdr.nasa.gov/radlab/",
   },
   {
-    icon: "/assets/icons/antena.png",
+    icon: "/assets/icons/antena.png?v=2",
     name: "NASA Mars Trek",
     key: "srcTrek" as const,
     url: "https://trek.nasa.gov/mars/",
   },
   {
-    icon: "/assets/icons/estufa.png",
+    icon: "/assets/icons/estufa.png?v=2",
     name: "CSA — Food Production",
     key: "srcCsa" as const,
     url: "https://www.asc-csa.gc.ca/eng/sciences/food-production/",

@@ -13,8 +13,8 @@ import { usePlayer } from "./player";
 import { useGT } from "./shared";
 
 const DIRS: Dir8[] = ["e", "se", "s", "sw", "w", "nw", "n", "ne"]; // de 45 em 45 graus (0 = direita)
-const roverSrc = (d: Dir8, f: number) => `/assets/rover/${d}_${f}.png`;
-const portaSrc = (k: number) => `/assets/rover/e_porta_${k}.png`;
+const roverSrc = (d: Dir8, f: number) => `/assets/rover/${d}_${f}.png?v=2`;
+const portaSrc = (k: number) => `/assets/rover/e_porta_${k}.png?v=2`;
 const dirDe = (ang: number): Dir8 => DIRS[Math.round((((ang % 360) + 360) % 360) / 45) % 8]!;
 const easeOut = (k: number) => 1 - (1 - k) ** 3;
 const easeIn = (k: number) => k * k;
@@ -447,7 +447,7 @@ function Palco({ q, periodo, periodoFim }: { q: Quadro; periodo: Periodo; period
             <img src={ART.mapPeriodo[agora]} alt="" className="absolute inset-0 h-full w-full" draggable={false} />
             {q.garagem && (
               <img
-                src={`/assets/rover/garagem_${agora}.png`}
+                src={`/assets/rover/garagem_${agora}.png?v=2`}
                 alt=""
                 className="absolute"
                 style={{ left: `${GARAGEM.x}%`, top: `${GARAGEM.y}%`, width: `${GARAGEM.w}%`, height: `${GARAGEM.h}%` }}
@@ -459,13 +459,13 @@ function Palco({ q, periodo, periodoFim }: { q: Quadro; periodo: Periodo; period
         {q.cena === "viagem" && (
           // duas cópias do chão lado a lado, andando para a esquerda (o chão se repete sem emenda)
           <div className="absolute inset-y-0 left-0 flex w-[200%]" style={{ transform: `translateX(-${(q.rolagem % 100) / 2}%)` }}>
-            <img src="/assets/rover/viagem_chao.webp" alt="" className="h-full w-1/2" draggable={false} />
-            <img src="/assets/rover/viagem_chao.webp" alt="" className="h-full w-1/2" draggable={false} />
+            <img src="/assets/rover/viagem_chao.webp?v=2" alt="" className="h-full w-1/2" draggable={false} />
+            <img src="/assets/rover/viagem_chao.webp?v=2" alt="" className="h-full w-1/2" draggable={false} />
           </div>
         )}
         {q.cena === "estacao" && (
           <>
-            <img src="/assets/rover/estacao.webp" alt="" className="absolute inset-0 h-full w-full" draggable={false} />
+            <img src="/assets/rover/estacao.webp?v=2" alt="" className="absolute inset-0 h-full w-full" draggable={false} />
           </>
         )}
         {q.cena !== "preto" &&
@@ -526,7 +526,7 @@ function Palco({ q, periodo, periodoFim }: { q: Quadro; periodo: Periodo; period
                   top: `${y - h / 2}%`,
                   width: `${w}%`,
                   height: `${h}%`,
-                  backgroundImage: "url(/assets/rover/estacao.webp)",
+                  backgroundImage: "url(/assets/rover/estacao.webp?v=2)",
                   backgroundSize: `${10000 / w}% ${10000 / h}%`,
                   backgroundPosition: `${((x - w / 2) / (100 - w)) * 100}% ${((y - h / 2) / (100 - h)) * 100}%`,
                   filter: "brightness(1.15) sepia(0.25)",
@@ -599,9 +599,9 @@ export function RoverCena({
       ...DIRS.flatMap((d) => [0, 1, 2, 3].map((f) => roverSrc(d, f))),
       ...[0, 1, 2, 3].map(portaSrc),
       ...DIRS.flatMap((d) => [0, 1, 2].map((f) => ART.astronaut.frame(gender, d, f))),
-      ...[periodo, periodoFim ?? periodo].flatMap((p) => [`/assets/rover/garagem_${p}.png`, ART.mapPeriodo[p]]),
-      "/assets/rover/viagem_chao.webp",
-      "/assets/rover/estacao.webp",
+      ...[periodo, periodoFim ?? periodo].flatMap((p) => [`/assets/rover/garagem_${p}.png?v=2`, ART.mapPeriodo[p]]),
+      "/assets/rover/viagem_chao.webp?v=2",
+      "/assets/rover/estacao.webp?v=2",
     ];
     let vivo = true;
     const espera = urls.map(
@@ -620,12 +620,8 @@ export function RoverCena({
 
   useEffect(() => {
     if (!pronto) return;
-    // quem pediu menos movimento no sistema vê só o final, parado
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      setAgora(dur);
-      const id = setTimeout(() => fim.current(), 1200);
-      return () => clearTimeout(id);
-    }
+    // toca sempre, mesmo com "menos movimento" no sistema (no Windows esse ajuste vem desligado
+    // em muitos PCs e a cena sumia); quem não quiser ver usa o botão Pular
     let raf = 0;
     const ini = performance.now();
     const passo = (now: number) => {

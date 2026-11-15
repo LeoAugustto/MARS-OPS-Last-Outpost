@@ -20,33 +20,33 @@ const COLHEITAS = [
 export const STICKERS: Sticker[] = [
   {
     id: "sobreviveu",
-    icone: "/assets/ui/coracao.png",
+    icone: "/assets/ui/coracao.png?v=2",
     ganhou: (s) => estrelasDe(s) > 0,
   },
   {
     id: "cientista",
-    icone: "/assets/ui/microscopio.png",
+    icone: "/assets/ui/microscopio.png?v=2",
     ganhou: (s) => s.ciencia >= s.metaCiencia,
   },
   {
     id: "tempestade",
-    icone: "/assets/ui/raio.png",
+    icone: "/assets/ui/raio.png?v=2",
     ganhou: (s) => s.realEvents.length > 0 && s.status !== "resgate",
   },
   {
     id: "ao_vivo",
-    icone: "/assets/icons/antena.png",
+    icone: "/assets/icons/antena.png?v=2",
     ganhou: (s) => s.realEvents.some((r) => r.event.live),
   },
-  { id: "escudo", icone: "/assets/icons/abrigo.png", ganhou: (s) => s.escudo >= 4 },
+  { id: "escudo", icone: "/assets/icons/abrigo.png?v=2", ganhou: (s) => s.escudo >= 4 },
   {
     id: "colheita",
-    icone: "/assets/ui/batata.png",
+    icone: "/assets/ui/batata.png?v=2",
     ganhou: (s) => s.log.some((l) => l.eventId && COLHEITAS.includes(l.eventId)),
   },
   {
     id: "comandante",
-    icone: "/assets/ui/estrela.png",
+    icone: "/assets/ui/estrela.png?v=2",
     ganhou: (s) => s.level === "comandante" && estrelasDe(s) > 0,
   },
 ];

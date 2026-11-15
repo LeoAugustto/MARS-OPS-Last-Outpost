@@ -29,7 +29,7 @@ function PaginaAviso({ numero, titulo, texto, children }: { numero?: string; tit
       <div className={`${PAINEL_HUB} relative flex w-full max-w-lg flex-col items-center gap-4 p-6 text-center`}>
         <FullscreenButton className="absolute right-2 top-2" />
         <div className="relative">
-          <img src="/assets/rover/sw_0.png" alt="" width={168} height={168} className="pixelated h-[clamp(110px,22vw,168px)] w-auto" />
+          <img src="/assets/rover/sw_0.png?v=2" alt="" width={168} height={168} className="pixelated h-[clamp(110px,22vw,168px)] w-auto" />
           <span
             className="absolute right-2 top-2 grid h-10 w-10 place-items-center border-4 border-[#5a1d07] bg-[#f3c916] font-display text-xl font-bold text-[#2a0508] shadow-[0_4px_0_#1c0703]"
             aria-hidden

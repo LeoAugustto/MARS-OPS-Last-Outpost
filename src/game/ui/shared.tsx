@@ -273,7 +273,7 @@ export function Modal({
 }
 
 // ---------------------------------------------------------------- mapa: posição de cada lugar (% do quadrado)
-// Ajustado ao mapa pixel art (public/assets/map/base.png). Se a arte mudar, ajuste aqui.
+// Ajustado ao mapa pixel art (public/assets/map/base.png?v=2). Se a arte mudar, ajuste aqui.
 export const PLACE_POS: Record<PlaceId, { x: number; y: number }> = {
   habitat: { x: 50, y: 46 },
   paineis: { x: 21, y: 16 },

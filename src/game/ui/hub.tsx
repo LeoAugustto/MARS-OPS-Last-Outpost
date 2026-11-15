@@ -1,5 +1,5 @@
 // Peças visuais do "estilo hub" (o mesmo do menu inicial): arte da base ao fundo, moldura
-// marrom escura, título amarelo pixel e o botão laranja de fliperama (public/assets/hub/botao.png).
+// marrom escura, título amarelo pixel e o botão laranja de fliperama (public/assets/hub/botao.png?v=2).
 // Usadas pelo menu do jogo, pela tela de escolher o astronauta e pela abertura com o Rovi.
 import { tocarEfeito } from "./audio";
 import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from "react";
@@ -7,7 +7,7 @@ import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from "react";
 /** Fundo com a arte do hub, escurecida embaixo para o texto ler bem. */
 export const FUNDO_HUB: CSSProperties = {
   background:
-    "linear-gradient(to bottom, rgba(28,4,8,0.35), rgba(28,4,8,0.7) 40%, rgba(28,4,8,0.88)), #2a0508 url(/assets/hub/cena_poster_4k.webp) 50% 60% / cover no-repeat",
+    "linear-gradient(to bottom, rgba(28,4,8,0.35), rgba(28,4,8,0.7) 40%, rgba(28,4,8,0.88)), #2a0508 url(/assets/hub/cena_poster_4k.webp?v=2) 50% 60% / cover no-repeat",
 };
 
 /** Moldura do painel (borda escura + filete laranja por dentro). */
@@ -42,7 +42,7 @@ const TEXTO_BOTAO: CSSProperties = {
   WebkitTextStroke: "0.5px #f6e38c",
   paintOrder: "stroke fill",
   textShadow: "2px 2px 0 #5a1d07",
-  backgroundImage: "url(/assets/hub/botao.png)",
+  backgroundImage: "url(/assets/hub/botao.png?v=2)",
 };
 
 /** Tamanho único de letra para os botões do hub (cabe em 1 linha no celular). */

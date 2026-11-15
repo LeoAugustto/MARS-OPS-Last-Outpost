@@ -136,13 +136,13 @@
   border-radius: 0;
 }
 
-/* botão laranja de fliperama (public/assets/hub/botao.png) em 9 fatias: os cantos e as bordas
+/* botão laranja de fliperama (public/assets/hub/botao.png?v=2) em 9 fatias: os cantos e as bordas
    ficam do tamanho certo em qualquer botão (largo, estreito ou quadrado) e o meio estica */
 @utility botao-arte {
   border-style: solid;
   border-color: transparent;
   border-width: 6px 6px 10px;
-  border-image: url(/assets/hub/botao.png) 12 12 20 fill / 6px 6px 10px stretch;
+  border-image: url(/assets/hub/botao.png?v=2) 12 12 20 fill / 6px 6px 10px stretch;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
