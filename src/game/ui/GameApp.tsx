@@ -377,7 +377,10 @@ function GameInner({
   const sleep = () => {
     if (!game || game.status !== "jogando") return;
     const forcado = !canSleep(game);
-    if (forcado && !noite) return;
+    if (forcado && !noite) {
+      setPlace("habitat");
+      return;
+    }
     stopSpeaking();
     setPlace(null);
     setGame(endSol(game, undefined, { forcado }));
@@ -744,7 +747,6 @@ function GameInner({
           place={place}
           onClose={() => setPlace(null)}
           onEnergy={abrirEnergia}
-          onSleep={sleep}
           noite={noite}
         />
       )}

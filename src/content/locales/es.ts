@@ -366,7 +366,7 @@ export const es: Dict = {
   "ev.bacterias.mesa.lesson":
     "La NASA limpia muy bien las naves antes de ir a Marte, para no llevar microbios de la Tierra. Esto se llama protección planetaria.",
   "ev.lab_contaminado.title": "El laboratorio se ensució",
-  "ev.lab_contaminado.body": "Se escaparon algunas bacterias. Limpiar la mesa costó 2 de energía.",
+  "ev.lab_contaminado.body": "Se escaparon algunas bacterias. Limpiar la mesa gasta energía.",
 
   // 🛡️ refugio
   "ev.rachadura.title": "Grieta en la capa de arena",

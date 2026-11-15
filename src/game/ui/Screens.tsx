@@ -64,7 +64,7 @@ export function LevelSelect({
       <h1 className="text-center font-display text-3xl font-bold text-[#ffd23f]">
         {t("ui.nivel.titulo")}
       </h1>
-      <div className="grid w-full max-w-xl 2xl:max-w-3xl gap-3" role="radiogroup" aria-label={t("ui.nivel.titulo")}>
+      <div className="grid w-full max-w-xl grid-cols-1 gap-3 2xl:max-w-3xl" role="radiogroup" aria-label={t("ui.nivel.titulo")}>
         {niveis.map(({ l, estrelas }) => (
           <button
             key={l}
@@ -91,15 +91,15 @@ export function LevelSelect({
                 aria-hidden
               />
             ))}
-            <span className="flex flex-1 flex-col justify-center px-3 py-1">
-              <span className="flex items-center gap-2 font-display text-2xl font-bold">
+            <span className="flex min-w-0 flex-1 flex-col justify-center px-2 py-1 sm:px-3">
+              <span className="break-words font-display text-[clamp(0.85rem,4vw,1.5rem)] font-bold leading-relaxed">
                 {t(`nivel.${l}`)}
-                {nivel === l && <PixelIcon name="ok" size={22} />}
+                {nivel === l && <span className="ml-1 inline-block align-middle"><PixelIcon name="ok" size={18} /></span>}
               </span>
               <span className="block text-[#5a3424]">{t(`ui.nivel.${l}`, { sois: BALANCE.LEVELS[l].totalSols })}</span>
             </span>
             <span
-              className="flex w-24 shrink-0 items-center justify-center gap-0.5 border-4 border-[#e8c39c] bg-[#c99a72] sm:w-28"
+              className="flex w-20 shrink-0 items-center justify-center gap-0.5 border-4 border-[#e8c39c] bg-[#c99a72] sm:w-28"
               aria-hidden
             >
               {/* dificuldade em foguetes (estrela é o prêmio de ciência do fim da missão) */}
@@ -108,7 +108,7 @@ export function LevelSelect({
                   key={i}
                   src="/assets/ui/foguete.png"
                   alt=""
-                  className="h-7 w-7 sm:h-8 sm:w-8"
+                  className="h-5 w-5 sm:h-8 sm:w-8"
                   style={{ imageRendering: "pixelated" }}
                 />
               ))}
@@ -148,7 +148,7 @@ export function LevelSelect({
                 type="button"
                 disabled={loading}
                 onClick={() => onModo("famosa", f)}
-                className={`border-2 px-2 py-1.5 text-left text-sm font-bold ${
+                className={`min-h-12 border-2 px-2 py-1.5 text-left text-sm font-bold ${
                   famosa === f ? "border-[#e2672b] bg-[#ffe9cc]" : "border-[#e8c39c] bg-[#f6dcb8]"
                 }`}
               >

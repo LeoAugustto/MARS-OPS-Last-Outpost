@@ -128,7 +128,7 @@ export function ComoJogar({ onClose }: { onClose: () => void }) {
           </ul>
 
           {/* páginas: quadradinhos (o atual em amarelo) */}
-          <div className="flex justify-center gap-0" aria-label={t("ajuda.pagina", { n: i + 1, total: PAGINAS.length })}>
+          <div className="flex flex-wrap justify-center" aria-label={t("ajuda.pagina", { n: i + 1, total: PAGINAS.length })}>
             {PAGINAS.map((pg, k) => (
               <button
                 key={pg.id}
@@ -136,7 +136,7 @@ export function ComoJogar({ onClose }: { onClose: () => void }) {
                 onClick={() => setI(k)}
                 aria-label={t(`ajuda.${pg.id}.titulo`)}
                 aria-current={k === i ? "step" : undefined}
-                className="grid h-12 w-11 place-items-center"
+                className="grid size-12 shrink-0 place-items-center"
               >
                 <span className={`block h-4 w-4 border-2 border-[#1c0703] ${k === i ? "bg-[#f3c916]" : "bg-[#fbe6c8]/35"}`} />
               </button>

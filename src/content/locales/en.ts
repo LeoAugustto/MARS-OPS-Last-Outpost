@@ -353,7 +353,7 @@ export const en: Dict = {
   "ev.bacterias.mesa.lesson":
     "NASA cleans spacecraft very carefully before going to Mars, so they don't carry germs from Earth. This is called planetary protection.",
   "ev.lab_contaminado.title": "The lab got dirty",
-  "ev.lab_contaminado.body": "Some bacteria escaped. Cleaning the table cost 2 energy.",
+  "ev.lab_contaminado.body": "Some bacteria escaped. Cleaning the table uses energy.",
 
   // 🛡️ shelter
   "ev.rachadura.title": "A crack in the sand layer",

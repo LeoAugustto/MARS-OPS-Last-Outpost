@@ -1,5 +1,14 @@
 # Passagem de bastão
 
+## 2026-11-15 · Codex · bateria de testes de lançamento
+
+- **Base e objetivo** — Branch local feat/qa-bateria-missoes, em 8c1f82d. Executada a bateria de docs/PROMPT-TESTES-CHATGPT.md com correções pequenas de navegador e de texto. Sem commit, push ou publicação.
+- **Correções** — Screens.tsx limita a largura dos cartões em celular e aumenta os botões das tempestades famosas. ComoJogar.tsx mantém a paginação em 48×48 px. GameApp.tsx e Panels.tsx deixam o fim do sol na cama e mostram o aviso quando ela está bloqueada. Textos da limpeza do laboratório nos cinco idiomas e frases pontuais da ajuda e da areia revisados. Motor e balanceamento preservados.
+- **Testes comprovados** — 1.260 simulações em 63 combinações, mais 1.260 replays determinísticos. Os 84 eventos apareceram. Chrome local: 32 finais, 28 no último sol, 27 vitórias e 5 resgates. Relatório e retorno testados nos três níveis. Tutorial, cinco idiomas, três modos, três resoluções, save e estrelas verificados com dados DONKI controlados. Suíte: 45 testes em 7 arquivos, TypeScript, build e git diff --check passaram. Teste temporário removido.
+- **Pendente** — O motor pode cobrar menos se a chegada de uma tempestade for ignorada. Custos condicionais e agendas do último sol precisam de decisão. Perfil atento com reserva ficou em 90% no Piloto e 80% no Comandante. Ver docs/RELATORIO-TESTES-CHATGPT.md para reprodução, tabela completa e limites da cobertura.
+- **Próximo passo** — Revisar o relatório com o time, decidir como aplicar os custos das notícias ignoradas e validar no celular físico e no DONKI real antes de publicar.
+
+
 ## 2026-11-15 · Claude Code · correções das pendências
 
 - **Feito** — Nome padrão "Astronauta" (5 idiomas). Links da tela inicial com 44px (cabe sem rolar em 360×640). Painéis fazem 11 de energia. Alertas por sol vêm de `ALERTAS_POR_NIVEL` (3), +1 com tudo acima de 45, −1 com recurso crítico. Evento do Sol pelo menos a cada 3 sóis e 20% nos outros (era 2 sóis e 35%): agora são ~20% das cartas. Relatório da noite mostra o que os alertas ignorados pioraram (`night.piora`). Raio refeito a partir de `art-source/novos huds/hud.png` (inteiro, com margem); microscópio, batata e O2 sem restos de fundo. Removidos os emoji não usados (`icon` dos eventos e "⭐" da força).
