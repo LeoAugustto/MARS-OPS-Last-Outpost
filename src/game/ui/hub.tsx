@@ -76,3 +76,14 @@ export function BotaoHub({
 /** Botão escuro e discreto (Sair, Pular, Voltar). */
 export const BOTAO_ESCURO =
   "flex min-h-12 items-center justify-center gap-2 border-4 border-[#5a1d07] bg-[#2a0508]/80 px-4 whitespace-nowrap font-display font-bold text-[#fbe6c8] shadow-[0_4px_0_#1c0703] transition [text-shadow:2px_2px_0_#1c0703] hover:bg-[#3b1206] active:translate-y-[2px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-highlight";
+
+/** Painel do hub com fundo (moldura + bordô translúcido sobre a arte). */
+export const PAINEL_HUB = `${MOLDURA_HUB} bg-[#2a0508]/80`;
+
+/** Cartão escuro para listas e blocos de informação dentro dos painéis. */
+export const CARTAO_ESCURO =
+  "border-4 border-[#5a1d07] bg-[#3b1206]/85 text-[#fbe6c8] shadow-[0_4px_0_#1c0703]";
+
+/** Caixa de destaque (letra amarela): números da missão, "Você sabia?", lições. */
+export const DESTAQUE =
+  "border-4 border-[#a8400f] bg-[#2a0508] text-[#f6e38c] shadow-[0_4px_0_#1c0703]";
