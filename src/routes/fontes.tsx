@@ -56,14 +56,15 @@ function Fontes() {
   return (
     <main className="bg-mars min-h-screen">
       <AppHeader />
-      <section className="mx-auto max-w-3xl px-4 pb-12 text-xl">
+      {/* telas bem largas (2xl): as 5 fontes lado a lado, para caber tudo sem rolar */}
+      <section className="mx-auto max-w-3xl px-4 pb-12 text-xl 2xl:max-w-[1500px] 2xl:pb-4">
         <h1 className="text-xl leading-normal text-highlight sm:text-2xl">{t("sourcesTitle")}</h1>
         <p className="mt-2 text-2xl leading-snug">{t("sourcesIntro")}</p>
-        <ul className="mt-6 grid gap-4">
+        <ul className="mt-6 grid gap-4 2xl:grid-cols-5 2xl:gap-5">
           {SOURCES.map((s) => (
-            <li key={s.name} className="flex flex-col gap-3 pixel-frame bg-card text-card-foreground p-5 sm:flex-row sm:items-center">
-              <img src={s.icon} alt="" aria-hidden width={64} height={64} className="pixelated h-16 w-16 shrink-0" />
-              <div className="flex-1">
+            <li key={s.name} className="flex flex-col gap-3 pixel-frame bg-card text-card-foreground p-5 sm:flex-row sm:items-center 2xl:flex-col 2xl:items-stretch">
+              <img src={s.icon} alt="" aria-hidden width={64} height={64} className="pixelated h-16 w-16 shrink-0 2xl:self-center" />
+              <div className="flex-1 2xl:text-center">
                 <h2 className="text-sm leading-normal sm:text-base">{s.name}</h2>
                 <p className="text-card-foreground/85">{t(s.key)}</p>
               </div>
