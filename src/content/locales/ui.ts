@@ -183,11 +183,9 @@ const pt = {
   "glossario.abrigo":
     "Abrigo = a parte mais protegida da base, para se esconder quando o Sol está bravo.",
   "glossario.clarao": "Clarão solar = um brilho forte e rápido no Sol. Pode atrapalhar o rádio.",
-  "glossario.nuvem":
-    "Nuvem de partículas = uma bolha enorme de matéria que o Sol solta. Leva dias para chegar.",
-  "glossario.chuva": "Chuva de partículas = pedacinhos muito rápidos do Sol que chegam em minutos.",
-  "glossario.terra":
-    "Tempestade magnética = quando a Terra é atingida pelo Sol e rádios e satélites ficam com problemas.",
+  "glossario.nuvem": "Nuvem de plasma (CME) = uma bolha enorme de gás muito quente que o Sol solta. Leva dias para chegar.",
+  "glossario.chuva": "Chuva de partículas = pedacinhos do Sol muito rápidos. Chegam em minutos e trazem radiação.",
+  "glossario.terra": "Tempestade geomagnética = quando uma nuvem do Sol bate no escudo magnético da Terra. Rádios e satélites têm problemas e aparecem auroras.",
 
   "ui.menu.titulo": "Menu",
   "ui.menu.tutorial": "Ver o tutorial de novo",
@@ -254,6 +252,16 @@ const pt = {
   "ajuda.real.2": "Real: uma mensagem de rádio leva minutos entre a Terra e Marte. Hoje, cerca de {min} minutos.",
   "ajuda.real.3": "Real: missões como Curiosity, Perseverance, InSight e Ingenuity aparecem nas cartas.",
   "ajuda.real.4": "Inventado para o jogo: a base, o Rovi e os números de energia, ar e comida.",
+  "glossario.estufa": "Estufa = uma casa de plantas com luz e calor, onde a equipe planta comida.",
+  "glossario.moxie": "Fábrica de ar (MOXIE) = máquina que tira oxigênio do ar de Marte. O MOXIE, do robô Perseverance, fez isso de verdade.",
+  "glossario.rover": "Rover = um carro-robô que anda em Marte. A NASA tem rovers como o Curiosity e o Perseverance.",
+  "glossario.atraso": "Atraso do rádio = o tempo que uma mensagem leva entre a Terra e Marte: de 3 a 22 minutos, conforme a distância.",
+  "glossario.painel": "Painel solar = placa que transforma a luz do Sol em energia elétrica.",
+  "glossario.poeira": "Poeira marciana = pó vermelho bem fininho. Quando cobre os painéis, eles fazem menos energia.",
+  "glossario.bateria": "Bateria = guarda a energia que sobrou para usar depois.",
+  "glossario.energia": "Energia = o que faz as máquinas da base funcionarem. Aqui ela vem dos painéis solares.",
+  "glossario.donki": "DONKI = arquivo da NASA que anota cada evento do clima espacial, como clarões e nuvens do Sol.",
+  "glossario.controle": "Controle de Missão = a equipe na Terra que acompanha a base e manda conselhos pelo rádio.",
 } as const;
 
 export type UiKey = keyof typeof pt;
@@ -438,11 +446,9 @@ const en: UiDict = {
     "Shelter = the best-protected part of the base, to hide when the Sun is stormy.",
   "glossario.clarao":
     "Solar flash = a strong, quick burst of light on the Sun. It can mess up the radio.",
-  "glossario.nuvem":
-    "Particle cloud = a huge bubble of matter the Sun throws out. It takes days to arrive.",
-  "glossario.chuva": "Particle shower = super-fast bits from the Sun that arrive in minutes.",
-  "glossario.terra":
-    "Magnetic storm = when the Sun hits Earth and radios and satellites have trouble.",
+  "glossario.nuvem": "Plasma cloud (CME) = a huge bubble of super-hot gas the Sun throws out. It takes days to arrive.",
+  "glossario.chuva": "Particle shower = super-fast bits from the Sun. They arrive in minutes and bring radiation.",
+  "glossario.terra": "Geomagnetic storm = when a cloud from the Sun hits Earth’s magnetic shield. Radios and satellites have trouble, and auroras appear.",
 
   "ui.menu.titulo": "Menu",
   "ui.menu.tutorial": "See the tutorial again",
@@ -509,6 +515,16 @@ const en: UiDict = {
   "ajuda.real.2": "Real: a radio message takes minutes between Earth and Mars. Today, about {min} minutes.",
   "ajuda.real.3": "Real: missions like Curiosity, Perseverance, InSight and Ingenuity appear on the cards.",
   "ajuda.real.4": "Made up for the game: the base, Rovi and the numbers for energy, air and food.",
+  "glossario.estufa": "Greenhouse = a plant house with light and warmth, where the crew grows food.",
+  "glossario.moxie": "Air maker (MOXIE) = a machine that takes oxygen out of Mars air. MOXIE, on the Perseverance rover, really did it.",
+  "glossario.rover": "Rover = a robot car that drives on Mars. NASA has rovers like Curiosity and Perseverance.",
+  "glossario.atraso": "Radio delay = the time a message takes between Earth and Mars: 3 to 22 minutes, depending on the distance.",
+  "glossario.painel": "Solar panel = a panel that turns sunlight into electricity.",
+  "glossario.poeira": "Mars dust = very fine red powder. When it covers the panels, they make less energy.",
+  "glossario.bateria": "Battery = stores leftover energy to use later.",
+  "glossario.energia": "Energy = what makes the base machines work. Here it comes from the solar panels.",
+  "glossario.donki": "DONKI = a NASA archive that records every space weather event, like flashes and clouds from the Sun.",
+  "glossario.controle": "Mission Control = the team on Earth that watches over the base and sends advice by radio.",
 };
 
 const es: UiDict = {
@@ -695,11 +711,9 @@ const es: UiDict = {
     "Refugio = la parte más protegida de la base, para esconderse cuando el Sol está agitado.",
   "glossario.clarao":
     "Destello solar = un brillo fuerte y rápido en el Sol. Puede estropear la radio.",
-  "glossario.nuvem":
-    "Nube de partículas = una burbuja enorme de materia que suelta el Sol. Tarda días en llegar.",
-  "glossario.chuva": "Lluvia de partículas = pedacitos muy rápidos del Sol que llegan en minutos.",
-  "glossario.terra":
-    "Tormenta magnética = cuando el Sol golpea la Tierra y las radios y satélites tienen problemas.",
+  "glossario.nuvem": "Nube de plasma (CME) = una burbuja enorme de gas muy caliente que suelta el Sol. Tarda días en llegar.",
+  "glossario.chuva": "Lluvia de partículas = pedacitos del Sol muy rápidos. Llegan en minutos y traen radiación.",
+  "glossario.terra": "Tormenta geomagnética = cuando una nube del Sol choca con el escudo magnético de la Tierra. Radios y satélites fallan y aparecen auroras.",
 
   "ui.menu.titulo": "Menú",
   "ui.menu.tutorial": "Ver el tutorial otra vez",
@@ -766,6 +780,16 @@ const es: UiDict = {
   "ajuda.real.2": "Real: un mensaje de radio tarda minutos entre la Tierra y Marte. Hoy, unos {min} minutos.",
   "ajuda.real.3": "Real: misiones como Curiosity, Perseverance, InSight e Ingenuity aparecen en las cartas.",
   "ajuda.real.4": "Inventado para el juego: la base, Rovi y los números de energía, aire y comida.",
+  "glossario.estufa": "Invernadero = una casa de plantas con luz y calor, donde el equipo cultiva comida.",
+  "glossario.moxie": "Fábrica de aire (MOXIE) = máquina que saca oxígeno del aire de Marte. El MOXIE, del robot Perseverance, lo hizo de verdad.",
+  "glossario.rover": "Rover = un auto robot que anda por Marte. La NASA tiene rovers como Curiosity y Perseverance.",
+  "glossario.atraso": "Retraso de la radio = el tiempo que tarda un mensaje entre la Tierra y Marte: de 3 a 22 minutos, según la distancia.",
+  "glossario.painel": "Panel solar = placa que convierte la luz del Sol en energía eléctrica.",
+  "glossario.poeira": "Polvo marciano = polvo rojo muy fino. Cuando cubre los paneles, hacen menos energía.",
+  "glossario.bateria": "Batería = guarda la energía que sobró para usarla después.",
+  "glossario.energia": "Energía = lo que hace funcionar las máquinas de la base. Aquí viene de los paneles solares.",
+  "glossario.donki": "DONKI = archivo de la NASA que anota cada evento del clima espacial, como destellos y nubes del Sol.",
+  "glossario.controle": "Control de Misión = el equipo en la Tierra que sigue la base y manda consejos por radio.",
 };
 
 const fr: UiDict = {
@@ -955,12 +979,9 @@ const fr: UiDict = {
     "Abri = la partie la mieux protégée de la base, pour se cacher quand le Soleil est agité.",
   "glossario.clarao":
     "Éclair solaire = un éclat de lumière fort et rapide sur le Soleil. Il peut brouiller la radio.",
-  "glossario.nuvem":
-    "Nuage de particules = une énorme bulle de matière lancée par le Soleil. Elle met des jours à arriver.",
-  "glossario.chuva":
-    "Pluie de particules = des petits morceaux très rapides du Soleil qui arrivent en quelques minutes.",
-  "glossario.terra":
-    "Tempête magnétique = quand le Soleil frappe la Terre et que les radios et satellites ont des problèmes.",
+  "glossario.nuvem": "Nuage de plasma (CME) = une énorme bulle de gaz très chaud que le Soleil lance. Il met des jours à arriver.",
+  "glossario.chuva": "Pluie de particules = de minuscules morceaux du Soleil très rapides. Ils arrivent en quelques minutes et apportent des radiations.",
+  "glossario.terra": "Tempête géomagnétique = quand un nuage du Soleil frappe le bouclier magnétique de la Terre. Radios et satellites ont des problèmes et des aurores apparaissent.",
 
   "ui.menu.titulo": "Menu",
   "ui.menu.tutorial": "Revoir le tutoriel",
@@ -1027,6 +1048,16 @@ const fr: UiDict = {
   "ajuda.real.2": "Vrai : un message radio met des minutes entre la Terre et Mars. Aujourd’hui, environ {min} minutes.",
   "ajuda.real.3": "Vrai : des missions comme Curiosity, Perseverance, InSight et Ingenuity apparaissent sur les cartes.",
   "ajuda.real.4": "Inventé pour le jeu : la base, Rovi et les nombres d’énergie, d’air et de nourriture.",
+  "glossario.estufa": "Serre = une maison pour les plantes, avec lumière et chaleur, où l’équipe fait pousser la nourriture.",
+  "glossario.moxie": "Fabrique d’air (MOXIE) = une machine qui tire de l’oxygène de l’air de Mars. MOXIE, sur le robot Perseverance, l’a vraiment fait.",
+  "glossario.rover": "Rover = une voiture-robot qui roule sur Mars. La NASA a des rovers comme Curiosity et Perseverance.",
+  "glossario.atraso": "Retard radio = le temps qu’un message met entre la Terre et Mars : de 3 à 22 minutes, selon la distance.",
+  "glossario.painel": "Panneau solaire = une plaque qui transforme la lumière du Soleil en électricité.",
+  "glossario.poeira": "Poussière martienne = une poudre rouge très fine. Quand elle couvre les panneaux, ils font moins d’énergie.",
+  "glossario.bateria": "Batterie = garde l’énergie en trop pour plus tard.",
+  "glossario.energia": "Énergie = ce qui fait marcher les machines de la base. Ici, elle vient des panneaux solaires.",
+  "glossario.donki": "DONKI = une archive de la NASA qui note chaque événement de météo spatiale, comme les éruptions et les nuages du Soleil.",
+  "glossario.controle": "Contrôle de mission = l’équipe sur Terre qui suit la base et envoie des conseils par radio.",
 };
 
 const it: UiDict = {
@@ -1213,12 +1244,9 @@ const it: UiDict = {
     "Rifugio = la parte più protetta della base, per nascondersi quando il Sole è agitato.",
   "glossario.clarao":
     "Lampo solare = un bagliore forte e veloce sul Sole. Può disturbare la radio.",
-  "glossario.nuvem":
-    "Nube di particelle = un’enorme bolla di materia lanciata dal Sole. Ci mette giorni ad arrivare.",
-  "glossario.chuva":
-    "Pioggia di particelle = pezzettini velocissimi del Sole che arrivano in pochi minuti.",
-  "glossario.terra":
-    "Tempesta magnetica = quando il Sole colpisce la Terra e radio e satelliti hanno problemi.",
+  "glossario.nuvem": "Nube di plasma (CME) = un’enorme bolla di gas caldissimo lanciata dal Sole. Ci mette giorni ad arrivare.",
+  "glossario.chuva": "Pioggia di particelle = pezzettini del Sole velocissimi. Arrivano in pochi minuti e portano radiazioni.",
+  "glossario.terra": "Tempesta geomagnetica = quando una nube del Sole colpisce lo scudo magnetico della Terra. Radio e satelliti hanno problemi e compaiono le aurore.",
 
   "ui.menu.titulo": "Menu",
   "ui.menu.tutorial": "Rivedi il tutorial",
@@ -1285,6 +1313,16 @@ const it: UiDict = {
   "ajuda.real.2": "Vero: un messaggio radio impiega minuti tra la Terra e Marte. Oggi, circa {min} minuti.",
   "ajuda.real.3": "Vero: missioni come Curiosity, Perseverance, InSight e Ingenuity compaiono nelle carte.",
   "ajuda.real.4": "Inventato per il gioco: la base, Rovi e i numeri di energia, aria e cibo.",
+  "glossario.estufa": "Serra = una casa per le piante con luce e calore, dove la squadra coltiva il cibo.",
+  "glossario.moxie": "Fabbrica d’aria (MOXIE) = una macchina che tira fuori ossigeno dall’aria di Marte. MOXIE, sul robot Perseverance, l’ha fatto davvero.",
+  "glossario.rover": "Rover = un’auto robot che si muove su Marte. La NASA ha rover come Curiosity e Perseverance.",
+  "glossario.atraso": "Ritardo radio = il tempo che un messaggio impiega tra la Terra e Marte: da 3 a 22 minuti, secondo la distanza.",
+  "glossario.painel": "Pannello solare = una piastra che trasforma la luce del Sole in energia elettrica.",
+  "glossario.poeira": "Polvere marziana = polvere rossa finissima. Quando copre i pannelli, fanno meno energia.",
+  "glossario.bateria": "Batteria = conserva l’energia avanzata per usarla dopo.",
+  "glossario.energia": "Energia = ciò che fa funzionare le macchine della base. Qui arriva dai pannelli solari.",
+  "glossario.donki": "DONKI = archivio della NASA che registra ogni evento del meteo spaziale, come lampi e nubi del Sole.",
+  "glossario.controle": "Controllo Missione = la squadra sulla Terra che segue la base e manda consigli via radio.",
 };
 
 export const UI_TEXTS = { pt, en, es, fr, it };

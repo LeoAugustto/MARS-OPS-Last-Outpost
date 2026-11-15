@@ -43,3 +43,14 @@ describe("números de regra nos textos", () => {
     expect(txt).toContain(`−${BALANCE.SAUDE_POR_ALERTA_PERDIDO} ao dormir`);
   });
 });
+
+describe("glossário", () => {
+  const PALAVRAS = [
+    "sol", "radiacao", "tempestade", "clarao", "nuvem", "chuva", "terra", "escudo", "estufa",
+    "moxie", "rover", "atraso", "painel", "poeira", "bateria", "energia", "donki", "controle",
+  ];
+  it("tem as 18 palavras pedidas, cada uma no formato 'Termo = frase', nos 5 idiomas", () => {
+    for (const lang of LANGS)
+      for (const k of PALAVRAS) expect(LOCALES[lang][`glossario.${k}`], `${lang}: ${k}`).toMatch(/^.+ = .+/);
+  });
+});

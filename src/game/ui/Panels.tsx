@@ -278,31 +278,51 @@ export function PlaceInfo({
 }
 
 // ---------------------------------------------------------------- glossário
+/** Palavras do espaço, na ordem em que aparecem no jogo. Texto: "Termo = frase simples." */
 const GLOSSARIO = [
   "sol",
   "radiacao",
   "tempestade",
-  "escudo",
-  "abrigo",
   "clarao",
   "nuvem",
   "chuva",
   "terra",
+  "escudo",
+  "abrigo",
+  "estufa",
+  "moxie",
+  "rover",
+  "atraso",
+  "painel",
+  "poeira",
+  "bateria",
+  "energia",
+  "donki",
+  "controle",
 ];
 
 export function Glossary({ onClose }: { onClose: () => void }) {
   const { t } = useGT();
   return (
-    <Modal label={t("ui.glossario.titulo")} onClose={onClose}>
+    <Modal label={t("ui.glossario.titulo")} onClose={onClose} wide>
       <div className="flex flex-col gap-2">
         <h2 className="font-display text-2xl font-bold text-secondary">
           <PixelIcon name="livro" /> {t("ui.glossario.titulo")}
         </h2>
-        {GLOSSARIO.map((k) => (
-          <p key={k} className="border border-border bg-muted p-3">
-            {t(`glossario.${k}`)}
-          </p>
-        ))}
+        <dl className="grid gap-2 lg:grid-cols-2">
+          {GLOSSARIO.map((k) => {
+            const texto = t(`glossario.${k}`);
+            const i = texto.indexOf(" = ");
+            const termo = i > 0 ? texto.slice(0, i) : "";
+            const frase = i > 0 ? texto.slice(i + 3) : texto;
+            return (
+              <div key={k} className="border border-border bg-muted p-3 leading-snug">
+                {termo && <dt className="font-extrabold text-secondary">{termo}</dt>}
+                <dd>{frase}</dd>
+              </div>
+            );
+          })}
+        </dl>
         <Button variant="chunky" size="tap" className="w-full" onClick={onClose}>
           {t("ui.fechar")}
         </Button>
