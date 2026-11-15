@@ -1,4 +1,5 @@
 // Peças compartilhadas das telas do jogo: tradução, voz, chips de efeito, modal.
+import { pararVoz } from "./audio";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { useLang } from "@/i18n";
 import { t as translate, LOCALES } from "@/content/i18n";
@@ -151,6 +152,7 @@ export function speak(text: string, lang: Lang): void {
 }
 
 export function stopSpeaking(): void {
+  pararVoz();
   try {
     window.speechSynthesis?.cancel();
   } catch {

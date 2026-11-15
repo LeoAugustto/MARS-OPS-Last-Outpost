@@ -1,6 +1,7 @@
 // Telas fora do mapa: escolher nível, abertura, fim da missão, relatório. O tutorial fica em Tutorial.tsx.
 import { NUMEROS_ENERGIA } from "./Panels";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { tocarEfeito } from "./audio";
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { LangSelector } from "@/components/AppHeader";
@@ -425,6 +426,12 @@ export function EndScreen({
 }) {
   const { t } = useGT();
   const d = debrief(state);
+  // estrelas aparecendo: som de festa depois da fanfarra
+  useEffect(() => {
+    if (!d.estrelas) return;
+    const t = setTimeout(() => tocarEfeito("estrelas"), 2200);
+    return () => clearTimeout(t);
+  }, [d.estrelas]);
   const icon = state.status === "resgate" ? "foguete" : "vitoria";
   // mesmo estilo do menu inicial: arte da base ao fundo e painel com moldura (ver hub.tsx)
   return (

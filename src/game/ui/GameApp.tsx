@@ -42,6 +42,8 @@ import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
 import { collectStickers } from "./stickers";
 import { ART, type Periodo } from "./art";
 import { ComoJogar } from "./ComoJogar";
+import { pararTudo, tocarMusica } from "./audio";
+import { SomPanel } from "./SomPanel";
 import { AvisoTelaCheia } from "./AvisoTelaCheia";
 
 /** abaixo disto (e caindo desde a última noite) o Rovi avisa que o recurso está acabando (jogo; só a UI usa) */
@@ -60,7 +62,7 @@ function veioDeAmpulheta(g: GameState, eventId: string): boolean {
 const HORAS_VIAGEM_ROVER = 1;
 
 type Phase = "nivel" | "perfil" | "abertura" | "manha" | "mapa" | "noite" | "fim" | "relatorio";
-type Overlay = null | "energia" | "glossario" | "menu" | "ajuda";
+type Overlay = null | "energia" | "glossario" | "menu" | "ajuda" | "som";
 
 interface SaveData {
   v: 2;
@@ -372,6 +374,24 @@ function GameInner({
 
   const periodo = periodoDe(relogio);
   const noite = periodo === "noite";
+
+  // música de fundo de acordo com a tela e a hora do dia (arquivos em public/audio/musica)
+  const tempestadeHoje = !!game?.alerts.some((a) => {
+    const ch = findEvent(a.eventId).chain;
+    return !a.done && (ch === "sol-nuvem" || ch === "sol-chuva");
+  });
+  const fimStatus = game?.status;
+  useEffect(() => {
+    if (phase === "nivel" || phase === "perfil" || phase === "abertura") tocarMusica("tema_menu");
+    else if (phase === "fim" || phase === "relatorio")
+      tocarMusica(fimStatus === "resgate" ? "resgate" : "vitoria", { loop: false });
+    else if (phase === "noite") tocarMusica("noite");
+    else if (cena) tocarMusica("rover_viagem");
+    else if (tempestadeHoje) tocarMusica("tempestade");
+    else tocarMusica(periodo === "noite" ? "noite" : periodo === "entardecer" ? "mapa_entardecer" : "mapa_dia");
+  }, [phase, periodo, cena, tempestadeHoje, fimStatus]);
+  // saiu do jogo: silêncio
+  useEffect(() => () => pararTudo(), []);
 
   // a noite chegou com a tripulação acordada: cansaço (SAUDE_AO_ANOITECER), uma vez por sol
   useEffect(() => {
@@ -795,6 +815,7 @@ function GameInner({
       )}
       {overlay === "glossario" && <Glossary onClose={() => setOverlay(null)} />}
       {overlay === "ajuda" && <ComoJogar onClose={() => setOverlay(null)} />}
+      {overlay === "som" && <SomPanel onClose={() => setOverlay(null)} />}
       {overlay === "menu" && (
         <GameMenu
           onClose={() => setOverlay(null)}
@@ -803,6 +824,7 @@ function GameInner({
             setOverlay(null);
           }}
           onHowTo={() => setOverlay("ajuda")}
+          onSom={() => setOverlay("som")}
           onGlossary={() => setOverlay("glossario")}
           onRestart={backToLevels}
           onExit={() => navigate({ to: "/" })}

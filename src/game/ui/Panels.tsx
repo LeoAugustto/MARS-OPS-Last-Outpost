@@ -346,6 +346,7 @@ export function GameMenu({
   onClose,
   onTutorial,
   onHowTo,
+  onSom,
   onGlossary,
   onRestart,
   onExit,
@@ -353,6 +354,7 @@ export function GameMenu({
   onClose: () => void;
   onTutorial: () => void;
   onHowTo: () => void;
+  onSom?: () => void;
   onGlossary: () => void;
   onRestart: () => void;
   onExit: () => void;
@@ -367,6 +369,7 @@ export function GameMenu({
       onClick: onTutorial,
     },
     { icone: <PixelIcon name="livro" />, texto: t("ui.menu.glossario"), onClick: onGlossary },
+    ...(onSom ? [{ icone: <PixelIcon name="som" />, texto: t("ui.menu.som"), onClick: onSom }] : []),
     { icone: <PixelIcon name="recomecar" />, texto: t("ui.menu.reiniciar"), onClick: onRestart },
   ];
   return (

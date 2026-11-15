@@ -7,6 +7,7 @@ import { animacaoPausada, guardarAnimacaoPausada } from "@/lib/animacao";
 import { listSaves } from "@/lib/saves";
 import { ComoJogar } from "@/game/ui/ComoJogar";
 import { FullscreenButton } from "@/game/ui/shared";
+import { tocarMusica } from "@/game/ui/audio";
 
 // vídeo da cena e o primeiro quadro, servidos como arquivos estáticos de public/:
 // funcionam no Lovable e em qualquer build Vite normal (sem depender de rota interna).
@@ -173,6 +174,8 @@ function useCenaTocando(ref: RefObject<HTMLVideoElement | null>, pausada: boolea
 
 function Home() {
   const t = useT();
+  // música do menu (só toca depois do primeiro toque, regra dos navegadores)
+  useEffect(() => tocarMusica("tema_menu"), []);
   useDocumentTitle();
   const [hasSave, setHasSave] = useState(false);
   useEffect(() => setHasSave(listSaves().length > 0), []);
