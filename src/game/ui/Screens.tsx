@@ -11,7 +11,7 @@ import {
   type HistoryPoint,
   type Level,
 } from "@/game/engine";
-import { AstronautSprite, DialogBox, formatarData, PlaceIcon, useGT } from "./shared";
+import { AstronautSprite, DialogBox, formatarData, FullscreenButton, PlaceIcon, useGT } from "./shared";
 import { NAME_MAX, cleanName, type Player } from "./player";
 import { FAMOSAS, type Famosa, type ModoSol } from "@/data/donki-live";
 import { STICKERS, loadStickers } from "./stickers";
@@ -50,16 +50,19 @@ export function LevelSelect({
   ];
   return (
     <div className="flex h-full flex-col items-center gap-3 overflow-y-auto p-4">
-      <div className="flex w-full max-w-xl items-center justify-between">
+      <div className="flex w-full max-w-xl 2xl:max-w-3xl items-center justify-between">
         <Button asChild variant="ghost" size="tap">
           <Link to="/">← {t("ui.inicio")}</Link>
         </Button>
-        <LangSelector />
+        <div className="flex items-center gap-2">
+          <FullscreenButton />
+          <LangSelector />
+        </div>
       </div>
       <h1 className="text-center font-display text-3xl font-bold text-[#ffd23f]">
         {t("ui.nivel.titulo")}
       </h1>
-      <div className="grid w-full max-w-xl gap-3" role="radiogroup" aria-label={t("ui.nivel.titulo")}>
+      <div className="grid w-full max-w-xl 2xl:max-w-3xl gap-3" role="radiogroup" aria-label={t("ui.nivel.titulo")}>
         {niveis.map(({ l, estrelas }) => (
           <button
             key={l}
@@ -110,7 +113,7 @@ export function LevelSelect({
           </button>
         ))}
       </div>
-      <fieldset className="w-full max-w-xl border-4 border-[#c4581f] bg-[#fbe6c8] p-3 text-[#3a2015] shadow-[0_6px_0_#7a2f12]">
+      <fieldset className="w-full max-w-xl 2xl:max-w-3xl border-4 border-[#c4581f] bg-[#fbe6c8] p-3 text-[#3a2015] shadow-[0_6px_0_#7a2f12]">
         <legend className="bg-[#fbe6c8] px-2 font-display text-lg font-bold">
           {t("ui.fonte.titulo")}
         </legend>
@@ -154,7 +157,7 @@ export function LevelSelect({
       </fieldset>
 
       {/* embaixo da fonte dos dados: continuar a missão salva ou começar uma nova */}
-      <div className="grid w-full max-w-xl gap-3 sm:grid-cols-2">
+      <div className="grid w-full max-w-xl 2xl:max-w-3xl gap-3 sm:grid-cols-2">
         {saveSol !== null && (
           <Button variant="chunkySand" size="tap" className="w-full" onClick={onContinue}>
             <PixelIcon name="play" /> {t("ui.continuar", { sol: saveSol })}
@@ -199,7 +202,7 @@ export function ProfileScreen({
         onDone({ gender, name: cleanName(name) });
       }}
     >
-      <div className="flex w-full max-w-xl">
+      <div className="flex w-full max-w-xl 2xl:max-w-3xl">
         <Button type="button" variant="ghost" size="tap" onClick={onBack}>
           ← {t("ui.nivel.titulo")}
         </Button>
@@ -209,7 +212,7 @@ export function ProfileScreen({
       </h1>
       <p className="font-bold text-foreground">{t("ui.perfil.escolha")}</p>
       <div
-        className="grid w-full max-w-md grid-cols-2 gap-3"
+        className="grid w-full max-w-md 2xl:max-w-xl grid-cols-2 gap-3"
         role="radiogroup"
         aria-label={t("ui.perfil.escolha")}
       >
@@ -233,7 +236,7 @@ export function ProfileScreen({
           </button>
         ))}
       </div>
-      <label className="flex w-full max-w-md flex-col gap-1">
+      <label className="flex w-full max-w-md 2xl:max-w-xl flex-col gap-1">
         <span className="font-bold text-foreground">{t("ui.perfil.nome")}</span>
         <input
           value={name}
@@ -245,7 +248,7 @@ export function ProfileScreen({
         />
         <span className="text-sm text-foreground/80">{t("ui.perfil.dica")}</span>
       </label>
-      <Button type="submit" variant="chunky" size="tap" className="w-full max-w-md text-lg">
+      <Button type="submit" variant="chunky" size="tap" className="w-full max-w-md 2xl:max-w-xl text-lg">
         {t("ui.proximo")} <PixelIcon name="play" />
       </Button>
     </form>
@@ -267,7 +270,7 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-5 p-6 text-center">
       <img src={ART.portraits.rovi.src} alt="" width={96} height={96} className="object-contain" />
-      <div className="max-w-md border-4 border-border bg-card p-6 text-card-foreground shadow-[0_5px_0_#6e2a10]">
+      <div className="max-w-md 2xl:max-w-xl border-4 border-border bg-card p-6 text-card-foreground shadow-[0_5px_0_#6e2a10]">
         <div className="mb-3 flex justify-center gap-2">
           {q.icons.map((name) => <PixelIcon key={name} name={name} size={48} />)}
         </div>
@@ -283,7 +286,7 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
           <span key={k} className={`h-3 w-3 rounded-full ${k === i ? "bg-primary" : "bg-muted"}`} />
         ))}
       </div>
-      <div className="flex w-full max-w-md gap-2">
+      <div className="flex w-full max-w-md 2xl:max-w-xl gap-2">
         <Button variant="ghost" size="tap" onClick={onDone}>
           {t("ui.pular")}
         </Button>
@@ -356,20 +359,20 @@ export function EndScreen({
         {t("ui.fim.quem")}
       </p>
       <h1 className="font-display text-4xl font-bold text-[#ffd23f]">{t(d.titleKey)}</h1>
-      <p className="max-w-md text-xl">{t(d.bodyKey)}</p>
+      <p className="max-w-md 2xl:max-w-xl text-xl">{t(d.bodyKey)}</p>
       <p className="text-lg font-bold">
         {t("ui.relatorio.ciencia", { n: d.ciencia, meta: d.metaCiencia })} ·{" "}
         {t("ui.relatorio.sois", { n: Math.max(0, d.soisCompletos), total: d.totalSols })}
       </p>
       {novas.length > 0 && (
-        <section className="w-full max-w-xl">
+        <section className="w-full max-w-xl 2xl:max-w-3xl">
           <h2 className="mb-2 font-display text-2xl font-bold text-[#ffd23f]">
             {t("ui.fig.novas")}
           </h2>
           <StickerGrid ids={novas} so={novas} />
         </section>
       )}
-      <div className="flex w-full max-w-md flex-col gap-2">
+      <div className="flex w-full max-w-md 2xl:max-w-xl flex-col gap-2">
         <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onReport}>
           <PixelIcon name="relatorio" /> {t("ui.relatorio.ver")}
         </Button>
@@ -448,7 +451,7 @@ export function Report({
   const d = debrief(state);
   return (
     <div className="h-full overflow-y-auto p-4">
-      <div className="mx-auto flex max-w-2xl flex-col gap-4">
+      <div className="mx-auto flex max-w-2xl 2xl:max-w-4xl flex-col gap-4">
         <h1 className="text-center font-display text-3xl font-bold text-[#ffd23f]">
           <PixelIcon name="relatorio" /> {t("ui.relatorio.titulo")}
         </h1>
@@ -565,17 +568,17 @@ export function TutorialBubble({
   const texto = t(`tut.${step + 1}`);
   return (
     <div
-      className="pointer-events-auto absolute inset-x-2 bottom-2 z-30 mx-auto flex max-w-md flex-col gap-1 opacity-95"
+      className="pointer-events-auto absolute inset-x-2 bottom-2 z-30 mx-auto flex max-w-md flex-col gap-1 sm:max-w-xl 2xl:max-w-3xl"
       role="status"
     >
       <DialogBox speaker="rovi" text={texto} compact />
       <div className="flex items-center gap-2">
-        <Button variant="chunky" size="sm" className="min-h-10 flex-1" onClick={onOk}>
+        <Button variant="chunky" size="sm" className="min-h-12 min-w-0 flex-1 text-lg" onClick={onOk}>
           {t("tut.ok")}
         </Button>
         <button
           type="button"
-          className="min-h-10 px-2 text-xs text-foreground underline"
+          className="min-h-12 shrink-0 whitespace-nowrap border-4 border-[#a5461f] bg-[#fbe2c2] px-3 text-lg text-[#4a2615] underline shadow-[0_4px_0_#6e2a10]"
           onClick={onSkip}
         >
           {t("tut.pular")}

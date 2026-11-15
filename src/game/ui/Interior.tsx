@@ -9,16 +9,31 @@ import { PixelIcon } from "./PixelIcon";
 
 type Obj = "terminal" | "saida" | "cama" | "energia";
 type Ponto = { x: number; y: number };
+/** Objeto da sala: centro (x, y) e tamanho (w, h) do móvel desenhado na cena, em % da sala. */
+type Caixa = Ponto & { w: number; h: number };
 
-/** Onde fica cada objeto dentro da sala (% da sala). */
-function objetos(place: PlaceId): Partial<Record<Obj, Ponto>> {
-  const base: Partial<Record<Obj, Ponto>> = { terminal: { x: 72, y: 34 }, saida: { x: 50, y: 92 } };
-  if (place === "habitat") return { ...base, cama: { x: 24, y: 36 } };
-  if (place === "ar") return { ...base, energia: { x: 26, y: 34 } };
-  return base;
-}
+const SAIDA: Caixa = { x: 50, y: 92, w: 16, h: 12 };
+/** Onde fica cada móvel em cada cena (medido nas artes de public/assets/places, 900×900). */
+const SALAS: Record<PlaceId, Partial<Record<Obj, Caixa>>> = {
+  habitat: {
+    terminal: { x: 83, y: 34, w: 16, h: 18 },
+    cama: { x: 22, y: 34, w: 19, h: 24 },
+    saida: SAIDA,
+  },
+  ar: {
+    terminal: { x: 89, y: 26, w: 10, h: 13 },
+    energia: { x: 25, y: 23, w: 34, h: 18 },
+    saida: SAIDA,
+  },
+  lab: { terminal: { x: 79, y: 28, w: 16, h: 17 }, saida: SAIDA },
+  estufa: { terminal: { x: 83, y: 27, w: 14, h: 16 }, saida: SAIDA },
+  abrigo: { terminal: { x: 80, y: 26, w: 17, h: 15 }, saida: { x: 50, y: 86, w: 20, h: 16 } },
+  antena: { terminal: { x: 82, y: 28, w: 14, h: 17 }, saida: SAIDA },
+  paineis: { terminal: { x: 88, y: 26, w: 12, h: 15 }, saida: SAIDA },
+  rover: { terminal: { x: 85, y: 24, w: 17, h: 17 }, saida: { x: 50, y: 93, w: 14, h: 10 } },
+};
+const objetos = (place: PlaceId) => SALAS[place] ?? { saida: SAIDA };
 
-const ICONE: Record<Obj, string> = { terminal: "computador", saida: "porta", cama: "cama", energia: "raio" };
 const SPEED = 34;
 const RAIO = 9;
 const PASSOS = [0, 1, 2, 1];
@@ -130,7 +145,7 @@ export function Interior({
       }
       // perto de um objeto: usa (uma vez por aproximação)
       const q = posRef.current;
-      const near = (Object.entries(L.objs) as [Obj, Ponto][]).find(
+      const near = (Object.entries(L.objs) as [Obj, Caixa][]).find(
         ([, o]) => Math.hypot(o.x - q.x, prender(o).y - q.y) < RAIO,
       )?.[0];
       if (perto.current && perto.current !== near) perto.current = null;
@@ -181,7 +196,7 @@ export function Interior({
   };
 
   return (
-    <div className="relative flex h-full w-full items-start justify-center sm:items-center">
+    <div className="relative flex h-full w-full items-center justify-center">
       <div
         className="relative aspect-square w-full max-w-[min(100%,calc(100dvh-180px))] touch-none select-none overflow-hidden border-4 border-[#a5461f] shadow-[0_6px_0_#6e2a10]"
         style={{
@@ -198,39 +213,41 @@ export function Interior({
         }}
         aria-label={t(`lugar.${place}`)}
       >
-        <div className="pointer-events-none absolute left-2 top-2 border-2 border-[#a5461f] bg-[#fbe2c2] px-2 py-0.5 text-sm font-bold text-[#4a2615]">
+        <div className="pointer-events-none absolute left-2 top-2 border-2 border-[#a5461f] bg-[#fbe2c2] px-2 py-0.5 text-base font-bold text-[#4a2615] 2xl:text-xl">
           {t(`lugar.${place}`)}
         </div>
 
-        {(Object.entries(objs) as [Obj, Ponto][]).map(([o, p]) => (
-          <button
-            key={o}
-            type="button"
-            onPointerDown={(e) => {
-              e.stopPropagation();
-              irPara(p, o);
-            }}
-            onClick={(e) => {
-              // Enter, espaço e tecnologias assistivas ativam o botão sem pointerdown.
-              if (e.detail === 0) irPara(p, o);
-            }}
-            className={`absolute z-10 flex -translate-x-1/2 -translate-y-1/2 items-center focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#ffd23f] ${o === "saida" ? "flex-col-reverse" : "flex-col"}`}
-            style={{ left: `${p.x}%`, top: `${p.y}%` }}
-            aria-label={t(`ui.interior.${o}`) + (o === "terminal" && alerta ? ` · ${t("ui.alerta")}` : "")}
-          >
-            <span className="relative grid h-12 w-12 place-items-center border-2 border-[#4a2615] bg-[#efcda2]/95 shadow-[0_3px_0_#4a2615] sm:h-14 sm:w-14">
-              <PixelIcon name={ICONE[o]} size={36} />
-              {o === "terminal" && alerta && (
-                <span className="absolute -right-3 -top-4 animate-bounce">
-                  <PixelIcon name="alerta" size={28} />
+        {(Object.entries(objs) as [Obj, Caixa][]).map(([o, p]) => {
+          const aviso = o === "terminal" && alerta;
+          return (
+            <button
+              key={o}
+              type="button"
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                irPara(p, o);
+              }}
+              onClick={(e) => {
+                // Enter, espaço e tecnologias assistivas ativam o botão sem pointerdown.
+                if (e.detail === 0) irPara(p, o);
+              }}
+              className={`group absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-md focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#ffd23f] ${aviso ? "brilho-alerta" : "brilho-objeto"}`}
+              style={{ left: `${p.x}%`, top: `${p.y}%`, width: `${p.w}%`, height: `${p.h}%` }}
+              aria-label={t(`ui.interior.${o}`) + (aviso ? ` · ${t("ui.alerta")}` : "")}
+            >
+              {aviso && (
+                <span className="absolute -right-2 -top-3 animate-bounce">
+                  <PixelIcon name="alerta" size={24} />
                 </span>
               )}
-            </span>
-            <span className="whitespace-nowrap border-2 border-[#a5461f] bg-[#fbe2c2] px-1.5 text-xs font-bold text-[#4a2615]">
-              {t(`ui.interior.${o}`)}
-            </span>
-          </button>
-        ))}
+              <span
+                className={`pointer-events-none absolute left-1/2 -translate-x-1/2 whitespace-nowrap border-2 border-[#a5461f] bg-[#fbe2c2] px-1.5 text-base leading-tight text-[#4a2615] 2xl:text-lg ${o === "saida" ? "bottom-full mb-1" : "top-full mt-1"}`}
+              >
+                {t(`ui.interior.${o}`)}
+              </span>
+            </button>
+          );
+        })}
 
         {/* astronauta (posição = pés) */}
         <div

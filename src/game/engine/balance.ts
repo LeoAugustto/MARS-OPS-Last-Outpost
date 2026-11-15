@@ -4,10 +4,27 @@
 
 import type { Level } from "./types";
 
-export const LEVELS: Record<Level, { totalSols: number; metaCiencia: number; doseMult: number }> = {
-  cadete: { totalSols: 7, metaCiencia: 24, doseMult: 0.8 }, // 7–9 anos
-  piloto: { totalSols: 10, metaCiencia: 38, doseMult: 1.2 },
-  comandante: { totalSols: 14, metaCiencia: 56, doseMult: 1.5 },
+/**
+ * Por nível (jogo). consumoAr/consumoComida: quanto a tripulação gasta por sol. A divisão de
+ * energia padrão NÃO cobre esse gasto: a criança precisa ajustar ar e estufa, e isso tira
+ * energia da ciência — é aí que ela pode errar e aprender.
+ */
+export const LEVELS: Record<
+  Level,
+  {
+    totalSols: number;
+    metaCiencia: number;
+    doseMult: number;
+    consumoAr: number;
+    consumoComida: number;
+    /** ar e comida guardados no começo da missão */
+    inicioAr: number;
+    inicioComida: number;
+  }
+> = {
+  cadete: { inicioAr: 40, inicioComida: 35, totalSols: 7, metaCiencia: 24, doseMult: 0.8, consumoAr: 15, consumoComida: 11 }, // 7–9 anos
+  piloto: { inicioAr: 45, inicioComida: 35, totalSols: 10, metaCiencia: 38, doseMult: 1.2, consumoAr: 15, consumoComida: 11 },
+  comandante: { inicioAr: 50, inicioComida: 40, totalSols: 14, metaCiencia: 56, doseMult: 1.5, consumoAr: 14, consumoComida: 11 },
 };
 
 export const START = {
@@ -21,9 +38,9 @@ export const START = {
 export const PAINEIS = 10;
 export const BATERIA_MAX = 10;
 
-/** consumo diário da tripulação (jogo) */
-export const CONSUMO_AR = 10;
-export const CONSUMO_COMIDA = 8;
+/** consumo diário da tripulação no nível mais fácil (jogo); cada nível tem o seu em LEVELS */
+export const CONSUMO_AR = LEVELS.cadete.consumoAr;
+export const CONSUMO_COMIDA = LEVELS.cadete.consumoComida;
 
 /** quanto cada 1 de energia rende (jogo) */
 export const AR_POR_ENERGIA = 4;
