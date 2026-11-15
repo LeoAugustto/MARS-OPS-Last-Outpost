@@ -7,6 +7,7 @@ import type { CSSProperties } from "react";
 import { ART, type Gender, type Speaker } from "./art";
 import { usePlayer } from "./player";
 import { PixelIcon } from "./PixelIcon";
+import { MOLDURA_HUB, TEMA_ESCURO } from "./hub";
 
 /**
  * Singular/plural: quando {n} é 1 e existe a chave "<chave>.um", usa ela
@@ -252,15 +253,16 @@ export function Modal({
       role="dialog"
       aria-modal="true"
       aria-label={label}
-      className="fixed inset-0 z-40 flex items-end justify-center bg-black/55 p-2 sm:items-center sm:p-4"
+      className="fixed inset-0 z-40 flex items-end justify-center bg-[#1c0703]/65 p-2 sm:items-center sm:p-4"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose?.();
       }}
     >
       <div
-        className={`max-h-[92dvh] w-full overflow-y-auto border-[6px] border-border bg-card p-4 text-card-foreground shadow-[0_6px_0_#6e2a10,inset_0_0_0_2px_#f3bd83] sm:p-6 ${
+        className={`${MOLDURA_HUB} max-h-[92dvh] w-full overflow-y-auto bg-[#2a0508]/95 p-4 sm:p-6 ${
           wide ? "max-w-2xl 2xl:max-w-4xl" : "max-w-lg 2xl:max-w-2xl"
         }`}
+        style={TEMA_ESCURO}
       >
         {children}
       </div>
@@ -300,7 +302,7 @@ export function PlaceScene({ place, radio = false }: { place: PlaceId; radio?: b
 function RadioTag() {
   const { t } = useGT();
   return (
-    <span className="absolute left-2 top-2 inline-flex items-center gap-1 border-2 border-border bg-card px-2 py-0.5 text-xs font-black text-secondary">
+    <span className="absolute left-2 top-2 inline-flex items-center gap-1 border-2 border-[#a8400f] bg-[#2a0508] px-2 py-0.5 text-xs font-black text-[#f3c916]">
       <PixelIcon name="radio" size={18} /> {t("ui.radio")}
     </span>
   );
@@ -344,11 +346,11 @@ export function DialogBox({
   ];
   return (
     <div
-      className="relative flex items-stretch gap-2 border-4 border-[#a5461f] bg-[#fbe2c2] p-2 text-[#4a2615] shadow-[0_4px_0_#6e2a10]"
+      className="relative flex items-stretch gap-2 border-4 border-[#a8400f] bg-[#2a0508]/95 p-2 text-[#fbe6c8] shadow-[0_4px_0_#1c0703,inset_0_0_0_2px_#5a1d07]"
       onClick={skip}
     >
       {rebites.map((c) => (
-        <span key={c} className={`absolute ${c} h-1.5 w-1.5 bg-[#e2672b]`} aria-hidden />
+        <span key={c} className={`absolute ${c} h-1.5 w-1.5 bg-[#f3c916]`} aria-hidden />
       ))}
       <p
         className={`flex-1 p-1 font-semibold leading-snug ${compact ? "text-base sm:text-lg 2xl:text-xl" : "min-h-20 text-lg 2xl:text-2xl"}`}
@@ -363,7 +365,7 @@ export function DialogBox({
       <div
         className={`flex shrink-0 flex-col items-center gap-1 ${compact ? "w-16 sm:w-20 2xl:w-24" : "w-24 sm:w-28 2xl:w-32"}`}
       >
-        <div className="grid aspect-square w-full place-items-center overflow-hidden border-4 border-[#a5461f] bg-[#d9b089] text-3xl sm:text-5xl">
+        <div className="grid aspect-square w-full place-items-center overflow-hidden border-4 border-[#a8400f] bg-[#5a1d07] text-3xl sm:text-5xl">
           <img
             src={retrato}
             alt=""
@@ -371,7 +373,7 @@ export function DialogBox({
             style={{ imageRendering: "pixelated" }}
           />
         </div>
-        <span className="w-full border-2 border-[#a5461f] bg-[#fff1dc] px-0.5 text-center text-xs font-bold leading-tight sm:text-sm">
+        <span className="w-full border-2 border-[#a8400f] bg-[#3b1206] px-0.5 text-center text-xs font-bold leading-tight text-[#f3c916] sm:text-sm">
           {quem}
         </span>
       </div>
@@ -408,7 +410,7 @@ export function FullscreenButton({ className = "" }: { className?: string }) {
       onClick={alternar}
       aria-label={label}
       title={label}
-      className={`grid h-12 w-12 shrink-0 place-items-center border-4 border-[#a5461f] bg-[#fbe2c2] text-[#4a2615] shadow-[0_3px_0_#6e2a10] hover:brightness-105 active:translate-y-0.5 focus-visible:outline-4 focus-visible:outline-[#ffd23f] ${className}`}
+      className={`grid h-12 w-12 shrink-0 place-items-center border-4 border-[#a8400f] bg-[#3b1206] text-[#f6e38c] shadow-[0_3px_0_#1c0703] hover:brightness-125 active:translate-y-0.5 focus-visible:outline-4 focus-visible:outline-[#ffd23f] ${className}`}
     >
       <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden shapeRendering="crispEdges">
         <path d={d} fill="currentColor" />

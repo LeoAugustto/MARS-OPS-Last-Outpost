@@ -87,3 +87,23 @@ export const CARTAO_ESCURO =
 /** Caixa de destaque (letra amarela): números da missão, "Você sabia?", lições. */
 export const DESTAQUE =
   "border-4 border-[#a8400f] bg-[#2a0508] text-[#f6e38c] shadow-[0_4px_0_#1c0703]";
+
+/**
+ * Troca as cores do tema só dentro de uma caixa: o que usa bg-card, bg-muted, bg-accent,
+ * text-secondary etc. fica escuro com letra clara, sem mexer em cada tela.
+ */
+export const TEMA_ESCURO = {
+  "--card": "#3b1206",
+  "--card-foreground": "#fbe6c8",
+  "--popover": "#3b1206",
+  "--popover-foreground": "#fbe6c8",
+  "--muted": "#3b1206",
+  "--muted-foreground": "#e0c09a",
+  "--accent": "#1c0703",
+  "--accent-foreground": "#f6e38c",
+  "--secondary": "#f3c916",
+  "--border": "#7a2a0c",
+  "--destructive": "#ff7a6b",
+  "--success": "#5fd3b8",
+  color: "#fbe6c8",
+} as CSSProperties;

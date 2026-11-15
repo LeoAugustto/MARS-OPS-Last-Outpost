@@ -51,19 +51,17 @@ export function LevelSelect({
     { l: "comandante", estrelas: 3 },
   ];
   return (
-    <div className="flex h-full flex-col items-center gap-3 overflow-y-auto p-4">
+    <div className="flex h-full flex-col items-center gap-3 overflow-y-auto p-4" style={FUNDO_HUB}>
       <div className="flex w-full max-w-xl 2xl:max-w-3xl items-center justify-between">
-        <Button asChild variant="ghost" size="tap">
-          <Link to="/">← {t("ui.inicio")}</Link>
-        </Button>
+        <Link to="/" className={`${BOTAO_ESCURO} text-lg`}>
+          ← {t("ui.inicio")}
+        </Link>
         <div className="flex items-center gap-2">
           <FullscreenButton />
           <LangSelector />
         </div>
       </div>
-      <h1 className="text-center font-display text-3xl font-bold text-[#ffd23f]">
-        {t("ui.nivel.titulo")}
-      </h1>
+      <TituloHub className="text-center text-[clamp(1.4rem,5vw,2.25rem)]">{t("ui.nivel.titulo")}</TituloHub>
       <div className="grid w-full max-w-xl 2xl:max-w-3xl gap-3" role="radiogroup" aria-label={t("ui.nivel.titulo")}>
         {niveis.map(({ l, estrelas }) => (
           <button
@@ -73,10 +71,10 @@ export function LevelSelect({
             aria-checked={nivel === l}
             disabled={loading}
             onClick={() => setNivel(l)}
-            className={`relative flex min-h-20 items-stretch gap-2 border-4 p-1.5 text-left text-[#3a2015] shadow-[0_6px_0_#7a2f12] transition hover:brightness-105 active:translate-y-1 active:shadow-none disabled:opacity-50 ${
+            className={`relative flex min-h-20 items-stretch gap-2 border-4 p-1.5 text-left text-[#fbe6c8] shadow-[0_6px_0_#1c0703] transition hover:brightness-110 active:translate-y-1 active:shadow-none disabled:opacity-50 ${
               nivel === l
-                ? "border-[#e2672b] bg-[#ffe9cc] ring-4 ring-[#ffd23f]"
-                : "border-[#c4581f] bg-[#fbe6c8]"
+                ? "border-[#f3c916] bg-[#5a1d07] ring-4 ring-[#f3c916]/35"
+                : "border-[#5a1d07] bg-[#2a0508]/90"
             }`}
           >
             {[
@@ -87,19 +85,19 @@ export function LevelSelect({
             ].map((c) => (
               <span
                 key={c}
-                className={`absolute ${c} h-2 w-2 rounded-full bg-[#f2a33a] ring-1 ring-[#7a2f12]`}
+                className={`absolute ${c} h-2 w-2 bg-[#a8400f]`}
                 aria-hidden
               />
             ))}
             <span className="flex flex-1 flex-col justify-center px-3 py-1">
-              <span className="flex items-center gap-2 font-display text-2xl font-bold">
+              <span className={`flex items-center gap-2 font-display text-2xl font-bold ${nivel === l ? "text-[#f3c916]" : ""}`}>
                 {t(`nivel.${l}`)}
                 {nivel === l && <PixelIcon name="ok" size={22} />}
               </span>
-              <span className="block text-[#5a3424]">{t(`ui.nivel.${l}`, { sois: BALANCE.LEVELS[l].totalSols })}</span>
+              <span className="block text-[#e0c09a]">{t(`ui.nivel.${l}`, { sois: BALANCE.LEVELS[l].totalSols })}</span>
             </span>
             <span
-              className="flex w-24 shrink-0 items-center justify-center gap-0.5 border-4 border-[#e8c39c] bg-[#c99a72] sm:w-28"
+              className="flex w-24 shrink-0 items-center justify-center gap-0.5 border-4 border-[#5a1d07] bg-[#1c0703]/70 sm:w-28"
               aria-hidden
             >
               {/* dificuldade em foguetes (estrela é o prêmio de ciência do fim da missão) */}
@@ -116,8 +114,8 @@ export function LevelSelect({
           </button>
         ))}
       </div>
-      <fieldset className="w-full max-w-xl 2xl:max-w-3xl border-4 border-[#c4581f] bg-[#fbe6c8] p-3 text-[#3a2015] shadow-[0_6px_0_#7a2f12]">
-        <legend className="bg-[#fbe6c8] px-2 font-display text-lg font-bold">
+      <fieldset className={`${PAINEL_HUB} w-full max-w-xl 2xl:max-w-3xl p-3 text-[#fbe6c8]`}>
+        <legend className="border-4 border-[#a8400f] bg-[#2a0508] px-2 font-display text-lg font-bold text-[#f3c916]">
           {t("ui.fonte.titulo")}
         </legend>
         <div className="grid gap-2 sm:grid-cols-3" role="radiogroup">
@@ -131,12 +129,12 @@ export function LevelSelect({
               onClick={() => onModo(m)}
               className={`border-4 p-2 text-left transition active:translate-y-0.5 ${
                 modo === m
-                  ? "border-[#e2672b] bg-[#ffe9cc]"
-                  : "border-[#e8c39c] bg-[#f6dcb8] opacity-80"
+                  ? "border-[#f3c916] bg-[#5a1d07]"
+                  : "border-[#5a1d07] bg-[#3b1206]/85 opacity-85 hover:opacity-100"
               }`}
             >
-              <span className="block font-bold">{t(`ui.fonte.${m}`)}</span>
-              <span className="block text-xs text-[#5a3424]">{t(`ui.fonte.${m}.desc`)}</span>
+              <span className={`block font-bold ${modo === m ? "text-[#f3c916]" : ""}`}>{t(`ui.fonte.${m}`)}</span>
+              <span className="block text-xs text-[#e0c09a]">{t(`ui.fonte.${m}.desc`)}</span>
             </button>
           ))}
         </div>
@@ -149,7 +147,7 @@ export function LevelSelect({
                 disabled={loading}
                 onClick={() => onModo("famosa", f)}
                 className={`border-2 px-2 py-1.5 text-left text-sm font-bold ${
-                  famosa === f ? "border-[#e2672b] bg-[#ffe9cc]" : "border-[#e8c39c] bg-[#f6dcb8]"
+                  famosa === f ? "border-[#f3c916] bg-[#5a1d07] text-[#f3c916]" : "border-[#5a1d07] bg-[#3b1206]/85"
                 }`}
               >
                 {t(`ui.famosa.${f}`)}
@@ -162,21 +160,20 @@ export function LevelSelect({
       {/* embaixo da fonte dos dados: continuar a missão salva ou começar uma nova */}
       <div className="grid w-full max-w-xl 2xl:max-w-3xl gap-3 sm:grid-cols-2">
         {saveSol !== null && (
-          <Button variant="chunkySand" size="tap" className="w-full" onClick={onContinue}>
+          <BotaoHub onClick={onContinue}>
             <PixelIcon name="play" /> {t("ui.continuar", { sol: saveSol })}
-          </Button>
+          </BotaoHub>
         )}
-        <Button
-          variant="chunky"
-          size="tap"
-          className={`w-full ${saveSol === null ? "sm:col-span-2" : ""}`}
+        <BotaoHub
+          principal
+          className={saveSol === null ? "sm:col-span-2 sm:mx-auto sm:max-w-md" : ""}
           disabled={loading}
           onClick={() => onStart(nivel)}
         >
           <PixelIcon name="foguete" /> {t("ui.iniciar")}
-        </Button>
+        </BotaoHub>
       </div>
-      <p className="text-center text-sm text-foreground/80" aria-live="polite">
+      <p className="text-center text-sm text-[#fbe6c8]/85 [text-shadow:2px_2px_0_#1c0703]" aria-live="polite">
         {loading ? <><PixelIcon name="ampulheta" size={20} /> {t("ui.carregando")}</> : nasaInfo}
       </p>
     </div>

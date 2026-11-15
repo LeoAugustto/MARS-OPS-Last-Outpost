@@ -2,6 +2,7 @@
 // Cada passo aponta (seta pixel + moldura piscando) para um elemento marcado com data-tut="...".
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { BOTAO_ESCURO } from "./hub";
 import { DialogBox, useGT } from "./shared";
 
 /** Ordem dos passos. O progresso é salvo como índice nesta lista (SaveData.tut). */
@@ -184,9 +185,7 @@ function Balao({
           {onSkip && (
             <button
               type="button"
-              className={`h-12 shrink-0 whitespace-nowrap border-4 border-[#a5461f] bg-[#fbe2c2] px-3 text-lg text-[#4a2615] underline shadow-[0_4px_0_#6e2a10] ${
-                espera ? "ml-auto" : ""
-              }`}
+              className={`${BOTAO_ESCURO} h-12 shrink-0 text-lg ${espera ? "ml-auto" : ""}`}
               onClick={onSkip}
             >
               {t("tut.pular")}
