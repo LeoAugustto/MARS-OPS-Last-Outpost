@@ -22,10 +22,13 @@ function Sobre() {
   return (
     <main className="bg-mars min-h-screen">
       <AppHeader />
-      <section className="mx-auto grid max-w-3xl gap-5 px-4 pb-12 text-xl">
+      {/* telas bem largas (2xl): duas colunas, para caber tudo sem rolar */}
+      <section className="mx-auto grid max-w-3xl gap-5 px-4 pb-12 text-xl 2xl:max-w-[1500px] 2xl:grid-cols-2 2xl:items-start 2xl:gap-8 2xl:pb-4">
+        <div className="grid gap-5">
         <h1 className="text-xl leading-normal text-highlight sm:text-2xl">{t("aboutTitle")}</h1>
         <p className="text-2xl leading-snug">{t("aboutIntro", { app: t("app.title") })}</p>
-        <div className="pixel-frame bg-card text-card-foreground p-6">
+        </div>
+        <div className="pixel-frame bg-card text-card-foreground p-6 2xl:row-span-2">
           <h2 className="text-base leading-normal sm:text-lg">{t("aboutLearnTitle")}</h2>
           <ul className="mt-3 grid gap-2">
             {(["aboutLearn1", "aboutLearn2", "aboutLearn3", "aboutLearn4"] as const).map((k) => t(k)).map((item) => (

@@ -52,7 +52,7 @@ export function LangSelector() {
 export function AppHeader({ showBack = true }: { showBack?: boolean }) {
   const t = useT();
   return (
-    <header className="mx-auto flex w-full max-w-3xl items-center justify-between gap-3 p-4">
+    <header className="mx-auto flex w-full max-w-3xl items-center justify-between gap-3 p-4 2xl:max-w-[1500px] 2xl:py-3">
       {showBack ? (
         <Button asChild variant="ghost" size="tap" className="text-xl text-highlight hover:bg-muted hover:text-highlight">
           <Link to="/" aria-label={t("backHome")}>← {t("home")}</Link>
@@ -60,8 +60,8 @@ export function AppHeader({ showBack = true }: { showBack?: boolean }) {
       ) : (
         <span />
       )}
-      <Link to="/" className="hidden flex-1 truncate text-center font-display text-xs leading-normal text-highlight sm:block md:text-sm">
-        {t("app.title")}
+      <Link to="/" className="hidden min-h-12 min-w-0 flex-1 items-center justify-center text-center font-display text-xs leading-normal text-highlight sm:flex md:text-sm">
+        <span className="truncate">{t("app.title")}</span>
       </Link>
       <LangSelector />
     </header>
@@ -75,7 +75,7 @@ export function AppFooter({ compact = false }: { compact?: boolean }) {
       <footer className="shrink-0 px-4 pb-2 pt-1 text-center text-base text-muted-foreground">{t("footer")}</footer>
     );
   return (
-    <footer className="mx-auto max-w-3xl px-4 py-8 text-center text-lg text-muted-foreground">
+    <footer className="mx-auto max-w-3xl px-4 py-8 text-center text-lg text-muted-foreground 2xl:max-w-[1500px] 2xl:py-4">
       <p className="mb-2 font-display text-xs leading-normal text-highlight sm:text-sm">{t("app.title")}</p>
       <p>{t("footer")}</p>
     </footer>

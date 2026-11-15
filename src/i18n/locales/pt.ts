@@ -38,6 +38,8 @@ export const pt = {
   titleSources: "De onde vêm os dados?",
   titleAbout: "Sobre o projeto",
   footer: "Feito para o NASA Space Apps Challenge 2026",
+  pauseAnimation: "Pausar animação",
+  playAnimation: "Continuar animação",
 };
 
 export type MessageKey = keyof typeof pt;
