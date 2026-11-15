@@ -249,7 +249,7 @@ export function Modal({
     >
       <div
         className={`max-h-[92dvh] w-full overflow-y-auto border-[6px] border-border bg-card p-4 text-card-foreground shadow-[0_6px_0_#6e2a10,inset_0_0_0_2px_#f3bd83] sm:p-6 ${
-          wide ? "max-w-2xl" : "max-w-lg"
+          wide ? "max-w-2xl 2xl:max-w-4xl" : "max-w-lg 2xl:max-w-2xl"
         }`}
       >
         {children}
@@ -341,7 +341,7 @@ export function DialogBox({
         <span key={c} className={`absolute ${c} h-1.5 w-1.5 bg-[#e2672b]`} aria-hidden />
       ))}
       <p
-        className={`flex-1 p-1 font-semibold leading-snug ${compact ? "text-sm sm:text-base" : "min-h-20 text-lg"}`}
+        className={`flex-1 p-1 font-semibold leading-snug ${compact ? "text-base sm:text-lg 2xl:text-xl" : "min-h-20 text-lg 2xl:text-2xl"}`}
         aria-live="polite"
       >
         <span className="sr-only">{text}</span>
@@ -351,7 +351,7 @@ export function DialogBox({
         </span>
       </p>
       <div
-        className={`flex shrink-0 flex-col items-center gap-1 ${compact ? "w-16 sm:w-20" : "w-24 sm:w-28"}`}
+        className={`flex shrink-0 flex-col items-center gap-1 ${compact ? "w-16 sm:w-20 2xl:w-24" : "w-24 sm:w-28 2xl:w-32"}`}
       >
         <div className="grid aspect-square w-full place-items-center overflow-hidden border-4 border-[#a5461f] bg-[#d9b089] text-3xl sm:text-5xl">
           <img
@@ -361,10 +361,48 @@ export function DialogBox({
             style={{ imageRendering: "pixelated" }}
           />
         </div>
-        <span className="w-full border-2 border-[#a5461f] bg-[#fff1dc] px-0.5 text-center text-[10px] font-bold leading-tight sm:text-xs">
+        <span className="w-full border-2 border-[#a5461f] bg-[#fff1dc] px-0.5 text-center text-xs font-bold leading-tight sm:text-sm">
           {quem}
         </span>
       </div>
     </div>
+  );
+}
+
+// ---------------------------------------------------------------- tela cheia
+/** Botão de tela cheia. Some onde o navegador não deixa (ex.: Safari do iPhone). */
+export function FullscreenButton({ className = "" }: { className?: string }) {
+  const { t } = useGT();
+  const [pode, setPode] = useState(false);
+  const [cheia, setCheia] = useState(false);
+  useEffect(() => {
+    setPode(!!document.fullscreenEnabled);
+    const mudou = () => setCheia(!!document.fullscreenElement);
+    mudou();
+    document.addEventListener("fullscreenchange", mudou);
+    return () => document.removeEventListener("fullscreenchange", mudou);
+  }, []);
+  if (!pode) return null;
+  const label = t(cheia ? "ui.telacheia.sair" : "ui.telacheia");
+  const alternar = () => {
+    if (document.fullscreenElement) void document.exitFullscreen().catch(() => {});
+    else void document.documentElement.requestFullscreen().catch(() => {});
+  };
+  // cantos em pixel: para fora = entrar, para dentro = sair
+  const d = cheia
+    ? "M6 1h2v7H1V6h5zM16 1h2v5h5v2h-7zM1 16h7v7H6v-5H1zM16 16h7v2h-5v5h-2z"
+    : "M1 1h7v2H3v5H1zM16 1h7v7h-2V3h-5zM1 16h2v5h5v2H1zM21 16h2v7h-7v-2h5z";
+  return (
+    <button
+      type="button"
+      onClick={alternar}
+      aria-label={label}
+      title={label}
+      className={`grid h-12 w-12 shrink-0 place-items-center border-4 border-[#a5461f] bg-[#fbe2c2] text-[#4a2615] shadow-[0_3px_0_#6e2a10] hover:brightness-105 active:translate-y-0.5 focus-visible:outline-4 focus-visible:outline-[#ffd23f] ${className}`}
+    >
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden shapeRendering="crispEdges">
+        <path d={d} fill="currentColor" />
+      </svg>
+    </button>
   );
 }

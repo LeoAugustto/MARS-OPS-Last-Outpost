@@ -240,6 +240,20 @@ function Home() {
         aria-hidden
         tabIndex={-1}
         disablePictureInPicture
+        // garantia do loop: alguns navegadores param no fim do vídeo 4K mesmo com `loop`
+        onEnded={(e) => {
+          if (semMovimento) return;
+          const v = e.currentTarget;
+          v.currentTime = 0;
+          void v.play().catch(() => {});
+        }}
+        onPause={(e) => {
+          const v = e.currentTarget;
+          if (!semMovimento && v.ended) {
+            v.currentTime = 0;
+            void v.play().catch(() => {});
+          }
+        }}
       />
 
       {/* sombra forte no alto (onde fica o título) e leve no pé: o texto sempre lê bem */}

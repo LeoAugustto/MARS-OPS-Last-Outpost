@@ -115,7 +115,7 @@ export function newMission(
     level,
     sol: 1,
     totalSols: cfg.totalSols,
-    resources: { ar: B.START.ar, comida: B.START.comida, saude: B.START.saude },
+    resources: { ar: cfg.inicioAr, comida: cfg.inicioComida, saude: B.START.saude },
     energiaHoje: 0,
     producaoHoje: 0,
     bateriaManha: 0,
@@ -136,7 +136,7 @@ export function newMission(
     donkiUsed: [],
     lastDonkiSol: 0,
     realEvents: [],
-    history: [{ sol: 0, ar: B.START.ar, comida: B.START.comida, saude: B.START.saude, ciencia: 0 }],
+    history: [{ sol: 0, ar: cfg.inicioAr, comida: cfg.inicioComida, saude: B.START.saude, ciencia: 0 }],
     log: [],
     status: "jogando",
     checkpoints: [],
@@ -535,8 +535,8 @@ export function endSol(
   if (s.resources.comida < B.LIMITE_CRITICO) saude -= B.DANO_CRITICO;
 
   const delta = applyEffect(s, {
-    ar: arFeito - B.CONSUMO_AR,
-    comida: comidaFeita - B.CONSUMO_COMIDA,
+    ar: arFeito - cfg.consumoAr,
+    comida: comidaFeita - cfg.consumoComida,
     ciencia,
     escudo: escudoNovo,
     saude,
@@ -546,9 +546,9 @@ export function endSol(
   const night: NightReport = {
     sol: s.sol,
     arFeito,
-    arUsado: B.CONSUMO_AR,
+    arUsado: cfg.consumoAr,
     comidaFeita,
-    comidaUsada: B.CONSUMO_COMIDA,
+    comidaUsada: cfg.consumoComida,
     dose,
     escudoPct,
     ciencia,

@@ -161,4 +161,35 @@
   h1, h2, h3 {
     font-family: var(--font-display);
   }
+  /* a VT323 tem letra baixinha para o tamanho: iguala a altura das minúsculas a uma fonte comum
+     (texto pequeno fica legível). A Press Start 2P é o contrário (enorme): reduz um pouco. */
+  body {
+    font-size-adjust: ex-height 0.5;
+  }
+  h1, h2, h3, .font-display {
+    font-size-adjust: ex-height 0.62;
+  }
+}
+
+/* móveis que dá para usar dentro das salas: contorno brilhando de leve (jogo) */
+@keyframes brilho-pulsa {
+  0%, 100% { box-shadow: 0 0 0 2px rgb(255 210 63 / 0.55), 0 0 10px 2px rgb(255 210 63 / 0.35); }
+  50% { box-shadow: 0 0 0 3px rgb(255 230 120 / 0.95), 0 0 20px 6px rgb(255 210 63 / 0.6); }
+}
+@keyframes brilho-pulsa-alerta {
+  0%, 100% { box-shadow: 0 0 0 2px rgb(255 90 60 / 0.6), 0 0 12px 3px rgb(255 90 60 / 0.4); }
+  50% { box-shadow: 0 0 0 4px rgb(255 120 80 / 1), 0 0 24px 8px rgb(255 90 60 / 0.65); }
+}
+.brilho-objeto {
+  background: rgb(255 220 120 / 0.12);
+  animation: brilho-pulsa 1.8s ease-in-out infinite;
+}
+.brilho-alerta {
+  background: rgb(255 120 80 / 0.15);
+  animation: brilho-pulsa-alerta 1s ease-in-out infinite;
+}
+.brilho-objeto:hover, .brilho-alerta:hover { background: rgb(255 230 140 / 0.28); }
+@media (prefers-reduced-motion: reduce) {
+  .brilho-objeto { animation: none; box-shadow: 0 0 0 3px rgb(255 210 63 / 0.85); }
+  .brilho-alerta { animation: none; box-shadow: 0 0 0 4px rgb(255 90 60 / 0.95); }
 }

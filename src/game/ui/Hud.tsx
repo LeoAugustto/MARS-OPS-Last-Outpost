@@ -3,7 +3,7 @@
 import { BALANCE, type GameState } from "@/game/engine";
 import type { Periodo } from "./art";
 import { PixelIcon } from "./PixelIcon";
-import { useGT } from "./shared";
+import { FullscreenButton, useGT } from "./shared";
 
 /** Barra verde-azulada com contorno, como no modelo (vermelha quando está baixa). */
 function Bar({ icon, value, label }: { icon: string; value: number; label: string }) {
@@ -95,7 +95,7 @@ export function TopHud({
       <div className="flex items-center gap-1 sm:gap-2">
         <SquareBtn img="btn_menu" label={t("ui.menu.titulo")} onClick={onMenu} />
         <div className="mr-auto flex min-w-0 flex-col items-start gap-x-2 sm:flex-row sm:items-center">
-          <span className="font-display text-sm font-bold leading-tight sm:text-lg">
+          <span className="whitespace-nowrap font-display text-xs font-bold leading-tight min-[400px]:text-sm sm:text-lg">
             {t("hud.sol", { sol: state.sol, total: state.totalSols })}
           </span>
           {relogio !== undefined && periodo && (
@@ -121,6 +121,7 @@ export function TopHud({
           {state.ciencia}/{state.metaCiencia}
         </Pill>
         <SquareBtn img="btn_ajuda" label={t("ui.glossario.titulo")} onClick={onHelp} />
+        <FullscreenButton />
       </div>
       <div className="flex items-center gap-3 px-1">
         <Bar icon="o2" value={r.ar} label={t("recurso.ar")} />
