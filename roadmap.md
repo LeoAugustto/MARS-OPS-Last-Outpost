@@ -47,3 +47,8 @@
 - [x] /fontes e /sobre sem rolagem em telas ≥1536px (colunas); celular continua rolando
 - [x] Conferir 360x640, 390x844, 844x390, 768x1024, 1230x800, 1366x768, 1536x864, 1920x940, 1920x1080, 2560x1440
 - [x] Não publicar
+
+## Leo — vídeo sempre em loop + botão de pausar
+- [x] Tirar a pausa automática por "reduzir movimento" (decisão do dono do projeto)
+- [x] Botão pixel de pausar/continuar no canto de baixo à direita (48px), aria-label nos 5 idiomas, escolha guardada no aparelho
+- [x] Conferir com "reduzir movimento" ligado: vídeo segue tocando depois de 15 s

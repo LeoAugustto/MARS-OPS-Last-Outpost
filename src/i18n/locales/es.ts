@@ -39,4 +39,6 @@ export const es: Messages = {
   titleSources: "¿De dónde vienen los datos?",
   titleAbout: "Sobre el proyecto",
   footer: "Hecho para el NASA Space Apps Challenge 2026",
+  pauseAnimation: "Pausar animación",
+  playAnimation: "Reanudar animación",
 };

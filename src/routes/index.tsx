@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { LangSelector } from "@/components/AppHeader";
+import { Button } from "@/components/ui/button";
 import { useDocumentTitle, useT } from "@/i18n";
+import { animacaoPausada, guardarAnimacaoPausada } from "@/lib/animacao";
 import { listSaves } from "@/lib/saves";
 
 // vídeo da cena e o primeiro quadro, servidos como arquivos estáticos de public/:
@@ -112,21 +114,20 @@ function useTela() {
 }
 
 /**
- * Mantém a cena tocando sozinha, sem som e em loop. Só fica parada (no primeiro quadro) para
- * quem pediu "menos movimento" no aparelho (prefers-reduced-motion: reduce).
+ * Mantém a cena tocando sozinha, sem som e em loop — SEMPRE, mesmo com "reduzir movimento"
+ * no aparelho (decisão do dono do projeto). Quem quiser parar usa o botão de pausar, e a
+ * escolha fica guardada no aparelho.
  * O navegador só deixa o vídeo começar sozinho se ele estiver MUDO na hora do play(): por isso
  * o mudo é forçado antes de cada tentativa, e tenta de novo quando o vídeo carrega, quando a
  * aba volta a aparecer e no primeiro toque (ex.: iPhone em modo de pouca energia).
  */
-function useCenaTocando(ref: RefObject<HTMLVideoElement | null>) {
+function useCenaTocando(ref: RefObject<HTMLVideoElement | null>, pausada: boolean) {
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     const tocar = () => {
-      if (mq.matches) {
+      if (pausada) {
         v.pause();
-        if (v.currentTime > 0) v.currentTime = 0; // fica no primeiro quadro
         return;
       }
       v.muted = true;
@@ -139,7 +140,7 @@ function useCenaTocando(ref: RefObject<HTMLVideoElement | null>) {
     // pausas que não pedimos (aba escondida, economia de energia): volta a tocar
     let espera: ReturnType<typeof setTimeout> | undefined;
     const pausou = () => {
-      if (mq.matches || document.hidden) return;
+      if (pausada || document.hidden) return;
       clearTimeout(espera);
       espera = setTimeout(tocar, 300);
     };
@@ -157,7 +158,6 @@ function useCenaTocando(ref: RefObject<HTMLVideoElement | null>) {
     v.addEventListener("ended", acabou);
     document.addEventListener("visibilitychange", visivel);
     eventosToque.forEach((e) => window.addEventListener(e, tocar, { passive: true }));
-    mq.addEventListener?.("change", tocar);
     return () => {
       clearTimeout(espera);
       eventosVideo.forEach((e) => v.removeEventListener(e, tocar));
@@ -165,9 +165,8 @@ function useCenaTocando(ref: RefObject<HTMLVideoElement | null>) {
       v.removeEventListener("ended", acabou);
       document.removeEventListener("visibilitychange", visivel);
       eventosToque.forEach((e) => window.removeEventListener(e, tocar));
-      mq.removeEventListener?.("change", tocar);
     };
-  }, [ref]);
+  }, [ref, pausada]);
 }
 
 function Home() {
@@ -178,7 +177,15 @@ function Home() {
   const fonte = useFonteCarregada();
   const [telaRef, { w, h }] = useTela();
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  useCenaTocando(videoRef);
+  // a criança pode pausar a animação; a escolha fica guardada neste aparelho
+  const [pausada, setPausada] = useState(false);
+  useEffect(() => setPausada(animacaoPausada()), []);
+  useCenaTocando(videoRef, pausada);
+  const alternarAnimacao = () => {
+    const nova = !pausada;
+    setPausada(nova);
+    guardarAnimacaoPausada(nova);
+  };
 
   // título em duas linhas, quebrando depois do ":" (como no desenho)
   const full = t("app.title");
@@ -276,7 +283,7 @@ function Home() {
         >
           {t("dataSources")}
         </Link>
-        <span aria-hidden className="text-[#fbe6c8]/70">
+        <span aria-hidden className="hidden text-[#fbe6c8]/70 sm:inline">
           ·
         </span>
         <Link
@@ -286,7 +293,8 @@ function Home() {
           {t("about")}
         </Link>
       </nav>
-      <p className="text-[0.85em] text-[#fbe6c8]/80">{t("footer")}</p>
+      {/* folga dos lados: o botão de pausar a animação fica no canto de baixo */}
+      <p className="px-14 text-[0.85em] text-[#fbe6c8]/80">{t("footer")}</p>
     </div>
   );
 
@@ -327,6 +335,22 @@ function Home() {
         <LangSelector />
       </div>
 
+      {/* pausar/continuar a animação: canto de baixo, à direita */}
+      <div className="absolute bottom-2 right-2 z-20">
+        <Button
+          type="button"
+          variant="chunkySand"
+          size="tap"
+          className="h-12 w-12 p-0"
+          onClick={alternarAnimacao}
+          aria-label={pausada ? t("playAnimation") : t("pauseAnimation")}
+          aria-pressed={pausada}
+          title={pausada ? t("playAnimation") : t("pauseAnimation")}
+        >
+          <IconeAnimacao pausada={pausada} />
+        </Button>
+      </div>
+
       {/* texto por cima da cena: título no alto (sobre o céu), botões embaixo (sobre o chão).
           o topo respeita o seletor de idioma para o título não encostar nele */}
       <div className="relative z-10 flex h-full flex-col items-center justify-between px-4 pb-[3vh] pt-[max(3vh,80px)]">
@@ -360,5 +384,33 @@ function Home() {
         </div>
       </div>
     </main>
+  );
+}
+
+/** Ícone pixel do botão da animação: "play" (triângulo em degraus) ou "pausa" (2 barras). */
+function IconeAnimacao({ pausada }: { pausada: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 10 10"
+      width={24}
+      height={24}
+      aria-hidden
+      shapeRendering="crispEdges"
+      className="h-6 w-6 fill-current"
+    >
+      {pausada ? (
+        <>
+          <rect x="2" y="1" width="2" height="8" />
+          <rect x="4" y="2" width="2" height="6" />
+          <rect x="6" y="3" width="1" height="4" />
+          <rect x="7" y="4" width="1" height="2" />
+        </>
+      ) : (
+        <>
+          <rect x="2" y="1" width="2" height="8" />
+          <rect x="6" y="1" width="2" height="8" />
+        </>
+      )}
+    </svg>
   );
 }
