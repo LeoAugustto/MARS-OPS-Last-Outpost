@@ -56,9 +56,9 @@ export const en: Dict = {
   "causa.comida":
     "The food ran out. The greenhouse needs light (energy), and plants take time to grow.",
   "causa.saude": "Health got too low. Radiation, hunger and lack of air make the body tired.",
-  "dica.ar": "Tip: save at least 3 energy every sol for the air maker.",
-  "dica.comida": "Tip: plant early! What you plant today only becomes food a few sols later.",
-  "dica.saude": "Tip: build the shield early and hide in the shelter when the Sun is stormy.",
+  "dica.ar": "Tip: each 1 energy in the air maker makes {ar} air. Give it enough for what the crew breathes.",
+  "dica.comida": "Tip: each 1 energy in the greenhouse makes {comida} food. Don’t leave the greenhouse without energy.",
+  "dica.saude": "Tip: with {escudo} energy, the robot adds a shield layer against radiation. And sleep before night so the crew doesn’t get tired.",
   "fato.reabastecimento":
     "Did you know? A ship from Earth can only reach Mars about every 26 months. That’s why planning is everything!",
   "fato.marte_2017":

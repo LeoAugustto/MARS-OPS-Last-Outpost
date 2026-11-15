@@ -57,11 +57,9 @@ export const fr: Dict = {
     "La nourriture s’est épuisée. La serre a besoin de lumière (énergie) et les plantes mettent du temps à pousser.",
   "causa.saude":
     "La santé est trop basse. Les radiations, la faim et le manque d’air fatiguent le corps.",
-  "dica.ar": "Astuce : garde au moins 3 d’énergie à chaque sol pour la fabrique d'air.",
-  "dica.comida":
-    "Astuce : plante tôt ! Ce que tu plantes aujourd’hui ne devient de la nourriture que quelques sols plus tard.",
-  "dica.saude":
-    "Astuce : construis le bouclier tôt et cache-toi dans l’abri quand le Soleil est agité.",
+  "dica.ar": "Astuce : chaque 1 d’énergie dans la fabrique d’air fait {ar} d’air. Donne-lui assez pour ce que l’équipe respire.",
+  "dica.comida": "Astuce : chaque 1 d’énergie dans la serre fait {comida} de nourriture. Ne laisse pas la serre sans énergie.",
+  "dica.saude": "Astuce : avec {escudo} d’énergie, le robot pose une couche de bouclier contre les radiations. Et dors avant la nuit pour que l’équipe ne se fatigue pas.",
   "fato.reabastecimento":
     "Le savais-tu ? Un vaisseau venu de la Terre ne peut arriver sur Mars qu’environ tous les 26 mois. Voilà pourquoi bien prévoir est essentiel !",
   "fato.marte_2017":

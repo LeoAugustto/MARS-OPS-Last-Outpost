@@ -62,9 +62,9 @@ export const pt = {
   "causa.comida":
     "A comida acabou. A estufa precisa de luz (energia) e as plantas demoram para crescer.",
   "causa.saude": "A saúde ficou baixa demais. Radiação, fome e falta de ar cansam o corpo.",
-  "dica.ar": "Dica: guarde pelo menos 3 de energia por sol para a fábrica de ar.",
-  "dica.comida": "Dica: plante cedo! O que você planta hoje só vira comida daqui a alguns sóis.",
-  "dica.saude": "Dica: construa o escudo cedo e se esconda no abrigo quando o Sol estiver agitado.",
+  "dica.ar": "Dica: cada 1 de energia na fábrica de ar faz {ar} de ar. Dê energia suficiente para o que a equipe respira.",
+  "dica.comida": "Dica: cada 1 de energia na estufa faz {comida} de comida. Não deixe a estufa sem energia.",
+  "dica.saude": "Dica: com {escudo} de energia, o robô põe uma camada de escudo contra a radiação. E durma antes da noite para a equipe não cansar.",
   "fato.reabastecimento":
     "Você sabia? Uma nave da Terra só consegue chegar a Marte mais ou menos a cada 26 meses. Por isso planejar é tudo!",
   "fato.marte_2017":

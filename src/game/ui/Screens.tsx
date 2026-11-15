@@ -96,7 +96,7 @@ export function LevelSelect({
                 {t(`nivel.${l}`)}
                 {nivel === l && <PixelIcon name="ok" size={22} />}
               </span>
-              <span className="block text-[#5a3424]">{t(`ui.nivel.${l}`)}</span>
+              <span className="block text-[#5a3424]">{t(`ui.nivel.${l}`, { sois: BALANCE.LEVELS[l].totalSols })}</span>
             </span>
             <span
               className="flex w-24 shrink-0 items-center justify-center gap-0.5 border-4 border-[#e8c39c] bg-[#c99a72] sm:w-28"
@@ -370,7 +370,7 @@ export function StickerGrid({ ids, so }: { ids: string[]; so?: string[] }) {
                 ? "border-[#f3c916] bg-[#f8dfba] text-[#3a2015] shadow-[0_5px_0_#a8400f]"
                 : "border-[#5a1d07] bg-[#3b1206]/85 text-[#c9a27c] shadow-[0_5px_0_#1c0703]"
             }`}
-            title={t(`fig.${k.id}.desc`)}
+            title={t(`fig.${k.id}.desc`, { max: BALANCE.ESCUDO_MAX })}
           >
             <img
               src={k.icone}
@@ -379,7 +379,7 @@ export function StickerGrid({ ids, so }: { ids: string[]; so?: string[] }) {
               style={{ imageRendering: "pixelated" }}
             />
             <span className="font-display text-sm font-bold leading-tight">{t(`fig.${k.id}`)}</span>
-            <span className="text-xs leading-tight">{t(`fig.${k.id}.desc`)}</span>
+            <span className="text-xs leading-tight">{t(`fig.${k.id}.desc`, { max: BALANCE.ESCUDO_MAX })}</span>
           </div>
         );
       })}

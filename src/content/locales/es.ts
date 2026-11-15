@@ -57,10 +57,9 @@ export const es: Dict = {
     "Se acabó la comida. El invernadero necesita luz (energía) y las plantas tardan en crecer.",
   "causa.saude":
     "La salud bajó demasiado. La radiación, el hambre y la falta de aire cansan el cuerpo.",
-  "dica.ar": "Consejo: guarda al menos 3 de energía cada sol para la fábrica de aire.",
-  "dica.comida": "Consejo: ¡planta pronto! Lo que plantas hoy se vuelve comida unos soles después.",
-  "dica.saude":
-    "Consejo: construye el escudo pronto y escóndete en el refugio cuando el Sol esté agitado.",
+  "dica.ar": "Consejo: cada 1 de energía en la fábrica de aire hace {ar} de aire. Dale lo suficiente para lo que respira el equipo.",
+  "dica.comida": "Consejo: cada 1 de energía en el invernadero hace {comida} de comida. No dejes el invernadero sin energía.",
+  "dica.saude": "Consejo: con {escudo} de energía, el robot pone una capa de escudo contra la radiación. Y duerme antes de la noche para que el equipo no se canse.",
   "fato.reabastecimento":
     "¿Sabías que una nave de la Tierra solo puede llegar a Marte más o menos cada 26 meses? ¡Por eso planear es todo!",
   "fato.marte_2017":

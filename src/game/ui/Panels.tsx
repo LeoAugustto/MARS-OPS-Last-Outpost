@@ -146,7 +146,7 @@ export function MorningModal({
             {l}
           </p>
         ))}
-        {dica && <DialogBox speaker="rovi" text={t(dica)} compact />}
+        {dica && <DialogBox speaker="rovi" text={t(dica, NUMEROS_ENERGIA)} compact />}
         <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onGo}>
           {t("ui.vamos")}
         </Button>
@@ -231,7 +231,7 @@ export function PlaceInfo({
       <div className="flex flex-col gap-3">
         <PlaceScene place={place} />
         <h2 className="font-display text-2xl font-bold text-secondary">{t(`lugar.${place}`)}</h2>
-        <p className="text-lg">{t(`lugar.${place}.info`, { n: state.escudo })}</p>
+        <p className="text-lg">{t(`lugar.${place}.info`, { n: state.escudo, max: BALANCE.ESCUDO_MAX, ...NUMEROS_ENERGIA })}</p>
         {place === "ar" && (
           <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onEnergy}>
             <PixelIcon name="raio" /> {t("ui.energia.titulo")}

@@ -56,11 +56,9 @@ export const it: Dict = {
   "causa.comida":
     "Il cibo è finito. La serra ha bisogno di luce (energia) e le piante ci mettono tempo a crescere.",
   "causa.saude": "La salute è scesa troppo. Radiazioni, fame e poca aria stancano il corpo.",
-  "dica.ar": "Consiglio: tieni almeno 3 di energia ogni sol per la fabbrica d'aria.",
-  "dica.comida":
-    "Consiglio: pianta presto! Quello che pianti oggi diventa cibo solo qualche sol dopo.",
-  "dica.saude":
-    "Consiglio: costruisci lo scudo presto e nasconditi nel rifugio quando il Sole è agitato.",
+  "dica.ar": "Consiglio: ogni 1 di energia nella fabbrica d’aria fa {ar} di aria. Dagliene abbastanza per quello che la squadra respira.",
+  "dica.comida": "Consiglio: ogni 1 di energia nella serra fa {comida} di cibo. Non lasciare la serra senza energia.",
+  "dica.saude": "Consiglio: con {escudo} di energia, il robot mette uno strato di scudo contro le radiazioni. E dormi prima della notte, così la squadra non si stanca.",
   "fato.reabastecimento":
     "Lo sapevi? Una nave dalla Terra può arrivare su Marte più o meno ogni 26 mesi. Per questo pianificare è tutto!",
   "fato.marte_2017":

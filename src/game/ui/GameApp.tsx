@@ -482,11 +482,14 @@ function GameInner({
     phase !== "mapa" || card || showTut
       ? ""
       : noite
-        ? faltam
-          ? t("ui.noite.aviso", { dano: BALANCE.SAUDE_POR_ALERTA_PERDIDO, cansaco: BALANCE.SAUDE_AO_ANOITECER })
-          : ""
-        : periodo === "entardecer" && faltam
-          ? t("ui.entardecer.aviso")
+        ? t("ui.noite.aviso", {
+            dano: BALANCE.SAUDE_POR_ALERTA_PERDIDO,
+            cansaco: BALANCE.SAUDE_AO_ANOITECER,
+          })
+        : periodo === "entardecer"
+          ? faltam
+            ? t("ui.entardecer.aviso", { cansaco: BALANCE.SAUDE_AO_ANOITECER })
+            : t("ui.entardecer.dormir")
           : "";
 
   return (
