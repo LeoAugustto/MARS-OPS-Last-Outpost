@@ -400,21 +400,16 @@ export function FullscreenButton({ className = "" }: { className?: string }) {
     if (document.fullscreenElement) void document.exitFullscreen().catch(() => {});
     else void document.documentElement.requestFullscreen().catch(() => {});
   };
-  // cantos em pixel: para fora = entrar, para dentro = sair
-  const d = cheia
-    ? "M6 1h2v7H1V6h5zM16 1h2v5h5v2h-7zM1 16h7v7H6v-5H1zM16 16h7v2h-5v5h-2z"
-    : "M1 1h7v2H3v5H1zM16 1h7v7h-2V3h-5zM1 16h2v5h5v2H1zM21 16h2v7h-7v-2h5z";
+  // botão em pixel art (public/assets/ui): cantos para fora = entrar, para dentro = sair
   return (
     <button
       type="button"
       onClick={alternar}
       aria-label={label}
       title={label}
-      className={`grid h-12 w-12 shrink-0 place-items-center border-4 border-[#a8400f] bg-[#3b1206] text-[#f6e38c] shadow-[0_3px_0_#1c0703] hover:brightness-125 active:translate-y-0.5 focus-visible:outline-4 focus-visible:outline-[#ffd23f] ${className}`}
+      className={`grid h-12 w-12 shrink-0 place-items-center hover:brightness-110 active:translate-y-0.5 focus-visible:outline-4 focus-visible:outline-[#ffd23f] ${className}`}
     >
-      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden shapeRendering="crispEdges">
-        <path d={d} fill="currentColor" />
-      </svg>
+      <PixelIcon name={cheia ? "sair_tela_cheia" : "tela_cheia"} size={42} />
     </button>
   );
 }
