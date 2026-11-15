@@ -185,3 +185,27 @@
 @media (prefers-reduced-motion: reduce) {
   .contorno polygon, .contorno-alerta polygon { animation: none; }
 }
+
+/* aviso do fim de tarde / noite (GameApp: AvisoHora): cai do topo com um quiquezinho,
+   fica um tempo e sai subindo e se apagando aos poucos, em degraus (cara de pixel art) */
+.aviso-entra { animation: aviso-entra 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.aviso-sai { animation: aviso-sai 1.1s steps(8, end) forwards; }
+.aviso-entra .aviso-icone { animation: aviso-icone 1.6s ease-in-out 0.55s infinite; }
+.aviso-tempo { animation: aviso-tempo linear forwards; }
+.aviso-sai .aviso-tempo { visibility: hidden; }
+@keyframes aviso-entra {
+  from { opacity: 0; transform: translateY(-120%) scale(0.85); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes aviso-sai {
+  0% { opacity: 1; transform: none; }
+  20% { opacity: 1; transform: translateY(6%) scale(1.03); }
+  100% { opacity: 0; transform: translateY(-90%) scale(0.75); }
+}
+@keyframes aviso-icone { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes aviso-tempo { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@keyframes aviso-some-calmo { to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .aviso-entra, .aviso-entra .aviso-icone { animation: none; }
+  .aviso-sai { animation: aviso-some-calmo 1.1s linear forwards; }
+}
