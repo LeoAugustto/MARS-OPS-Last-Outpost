@@ -32,7 +32,7 @@ export const it: Messages = {
   aboutLearn3: "Come coltivare il cibo e prendersi cura della vita lontano dalla Terra.",
   aboutLearn4: "A pensare prima di agire: ogni sol (giorno su Marte) porta una scelta.",
   aboutTeamTitle: "Squadra",
-  aboutTeam: "Nome della squadra (presto)",
+  aboutTeam: "cavalodetroia.exe",
   aboutPrivacyTitle: "Niente account, niente download",
   aboutPrivacy: "Non chiediamo nessun dato. I progressi restano solo su questo dispositivo.",
   titlePlay: "Gioca",

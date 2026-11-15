@@ -32,7 +32,7 @@ export const en: Messages = {
   aboutLearn3: "How to grow food and care for life far from Earth.",
   aboutLearn4: "To think before acting: every sol (Mars day) brings a choice.",
   aboutTeamTitle: "Team",
-  aboutTeam: "Team name (coming soon)",
+  aboutTeam: "cavalodetroia.exe",
   aboutPrivacyTitle: "No account, no download",
   aboutPrivacy: "We ask for no data. Progress is kept only on this device.",
   titlePlay: "Play",

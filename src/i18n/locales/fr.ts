@@ -32,7 +32,7 @@ export const fr: Messages = {
   aboutLearn3: "Comment faire pousser de la nourriture et prendre soin de la vie loin de la Terre.",
   aboutLearn4: "À réfléchir avant d'agir : chaque sol (jour sur Mars) apporte un choix.",
   aboutTeamTitle: "Équipe",
-  aboutTeam: "Nom de l'équipe (bientôt)",
+  aboutTeam: "cavalodetroia.exe",
   aboutPrivacyTitle: "Sans compte, sans téléchargement",
   aboutPrivacy: "Nous ne demandons aucune donnée. La progression reste seulement sur cet appareil.",
   titlePlay: "Jouer",

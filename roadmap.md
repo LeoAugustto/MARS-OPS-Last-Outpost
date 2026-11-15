@@ -17,3 +17,8 @@
 - [x] Título, botões e links continuam legíveis nos 5 idiomas
 - [x] Conferir no navegador (celular, PC e tela bem larga)
 - [x] Usar o vídeo 4K original na tela inicial e remover a arte parada public/assets/hub/cena.webp (pedido do Yckler)
+
+## Leo — nome da equipe em /sobre
+- [x] Substituir o texto provisório de `aboutTeam` por `cavalodetroia.exe` nos 5 idiomas (nome próprio, sem traduzir)
+- [x] Conferir a página /sobre nos 5 idiomas no navegador
+- [x] Não publicar o site (nada foi publicado)

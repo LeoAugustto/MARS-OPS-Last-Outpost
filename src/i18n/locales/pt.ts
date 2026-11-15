@@ -31,7 +31,7 @@ export const pt = {
   aboutLearn3: "Como plantar comida e cuidar da vida longe da Terra.",
   aboutLearn4: "A pensar antes de agir: cada sol (dia em Marte) traz uma escolha.",
   aboutTeamTitle: "Equipe",
-  aboutTeam: "Nome da equipe (em breve)",
+  aboutTeam: "cavalodetroia.exe",
   aboutPrivacyTitle: "Sem conta, sem download",
   aboutPrivacy: "Não pedimos nenhum dado. O progresso fica guardado só neste aparelho.",
   titlePlay: "Jogar",
