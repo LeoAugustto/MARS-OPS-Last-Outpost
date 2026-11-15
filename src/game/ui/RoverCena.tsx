@@ -52,7 +52,7 @@ const ESC = 420; // esmaecer (ms)
 const EST = { roverX: 51, roverY: 62, portaX: 51, portaY: 50.5 };
 /** luzes da estação [x, y, largura, altura, força] em % (estacao.py imprime as posições) */
 const LUZES: [number, number, number, number, number][] = [
-  [44.6, 41.8, 18.2, 4.6, 0.45], // janela do laboratório
+  [44.6, 41.8, 17.4, 4.0, 0.9], // janela do laboratório (acende com a própria arte, ver JanelaAcesa)
   [51, 44.9, 3, 0.9, 0.95], // luz em cima da porta
   [18.6, 51.1, 1.2, 0.6, 0.95], // postes
   [33, 51.1, 1.2, 0.6, 0.95],
@@ -514,7 +514,27 @@ function Palco({ q, periodo, periodoFim }: { q: Quadro; periodo: Periodo; period
         {/* janela do laboratório, luz da porta e postes: acendem enquanto o astronauta trabalha
             lá dentro e ficam acesos à noite */}
         {q.cena === "estacao" && aceso > 0 &&
-          LUZES.map(([x, y, w, h, forca], i) => (
+          LUZES.map(([x, y, w, h, forca], i) =>
+            i === 0 ? (
+              // janela: a arte da própria janela por cima do véu da noite, mais clara e quente.
+              // Antes era um retângulo amarelo chapado que cobria os frascos (issue #10).
+              <span
+                key={i}
+                className="absolute"
+                style={{
+                  left: `${x - w / 2}%`,
+                  top: `${y - h / 2}%`,
+                  width: `${w}%`,
+                  height: `${h}%`,
+                  backgroundImage: "url(/assets/rover/estacao.webp)",
+                  backgroundSize: `${10000 / w}% ${10000 / h}%`,
+                  backgroundPosition: `${((x - w / 2) / (100 - w)) * 100}% ${((y - h / 2) / (100 - h)) * 100}%`,
+                  filter: "brightness(1.15) sepia(0.25)",
+                  opacity: aceso * forca,
+                }}
+                aria-hidden
+              />
+            ) : (
             <span
               key={i}
               className="absolute bg-[#ffe27a]"
@@ -524,13 +544,13 @@ function Palco({ q, periodo, periodoFim }: { q: Quadro; periodo: Periodo; period
                 width: `${w}%`,
                 height: `${h}%`,
                 transform: "translate(-50%, -50%)",
-                mixBlendMode: i === 0 ? "screen" : undefined,
                 opacity: aceso * forca,
                 boxShadow: `0 0 ${10 * aceso}px ${4 * aceso}px rgba(255, 210, 90, ${0.5 * aceso})`,
               }}
               aria-hidden
             />
-          ))}
+            ),
+          )}
     </div>
       <div className="pointer-events-none absolute inset-0 bg-black" style={{ opacity: q.preto }} aria-hidden />
     </div>
