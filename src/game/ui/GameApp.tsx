@@ -22,6 +22,7 @@ import {
 import { BaseMap } from "./BaseMap";
 import { Interior } from "./Interior";
 import { EventCard } from "./EventCard";
+import { ExpedicaoFundo, RoverCena } from "./RoverCena";
 import { BottomBar, TopHud } from "./Hud";
 import { EnergyPanel, GameMenu, Glossary, MorningModal, NightModal, PlaceInfo } from "./Panels";
 import { EndScreen, Intro, LevelSelect, ProfileScreen, Report, TutorialBubble } from "./Screens";
@@ -121,6 +122,8 @@ function GameInner({
   const [tut, setTut] = useState(0);
   const [seen, setSeen] = useState<string[]>([]);
   const [card, setCard] = useState<string | null>(null);
+  /** expedição do rover: "ida" = cena tocando; "la" = no lugar da expedição (cartão aberto) */
+  const [cena, setCena] = useState<null | "ida" | "la">(null);
   const [place, setPlace] = useState<PlaceId | null>(null);
   /** lugar em que a criança entrou (interior); null = está no mapa */
   const [inside, setInside] = useState<PlaceId | null>(null);
@@ -249,10 +252,29 @@ function GameInner({
   const onPlace = useCallback(
     (pl: PlaceId) => {
       if (!game || card || overlay) return;
+      // rover com alerta: em vez da garagem, o rover sai em expedição (cena) e o alerta abre lá
+      if (pl === "rover" && game.alerts.some((a) => a.place === "rover" && !a.done)) {
+        stopSpeaking();
+        setCena("ida");
+        return;
+      }
       setInside(pl);
     },
     [game, card, overlay],
   );
+
+  /** fim da cena do rover: chegou no lugar da expedição e abre o alerta do rover */
+  const chegouExpedicao = useCallback(() => {
+    setCena("la");
+    const a = game?.alerts.find((x) => x.place === "rover" && !x.done);
+    if (!a) {
+      setCena(null);
+      return;
+    }
+    setGame((g) => (g ? openAlert(g, a.id) : g));
+    setCard(a.id);
+    setTut((x) => (x < 2 ? 2 : x));
+  }, [game]);
 
   /** computador do interior: abre o alerta do lugar, se houver; senão, as informações */
   const abrirTerminal = useCallback(
@@ -273,6 +295,11 @@ function GameInner({
     const a = game?.alerts.find((x) => x.id === card);
     if (a?.real && !seen.includes(a.real.kind)) setSeen((s) => [...s, a.real!.kind]);
     setCard(null);
+    // voltou da expedição: o astronauta aparece na frente do rover, na base
+    if (cena === "la") {
+      setCena(null);
+      setSaiuDe("rover");
+    }
     // fechou sem escolher (alerta adiado): o tutorial continua esperando a 1ª escolha
     if (a?.done) setTut((x) => (x === 2 ? 3 : x));
     if (game && game.status !== "jogando") setPhase("fim");
@@ -294,7 +321,7 @@ function GameInner({
   };
 
   // o tutorial (balão do robô) está na tela? (calculado aqui para pausar o relógio)
-  const algoAberto = !!card || !!place || !!overlay || phase !== "mapa";
+  const algoAberto = !!card || !!place || !!overlay || !!cena || phase !== "mapa";
   const tutVisivel = (() => {
     if (!game || phase !== "mapa" || tut >= TUT_FIM || overlay) return false;
     const algumFeito = game.alerts.some((a) => a.done) || game.sol > 1;
@@ -451,7 +478,9 @@ function GameInner({
             backgroundImage: `url(${inside ? ART.placeScene(inside) : ART.mapPeriodo[periodo]})`,
           }}
         />
-        {inside ? (
+        {cena === "la" ? (
+          <ExpedicaoFundo />
+        ) : inside ? (
           <Interior
             key={inside}
             place={inside}
@@ -528,6 +557,7 @@ function GameInner({
           onNext={() => setPhase(game.status === "jogando" ? "manha" : "fim")}
         />
       )}
+      {cena === "ida" && <RoverCena periodo={periodo} onFim={chegouExpedicao} />}
       {card && (
         <EventCard
           state={game}
