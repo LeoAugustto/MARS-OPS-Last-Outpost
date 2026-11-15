@@ -50,7 +50,17 @@ Argumento opcional: número da issue (ex.: `12`). Sem número: liste as abertas 
 - No corpo da mensagem, escreva uma linha `Closes #<n>` (**em inglês**: o GitHub só fecha a issue sozinho com `closes`, `fixes` ou `resolves`; "fecha" não funciona).
 - Termine a mensagem com a linha de co-autoria do Claude.
 - **Não dê push nem junte na main** sem o usuário pedir. Nunca force push, rebase ou amend de commit já enviado (o Lovable perde o histórico).
-- Quando o usuário pedir "enviar e juntar": push da branch → `git checkout --detach origin/main` → `git merge --no-ff <branch>` → tsc, testes e build → confira que `origin/main` não mudou (`git rev-parse origin/main` igual a `HEAD^1`) → `git push origin HEAD:main`. O `Closes #n` fecha a issue sozinho; confira com `node .claude/ferramentas/issues.mjs <n>` (estado `closed`).
+- Quando o usuário pedir "enviar e juntar": push da branch → `git checkout --detach origin/main` → `git merge --no-ff <branch>` → tsc, testes e build → confira que `origin/main` não mudou (`git rev-parse origin/main` igual a `HEAD^1`) → `git push origin HEAD:main`.
+
+## 5b. Fechar a issue (sempre, depois que a correção chegou na main)
+1. Rode `node .claude/ferramentas/fecha-issue.mjs <n> <commit-do-merge>`. Ela:
+   - só age se o commit já está em `origin/main` (senão para e avisa);
+   - não faz nada se a issue já fechou sozinha pelo `Closes #n`;
+   - com `GITHUB_TOKEN` no ambiente, comenta "Corrigido em <commit>" e fecha a issue;
+   - sem token, mostra o link para fechar à mão e o comentário sugerido (saída 2): passe isso ao usuário.
+2. Confira com `node .claude/ferramentas/issues.mjs <n>` que o estado ficou `closed`.
+3. Issue que **não reproduziu** ou que **não é bug**: não feche sozinho. Mostre ao usuário e só feche se ele pedir.
+4. Nunca peça o token ao usuário nem escreva o token em arquivo, comando ou commit: ele fica só na variável de ambiente que a própria pessoa configurou.
 
 ## 6. Resumo para o usuário (por issue)
 - O que a issue dizia, em uma linha.
@@ -58,3 +68,4 @@ Argumento opcional: número da issue (ex.: `12`). Sem número: liste as abertas 
 - Causa e o que mudou (arquivos), e quem avisar se a pasta é de outra pessoa.
 - Testes e build: passou ou não (com a saída se falhou).
 - Branch e commit; se falta enviar.
+- Issue fechada? (ou o link para fechar à mão, se não havia token).
