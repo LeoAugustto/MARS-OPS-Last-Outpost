@@ -17,8 +17,8 @@ function Bar({ icon, value, label }: { icon: string; value: number; label: strin
       <PixelIcon name={icon} size={26} />
       <div className="flex min-w-8 flex-1 flex-col">
         {/* nome escrito: quem pulou o tutorial também sabe o que é cada barra */}
-        <span className="truncate text-[11px] font-bold leading-none text-[#5a3424] sm:text-xs">{label}</span>
-        <div className="h-3.5 overflow-hidden rounded-full border-2 border-[#c9a27c] bg-[#f3dcc0] sm:h-4">
+        <span className="truncate text-[11px] font-bold leading-none text-[#e0c09a] sm:text-xs">{label}</span>
+        <div className="h-3.5 overflow-hidden rounded-full border-2 border-[#5a1d07] bg-[#1c0703] sm:h-4">
           <div
             className={`h-full rounded-full transition-all duration-500 ${cor}`}
             style={{ width: `${value}%` }}
@@ -26,7 +26,7 @@ function Bar({ icon, value, label }: { icon: string; value: number; label: strin
         </div>
       </div>
       <span
-        className={`w-8 text-right text-sm font-bold sm:text-base ${value < 25 ? "text-[#c2312b]" : ""}`}
+        className={`w-8 text-right text-sm font-bold sm:text-base ${value < 25 ? "text-[#ff7a6b]" : ""}`}
       >
         {value}
       </span>
@@ -46,7 +46,7 @@ function Pill({
 }) {
   return (
     <span
-      className="flex shrink-0 items-center gap-0.5 border-2 border-[#c9a27c] bg-[#f3dcc0] px-0.5 py-0.5 text-sm font-bold min-[400px]:gap-1 min-[400px]:px-1 sm:px-2 sm:text-base"
+      className="flex shrink-0 items-center gap-0.5 border-2 border-[#5a1d07] bg-[#3b1206] px-0.5 py-0.5 text-sm font-bold min-[400px]:gap-1 min-[400px]:px-1 sm:px-2 sm:text-base"
       aria-label={label}
     >
       <PixelIcon name={icon} size={18} />
@@ -98,7 +98,7 @@ export function TopHud({
   const { t } = useGT();
   const r = state.resources;
   return (
-    <header className="flex shrink-0 flex-col gap-1 border-b-[6px] border-[#c4581f] bg-[#fbe6c8] px-2 py-1.5 text-[#3a2015] shadow-[0_3px_0_#7a2f12]">
+    <header className="flex shrink-0 flex-col gap-1 border-b-[6px] border-[#a8400f] bg-[#2a0508] px-2 py-1.5 text-[#fbe6c8] shadow-[0_3px_0_#1c0703]">
       <div className="flex items-center gap-0.5 min-[400px]:gap-1 sm:gap-2">
         <SquareBtn img="btn_menu" label={t("ui.menu.titulo")} onClick={onMenu} />
         <div className="mr-auto flex min-w-0 flex-col items-start gap-x-2 sm:flex-row sm:items-center">
@@ -113,7 +113,7 @@ export function TopHud({
                   ? "bg-[#2b2350] text-[#ffe9a8]"
                   : periodo === "entardecer"
                     ? "bg-[#f2a33a] text-[#3a1f10]"
-                    : "bg-muted"
+                    : "bg-[#3b1206]"
               }`}
               aria-label={`${t("ui.relogio")}: ${horaDoSol(relogio)} · ${t(`ui.periodo.${periodo}`)}`}
               title={t(`ui.periodo.${periodo}`)}
@@ -128,7 +128,7 @@ export function TopHud({
           data-tut="energia"
           onClick={onEnergy}
           aria-label={`${t("ui.energia.abrir")}: ${state.energiaHoje}`}
-          className="flex h-12 min-w-12 shrink-0 items-center justify-center gap-0.5 border-2 border-[#a5461f] bg-[#fbe2c2] px-0.5 text-base min-[400px]:border-[3px] min-[400px]:px-1 font-bold text-[#4a2615] shadow-[0_3px_0_#6e2a10] hover:brightness-105 active:translate-y-0.5 focus-visible:outline-4 focus-visible:outline-[#ffd23f] sm:gap-1 sm:px-2"
+          className="flex h-12 min-w-12 shrink-0 items-center justify-center gap-0.5 border-2 border-[#a8400f] bg-[#3b1206] px-0.5 text-base min-[400px]:border-[3px] min-[400px]:px-1 font-bold text-[#f6e38c] shadow-[0_3px_0_#1c0703] hover:brightness-125 active:translate-y-0.5 focus-visible:outline-4 focus-visible:outline-[#ffd23f] sm:gap-1 sm:px-2"
         >
           <PixelIcon name="raio" size={18} />
           <span className="hidden sm:inline">{t("ui.energia.abrir")}</span>
@@ -163,8 +163,11 @@ export function BottomBar({ state, noite = false }: { state: GameState; noite?: 
       : faltam > 0
         ? `${t("ui.dormir_dica")} ${t("ui.dormir_custo", { dano })}`
         : t("ui.dormir_dica");
+  // celular deitado (pouca altura): a barra vira um aviso no canto e o mapa ganha a altura
   return (
-    <footer className="flex shrink-0 items-center justify-center gap-2 border-t-[6px] border-[#c4581f] bg-[#fbe6c8] p-2 text-[#3a2015]">
+    <footer
+      className="flex shrink-0 items-center justify-center gap-2 border-t-[6px] border-[#a8400f] bg-[#2a0508] p-2 text-[#fbe6c8] [@media(max-height:500px)_and_(min-width:640px)]:fixed [@media(max-height:500px)_and_(min-width:640px)]:bottom-2 [@media(max-height:500px)_and_(min-width:640px)]:left-2 [@media(max-height:500px)_and_(min-width:640px)]:z-20 [@media(max-height:500px)_and_(min-width:640px)]:max-w-[28vw] [@media(max-height:500px)_and_(min-width:640px)]:border-4 [@media(max-height:500px)_and_(min-width:640px)]:justify-start [@media(max-height:500px)_and_(min-width:640px)]:shadow-[0_4px_0_#1c0703]"
+    >
       <PixelIcon name={faltam > 0 && !noite ? "alerta" : "cama"} size={24} />
       <span
         className={`text-center text-sm font-bold sm:text-base ${noite ? "animate-pulse" : ""}`}

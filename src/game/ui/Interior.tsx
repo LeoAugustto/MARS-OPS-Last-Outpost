@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import type { Alert, PlaceId } from "@/game/engine";
 import { ART, dirFrom, type Dir8 } from "./art";
 import { usePlayer } from "./player";
-import { useGT } from "./shared";
+import { BALANCE } from "@/game/engine";
+import { BotaoHub, BOTAO_ESCURO } from "./hub";
+import { Modal, useGT } from "./shared";
 import { PixelIcon } from "./PixelIcon";
 
 type Obj = "terminal" | "saida" | "cama" | "energia";
@@ -110,14 +112,21 @@ export function Interior({
   const alvo = useRef<{ p: Ponto; obj?: Obj } | null>(null);
   const keys = useRef(new Set<string>());
   const perto = useRef<Obj | null>("saida"); // entrou pela porta: não sai na hora
+  // cama: pergunta antes de dormir (dormir acaba o sol). De dia, com alerta aberto, não dá para
+  // dormir mesmo: aí segue direto (o jogo mostra o porquê).
+  const [confirmaDormir, setConfirmaDormir] = useState(false);
+  const pendentes = alerts.filter((a) => !a.done).length;
   const usar = (o: Obj) => {
     if (o === "terminal") onTerminal();
     else if (o === "energia") onEnergy();
-    else if (o === "cama") onSleep();
-    else onExit();
+    else if (o === "cama") {
+      if (pendentes > 0 && !noite) onSleep();
+      else setConfirmaDormir(true);
+    } else onExit();
   };
-  const live = useRef({ paused, usar, objs, onWalk });
-  live.current = { paused, usar, objs, onWalk };
+  const parado = paused || confirmaDormir;
+  const live = useRef({ paused: parado, usar, objs, onWalk });
+  live.current = { paused: parado, usar, objs, onWalk };
 
   useEffect(() => {
     if (!andando) return;
@@ -317,6 +326,32 @@ export function Interior({
           <span className="absolute -bottom-0.5 left-1/2 h-1.5 w-1/2 -translate-x-1/2 rounded-full bg-black/30" />
         </div>
       </div>
+
+      {confirmaDormir && (
+        <Modal label={t("ui.dormir.pergunta")} onClose={() => setConfirmaDormir(false)}>
+          <div className="flex flex-col items-center gap-3 text-center">
+            <PixelIcon name="cama" size={48} />
+            <h2 className="font-display text-2xl font-bold text-secondary">{t("ui.dormir.pergunta")}</h2>
+            <p className="text-lg">{t("ui.dormir.explica")}</p>
+            <div className="grid w-full gap-2">
+              <BotaoHub
+                principal
+                onClick={() => {
+                  setConfirmaDormir(false);
+                  onSleep();
+                }}
+              >
+                {pendentes > 0
+                  ? t("ui.dormir_custo", { dano: pendentes * BALANCE.SAUDE_POR_ALERTA_PERDIDO })
+                  : t("ui.dormir.sim")}
+              </BotaoHub>
+              <button type="button" className={`${BOTAO_ESCURO} text-lg`} onClick={() => setConfirmaDormir(false)}>
+                {t("ui.dormir.nao")}
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }

@@ -280,7 +280,8 @@ function GameInner({
 
   // alerta urgente abre sozinho quando a criança chega no mapa
   useEffect(() => {
-    if (phase !== "mapa" || !game || card || overlay) return;
+    // durante a expedição do rover (indo, na estação ou voltando) espera a volta à base
+    if (phase !== "mapa" || !game || card || overlay || cena) return;
     const urgente = game.alerts.find((a) => a.urgent && !a.done);
     if (urgente) {
       setPlace(null);
@@ -288,7 +289,7 @@ function GameInner({
       setCard(urgente.id);
       tutVaiPara("custo");
     }
-  }, [phase, game, card, overlay, tutVaiPara]);
+  }, [phase, game, card, overlay, cena, tutVaiPara]);
 
   const onPlace = useCallback(
     (pl: PlaceId) => {
@@ -597,6 +598,7 @@ function GameInner({
             setPhase("manha");
           }}
           onNew={backToLevels}
+          onBack={() => setPhase("fim")}
         />
       </main>
     );

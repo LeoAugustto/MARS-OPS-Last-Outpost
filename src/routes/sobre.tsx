@@ -44,7 +44,16 @@ function Sobre() {
         <div className="grid gap-5 sm:grid-cols-2">
           <div className={`${PAINEL_HUB} p-6`}>
             <TituloHub as="h2" className="text-[clamp(0.85rem,2.6vw,1.05rem)]">{t("aboutTeamTitle")}</TituloHub>
-            <p className="mt-3 text-[#fbe6c8]">{t("aboutTeam")}</p>
+            <p className="mt-3 text-[#fbe6c8]">
+              <a
+                href="https://www.spaceappschallenge.org/2026/find-a-team/cavalodetroiaexe/?tab=members"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-12 items-center text-[#f3c916] underline underline-offset-4 hover:brightness-110"
+              >
+                {t("aboutTeam")} ↗
+              </a>
+            </p>
             <p className={`${DESTAQUE} mt-3 px-3 py-2 font-display text-sm`}>NASA Space Apps Challenge 2026</p>
           </div>
           <div className={`${PAINEL_HUB} p-6`}>
