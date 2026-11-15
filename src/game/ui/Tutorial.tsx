@@ -40,6 +40,19 @@ export interface TutAgora {
   alvo?: string | undefined;
 }
 
+/** Aviso do Rovi na hora certa (uma vez por missão): mesmo balão, com botão OK e seta opcional. */
+export function RoviAviso({
+  texto,
+  alvo,
+  onOk,
+}: {
+  texto: string;
+  alvo?: string | undefined;
+  onOk: () => void;
+}) {
+  return <Balao texto={texto} alvo={alvo} onOk={onOk} okKey="botao.ok" />;
+}
+
 /** Mede o elemento apontado a cada quadro (o astronauta anda, a carta rola). */
 function useAlvo(alvo: string | undefined) {
   const [r, setR] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
@@ -100,9 +113,33 @@ export function TutorialGuia({
   onOk: () => void;
   onSkip: () => void;
 }) {
+  return (
+    <Balao
+      texto={agora.texto}
+      alvo={agora.alvo}
+      onOk={ESPERA_ACAO.has(agora.passo) ? undefined : onOk}
+      onSkip={onSkip}
+    />
+  );
+}
+
+function Balao({
+  texto,
+  alvo,
+  onOk,
+  onSkip,
+  okKey = "tut.ok",
+}: {
+  texto: string;
+  alvo?: string | undefined;
+  /** sem onOk: o passo espera a criança fazer a ação */
+  onOk?: (() => void) | undefined;
+  onSkip?: () => void;
+  okKey?: string;
+}) {
   const { t } = useGT();
-  const r = useAlvo(agora.alvo);
-  const espera = ESPERA_ACAO.has(agora.passo);
+  const r = useAlvo(alvo);
+  const espera = !onOk;
   const altura = typeof window === "undefined" ? 800 : window.innerHeight;
   // alvo na metade de baixo: balão em cima (e vice-versa), para não cobrir o que ele aponta
   const balaoEmCima = !!r && r.y + r.h / 2 > altura / 2;
@@ -137,22 +174,24 @@ export function TutorialGuia({
         }`}
         role="status"
       >
-        <DialogBox speaker="rovi" text={t(agora.texto)} compact />
+        <DialogBox speaker="rovi" text={t(texto)} compact />
         <div className="flex items-center gap-2">
           {!espera && (
             <Button variant="chunky" size="tap" className="h-12 min-w-0 flex-1 text-lg" onClick={onOk}>
-              {t("tut.ok")}
+              {t(okKey)}
             </Button>
           )}
-          <button
-            type="button"
-            className={`h-12 shrink-0 whitespace-nowrap border-4 border-[#a5461f] bg-[#fbe2c2] px-3 text-lg text-[#4a2615] underline shadow-[0_4px_0_#6e2a10] ${
-              espera ? "ml-auto" : ""
-            }`}
-            onClick={onSkip}
-          >
-            {t("tut.pular")}
-          </button>
+          {onSkip && (
+            <button
+              type="button"
+              className={`h-12 shrink-0 whitespace-nowrap border-4 border-[#a5461f] bg-[#fbe2c2] px-3 text-lg text-[#4a2615] underline shadow-[0_4px_0_#6e2a10] ${
+                espera ? "ml-auto" : ""
+              }`}
+              onClick={onSkip}
+            >
+              {t("tut.pular")}
+            </button>
+          )}
         </div>
       </div>
     </>

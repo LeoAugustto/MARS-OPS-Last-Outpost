@@ -27,12 +27,32 @@ import { ExpedicaoFundo, RoverCena } from "./RoverCena";
 import { BottomBar, TopHud } from "./Hud";
 import { EnergyPanel, GameMenu, Glossary, MorningModal, NightModal, PlaceInfo } from "./Panels";
 import { EndScreen, Intro, LevelSelect, ProfileScreen, Report } from "./Screens";
-import { TUT_FIM, TUT_PASSOS, TutorialGuia, tutIndice, type TutAgora, type TutPasso } from "./Tutorial";
+import {
+  RoviAviso,
+  TUT_FIM,
+  TUT_PASSOS,
+  TutorialGuia,
+  tutIndice,
+  type TutAgora,
+  type TutPasso,
+} from "./Tutorial";
 import { PIXEL_FONT_URL, PIXEL_THEME, stopSpeaking, useGT } from "./shared";
 import { PixelIcon } from "./PixelIcon";
 import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
 import { collectStickers } from "./stickers";
 import { ART, type Periodo } from "./art";
+
+/** abaixo disto o Rovi avisa que o ar, a comida ou a saúde estão acabando (jogo; só a UI usa) */
+const LIMITE_AVISO_ROVI = 30;
+
+/** Este alerta é o custo que chegou depois de uma escolha com ampulheta (deferredCost)? */
+function veioDeAmpulheta(g: GameState, eventId: string): boolean {
+  return g.log.some((e) => {
+    if (e.kind !== "evento" || !e.eventId || !e.choiceId) return false;
+    const c = findEvent(e.eventId).choices?.find((x) => x.id === e.choiceId);
+    return !!c?.deferredCost && !!c.schedule?.some((sc) => sc.eventId === eventId);
+  });
+}
 
 /** horas de jogo gastas na viagem de ida e volta do rover até a estação (jogo, não é dado real) */
 const HORAS_VIAGEM_ROVER = 1;
@@ -436,8 +456,32 @@ function GameInner({
     );
   };
 
-  // relógio do sol: anda só com o mapa livre (carta, painel, menu ou tutorial abertos pausam)
-  const relogioRodando = !!game && game.status === "jogando" && !algoAberto && !tutVisivel;
+  // avisos do Rovi na hora certa, cada um uma vez por missão (guardados em `seen`)
+  const roviAviso = ((): { k: string; alvo?: string } | null => {
+    if (!game || phase !== "mapa" || game.status !== "jogando" || algoAberto || tutVisivel)
+      return null;
+    const r = game.resources;
+    const pendentes = game.alerts.filter((a) => !a.done);
+    const tempestade = game.alerts.some((a) => {
+      const ch = findEvent(a.eventId).chain;
+      return ch === "sol-nuvem" || ch === "sol-chuva";
+    });
+    const lista: [boolean, string, string?][] = [
+      [r.ar < LIMITE_AVISO_ROVI, "rovi.ar", "energia"],
+      [r.comida < LIMITE_AVISO_ROVI, "rovi.comida", "energia"],
+      [r.saude < LIMITE_AVISO_ROVI, "rovi.saude", "barras"],
+      [tempestade, "rovi.tempestade", "energia"],
+      [game.alerts.some((a) => veioDeAmpulheta(game, a.eventId)), "rovi.depois"],
+      [(game.night?.bateria ?? 0) >= BALANCE.BATERIA_MAX, "rovi.bateria", "energia"],
+      [periodoDe(relogio) === "entardecer" && pendentes.length > 0, "rovi.entardecer", "relogio"],
+    ];
+    const achou = lista.find(([ok, k]) => ok && !seen.includes(k));
+    return achou ? { k: achou[1], ...(achou[2] ? { alvo: achou[2] } : {}) } : null;
+  })();
+
+  // relógio do sol: anda só com o mapa livre (carta, painel, menu, tutorial ou Rovi abertos pausam)
+  const relogioRodando =
+    !!game && game.status === "jogando" && !algoAberto && !tutVisivel && !roviAviso;
   const segundosPorSol = game ? BALANCE.SEGUNDOS_POR_SOL[game.level] : 120;
   useEffect(() => {
     if (!relogioRodando) return;
@@ -554,7 +598,7 @@ function GameInner({
   const avisoId = `${game.sol}-${periodo}`;
   // aviso do fim de tarde / da noite (não bloqueia o mapa)
   const aviso =
-    phase !== "mapa" || card || tutVisivel
+    phase !== "mapa" || card || tutVisivel || roviAviso
       ? ""
       : noite
         ? t("ui.noite.aviso", {
@@ -701,6 +745,20 @@ function GameInner({
           onSave={(a) => setGame((g) => (g ? setAllocation(g, a) : g))}
           onMais={() => tutFeito("mais")}
           onClose={fecharEnergia}
+          faltaVisto={seen.includes("rovi.falta")}
+          onFaltaVisto={() => setSeen((s) => (s.includes("rovi.falta") ? s : [...s, "rovi.falta"]))}
+        />
+      )}
+      {roviAviso && (
+        <RoviAviso
+          key={roviAviso.k}
+          texto={roviAviso.k}
+          alvo={roviAviso.alvo}
+          onOk={() => {
+            setSeen((s) => [...s, roviAviso.k]);
+            // o Rovi já avisou do entardecer: o aviso que cai do topo não repete hoje
+            if (roviAviso.k === "rovi.entardecer") setAvisoFeito(avisoId);
+          }}
         />
       )}
       {tutAgora && (

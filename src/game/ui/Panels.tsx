@@ -1,5 +1,5 @@
 // Janelas do jogo: energia, manhã, noite, lugar, glossário e menu.
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { LangSelector } from "@/components/AppHeader";
 import {
@@ -36,17 +36,30 @@ export function EnergyPanel({
   onSave,
   onClose,
   onMais,
+  faltaVisto = true,
+  onFaltaVisto,
 }: {
   state: GameState;
   onSave: (a: Allocation) => void;
   onClose: () => void;
   /** apertou + em algum módulo (o tutorial espera por isso) */
   onMais?: () => void;
+  /** o Rovi já explicou nesta missão o que acontece quando falta energia? */
+  faltaVisto?: boolean;
+  onFaltaVisto?: () => void;
 }) {
   const { t } = useGT();
   const [a, setA] = useState<Allocation>(state.allocation);
   const total = allocationTotal(a);
   const hoje = state.energiaHoje;
+  // a divisão pede mais energia do que há: o Rovi explica (uma vez por missão) o que desliga primeiro
+  const [roviFalta, setRoviFalta] = useState(false);
+  useEffect(() => {
+    if (total > hoje && !faltaVisto && !roviFalta) {
+      setRoviFalta(true);
+      onFaltaVisto?.();
+    }
+  }, [total, hoje, faltaVisto, roviFalta, onFaltaVisto]);
   const muda = (k: ModuleKey, d: number) =>
     setA((cur) => ({ ...cur, [k]: Math.max(0, Math.min(BALANCE.ALOCACAO_MAX, cur[k] + d)) }));
 
@@ -102,6 +115,7 @@ export function EnergyPanel({
             {t("ui.energia.falta", { n: total - hoje })}
           </p>
         )}
+        {roviFalta && total > hoje && <DialogBox speaker="rovi" text={t("rovi.falta")} compact />}
         <p className="text-sm text-muted-foreground">{t("ui.energia.consumo", { ar: BALANCE.LEVELS[state.level].consumoAr, comida: BALANCE.LEVELS[state.level].consumoComida })}</p>
         <Button
           variant="chunky"

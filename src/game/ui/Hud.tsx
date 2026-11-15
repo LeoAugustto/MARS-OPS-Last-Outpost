@@ -42,7 +42,7 @@ function Pill({
 }) {
   return (
     <span
-      className="flex shrink-0 items-center gap-1 border-2 border-[#c9a27c] bg-[#f3dcc0] px-1 py-0.5 text-sm font-bold sm:px-2 sm:text-base"
+      className="flex shrink-0 items-center gap-0.5 border-2 border-[#c9a27c] bg-[#f3dcc0] px-0.5 py-0.5 text-sm font-bold min-[400px]:gap-1 min-[400px]:px-1 sm:px-2 sm:text-base"
       aria-label={label}
     >
       <PixelIcon name={icon} size={18} />
@@ -95,10 +95,10 @@ export function TopHud({
   const r = state.resources;
   return (
     <header className="flex shrink-0 flex-col gap-1 border-b-[6px] border-[#c4581f] bg-[#fbe6c8] px-2 py-1.5 text-[#3a2015] shadow-[0_3px_0_#7a2f12]">
-      <div className="flex items-center gap-1 sm:gap-2">
+      <div className="flex items-center gap-0.5 min-[400px]:gap-1 sm:gap-2">
         <SquareBtn img="btn_menu" label={t("ui.menu.titulo")} onClick={onMenu} />
         <div className="mr-auto flex min-w-0 flex-col items-start gap-x-2 sm:flex-row sm:items-center">
-          <span className="whitespace-nowrap font-display text-xs font-bold leading-tight min-[400px]:text-sm sm:text-lg">
+          <span className="whitespace-nowrap font-display text-[10px] font-bold leading-tight min-[400px]:text-sm sm:text-lg">
             {t("hud.sol", { sol: state.sol, total: state.totalSols })}
           </span>
           {relogio !== undefined && periodo && (
@@ -124,7 +124,7 @@ export function TopHud({
           data-tut="energia"
           onClick={onEnergy}
           aria-label={`${t("ui.energia.abrir")}: ${state.energiaHoje}`}
-          className="flex h-12 min-w-12 shrink-0 items-center justify-center gap-0.5 border-[3px] border-[#a5461f] bg-[#fbe2c2] px-1 text-base font-bold text-[#4a2615] shadow-[0_3px_0_#6e2a10] hover:brightness-105 active:translate-y-0.5 focus-visible:outline-4 focus-visible:outline-[#ffd23f] sm:gap-1 sm:px-2"
+          className="flex h-12 min-w-12 shrink-0 items-center justify-center gap-0.5 border-2 border-[#a5461f] bg-[#fbe2c2] px-0.5 text-base min-[400px]:border-[3px] min-[400px]:px-1 font-bold text-[#4a2615] shadow-[0_3px_0_#6e2a10] hover:brightness-105 active:translate-y-0.5 focus-visible:outline-4 focus-visible:outline-[#ffd23f] sm:gap-1 sm:px-2"
         >
           <PixelIcon name="raio" size={18} />
           <span className="hidden sm:inline">{t("ui.energia.abrir")}</span>

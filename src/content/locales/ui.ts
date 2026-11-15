@@ -210,6 +210,14 @@ const pt = {
   "tut.casa": "A Casa é aqui. A cama fica lá dentro.",
   "tut.casa_sair": "Para dormir, saia daqui e vá até a Casa, no meio da base. A cama fica lá dentro.",
   "tut.cama": "Esta é a cama. Quando os alertas acabarem, toque nela para dormir.",
+  "rovi.ar": "O ar está acabando! Vá à Fábrica de ar ou abra Energia e coloque mais no ar.",
+  "rovi.comida": "A comida está acabando! Vá à Estufa ou abra Energia e coloque mais na estufa.",
+  "rovi.saude": "A saúde da equipe está baixa! Durma cedo, faça escudo contra a radiação e escolha o que cuida da equipe.",
+  "rovi.entardecer": "O Sol está se pondo e ainda tem alertas! Resolva logo e vá dormir na Casa antes da noite.",
+  "rovi.tempestade": "Tempestade solar a caminho! Ela traz radiação, uma energia invisível que faz mal. Abra Energia e coloque energia no escudo (robô de areia).",
+  "rovi.bateria": "A bateria encheu e sobrou energia! Coloque a energia sobrando no laboratório para ganhar estrelas.",
+  "rovi.depois": "Lembra daquela escolha com a ampulheta? O custo dela chegou agora.",
+  "rovi.falta": "Falta energia para essa divisão! O laboratório desliga primeiro, depois o escudo e a estufa. O ar é o último.",
 } as const;
 
 export type UiKey = keyof typeof pt;
@@ -421,6 +429,14 @@ const en: UiDict = {
   "tut.casa": "This is the Home. The bed is inside.",
   "tut.casa_sair": "To sleep, leave here and go to the Home, in the middle of the base. The bed is inside.",
   "tut.cama": "This is the bed. When the alerts are done, tap it to sleep.",
+  "rovi.ar": "Air is running out! Go to the Air maker, or open Energy and put more into air.",
+  "rovi.comida": "Food is running out! Go to the Greenhouse, or open Energy and put more into the greenhouse.",
+  "rovi.saude": "The crew’s health is low! Go to bed early, build shield against radiation and pick choices that care for the crew.",
+  "rovi.entardecer": "The Sun is setting and there are still alerts! Solve them fast and go to bed in the Home before night.",
+  "rovi.tempestade": "A solar storm is coming! It brings radiation, an invisible energy that hurts the body. Open Energy and put energy into the shield (sand robot).",
+  "rovi.bateria": "The battery is full and energy is left over! Put the extra energy into the lab to earn stars.",
+  "rovi.depois": "Remember that choice with the hourglass? Its cost has arrived now.",
+  "rovi.falta": "There isn’t enough energy for this plan! The lab turns off first, then the shield and the greenhouse. Air is last.",
 };
 
 const es: UiDict = {
@@ -634,6 +650,14 @@ const es: UiDict = {
   "tut.casa": "Esta es la Casa. La cama está adentro.",
   "tut.casa_sair": "Para dormir, sal de aquí y ve a la Casa, en el centro de la base. La cama está adentro.",
   "tut.cama": "Esta es la cama. Cuando terminen las alertas, tócala para dormir.",
+  "rovi.ar": "¡El aire se está acabando! Ve a la Fábrica de aire o abre Energía y pon más en el aire.",
+  "rovi.comida": "¡La comida se está acabando! Ve al Invernadero o abre Energía y pon más en el invernadero.",
+  "rovi.saude": "¡La salud del equipo está baja! Duerme temprano, haz escudo contra la radiación y elige lo que cuida al equipo.",
+  "rovi.entardecer": "¡El Sol se está poniendo y todavía hay alertas! Resuélvelas rápido y ve a dormir a la Casa antes de la noche.",
+  "rovi.tempestade": "¡Viene una tormenta solar! Trae radiación, una energía invisible que hace daño. Abre Energía y pon energía en el escudo (robot de arena).",
+  "rovi.bateria": "¡La batería se llenó y sobró energía! Pon la energía que sobra en el laboratorio para ganar estrellas.",
+  "rovi.depois": "¿Recuerdas esa elección con el reloj de arena? Su costo llegó ahora.",
+  "rovi.falta": "¡Falta energía para este reparto! El laboratorio se apaga primero, después el escudo y el invernadero. El aire es el último.",
 };
 
 const fr: UiDict = {
@@ -851,6 +875,14 @@ const fr: UiDict = {
   "tut.casa": "Voici la Maison. Le lit est à l’intérieur.",
   "tut.casa_sair": "Pour dormir, sors d’ici et va à la Maison, au milieu de la base. Le lit est à l’intérieur.",
   "tut.cama": "Voici le lit. Quand les alertes sont finies, touche-le pour dormir.",
+  "rovi.ar": "L’air s’épuise ! Va à la Fabrique d’air, ou ouvre Énergie et mets-en plus dans l’air.",
+  "rovi.comida": "La nourriture s’épuise ! Va à la Serre, ou ouvre Énergie et mets-en plus dans la serre.",
+  "rovi.saude": "La santé de l’équipe est basse ! Dors tôt, construis du bouclier contre les radiations et choisis ce qui prend soin de l’équipe.",
+  "rovi.entardecer": "Le Soleil se couche et il reste des alertes ! Règle-les vite et va dormir dans la Maison avant la nuit.",
+  "rovi.tempestade": "Une tempête solaire arrive ! Elle apporte des radiations, une énergie invisible qui fait du mal. Ouvre Énergie et mets de l’énergie dans le bouclier (robot à sable).",
+  "rovi.bateria": "La batterie est pleine et il reste de l’énergie ! Mets l’énergie en trop dans le labo pour gagner des étoiles.",
+  "rovi.depois": "Tu te souviens de ce choix avec le sablier ? Son coût arrive maintenant.",
+  "rovi.falta": "Il manque de l’énergie pour ce partage ! Le labo s’éteint en premier, puis le bouclier et la serre. L’air est le dernier.",
 };
 
 const it: UiDict = {
@@ -1065,6 +1097,14 @@ const it: UiDict = {
   "tut.casa": "Questa è la Casa. Il letto è dentro.",
   "tut.casa_sair": "Per dormire, esci da qui e vai alla Casa, al centro della base. Il letto è dentro.",
   "tut.cama": "Questo è il letto. Quando gli allarmi sono finiti, toccalo per dormire.",
+  "rovi.ar": "L’aria sta finendo! Vai alla Fabbrica d’aria, oppure apri Energia e mettine di più nell’aria.",
+  "rovi.comida": "Il cibo sta finendo! Vai alla Serra, oppure apri Energia e mettine di più nella serra.",
+  "rovi.saude": "La salute della squadra è bassa! Vai a dormire presto, fai lo scudo contro le radiazioni e scegli ciò che protegge la squadra.",
+  "rovi.entardecer": "Il Sole sta tramontando e ci sono ancora allarmi! Risolvili in fretta e vai a dormire nella Casa prima della notte.",
+  "rovi.tempestade": "Arriva una tempesta solare! Porta radiazioni, un’energia invisibile che fa male. Apri Energia e metti energia nello scudo (robot della sabbia).",
+  "rovi.bateria": "La batteria è piena e avanza energia! Metti l’energia in più nel laboratorio per guadagnare stelle.",
+  "rovi.depois": "Ti ricordi quella scelta con la clessidra? Il suo costo è arrivato adesso.",
+  "rovi.falta": "Manca energia per questa divisione! Il laboratorio si spegne per primo, poi lo scudo e la serra. L’aria è l’ultima.",
 };
 
 export const UI_TEXTS = { pt, en, es, fr, it };
