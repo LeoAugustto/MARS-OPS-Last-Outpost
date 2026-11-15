@@ -1068,6 +1068,86 @@ export const EVENTS: GameEvent[] = [
     onlyScheduled: true,
     onOpen: () => ({ energia: -2, saude: -1 }),
   },
+  // abrigo: vida da equipe (convivência, saúde, exercício, sono) e a casa (janela)
+  {
+    id: "briga",
+    chain: "equipe",
+    place: "abrigo",
+    icon: "cansado",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 3,
+    choices: [
+      { id: "conversar", horas: 2, effects: { ciencia: -1, saude: 2 } },
+      { id: "separar", effects: { ciencia: 1, saude: -3 } },
+    ],
+  },
+  {
+    id: "dor_cabeca",
+    chain: "equipe",
+    place: "abrigo",
+    icon: "cansado",
+    source: "nasa-fato",
+    cooldown: 6,
+    canHappen: (s) => s.sol >= 2 && s.sol < s.totalSols,
+    choices: [
+      { id: "ventilar", effects: { energia: -2, saude: 2 } },
+      {
+        id: "seguir",
+        effects: { ciencia: 1 },
+        deferredCost: true,
+        schedule: [{ eventId: "dor_cabeca_piora", inSols: 1 }],
+      },
+    ],
+  },
+  {
+    id: "dor_cabeca_piora",
+    chain: "equipe",
+    place: "abrigo",
+    icon: "cansado",
+    source: "nasa-fato",
+    onlyScheduled: true,
+    onOpen: () => ({ saude: -4, ciencia: -1 }),
+  },
+  {
+    id: "esteira",
+    chain: "equipe",
+    place: "abrigo",
+    icon: "coracao",
+    source: "nasa-fato",
+    cooldown: 5,
+    canHappen: (s) => s.sol >= 2,
+    choices: [
+      { id: "correr", effects: { comida: -3, saude: 3 } },
+      { id: "pular", effects: { ciencia: 1, saude: -2 } },
+    ],
+  },
+  {
+    id: "janela",
+    chain: "abrigo",
+    place: "abrigo",
+    icon: "aviso",
+    source: "nasa-fato",
+    cooldown: UMA_VEZ,
+    canHappen: (s) => s.sol >= 2,
+    choices: [
+      { id: "trocar", horas: 2, effects: { energia: -3 } },
+      { id: "fita", effects: { ar: -4 } },
+    ],
+  },
+  {
+    id: "barulho",
+    chain: "equipe",
+    place: "abrigo",
+    icon: "cama",
+    source: "nasa-fato",
+    cooldown: 6,
+    canHappen: (s) => s.sol >= 2,
+    choices: [
+      { id: "consertar", effects: { energia: -2 } },
+      { id: "tampoes", effects: { saude: -1 } },
+    ],
+  },
 
   // ------------------------------------------------------------ 📡 antena
   {

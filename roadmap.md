@@ -57,3 +57,13 @@
 - [x] Trocar a arte do botão (public/assets/hub/botao.png) pelo modelo enviado
 - [x] Botões principais do site e do jogo (chunky/chunkySand, hub, home, idioma, "Visitar", tela de erro) usando a arte
 - [x] Conferir home, /fontes e telas do jogo em celular e computador
+
+## Leo — ajuda, tutorial e textos do jogo (após ea620b9)
+- [ ] 1. Números nos textos vindos de BALANCE (consumo, rende, dicas, aviso da noite e do entardecer)
+- [ ] 2. Tutorial do sol 1 com setas que esperam a ação (andar, porta, computador, chips, HUD, energia, relógio/Casa)
+- [ ] 3. Avisos do Rovi na hora certa (ar/comida/saúde baixos, entardecer, tempestade, bateria cheia, custo depois, falta energia)
+- [ ] 4. Menu "Como jogar" com páginas (menu do jogo e tela inicial)
+- [ ] 5. Glossário ampliado
+- [ ] 6. Tela de fim com 1 a 3 estrelas; tirar "vitória parcial" e "A NASA está orgulhosa"
+- [ ] 7. Revisão de texto nas 5 línguas (plural, dormir_bloqueado, regras velhas)
+- [ ] 8. 5 eventos novos no Abrigo
