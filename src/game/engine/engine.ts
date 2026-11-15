@@ -555,7 +555,10 @@ export function endSol(
   // ignorar não é de graça: o problema piora sozinho e cobra as perdas da pior escolha
   const piora: Effect = {};
   for (const a of pendentes) {
-    const e = piorEscolha(s, a, catalog);
+    const ev = findEvent(a.eventId, catalog);
+    // alerta nunca aberto: o que ele faria ao abrir (ex.: a dose da tempestade) acontece igual
+    const aoAbrir = !a.opened && ev.onOpen ? ev.onOpen(s, a) : {};
+    const e = sumEffects(piorEscolha(s, a, catalog), aoAbrir);
     for (const k of ["ar", "comida", "saude", "energia", "ciencia"] as const) {
       const v = e[k] ?? 0;
       if (v < 0) piora[k] = (piora[k] ?? 0) + v;

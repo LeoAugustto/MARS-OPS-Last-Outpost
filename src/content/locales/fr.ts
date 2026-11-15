@@ -379,7 +379,7 @@ export const fr: Dict = {
     "La NASA nettoie très bien les vaisseaux avant d'aller sur Mars, pour ne pas apporter de microbes de la Terre. On appelle ça la protection planétaire.",
   "ev.lab_contaminado.title": "Le labo est contaminé",
   "ev.lab_contaminado.body":
-    "Des bactéries se sont échappées. Nettoyer la table a coûté 2 points d’énergie.",
+    "Des bactéries se sont échappées. Nettoyer la table demande de l’énergie.",
 
   // 🛡️ abri
   "ev.rachadura.title": "Une fissure dans la couche de sable",
@@ -572,7 +572,7 @@ export const fr: Dict = {
   "ev.truque_areia.areia.outcome":
     "Le robot a lâché du sable près des panneaux. Le vent a emporté le sable, qui a entraîné un peu de poussière !",
   "ev.truque_areia.areia.lesson":
-    "En 2021, l'atterrisseur InSight a utilisé cette astuce : il a lâché du sable dans le vent près de ses panneaux, et le sable a emporté une partie de la poussière.",
+    "En 2021, l'atterrisseur InSight a utilisé cette astuce. Il a lâché du sable dans le vent près de ses panneaux. Le sable a emporté un peu de poussière.",
   "ev.truque_areia.escovar.label": "Sortir brosser les panneaux",
   "ev.truque_areia.escovar.outcome":
     "Les panneaux sont bien propres ! Mais la sortie a utilisé l'air de la combinaison.",

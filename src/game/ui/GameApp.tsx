@@ -86,7 +86,13 @@ function periodoDe(relogio: number): Periodo {
 function readSave(): SaveData | null {
   const row = loadSave<SaveData>(SLOT);
   const d = row?.state;
-  return d && d.v === 2 && d.game?.version === 2 ? d : null;
+  const g = d?.game;
+  // save quebrado ou incompleto: começa de novo em vez de cair na tela de erro
+  const ok =
+    !!g && d.v === 2 && g.version === 2 && Array.isArray(g.alerts) && Array.isArray(g.history) &&
+    Array.isArray(g.checkpoints) && !!g.resources && !!g.allocation && typeof g.sol === "number" &&
+    !!d.phase;
+  return ok ? d : null;
 }
 
 // Eventos das últimas missões deste aparelho: a próxima missão prefere outros (mais variedade).
@@ -378,7 +384,10 @@ function GameInner({
   const sleep = () => {
     if (!game || game.status !== "jogando") return;
     const forcado = !canSleep(game);
-    if (forcado && !noite) return;
+    if (forcado && !noite) {
+      setPlace("habitat");
+      return;
+    }
     stopSpeaking();
     setPlace(null);
     setGame(endSol(game, undefined, { forcado }));
@@ -750,7 +759,6 @@ function GameInner({
           place={place}
           onClose={() => setPlace(null)}
           onEnergy={abrirEnergia}
-          onSleep={sleep}
           noite={noite}
         />
       )}

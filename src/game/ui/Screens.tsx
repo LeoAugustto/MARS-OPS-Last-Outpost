@@ -89,7 +89,7 @@ export function LevelSelect({
             <span className="flex min-w-0 flex-1 flex-col justify-center px-2 py-1 sm:px-3">
               <span className={`flex items-center gap-2 font-display text-[clamp(1rem,4.4vw,1.5rem)] font-bold leading-tight ${nivel === l ? "text-[#f3c916]" : ""}`}>
                 {t(`nivel.${l}`)}
-                {nivel === l && <PixelIcon name="ok" size={22} />}
+                {nivel === l && <span className="ml-1 inline-block align-middle"><PixelIcon name="ok" size={18} /></span>}
               </span>
               <span className="block text-[#e0c09a]">{t(`ui.nivel.${l}`, { sois: BALANCE.LEVELS[l].totalSols })}</span>
             </span>
@@ -139,7 +139,7 @@ export function LevelSelect({
                 type="button"
                 disabled={loading}
                 onClick={() => onModo("famosa", f)}
-                className={`border-2 px-2 py-1.5 text-left text-sm font-bold ${
+                className={`min-h-12 border-2 px-2 py-1.5 text-left text-sm font-bold ${
                   famosa === f ? "border-[#f3c916] bg-[#5a1d07] text-[#f3c916]" : "border-[#5a1d07] bg-[#3b1206]/85"
                 }`}
               >

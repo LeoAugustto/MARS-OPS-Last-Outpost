@@ -369,7 +369,7 @@ export const pt = {
   "ev.bacterias.mesa.lesson":
     "A NASA limpa muito bem as naves antes de ir para Marte, para não levar micróbios da Terra. Isso se chama proteção planetária.",
   "ev.lab_contaminado.title": "O laboratório ficou sujo",
-  "ev.lab_contaminado.body": "Algumas bactérias escaparam. Limpar a mesa custou 2 de energia.",
+  "ev.lab_contaminado.body": "Algumas bactérias escaparam. Limpar a mesa gasta energia.",
 
   // 🛡️ abrigo
   "ev.rachadura.title": "Rachadura na camada de areia",

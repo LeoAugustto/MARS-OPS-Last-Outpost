@@ -249,20 +249,17 @@ export function PlaceInfo({
   place,
   onClose,
   onEnergy,
-  onSleep,
   noite = false,
 }: {
   state: GameState;
   place: PlaceId;
   onClose: () => void;
   onEnergy: () => void;
-  onSleep: () => void;
   /** já é noite: pode dormir mesmo com alerta aberto (perde saúde) */
   noite?: boolean;
 }) {
   const { t } = useGT();
   const faltam = state.alerts.filter((a) => !a.done).length;
-  const dano = faltam * BALANCE.SAUDE_POR_ALERTA_PERDIDO;
   return (
     <Modal label={t(`lugar.${place}`)} onClose={onClose}>
       <div className="flex flex-col gap-3">
@@ -274,16 +271,14 @@ export function PlaceInfo({
             <PixelIcon name="raio" /> {t("ui.energia.titulo")}
           </Button>
         )}
-        {place === "habitat" &&
-          (faltam === 0 || noite ? (
-            <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onSleep}>
-              <PixelIcon name="cama" /> {faltam ? t("ui.dormir_custo", { dano }) : t("ui.dormir")}
-            </Button>
-          ) : (
-            <p className="border border-border bg-accent p-3 font-bold">
-              {t("ui.dormir_bloqueado", { n: faltam, cada: BALANCE.SAUDE_POR_ALERTA_PERDIDO })}
-            </p>
-          ))}
+        {place === "habitat" && faltam > 0 && !noite && (
+          <p className="border border-border bg-accent p-3 font-bold">
+            {t("ui.dormir_bloqueado", {
+              n: faltam,
+              cada: BALANCE.SAUDE_POR_ALERTA_PERDIDO,
+            })}
+          </p>
+        )}
         <Button variant="chunkySand" size="tap" className="w-full" onClick={onClose}>
           {t("ui.fechar")}
         </Button>
