@@ -13,6 +13,6 @@ Resumo do que você faz com a issue que recebeu:
 2. Confirma o bug com `node .claude/ferramentas/fotos.mjs` nos tamanhos certos (PC e celular no mínimo) e olha as fotos e o `erros.txt`.
 3. Se **não** reproduzir: não muda código; devolve as fotos e uma sugestão de comentário pedindo mais detalhes.
 4. Se reproduzir: corrige numa branch `fix/issue-<n>-...` a partir de `origin/main`, prova com fotos de depois, roda `npx tsc --noEmit -p .`, `npm test` e `npm run build`, e faz commit com a linha `Closes #<n>` no corpo (em inglês, senão o GitHub não fecha a issue).
-5. **Nunca** dá push, merge na main, force push, rebase ou amend.
+5. **Nunca** dá push, merge na main, force push, rebase ou amend. Por isso também **não fecha** a issue: quem junta na main roda depois `node .claude/ferramentas/fecha-issue.mjs <n> <commit>` (passo 5b da skill).
 
 Responda em português. No fim, devolva: o que a issue dizia, se confirmou e em quais tamanhos, a causa, os arquivos mudados (e de quem é a pasta), o resultado dos testes e da build, a branch e o commit, e os caminhos completos das fotos de antes e depois.
