@@ -1,0 +1,54 @@
+name: 🐞 Bug
+description: Algo no jogo não funciona como deveria
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: onde
+    attributes:
+      label: Onde acontece?
+      multiple: true
+      options:
+        - Computador (tela cheia)
+        - Computador (janela)
+        - Celular em pé
+        - Celular deitado
+        - Tablet
+        - Não sei
+    validations:
+      required: true
+  - type: input
+    id: navegador
+    attributes:
+      label: Navegador e aparelho
+      placeholder: "ex.: Chrome no Windows, Safari no iPhone 13"
+  - type: dropdown
+    id: idioma
+    attributes:
+      label: Idioma do jogo
+      options: [Português, English, Español, Français, Italiano]
+  - type: textarea
+    id: passos
+    attributes:
+      label: Passo a passo para o bug aparecer
+      placeholder: |
+        1. Iniciar missão no Cadete
+        2. Entrar na Casa
+        3. Tocar na cama...
+    validations:
+      required: true
+  - type: textarea
+    id: aconteceu
+    attributes:
+      label: O que aconteceu?
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: O que deveria acontecer?
+  - type: textarea
+    id: print
+    attributes:
+      label: Print ou vídeo
+      description: Arraste a imagem para cá. Ajuda muito!
