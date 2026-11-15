@@ -42,7 +42,7 @@ import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
 import { collectStickers } from "./stickers";
 import { ART, type Periodo } from "./art";
 import { ComoJogar } from "./ComoJogar";
-import { pararTudo, tocarMusica } from "./audio";
+import { pararTudo, tocarEfeito, tocarMusica } from "./audio";
 import { SomPanel } from "./SomPanel";
 import { AvisoTelaCheia } from "./AvisoTelaCheia";
 
@@ -393,6 +393,21 @@ function GameInner({
   // saiu do jogo: silêncio
   useEffect(() => () => pararTudo(), []);
 
+  // efeitos 8-bit nos momentos do jogo (public/audio/sfx)
+  const cartaUrgente = !!card && !!game?.alerts.find((a) => a.id === card)?.urgent;
+  useEffect(() => {
+    if (card) tocarEfeito(cartaUrgente ? "urgente" : "abrir_carta");
+  }, [card, cartaUrgente]);
+  useEffect(() => {
+    if (phase === "manha") tocarEfeito("bom_dia");
+    else if (phase === "noite") tocarEfeito("dormir");
+    else if (phase === "mapa" && game?.alerts.some((a) => !a.done)) tocarEfeito("alerta");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
+  useEffect(() => {
+    if (overlay && overlay !== "energia") tocarEfeito("abrir_menu");
+  }, [overlay]);
+
   // a noite chegou com a tripulação acordada: cansaço (SAUDE_AO_ANOITECER), uma vez por sol
   useEffect(() => {
     if (!noite || !game || game.status !== "jogando" || phase !== "mapa") return;
@@ -523,6 +538,12 @@ function GameInner({
   })();
 
   // relógio do sol: anda só com o mapa livre (carta, painel, menu, tutorial ou Rovi abertos pausam)
+  // aviso do Rovi apareceu: bipe (ampulheta quando é o custo que chegou)
+  const avisoK = roviAviso?.k;
+  useEffect(() => {
+    if (avisoK) tocarEfeito(avisoK === "rovi.depois" ? "ampulheta" : "aviso_rovi");
+  }, [avisoK]);
+
   const relogioRodando =
     !!game && game.status === "jogando" && !algoAberto && !tutVisivel && !roviAviso;
   const segundosPorSol = game ? BALANCE.SEGUNDOS_POR_SOL[game.level] : 120;
@@ -563,7 +584,9 @@ function GameInner({
   useEffect(() => {
     if (phase !== "fim" || !game || coletou.current === game.seed) return;
     coletou.current = game.seed;
-    setNovasFig(collectStickers(game));
+    const novas = collectStickers(game);
+    setNovasFig(novas);
+    if (novas.length) setTimeout(() => tocarEfeito("figurinha"), 3500);
   }, [phase, game]);
 
   // 19:00: o relógio PARA e espera a criança ir dormir na casa (não vira o dia sozinho)
@@ -765,6 +788,7 @@ function GameInner({
             return !!k && !seen.includes(k);
           })()}
           onChoose={(choiceId) => {
+            tocarEfeito("confirmar");
             setGame((g) => (g ? choose(g, card, choiceId) : g));
             // cada escolha gasta horas do sol (07:00–19:00); "perder o dia" gasta várias
             const a = game.alerts.find((x) => x.id === card);

@@ -1,4 +1,5 @@
 // Janelas do jogo: energia, manhã, noite, lugar, glossário e menu.
+import { tocarEfeito } from "./audio";
 import { useEffect, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { LangSelector } from "@/components/AppHeader";
@@ -84,6 +85,7 @@ export function EnergyPanel({
               className="w-12 text-xl"
               onClick={() => {
                 muda(k, -1);
+                tocarEfeito("clique_grave");
                 onMais?.();
               }}
               aria-label={`− ${t(`modulo.${k}`)}`}
@@ -100,6 +102,7 @@ export function EnergyPanel({
               data-tut={k === "ar" ? "mais" : undefined}
               onClick={() => {
                 muda(k, 1);
+                tocarEfeito("clique_agudo");
                 onMais?.();
               }}
               aria-label={`+ ${t(`modulo.${k}`)}`}
@@ -126,6 +129,7 @@ export function EnergyPanel({
           className="w-full text-lg"
           data-tut="pronto"
           onClick={() => {
+            tocarEfeito("pronto");
             onSave(a);
             onClose();
           }}

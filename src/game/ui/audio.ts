@@ -137,7 +137,12 @@ export function tocarEfeito(nome: string, opts: { tom?: number } = {}) {
   if (!ok() || !liberado || !prefs.ligado || prefs.efeitos <= 0) return;
   let base = cacheEfeitos.get(nome);
   if (!base) {
-    base = novo(`/audio/sfx/${nome}.mp3`, false, 1);
+    // efeitos 8-bit gerados são .wav; os do ElevenLabs/Suno são .mp3
+    const b = novo(`/audio/sfx/${nome}.wav`, false, 1);
+    b.addEventListener("error", () => {
+      if (b.src.endsWith(".wav")) b.src = `/audio/sfx/${nome}.mp3`;
+    });
+    base = b;
     cacheEfeitos.set(nome, base);
   }
   const a = base.cloneNode(true) as HTMLAudioElement;
