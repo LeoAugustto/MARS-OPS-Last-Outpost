@@ -40,3 +40,10 @@
 - [x] Preservar o cálculo responsivo e os controles do rodapé
 - [x] Conferir 390x844, 360x640 e telas deitadas baixas (844x390, 640x360)
 - [x] Não publicar (nada foi publicado)
+
+## Leo — botões, vídeo e telas largas (após ce881cb)
+- [x] Home: texto dos botões sempre dentro da arte com ~9% de folga nos 5 idiomas (medida no documento, com contorno e sombra)
+- [x] Home: vídeo toca sozinho, mudo, em loop; 1080p para telas menores e 4K a partir de 1440px; só para com "menos movimento"
+- [x] /fontes e /sobre sem rolagem em telas ≥1536px (colunas); celular continua rolando
+- [x] Conferir 360x640, 390x844, 844x390, 768x1024, 1230x800, 1366x768, 1536x864, 1920x940, 1920x1080, 2560x1440
+- [x] Não publicar
