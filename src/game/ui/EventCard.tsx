@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
+  BALANCE,
   choiceEffect,
   choicesFor,
   energiaFaltando,
@@ -157,7 +158,7 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
                   )}
                   {ok && falta > 0 && (
                     <span className="text-sm font-bold text-destructive">
-                      {t("ui.no_braco", { n: falta * 2 })}
+                      {t("ui.no_braco", { n: falta * BALANCE.SAUDE_POR_ENERGIA_FALTANDO })}
                     </span>
                   )}
                 </button>

@@ -266,7 +266,7 @@ export function PlaceInfo({
             </Button>
           ) : (
             <p className="border border-border bg-accent p-3 font-bold">
-              {t("ui.dormir_bloqueado", { n: faltam })}
+              {t("ui.dormir_bloqueado", { n: faltam, cada: BALANCE.SAUDE_POR_ALERTA_PERDIDO })}
             </p>
           ))}
         <Button variant="chunkySand" size="tap" className="w-full" onClick={onClose}>

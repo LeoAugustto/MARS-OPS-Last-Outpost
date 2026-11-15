@@ -64,3 +64,25 @@ describe("fim da missão", () => {
       for (const k of [1, 2, 3]) expect(LOCALES[lang][`fim.estrela.${k}`]?.trim()).toBeTruthy();
   });
 });
+
+describe("singular e plural", () => {
+  it("com 1 alerta, a barra diz '1 alerta' (não '1 alertas') nos 5 idiomas", async () => {
+    const { chavePlural } = await import("@/game/ui/shared");
+    const { t } = await import("@/content/i18n");
+    const esperado = { pt: "1 alerta", en: "1 alert", es: "1 alerta", fr: "1 alerte", it: "1 allarme" } as const;
+    for (const lang of LANGS) {
+      const k = chavePlural("ui.alertas_faltam", lang, { n: 1 });
+      expect(t(k, lang, { n: 1 })).toBe(esperado[lang]);
+      expect(t(chavePlural("ui.alertas_faltam", lang, { n: 2 }), lang, { n: 2 })).not.toBe(esperado[lang].replace("1", "2"));
+    }
+  });
+  it("toda chave '.um' tem a chave de plural ao lado, com as mesmas variáveis", () => {
+    for (const lang of LANGS)
+      for (const k of Object.keys(LOCALES[lang]).filter((k) => k.endsWith(".um"))) {
+        const base = LOCALES[lang][k.slice(0, -3)];
+        expect(base, `${lang}: ${k}`).toBeTruthy();
+        const vars = (s: string) => (s.match(/\{\w+\}/g) ?? []).sort().join();
+        expect(vars(LOCALES[lang][k] ?? "")).toBe(vars(base!));
+      }
+  });
+});
