@@ -1,10 +1,10 @@
 // Textos dos EVENTOS DO SOL (DONKI) nos 5 idiomas. Dono: Bruno.
-// Variáveis vindas do evento real: {data} (AAAA-MM-DD), {tamanho} (classe X9.3 / velocidade km/s), {estrelas} (1/3 a 3/3).
+// Variáveis vindas do evento real: {data} (AAAA-MM-DD), {tamanho} (classe/velocidade técnica: fica só no link da NASA), {estrelas} (1/3 a 3/3).
 
 const pt = {
   "ev.sol_clarao.title": "Clarão do Sol!",
   "ev.sol_clarao.body":
-    "A NASA registrou um clarão no Sol (classe {tamanho}, força {estrelas}) em {data}. Clarões fortes atrapalham o rádio.",
+    "A NASA registrou um clarão no Sol (força {estrelas}) em {data}. Clarões fortes atrapalham o rádio.",
   "ev.sol_clarao.reserva.label": "Ligar a antena reserva",
   "ev.sol_clarao.reserva.outcome":
     "O rádio continuou funcionando, mas a antena reserva gastou energia.",
@@ -18,7 +18,7 @@ const pt = {
 
   "ev.sol_nuvem.title": "Uma nuvem do Sol vem aí!",
   "ev.sol_nuvem.body":
-    "A NASA viu uma nuvem de partículas saindo do Sol a {tamanho} em {data} (força {estrelas}). Ela pode chegar a Marte em 1 a 3 sóis.",
+    "A NASA viu uma nuvem de partículas saindo do Sol em {data} (força {estrelas}). Ela pode chegar a Marte em 1 a 3 sóis.",
   "ev.sol_nuvem.abrigo.label": "Preparar o abrigo",
   "ev.sol_nuvem.abrigo.outcome": "O abrigo está pronto para quando a nuvem chegar. Gastou energia.",
   "ev.sol_nuvem.abrigo.lesson":
@@ -74,7 +74,7 @@ type SolDict = Record<SolKey, string>;
 const en: SolDict = {
   "ev.sol_clarao.title": "Solar flash!",
   "ev.sol_clarao.body":
-    "NASA recorded a flash on the Sun (class {tamanho}, power {estrelas}) on {data}. Strong flashes mess up the radio.",
+    "NASA recorded a flash on the Sun (power {estrelas}) on {data}. Strong flashes mess up the radio.",
   "ev.sol_clarao.reserva.label": "Turn on the backup antenna",
   "ev.sol_clarao.reserva.outcome": "The radio kept working, but the backup antenna used energy.",
   "ev.sol_clarao.reserva.lesson":
@@ -87,7 +87,7 @@ const en: SolDict = {
 
   "ev.sol_nuvem.title": "A cloud from the Sun is coming!",
   "ev.sol_nuvem.body":
-    "NASA saw a cloud of particles leaving the Sun at {tamanho} on {data} (power {estrelas}). It may reach Mars in 1 to 3 sols.",
+    "NASA saw a cloud of particles leaving the Sun on {data} (power {estrelas}). It may reach Mars in 1 to 3 sols.",
   "ev.sol_nuvem.abrigo.label": "Get the shelter ready",
   "ev.sol_nuvem.abrigo.outcome": "The shelter is ready for when the cloud arrives. It used energy.",
   "ev.sol_nuvem.abrigo.lesson":
@@ -139,7 +139,7 @@ const en: SolDict = {
 const es: SolDict = {
   "ev.sol_clarao.title": "¡Destello del Sol!",
   "ev.sol_clarao.body":
-    "La NASA registró un destello en el Sol (clase {tamanho}, fuerza {estrelas}) el {data}. Los destellos fuertes estropean la radio.",
+    "La NASA registró un destello en el Sol (fuerza {estrelas}) el {data}. Los destellos fuertes estropean la radio.",
   "ev.sol_clarao.reserva.label": "Encender la antena de reserva",
   "ev.sol_clarao.reserva.outcome":
     "La radio siguió funcionando, pero la antena de reserva gastó energía.",
@@ -153,7 +153,7 @@ const es: SolDict = {
 
   "ev.sol_nuvem.title": "¡Viene una nube del Sol!",
   "ev.sol_nuvem.body":
-    "La NASA vio una nube de partículas saliendo del Sol a {tamanho} el {data} (fuerza {estrelas}). Puede llegar a Marte en 1 a 3 soles.",
+    "La NASA vio una nube de partículas saliendo del Sol el {data} (fuerza {estrelas}). Puede llegar a Marte en 1 a 3 soles.",
   "ev.sol_nuvem.abrigo.label": "Preparar el refugio",
   "ev.sol_nuvem.abrigo.outcome": "El refugio está listo para cuando llegue la nube. Gastó energía.",
   "ev.sol_nuvem.abrigo.lesson":
@@ -206,7 +206,7 @@ const es: SolDict = {
 const fr: SolDict = {
   "ev.sol_clarao.title": "Éclair du Soleil !",
   "ev.sol_clarao.body":
-    "La NASA a enregistré un éclair sur le Soleil (classe {tamanho}, force {estrelas}) le {data}. Les éclairs forts brouillent la radio.",
+    "La NASA a enregistré un éclair sur le Soleil (force {estrelas}) le {data}. Les éclairs forts brouillent la radio.",
   "ev.sol_clarao.reserva.label": "Allumer l’antenne de secours",
   "ev.sol_clarao.reserva.outcome":
     "La radio a continué de marcher, mais l’antenne de secours a utilisé de l’énergie.",
@@ -220,7 +220,7 @@ const fr: SolDict = {
 
   "ev.sol_nuvem.title": "Un nuage du Soleil arrive !",
   "ev.sol_nuvem.body":
-    "La NASA a vu un nuage de particules quitter le Soleil à {tamanho} le {data} (force {estrelas}). Il peut atteindre Mars dans 1 à 3 sols.",
+    "La NASA a vu un nuage de particules quitter le Soleil le {data} (force {estrelas}). Il peut atteindre Mars dans 1 à 3 sols.",
   "ev.sol_nuvem.abrigo.label": "Préparer l’abri",
   "ev.sol_nuvem.abrigo.outcome":
     "L’abri est prêt pour l’arrivée du nuage. Ça a utilisé de l’énergie.",
@@ -276,7 +276,7 @@ const fr: SolDict = {
 const it: SolDict = {
   "ev.sol_clarao.title": "Lampo del Sole!",
   "ev.sol_clarao.body":
-    "La NASA ha registrato un lampo sul Sole (classe {tamanho}, forza {estrelas}) il {data}. I lampi forti disturbano la radio.",
+    "La NASA ha registrato un lampo sul Sole (forza {estrelas}) il {data}. I lampi forti disturbano la radio.",
   "ev.sol_clarao.reserva.label": "Accendere l’antenna di riserva",
   "ev.sol_clarao.reserva.outcome":
     "La radio ha continuato a funzionare, ma l’antenna di riserva ha usato energia.",
@@ -290,7 +290,7 @@ const it: SolDict = {
 
   "ev.sol_nuvem.title": "Arriva una nube dal Sole!",
   "ev.sol_nuvem.body":
-    "La NASA ha visto una nube di particelle lasciare il Sole a {tamanho} il {data} (forza {estrelas}). Può arrivare su Marte in 1-3 sol.",
+    "La NASA ha visto una nube di particelle lasciare il Sole il {data} (forza {estrelas}). Può arrivare su Marte in 1-3 sol.",
   "ev.sol_nuvem.abrigo.label": "Preparare il rifugio",
   "ev.sol_nuvem.abrigo.outcome":
     "Il rifugio è pronto per quando arriverà la nube. Ha usato energia.",
