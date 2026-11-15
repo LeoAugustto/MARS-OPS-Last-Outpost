@@ -108,7 +108,7 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
         {radio ? (
           <>
             <DialogBox speaker="controle" text={body} />
-            <p className="text-sm font-semibold text-[#5a3424]">
+            <p className="text-sm font-semibold text-muted-foreground">
               {t("ui.radio_atraso", { min: atrasoRadioMin() })}
             </p>
           </>

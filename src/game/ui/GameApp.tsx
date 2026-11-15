@@ -280,7 +280,8 @@ function GameInner({
 
   // alerta urgente abre sozinho quando a criança chega no mapa
   useEffect(() => {
-    if (phase !== "mapa" || !game || card || overlay) return;
+    // durante a expedição do rover (indo, na estação ou voltando) espera a volta à base
+    if (phase !== "mapa" || !game || card || overlay || cena) return;
     const urgente = game.alerts.find((a) => a.urgent && !a.done);
     if (urgente) {
       setPlace(null);
@@ -288,7 +289,7 @@ function GameInner({
       setCard(urgente.id);
       tutVaiPara("custo");
     }
-  }, [phase, game, card, overlay, tutVaiPara]);
+  }, [phase, game, card, overlay, cena, tutVaiPara]);
 
   const onPlace = useCallback(
     (pl: PlaceId) => {
@@ -384,7 +385,9 @@ function GameInner({
     stopSpeaking();
     setPlace(null);
     setGame(endSol(game, undefined, { forcado }));
-    setInside(null);
+    // acorda dentro da Casa (dormiu na cama): para ir ao mapa, sai pela porta da Casa
+    setInside("habitat");
+    setSaiuDe("habitat");
     setPhase("noite");
   };
 
@@ -597,9 +600,12 @@ function GameInner({
           onRewind={(sol) => {
             setGame(rewindTo(game, sol));
             setRelogio(0);
+            setInside("habitat");
+            setSaiuDe("habitat");
             setPhase("manha");
           }}
           onNew={backToLevels}
+          onBack={() => setPhase("fim")}
         />
       </main>
     );
@@ -646,7 +652,7 @@ function GameInner({
           <ExpedicaoFundo periodo={periodo} />
         ) : inside ? (
           <Interior
-            key={inside}
+            key={`${inside}-${game.sol}`}
             place={inside}
             alerts={game.alerts}
             paused={algoAberto}

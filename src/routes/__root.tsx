@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { I18nProvider, useT, type MessageKey } from "@/i18n";
 import { FUNDO_HUB, PAINEL_HUB, TituloHub } from "@/game/ui/hub";
+import { FullscreenButton } from "@/game/ui/shared";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -25,7 +26,8 @@ function PaginaAviso({ numero, titulo, texto, children }: { numero?: string; tit
   const t = useT();
   return (
     <main className="flex min-h-screen items-center justify-center p-4" style={FUNDO_HUB}>
-      <div className={`${PAINEL_HUB} flex w-full max-w-lg flex-col items-center gap-4 p-6 text-center`}>
+      <div className={`${PAINEL_HUB} relative flex w-full max-w-lg flex-col items-center gap-4 p-6 text-center`}>
+        <FullscreenButton className="absolute right-2 top-2" />
         <div className="relative">
           <img src="/assets/rover/sw_0.png" alt="" width={168} height={168} className="pixelated h-[clamp(110px,22vw,168px)] w-auto" />
           <span

@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { FullscreenButton } from "@/game/ui/shared";
 import { Check, ChevronDown } from "lucide-react";
 import br from "flag-icons/flags/4x3/br.svg";
 import us from "flag-icons/flags/4x3/us.svg";
@@ -63,7 +64,10 @@ export function AppHeader({ showBack = true }: { showBack?: boolean }) {
       <Link to="/" className="hidden min-h-12 min-w-0 flex-1 items-center justify-center text-center font-display text-xs leading-normal text-highlight sm:flex md:text-sm">
         <span className="truncate">{t("app.title")}</span>
       </Link>
-      <LangSelector />
+      <div className="flex shrink-0 items-center gap-2">
+        <FullscreenButton />
+        <LangSelector />
+      </div>
     </header>
   );
 }

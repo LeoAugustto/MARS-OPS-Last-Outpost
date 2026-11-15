@@ -312,7 +312,7 @@ export function BaseMap({
   return (
     <div
       ref={wrapRef}
-      className="relative flex h-full w-full items-start justify-center sm:items-center"
+      className="relative flex h-full w-full items-center justify-center"
     >
       <div
         ref={mapRef}

@@ -6,6 +6,7 @@ import { useDocumentTitle, useT } from "@/i18n";
 import { animacaoPausada, guardarAnimacaoPausada } from "@/lib/animacao";
 import { listSaves } from "@/lib/saves";
 import { ComoJogar } from "@/game/ui/ComoJogar";
+import { FullscreenButton } from "@/game/ui/shared";
 
 // vídeo da cena e o primeiro quadro, servidos como arquivos estáticos de public/:
 // funcionam no Lovable e em qualquer build Vite normal (sem depender de rota interna).
@@ -309,7 +310,7 @@ function Home() {
       {/* a cena em loop cobrindo a tela toda, sem deixar borda */}
       <video
         ref={videoRef}
-        className="pixelated pointer-events-none absolute inset-0 h-full w-full select-none object-cover"
+        className="pixelated pointer-events-none absolute inset-0 h-full w-full select-none object-cover object-[50%_100%]"
         poster={POSTER_CENA}
         autoPlay
         muted
@@ -342,14 +343,15 @@ function Home() {
           className="h-12 gap-1.5 px-3 text-xl"
           onClick={() => setAjuda(true)}
         >
-          <img src="/assets/ui/btn_ajuda.png" alt="" aria-hidden className="pixelated h-7 w-7" />
+          <img src="/assets/ui/ajuda.png" alt="" aria-hidden className="pixelated h-7 w-7" />
           {t("howToPlay")}
         </Button>
       </div>
       {ajuda && <ComoJogar onClose={() => setAjuda(false)} />}
 
       {/* idioma: canto de cima, à direita */}
-      <div className="absolute right-2 top-2 z-20">
+      <div className="absolute right-2 top-2 z-20 flex items-center gap-2">
+        <FullscreenButton />
         <LangSelector />
       </div>
 
