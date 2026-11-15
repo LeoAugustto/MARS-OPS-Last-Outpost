@@ -15,7 +15,7 @@ export const pt = {
   "modulo.ar": "Fábrica de ar",
   "modulo.estufa": "Estufa",
   "modulo.ciencia": "Laboratório",
-  "modulo.escudo": "Robô de areia",
+  "modulo.escudo": "Escudo de areia",
   "nivel.cadete": "Cadete (fácil)",
   "nivel.piloto": "Piloto (médio)",
   "nivel.comandante": "Comandante (difícil)",

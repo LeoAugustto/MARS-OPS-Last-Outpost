@@ -16,6 +16,7 @@ import {
   setAllocation,
   sleepPenalty,
   anoitecer,
+  findEvent,
   estrelasDe,
   BALANCE,
 } from "./index";
@@ -151,6 +152,20 @@ describe("motor v2", () => {
     expect(depois.night?.danoPerdidos).toBe(faltam * P);
     // mesma noite com todos os alertas resolvidos não teria esse dano
     expect(depois.night?.delta.saude).toBeLessThanOrEqual(-(faltam * P));
+  });
+
+  it("ignorar um alerta nunca sai mais barato que a pior escolha", () => {
+    for (let seed = 1; seed <= 30; seed++) {
+      const s = newMission({ seed, level: "piloto", donkiPool: RESERVE_EVENTS });
+      const depois = endSol(s, undefined, { forcado: true });
+      const piora = depois.night?.piora ?? {};
+      const temCusto = s.alerts.some((a) =>
+        (findEvent(a.eventId).choices ?? []).some((c) =>
+          Object.values(c.effects).some((v) => typeof v === "number" && v < 0),
+        ),
+      );
+      if (temCusto) expect(Object.values(piora).some((v) => (v ?? 0) < 0)).toBe(true);
+    }
   });
 
   it("anoitecer acordado cansa uma vez por sol", () => {

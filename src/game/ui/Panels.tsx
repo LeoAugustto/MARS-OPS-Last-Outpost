@@ -82,7 +82,10 @@ export function EnergyPanel({
               variant="chunkySand"
               size="tap"
               className="w-12 text-xl"
-              onClick={() => muda(k, -1)}
+              onClick={() => {
+                muda(k, -1);
+                onMais?.();
+              }}
               aria-label={`− ${t(`modulo.${k}`)}`}
             >
               −
@@ -193,11 +196,15 @@ export function NightModal({ state, onNext }: { state: GameState; onNext: () => 
       texto: t("ui.noite.falta", { lista: n.faltou.map((k) => t(`modulo.${k}`)).join(", ") }),
     },
     n.critico && { icon: "cansado", texto: t("ui.noite.critico") },
+    state.flags["anoiteceu"] === n.sol && {
+      icon: "cansado",
+      texto: t("ui.noite.cansaco", { n: BALANCE.SAUDE_AO_ANOITECER }),
+    },
     !!n.perdidos && {
       icon: "cansado",
       texto: t("ui.noite.perdidos", { n: n.perdidos, dano: n.danoPerdidos ?? 0 }),
     },
-    !!n.perdidos && { icon: "cama", texto: t("ui.noite.sono") },
+    (!!n.perdidos || state.flags["anoiteceu"] === n.sol) && { icon: "cama", texto: t("ui.noite.sono") },
     { icon: "bateria", texto: t("ui.noite.bateria", { n: n.bateria }) },
   ].filter((linha) => linha !== false);
   const titulo = t("ui.noite.titulo", { sol: n.sol });

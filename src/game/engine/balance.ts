@@ -23,7 +23,7 @@ export const LEVELS: Record<
   }
 > = {
   cadete: { inicioAr: 40, inicioComida: 35, totalSols: 7, metaCiencia: 20, doseMult: 0.8, consumoAr: 15, consumoComida: 11 }, // 7–9 anos
-  piloto: { inicioAr: 40, inicioComida: 30, totalSols: 10, metaCiencia: 28, doseMult: 1.2, consumoAr: 15, consumoComida: 12 },
+  piloto: { inicioAr: 40, inicioComida: 32, totalSols: 10, metaCiencia: 28, doseMult: 1.2, consumoAr: 15, consumoComida: 12 },
   comandante: { inicioAr: 40, inicioComida: 28, totalSols: 10, metaCiencia: 30, doseMult: 2.2, consumoAr: 16, consumoComida: 12 },
 };
 
@@ -45,7 +45,7 @@ export const CONSUMO_COMIDA = LEVELS.cadete.consumoComida;
 /** quanto cada 1 de energia rende (jogo) */
 export const AR_POR_ENERGIA = 4;
 export const COMIDA_POR_ENERGIA = 3;
-export const CIENCIA_POR_ENERGIA = 1;
+export const CIENCIA_POR_ENERGIA = 2;
 /** energia para o robô cobrir a base com mais um nível de areia (regolito) */
 export const ENERGIA_POR_ESCUDO = 3;
 export const ESCUDO_MAX = 4;
@@ -96,7 +96,7 @@ export const SAUDE_AO_ANOITECER = 4;
 /** dormir com alerta sem resposta: a tripulação dorme preocupada, por alerta (jogo) */
 export const SAUDE_POR_ALERTA_PERDIDO = 2;
 /** estrelas de ciência no fim: 2 estrelas a partir desta fração da meta, 3 na meta (jogo) */
-export const ESTRELA_2_EM = 0.6;
+export const ESTRELA_2_EM = 0.4;
 
 // ---------------------------------------------------------------- variedade do sorteio (jogo)
 /** evento da base que já apareceu nesta missão: peso multiplicado por isto */

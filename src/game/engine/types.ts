@@ -149,6 +149,8 @@ export interface NightReport {
   perdidos?: number;
   /** saúde perdida por causa deles */
   danoPerdidos?: number;
+  /** o que os alertas ignorados pioraram sozinhos (perdas da pior escolha de cada um) */
+  piora?: Effect;
   delta: Effect;
 }
 

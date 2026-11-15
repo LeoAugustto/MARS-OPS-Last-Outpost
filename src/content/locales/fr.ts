@@ -13,7 +13,7 @@ export const fr: Dict = {
   "modulo.ar": "Fabrique d'air",
   "modulo.estufa": "Serre",
   "modulo.ciencia": "Laboratoire",
-  "modulo.escudo": "Robot à sable",
+  "modulo.escudo": "Bouclier de sable",
   "nivel.cadete": "Cadet (facile)",
   "nivel.piloto": "Pilote (moyen)",
   "nivel.comandante": "Commandant (difficile)",

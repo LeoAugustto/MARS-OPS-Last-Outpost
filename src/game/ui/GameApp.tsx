@@ -43,8 +43,8 @@ import { collectStickers } from "./stickers";
 import { ART, type Periodo } from "./art";
 import { ComoJogar } from "./ComoJogar";
 
-/** abaixo disto o Rovi avisa que o ar, a comida ou a saúde estão acabando (jogo; só a UI usa) */
-const LIMITE_AVISO_ROVI = 30;
+/** abaixo disto (e caindo desde a última noite) o Rovi avisa que o recurso está acabando (jogo; só a UI usa) */
+const LIMITE_AVISO_ROVI = 40;
 
 /** Este alerta é o custo que chegou depois de uma escolha com ampulheta (deferredCost)? */
 function veioDeAmpulheta(g: GameState, eventId: string): boolean {
@@ -429,7 +429,8 @@ function GameInner({
       case "relogio":
         return livre ? { passo, texto: "tut.relogio", alvo: "relogio" } : null;
       case "casa":
-        if (!livre) return null;
+        // só manda dormir quando não falta nenhum alerta (antes disso, a criança resolve os outros)
+        if (!livre || pendentes.length > 0) return null;
         if (inside === "habitat") return { passo, texto: "tut.cama", alvo: "obj-cama" };
         if (inside) return { passo, texto: "tut.casa_sair", alvo: "obj-saida" };
         return { passo, texto: "tut.casa", alvo: "lugar-habitat" };
@@ -467,10 +468,13 @@ function GameInner({
       const ch = findEvent(a.eventId).chain;
       return ch === "sol-nuvem" || ch === "sol-chuva";
     });
+    // baixo E caindo: na manhã do sol 1 nada caiu ainda, então o Rovi não assusta à toa
+    const caindo = (k: "ar" | "comida" | "saude") =>
+      r[k] < LIMITE_AVISO_ROVI && (game.night?.delta[k] ?? 0) < 0;
     const lista: [boolean, string, string?][] = [
-      [r.ar < LIMITE_AVISO_ROVI, "rovi.ar", "energia"],
-      [r.comida < LIMITE_AVISO_ROVI, "rovi.comida", "energia"],
-      [r.saude < LIMITE_AVISO_ROVI, "rovi.saude", "barras"],
+      [caindo("ar"), "rovi.ar", "energia"],
+      [caindo("comida"), "rovi.comida", "energia"],
+      [caindo("saude"), "rovi.saude", "barras"],
       [tempestade, "rovi.tempestade", "energia"],
       [game.alerts.some((a) => veioDeAmpulheta(game, a.eventId)), "rovi.depois"],
       [(game.night?.bateria ?? 0) >= BALANCE.BATERIA_MAX, "rovi.bateria", "energia"],

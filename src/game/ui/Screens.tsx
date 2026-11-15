@@ -102,10 +102,11 @@ export function LevelSelect({
               className="flex w-24 shrink-0 items-center justify-center gap-0.5 border-4 border-[#e8c39c] bg-[#c99a72] sm:w-28"
               aria-hidden
             >
+              {/* dificuldade em foguetes (estrela é o prêmio de ciência do fim da missão) */}
               {Array.from({ length: estrelas }, (_, i) => (
                 <img
                   key={i}
-                  src="/assets/ui/estrela.png"
+                  src="/assets/ui/foguete.png"
                   alt=""
                   className="h-7 w-7 sm:h-8 sm:w-8"
                   style={{ imageRendering: "pixelated" }}

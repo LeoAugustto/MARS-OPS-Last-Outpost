@@ -92,7 +92,7 @@ export function sumEffects(a: Effect, b: Effect): Effect {
 // ---------------------------------------------------------------- missão
 
 export function defaultAllocation(): Allocation {
-  return { ar: 3, estufa: 3, ciencia: 2, escudo: 0 };
+  return { ar: 4, estufa: 4, ciencia: 2, escudo: 0 };
 }
 
 export function newMission(
@@ -482,6 +482,27 @@ export function plannedAllocation(s: GameState): { real: Allocation; faltou: Mod
   return { real, faltou };
 }
 
+/** As perdas da escolha mais cara de um alerta (o que acontece se ninguém decidir). */
+function piorEscolha(s: GameState, a: Alert, catalog: GameEvent[]): Effect {
+  const cs = (findEvent(a.eventId, catalog).choices ?? []).filter((c) => !c.available || c.available(s));
+  let pior: Effect = {};
+  let menor = Infinity;
+  for (const c of cs) {
+    const e = c.dynamic ? sumEffects(c.effects, c.dynamic(s, a)) : c.effects;
+    const custo =
+      Math.min(0, e.ar ?? 0) +
+      Math.min(0, e.comida ?? 0) +
+      Math.min(0, e.saude ?? 0) * 2 +
+      Math.min(0, e.energia ?? 0) * 3 +
+      Math.min(0, e.ciencia ?? 0);
+    if (custo < menor) {
+      menor = custo;
+      pior = e;
+    }
+  }
+  return pior;
+}
+
 export function canSleep(s: GameState): boolean {
   return s.status === "jogando" && s.alerts.every((a) => a.done);
 }
@@ -524,8 +545,19 @@ export function endSol(
   if (!opts.forcado && !canSleep(state))
     throw new Error("Resolva todos os alertas antes de dormir.");
   const s = cloneState(state);
-  const perdidos = s.alerts.filter((a) => !a.done).length;
+  const pendentes = s.alerts.filter((a) => !a.done);
+  const perdidos = pendentes.length;
   const danoPerdidos = perdidos * B.SAUDE_POR_ALERTA_PERDIDO;
+  // ignorar não é de graça: o problema piora sozinho e cobra as perdas da pior escolha
+  const piora: Effect = {};
+  for (const a of pendentes) {
+    const e = piorEscolha(s, a, catalog);
+    for (const k of ["ar", "comida", "saude", "energia", "ciencia"] as const) {
+      const v = e[k] ?? 0;
+      if (v < 0) piora[k] = (piora[k] ?? 0) + v;
+    }
+  }
+  if (piora.energia) s.energiaHoje = Math.max(0, s.energiaHoje + piora.energia);
   for (const a of s.alerts) a.done = true;
   const cfg = B.LEVELS[s.level];
   const { real, faltou } = plannedAllocation(s);
@@ -554,11 +586,11 @@ export function endSol(
   if (s.resources.comida < B.LIMITE_CRITICO) saude -= B.DANO_CRITICO;
 
   const delta = applyEffect(s, {
-    ar: arFeito - cfg.consumoAr,
-    comida: comidaFeita - cfg.consumoComida,
-    ciencia,
+    ar: arFeito - cfg.consumoAr + (piora.ar ?? 0),
+    comida: comidaFeita - cfg.consumoComida + (piora.comida ?? 0),
+    ciencia: ciencia + (piora.ciencia ?? 0),
     escudo: escudoNovo,
-    saude,
+    saude: saude + (piora.saude ?? 0),
   });
   s.bateria = Math.min(B.BATERIA_MAX, s.bateria + sobra);
   s.energiaHoje = 0;
@@ -575,7 +607,7 @@ export function endSol(
     bateria: s.bateria,
     faltou,
     critico,
-    ...(perdidos ? { perdidos, danoPerdidos } : {}),
+    ...(perdidos ? { perdidos, danoPerdidos, piora } : {}),
     delta,
   };
   s.night = night;
