@@ -387,6 +387,34 @@ export function StickerGrid({ ids, so }: { ids: string[]; so?: string[] }) {
   );
 }
 
+/** 1 a 3 estrelas pixel (as que faltam ficam apagadas) e uma frase por estrela ganha. */
+function Estrelas({ n }: { n: 1 | 2 | 3 }) {
+  const { t } = useGT();
+  return (
+    <section className="flex w-full max-w-md flex-col items-center gap-2">
+      <div className="flex items-end justify-center gap-2" role="img" aria-label={t("fim.estrelas", { n })}>
+        {[1, 2, 3].map((k) => (
+          <img
+            key={k}
+            src="/assets/ui/estrela.png"
+            alt=""
+            className={`pixelated ${k === 2 ? "h-20 w-20 sm:h-24 sm:w-24" : "h-16 w-16 sm:h-20 sm:w-20"} ${
+              k <= n ? "estrela-ganha drop-shadow-[0_4px_0_#1c0703]" : "opacity-30 grayscale"
+            }`}
+            style={k <= n ? { animationDelay: `${(k - 1) * 250}ms` } : undefined}
+          />
+        ))}
+      </div>
+      <ul className="flex flex-col items-center gap-0.5 font-display text-sm font-bold text-[#f6e38c] [text-shadow:2px_2px_0_#1c0703] sm:text-base">
+        {Array.from({ length: n }, (_, k) => (
+          <li key={k}>{t(`fim.estrela.${k + 1}`)}</li>
+        ))}
+      </ul>
+      {n < 3 && <p className="text-base text-[#fbe6c8]/85">{t("fim.estrela.falta")}</p>}
+    </section>
+  );
+}
+
 export function EndScreen({
   state,
   onReport,
@@ -410,6 +438,7 @@ export function EndScreen({
         <p className={`${DESTAQUE} px-3 py-1 font-display text-sm font-bold`}>{t("ui.fim.quem")}</p>
         <TituloHub className="text-[clamp(1.5rem,5.5vw,2.5rem)]">{t(d.titleKey)}</TituloHub>
         <p className="max-w-lg text-lg leading-snug text-[#fbe6c8] sm:text-xl">{t(d.bodyKey)}</p>
+        {d.estrelas > 0 && <Estrelas n={d.estrelas} />}
         {/* números da missão em duas caixinhas */}
         <div className="grid w-full max-w-md grid-cols-2 gap-3">
           <p className={`${DESTAQUE} flex items-center justify-center gap-2 px-2 py-2 font-display text-sm font-bold sm:text-base`}>

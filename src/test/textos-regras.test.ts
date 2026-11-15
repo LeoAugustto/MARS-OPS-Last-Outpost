@@ -54,3 +54,13 @@ describe("glossário", () => {
       for (const k of PALAVRAS) expect(LOCALES[lang][`glossario.${k}`], `${lang}: ${k}`).toMatch(/^.+ = .+/);
   });
 });
+
+describe("fim da missão", () => {
+  it("o texto da vitória não sugere apoio da NASA, nos 5 idiomas", () => {
+    for (const lang of LANGS) expect(LOCALES[lang]["fim.vitoria.body"]).not.toMatch(/NASA/);
+  });
+  it("tem uma frase para cada uma das 3 estrelas, nos 5 idiomas", () => {
+    for (const lang of LANGS)
+      for (const k of [1, 2, 3]) expect(LOCALES[lang][`fim.estrela.${k}`]?.trim()).toBeTruthy();
+  });
+});

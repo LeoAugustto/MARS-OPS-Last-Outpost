@@ -1,6 +1,6 @@
 // Figurinhas de conquista: ganhas no fim da missão, guardadas só neste aparelho.
 // Ícones: por enquanto, os ícones pixel que já existem (ver docs/PENDENCIAS-PIXEL.md para arte própria).
-import type { GameState } from "@/game/engine";
+import { estrelasDe, type GameState } from "@/game/engine";
 
 export interface Sticker {
   id: string;
@@ -21,7 +21,7 @@ export const STICKERS: Sticker[] = [
   {
     id: "sobreviveu",
     icone: "/assets/ui/coracao.png",
-    ganhou: (s) => s.status === "vitoria" || s.status === "vitoria-parcial",
+    ganhou: (s) => estrelasDe(s) > 0,
   },
   {
     id: "cientista",
@@ -47,7 +47,7 @@ export const STICKERS: Sticker[] = [
   {
     id: "comandante",
     icone: "/assets/ui/estrela.png",
-    ganhou: (s) => s.level === "comandante" && s.status === "vitoria",
+    ganhou: (s) => s.level === "comandante" && estrelasDe(s) > 0,
   },
 ];
 

@@ -44,7 +44,7 @@ export const es: Dict = {
     "Tormenta solar = cuando el Sol lanza una explosión de luz y partículas muy rápidas.",
 
   "fim.vitoria.title": "¡Misión cumplida!",
-  "fim.vitoria.body": "Tu tripulación está bien e hizo mucha ciencia. ¡La NASA está orgullosa!",
+  "fim.vitoria.body": "Tu tripulación aguantó todos los soles en Marte. ¡Qué buen mando!",
   "fim.parcial.title": "¡Todos volvieron bien!",
   "fim.parcial.body":
     "La tripulación está a salvo, pero faltó un poco de ciencia. ¿Pruebas otra estrategia?",

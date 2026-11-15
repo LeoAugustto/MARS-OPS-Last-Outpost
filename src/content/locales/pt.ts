@@ -50,7 +50,7 @@ export const pt = {
 
   // ---------------------------------------------------------------- fim da missão (nunca "game over")
   "fim.vitoria.title": "Missão cumprida!",
-  "fim.vitoria.body": "Sua tripulação ficou bem e fez muita ciência. A NASA está orgulhosa!",
+  "fim.vitoria.body": "Sua tripulação aguentou todos os sóis em Marte. Que comando!",
   "fim.parcial.title": "Todos voltaram bem!",
   "fim.parcial.body":
     "A tripulação está segura, mas faltou um pouco de ciência. Que tal tentar outra estratégia?",

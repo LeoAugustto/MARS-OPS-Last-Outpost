@@ -44,7 +44,7 @@ export const en: Dict = {
     "Solar storm = when the Sun throws out a burst of light and super-fast particles.",
 
   "fim.vitoria.title": "Mission complete!",
-  "fim.vitoria.body": "Your crew stayed healthy and did lots of science. NASA is proud!",
+  "fim.vitoria.body": "Your crew made it through every sol on Mars. Great command!",
   "fim.parcial.title": "Everyone got home safe!",
   "fim.parcial.body":
     "The crew is safe, but you needed a bit more science. Want to try another plan?",

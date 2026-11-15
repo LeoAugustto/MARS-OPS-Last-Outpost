@@ -262,6 +262,11 @@ const pt = {
   "glossario.energia": "Energia = o que faz as máquinas da base funcionarem. Aqui ela vem dos painéis solares.",
   "glossario.donki": "DONKI = arquivo da NASA que anota cada evento do clima espacial, como clarões e nuvens do Sol.",
   "glossario.controle": "Controle de Missão = a equipe na Terra que acompanha a base e manda conselhos pelo rádio.",
+  "fim.estrelas": "{n} de 3 estrelas",
+  "fim.estrela.1": "Vocês sobreviveram!",
+  "fim.estrela.2": "...e fizeram muita ciência!",
+  "fim.estrela.3": "...e bateram a meta de ciência!",
+  "fim.estrela.falta": "Faça mais ciência no laboratório para ganhar mais estrelas na próxima missão.",
 } as const;
 
 export type UiKey = keyof typeof pt;
@@ -525,6 +530,11 @@ const en: UiDict = {
   "glossario.energia": "Energy = what makes the base machines work. Here it comes from the solar panels.",
   "glossario.donki": "DONKI = a NASA archive that records every space weather event, like flashes and clouds from the Sun.",
   "glossario.controle": "Mission Control = the team on Earth that watches over the base and sends advice by radio.",
+  "fim.estrelas": "{n} of 3 stars",
+  "fim.estrela.1": "You survived!",
+  "fim.estrela.2": "...and did lots of science!",
+  "fim.estrela.3": "...and reached the science goal!",
+  "fim.estrela.falta": "Do more science in the lab to earn more stars next mission.",
 };
 
 const es: UiDict = {
@@ -790,6 +800,11 @@ const es: UiDict = {
   "glossario.energia": "Energía = lo que hace funcionar las máquinas de la base. Aquí viene de los paneles solares.",
   "glossario.donki": "DONKI = archivo de la NASA que anota cada evento del clima espacial, como destellos y nubes del Sol.",
   "glossario.controle": "Control de Misión = el equipo en la Tierra que sigue la base y manda consejos por radio.",
+  "fim.estrelas": "{n} de 3 estrellas",
+  "fim.estrela.1": "¡Sobrevivieron!",
+  "fim.estrela.2": "...¡y hicieron mucha ciencia!",
+  "fim.estrela.3": "...¡y alcanzaron la meta de ciencia!",
+  "fim.estrela.falta": "Haz más ciencia en el laboratorio para ganar más estrellas en la próxima misión.",
 };
 
 const fr: UiDict = {
@@ -1058,6 +1073,11 @@ const fr: UiDict = {
   "glossario.energia": "Énergie = ce qui fait marcher les machines de la base. Ici, elle vient des panneaux solaires.",
   "glossario.donki": "DONKI = une archive de la NASA qui note chaque événement de météo spatiale, comme les éruptions et les nuages du Soleil.",
   "glossario.controle": "Contrôle de mission = l’équipe sur Terre qui suit la base et envoie des conseils par radio.",
+  "fim.estrelas": "{n} étoiles sur 3",
+  "fim.estrela.1": "Vous avez survécu !",
+  "fim.estrela.2": "...et vous avez fait beaucoup de science !",
+  "fim.estrela.3": "...et vous avez atteint l’objectif de science !",
+  "fim.estrela.falta": "Fais plus de science au labo pour gagner plus d’étoiles à la prochaine mission.",
 };
 
 const it: UiDict = {
@@ -1323,6 +1343,11 @@ const it: UiDict = {
   "glossario.energia": "Energia = ciò che fa funzionare le macchine della base. Qui arriva dai pannelli solari.",
   "glossario.donki": "DONKI = archivio della NASA che registra ogni evento del meteo spaziale, come lampi e nubi del Sole.",
   "glossario.controle": "Controllo Missione = la squadra sulla Terra che segue la base e manda consigli via radio.",
+  "fim.estrelas": "{n} stelle su 3",
+  "fim.estrela.1": "Siete sopravvissuti!",
+  "fim.estrela.2": "...e avete fatto tanta scienza!",
+  "fim.estrela.3": "...e avete raggiunto l’obiettivo di scienza!",
+  "fim.estrela.falta": "Fai più scienza in laboratorio per guadagnare più stelle nella prossima missione.",
 };
 
 export const UI_TEXTS = { pt, en, es, fr, it };

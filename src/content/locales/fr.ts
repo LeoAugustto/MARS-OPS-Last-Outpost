@@ -44,7 +44,7 @@ export const fr: Dict = {
     "Tempête solaire = quand le Soleil lance une explosion de lumière et de particules très rapides.",
 
   "fim.vitoria.title": "Mission accomplie !",
-  "fim.vitoria.body": "Ton équipage va bien et a fait beaucoup de science. La NASA est fière !",
+  "fim.vitoria.body": "Ton équipage a tenu tous les sols sur Mars. Bravo, commandant !",
   "fim.parcial.title": "Tout le monde est rentré !",
   "fim.parcial.body":
     "L'équipage est en sécurité, mais il manquait un peu de science. Tu essaies une autre stratégie ?",

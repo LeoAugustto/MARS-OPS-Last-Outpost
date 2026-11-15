@@ -44,7 +44,7 @@ export const it: Dict = {
     "Tempesta solare = quando il Sole lancia un’esplosione di luce e di particelle velocissime.",
 
   "fim.vitoria.title": "Missione compiuta!",
-  "fim.vitoria.body": "Il tuo equipaggio sta bene e ha fatto tanta scienza. La NASA è fiera di te!",
+  "fim.vitoria.body": "Il tuo equipaggio ha resistito a tutti i sol su Marte. Ottimo comando!",
   "fim.parcial.title": "Tutti sono tornati sani e salvi!",
   "fim.parcial.body":
     "L’equipaggio è al sicuro, ma è mancata un po’ di scienza. Provi un’altra strategia?",
