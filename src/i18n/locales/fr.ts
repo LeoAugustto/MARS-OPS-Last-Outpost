@@ -1,7 +1,7 @@
 import type { Messages } from "./pt";
 
 export const fr: Messages = {
-  "app.title": "Opération Mars : Dernière Base",
+  "app.title": "Opération Mars: Dernière Base",
   tagline: "Garde ta base sur Mars en vie !",
   playNow: "Jouer maintenant",
   continueMission: "Continuer la mission",
