@@ -32,6 +32,9 @@ import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
 import { collectStickers } from "./stickers";
 import { ART, type Periodo } from "./art";
 
+/** horas de jogo gastas na viagem de ida e volta do rover até a estação (jogo, não é dado real) */
+const HORAS_VIAGEM_ROVER = 1;
+
 type Phase = "nivel" | "perfil" | "abertura" | "manha" | "mapa" | "noite" | "fim" | "relatorio";
 type Overlay = null | "energia" | "glossario" | "menu";
 
@@ -122,8 +125,10 @@ function GameInner({
   const [tut, setTut] = useState(0);
   const [seen, setSeen] = useState<string[]>([]);
   const [card, setCard] = useState<string | null>(null);
-  /** expedição do rover: "ida" = cena tocando; "la" = no lugar da expedição (cartão aberto) */
-  const [cena, setCena] = useState<null | "ida" | "la">(null);
+  /** expedição do rover: "ida" = cena indo; "la" = na estação (cartão aberto); "volta" = cena voltando */
+  const [cena, setCena] = useState<null | "ida" | "la" | "volta">(null);
+  /** relógio na chegada à estação e na volta à base (para o relógio da cena correr de um ao outro) */
+  const relogioExp = useRef({ de: 0, ate: 0 });
   const [place, setPlace] = useState<PlaceId | null>(null);
   /** lugar em que a criança entrou (interior); null = está no mapa */
   const [inside, setInside] = useState<PlaceId | null>(null);
@@ -266,6 +271,7 @@ function GameInner({
   /** fim da cena do rover: chegou no lugar da expedição e abre o alerta do rover */
   const chegouExpedicao = useCallback(() => {
     setCena("la");
+    relogioExp.current.de = relogio;
     const a = game?.alerts.find((x) => x.place === "rover" && !x.done);
     if (!a) {
       setCena(null);
@@ -274,7 +280,14 @@ function GameInner({
     setGame((g) => (g ? openAlert(g, a.id) : g));
     setCard(a.id);
     setTut((x) => (x < 2 ? 2 : x));
-  }, [game]);
+  }, [game, relogio]);
+
+  /** fim da volta: o rover estacionou na base; o relógio pula para a hora da volta */
+  const voltouExpedicao = useCallback(() => {
+    setRelogio(relogioExp.current.ate);
+    setCena(null);
+    setSaiuDe("rover");
+  }, []);
 
   /** computador do interior: abre o alerta do lugar, se houver; senão, as informações */
   const abrirTerminal = useCallback(
@@ -295,10 +308,16 @@ function GameInner({
     const a = game?.alerts.find((x) => x.id === card);
     if (a?.real && !seen.includes(a.real.kind)) setSeen((s) => [...s, a.real!.kind]);
     setCard(null);
-    // voltou da expedição: o astronauta aparece na frente do rover, na base
+    // na estação: se escolheu, toca a volta (entra na estação, o tempo passa, volta para a base);
+    // se fechou sem escolher, volta direto
     if (cena === "la") {
-      setCena(null);
-      setSaiuDe("rover");
+      if (a?.done && game?.status === "jogando") {
+        relogioExp.current.ate = Math.min(1, relogio + HORAS_VIAGEM_ROVER / BALANCE.HORAS_DO_SOL);
+        setCena("volta");
+      } else {
+        setCena(null);
+        setSaiuDe("rover");
+      }
     }
     // fechou sem escolher (alerta adiado): o tutorial continua esperando a 1ª escolha
     if (a?.done) setTut((x) => (x === 2 ? 3 : x));
@@ -479,7 +498,7 @@ function GameInner({
           }}
         />
         {cena === "la" ? (
-          <ExpedicaoFundo />
+          <ExpedicaoFundo periodo={periodo} />
         ) : inside ? (
           <Interior
             key={inside}
@@ -557,7 +576,10 @@ function GameInner({
           onNext={() => setPhase(game.status === "jogando" ? "manha" : "fim")}
         />
       )}
-      {cena === "ida" && <RoverCena periodo={periodo} onFim={chegouExpedicao} />}
+      {cena === "ida" && <RoverCena modo="ida" periodo={periodo} onFim={chegouExpedicao} />}
+      {cena === "volta" && (
+        <RoverCena modo="volta" periodo={periodo} relogio={relogioExp.current} onFim={voltouExpedicao} />
+      )}
       {card && (
         <EventCard
           state={game}
