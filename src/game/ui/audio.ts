@@ -126,7 +126,7 @@ export function tocarMusica(nome: string | null, opts: { loop?: boolean } = {}) 
 }
 
 /** volume relativo de alguns ambientes (a noite é mais calma, como a música) */
-const GANHO_AMB: Record<string, number> = { noite_base: 0.5 };
+const GANHO_AMB: Record<string, number> = { noite_base: 0.5, rover: 0.5 };
 
 /** Som ambiente em loop (public/audio/ambiente). `null` para parar. */
 export function tocarAmbiente(nome: string | null) {
