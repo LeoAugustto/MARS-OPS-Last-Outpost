@@ -1,7 +1,7 @@
 // Telas fora do mapa: escolher nível, abertura, fim da missão, relatório. O tutorial fica em Tutorial.tsx.
 import { NUMEROS_ENERGIA } from "./Panels";
 import { useEffect, useState } from "react";
-import { tocarEfeito } from "./audio";
+import { falar, pararVoz, tocarEfeito } from "./audio";
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { LangSelector } from "@/components/AppHeader";
@@ -273,8 +273,13 @@ export function ProfileScreen({
 
 // ---------------------------------------------------------------- abertura (3 quadros)
 export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
-  const { t } = useGT();
+  const { t, lang } = useGT();
   const [i, setI] = useState(0);
+  // o Rovi fala cada quadro da abertura (voz gravada)
+  useEffect(() => {
+    falar(lang, "rovi", `ui.abertura.${i + 1}`);
+    return () => pararVoz();
+  }, [i, lang]);
   const cfg = BALANCE.LEVELS[level];
   const quadros = [
     { icons: ["cama"], text: t("ui.abertura.1") },
@@ -426,6 +431,15 @@ export function EndScreen({
 }) {
   const { t } = useGT();
   const d = debrief(state);
+  // o Controle de Missão fala o resultado (voz gravada), depois da fanfarra
+  const { lang } = useGT();
+  useEffect(() => {
+    const id = setTimeout(() => falar(lang, "controle", d.bodyKey), 1500);
+    return () => {
+      clearTimeout(id);
+      pararVoz();
+    };
+  }, [lang, d.bodyKey]);
   // estrelas aparecendo: som de festa depois da fanfarra
   useEffect(() => {
     if (!d.estrelas) return;

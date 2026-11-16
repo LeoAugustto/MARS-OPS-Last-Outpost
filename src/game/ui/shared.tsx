@@ -1,5 +1,5 @@
 // Peças compartilhadas das telas do jogo: tradução, voz, chips de efeito, modal.
-import { getPrefs, pararVoz, tocarEfeito } from "./audio";
+import { falar, getPrefs, pararVoz, tocarEfeito } from "./audio";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { useLang } from "@/i18n";
 import { t as translate, LOCALES } from "@/content/i18n";
@@ -327,13 +327,23 @@ export function DialogBox({
   speaker,
   text,
   compact = false,
+  voz,
 }: {
   speaker: Speaker;
   text: string;
   compact?: boolean;
+  /** chave da fala gravada (public/audio/voz/<idioma>/<personagem>/<chave>.mp3); sem arquivo = silêncio */
+  voz?: string;
 }) {
-  const { t } = useGT();
+  const { t, lang } = useGT();
   const { gender, name } = usePlayer();
+  // fala gravada: começa quando a caixa aparece e para quando ela some
+  useEffect(() => {
+    if (!voz) return;
+    const quem = speaker === "astronauta" ? (gender === "m" ? "astronauta_menino" : "astronauta_menina") : speaker;
+    falar(lang, quem, voz);
+    return () => pararVoz();
+  }, [voz, speaker, gender, lang]);
   const { shown, done, skip } = useTypewriter(text);
   // "tic" baixinho a cada 3 letras quando o Rovi fala (dá para desligar no menu de som)
   const letrasVistas = shown.length;

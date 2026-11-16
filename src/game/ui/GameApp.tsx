@@ -43,7 +43,7 @@ import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
 import { collectStickers } from "./stickers";
 import { ART, type Periodo } from "./art";
 import { ComoJogar } from "./ComoJogar";
-import { pararTudo, tocarEfeito, tocarMusica } from "./audio";
+import { falar, pararTudo, tocarEfeito, tocarMusica } from "./audio";
 import { SomPanel } from "./SomPanel";
 import { AvisoTelaCheia } from "./AvisoTelaCheia";
 
@@ -152,7 +152,7 @@ function GameInner({
   player: Player;
   onPlayer: (p: Player) => void;
 }) {
-  const { t } = useGT();
+  const { t, lang } = useGT();
   const [nivel, setNivel] = useState<Level>("cadete");
   const navigate = useNavigate();
   const [game, setGame] = useState<GameState | null>(null);
@@ -400,8 +400,14 @@ function GameInner({
     if (card) tocarEfeito(cartaUrgente ? "urgente" : "abrir_carta");
   }, [card, cartaUrgente]);
   useEffect(() => {
-    if (phase === "manha") tocarEfeito("bom_dia");
-    else if (phase === "noite") tocarEfeito("dormir");
+    const astro = player?.gender === "m" ? "astronauta_menino" : "astronauta_menina";
+    if (phase === "manha") {
+      tocarEfeito("bom_dia");
+      setTimeout(() => falar(lang, astro, "astro.bomdia"), 900);
+    } else if (phase === "noite") {
+      tocarEfeito("dormir");
+      setTimeout(() => falar(lang, astro, "astro.dormir"), 1100);
+    }
     else if (phase === "mapa" && game?.alerts.some((a) => !a.done)) tocarEfeito("alerta");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);

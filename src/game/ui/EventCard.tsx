@@ -189,7 +189,7 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
         {/* ---- depois de escolher ---- */}
         {alert.done && escolhida && (
           <div className="flex flex-col gap-2 border-2 border-border bg-muted p-3">
-            <DialogBox speaker="astronauta" text={t(eventKey.outcome(ev.id, escolhida.id), vars)} />
+            <DialogBox speaker="astronauta" text={t(eventKey.outcome(ev.id, escolhida.id), vars)} voz={eventKey.outcome(ev.id, escolhida.id)} />
             <EffectChips effect={alert.delta} />
             {porque ? (
               <p className="border border-border bg-accent p-3">

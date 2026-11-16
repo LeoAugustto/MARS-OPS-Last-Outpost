@@ -125,7 +125,7 @@ export function EnergyPanel({
             {t("ui.energia.falta", { n: total - hoje })}
           </p>
         )}
-        {roviFalta && total > hoje && <DialogBox speaker="rovi" text={t("rovi.falta")} compact />}
+        {roviFalta && total > hoje && <DialogBox speaker="rovi" text={t("rovi.falta")} voz="rovi.falta" compact />}
         <p className="text-sm text-muted-foreground">{t("ui.energia.consumo", { ar: BALANCE.LEVELS[state.level].consumoAr, comida: BALANCE.LEVELS[state.level].consumoComida })}</p>
         <Button
           variant="chunky"
@@ -179,7 +179,7 @@ export function MorningModal({
             {l}
           </p>
         ))}
-        {dica && <DialogBox speaker="rovi" text={t(dica, NUMEROS_ENERGIA)} compact />}
+        {dica && <DialogBox speaker="rovi" text={t(dica, NUMEROS_ENERGIA)} voz={dica} compact />}
         <Button variant="chunky" size="tap" className="w-full text-lg" onClick={onGo}>
           {t("ui.vamos")}
         </Button>
