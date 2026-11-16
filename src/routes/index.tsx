@@ -176,6 +176,14 @@ function Home() {
   const t = useT();
   // música do menu (só toca depois do primeiro toque, regra dos navegadores)
   useEffect(() => tocarMusica("tema_menu"), []);
+  // passou pela tela inicial nesta aba: pode abrir /play (link direto para /play volta para cá)
+  useEffect(() => {
+    try {
+      sessionStorage.setItem("marsops:veio_do_inicio", "1");
+    } catch {
+      /* sem armazenamento: /play abre normalmente */
+    }
+  }, []);
   useDocumentTitle();
   const [hasSave, setHasSave] = useState(false);
   useEffect(() => setHasSave(listSaves().length > 0), []);

@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useDocumentTitle } from "@/i18n";
 import { GameApp } from "@/game/ui/GameApp";
 
@@ -23,5 +24,19 @@ export const Route = createFileRoute("/play")({
 function Play() {
   useDocumentTitle("titlePlay");
   const { mode } = Route.useSearch();
-  return <GameApp mode={mode} />;
+  const navigate = useNavigate();
+  // link direto para /play (aba nova, link compartilhado) vai para a tela inicial;
+  // quem veio da tela inicial nesta aba (ou recarregou no meio do jogo) continua
+  const [liberado, setLiberado] = useState(false);
+  useEffect(() => {
+    let veio = false;
+    try {
+      veio = sessionStorage.getItem("marsops:veio_do_inicio") === "1";
+    } catch {
+      veio = true;
+    }
+    if (veio) setLiberado(true);
+    else navigate({ to: "/", replace: true });
+  }, [navigate]);
+  return liberado ? <GameApp mode={mode} /> : null;
 }
