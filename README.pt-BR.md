@@ -28,6 +28,13 @@ O atraso do rádio entre a Terra e Marte é estimado com elementos orbitais da N
 
 O jogo abre sem cadastro, download ou anúncios. A missão, o nome opcional, as figurinhas e as preferências ficam no armazenamento local do navegador. Limpar os dados do site apaga essas informações. As consultas ao DONKI enviam datas e filtros. O nome e o progresso do jogador ficam no dispositivo.
 
+## Conteúdo gerado por IA (Super Intelligence)
+- **Vozes:** todas as falas gravadas (Rovi, Controle de Missão, astronautas) foram geradas por IA de voz (ElevenLabs, Eleven v3), em `public/audio/voz/`.
+- **Música:** a trilha 8-bit em `public/audio/musica/` foi gerada por IA (Suno).
+- **Efeitos sonoros:** os efeitos 8-bit em `public/audio/sfx/` foram sintetizados por código (`scripts/gerar-efeitos-8bit.py`), escrito com ajuda de IA.
+- **Arte:** a pixel art foi criada com ferramentas de imagem por IA e editada pela equipe. Nenhum logo ou marca da NASA é usado.
+- **Código e textos:** escritos pela equipe com assistentes de IA (Claude, ChatGPT/Codex, Lovable). As regras do jogo, o uso dos dados e as decisões são da equipe.
+
 ## Rodar localmente
 
 ```bash

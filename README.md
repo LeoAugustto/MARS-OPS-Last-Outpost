@@ -28,6 +28,13 @@ The Earth–Mars radio delay is an estimate from NASA/JPL orbital elements. Reso
 
 The game requires no account or download and contains no ads. The mission save, optional player name, stickers, and preferences stay in the browser’s local storage. Clearing site data removes them. DONKI requests contain date ranges and query filters. The game keeps the player’s name and progress on the device.
 
+## AI-generated content (Super Intelligence)
+- **Voices:** all recorded character lines (Rovi, Mission Control, astronauts) were generated with AI text-to-speech (ElevenLabs, Eleven v3), in `public/audio/voz/`.
+- **Music:** the 8-bit soundtrack in `public/audio/musica/` was generated with AI (Suno).
+- **Sound effects:** the 8-bit effects in `public/audio/sfx/` were synthesized by code (`scripts/gerar-efeitos-8bit.py`), written with AI assistance.
+- **Art:** pixel art was created with AI image tools and edited by the team. No NASA logos or branding are used.
+- **Code and text:** written by the team with AI coding assistants (Claude, ChatGPT/Codex, Lovable). The game rules, data use and decisions are the team's.
+
 ## Run locally
 
 ```bash
