@@ -56,7 +56,7 @@ function tocar(a: HTMLAudioElement | null) {
 
 function aplicarVolumes() {
   if (musica.el) musica.el.volume = vol("musica");
-  if (ambiente.el) ambiente.el.volume = vol("ambiente");
+  if (ambiente.el) ambiente.el.volume = vol("ambiente") * (GANHO_AMB[ambiente.nome ?? ""] ?? 1);
   if (voz) voz.volume = vol("voz");
   if (!prefs.ligado) pararVoz();
 }
@@ -125,12 +125,15 @@ export function tocarMusica(nome: string | null, opts: { loop?: boolean } = {}) 
   tocar(musica.el);
 }
 
+/** volume relativo de alguns ambientes (a noite é mais calma, como a música) */
+const GANHO_AMB: Record<string, number> = { noite_base: 0.5 };
+
 /** Som ambiente em loop (public/audio/ambiente). `null` para parar. */
 export function tocarAmbiente(nome: string | null) {
   if (!ok() || nome === ambiente.nome) return;
   ambiente.el?.pause();
   ambiente.nome = nome;
-  ambiente.el = nome ? novo(`/audio/ambiente/${nome}.mp3`, true, vol("ambiente")) : null;
+  ambiente.el = nome ? novo(`/audio/ambiente/${nome}.mp3`, true, vol("ambiente") * (GANHO_AMB[nome] ?? 1)) : null;
   tocar(ambiente.el);
 }
 
