@@ -34,7 +34,8 @@ interface Props {
 }
 
 export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props) {
-  const { t } = useGT();
+  const { t, lang } = useGT();
+  // reação do astronauta com voz só onde todas as cartas foram gravadas (PT e EN)
   const [porque, setPorque] = useState(false);
   const alert = getAlert(state, alertId);
   if (!alert) return null;
@@ -189,7 +190,7 @@ export function EventCard({ state, alertId, showTip, onChoose, onClose }: Props)
         {/* ---- depois de escolher ---- */}
         {alert.done && escolhida && (
           <div className="flex flex-col gap-2 border-2 border-border bg-muted p-3">
-            <DialogBox speaker="astronauta" text={t(eventKey.outcome(ev.id, escolhida.id), vars)} voz={eventKey.outcome(ev.id, escolhida.id)} />
+            <DialogBox speaker="astronauta" text={t(eventKey.outcome(ev.id, escolhida.id), vars)} voz={lang === "pt" || lang === "en" ? eventKey.outcome(ev.id, escolhida.id) : undefined} />
             <EffectChips effect={alert.delta} />
             {porque ? (
               <p className="border border-border bg-accent p-3">

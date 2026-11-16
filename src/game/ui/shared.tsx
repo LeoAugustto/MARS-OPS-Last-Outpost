@@ -333,7 +333,7 @@ export function DialogBox({
   text: string;
   compact?: boolean;
   /** chave da fala gravada (public/audio/voz/<idioma>/<personagem>/<chave>.mp3); sem arquivo = silêncio */
-  voz?: string;
+  voz?: string | undefined;
 }) {
   const { t, lang } = useGT();
   const { gender, name } = usePlayer();
