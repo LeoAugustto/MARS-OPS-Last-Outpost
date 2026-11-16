@@ -3,6 +3,7 @@
 // - PC: clique, ou setas/WASD (desliza pelas bordas da estrada).
 // - Chegar na porta de um lugar abre o lugar (alerta, se houver; senão, informações).
 // Arte: src/game/ui/art.ts (mapa pixel art + astronauta em 8 direções). Sem arte pronta, usa formas + emoji.
+import { tocarEfeito } from "./audio";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import type { Alert, PlaceId } from "@/game/engine";
 import { AstronautSprite, PlaceIcon, PLACE_POS, useGT } from "./shared";
@@ -97,6 +98,10 @@ export function BaseMap({
     const id = setInterval(() => setQuadro((q) => (q + 1) % PASSOS.length), 140);
     return () => clearInterval(id);
   }, [walking]);
+  // passos na terra: um a cada passada (quadros 0 e 2), alternando dois sons
+  useEffect(() => {
+    if (walking && quadro % 2 === 0) tocarEfeito(quadro === 0 ? "passo_terra_1" : "passo_terra_2");
+  }, [walking, quadro]);
 
   // quadrado que cabe na área disponível
   useEffect(() => {

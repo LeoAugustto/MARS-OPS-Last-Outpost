@@ -1,5 +1,6 @@
 // Interior de um lugar da base: a criança entra pela porta e anda livre lá dentro.
 // O computador abre alertas e informações. A cama e o painel de energia têm ações próprias.
+import { tocarEfeito } from "./audio";
 import { useEffect, useRef, useState } from "react";
 import type { Alert, PlaceId } from "@/game/engine";
 import { ART, dirFrom, type Dir8 } from "./art";
@@ -133,6 +134,10 @@ export function Interior({
     const id = setInterval(() => setQuadro((q) => (q + 1) % PASSOS.length), 140);
     return () => clearInterval(id);
   }, [andando]);
+  // passos no piso da base: um a cada passada
+  useEffect(() => {
+    if (andando && quadro % 2 === 0) tocarEfeito(quadro === 0 ? "passo_piso_1" : "passo_piso_2");
+  }, [andando, quadro]);
 
   // laço de movimento (mesma ideia do mapa: requestAnimationFrame + reserva por relógio)
   useEffect(() => {
