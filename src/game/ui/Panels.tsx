@@ -82,6 +82,8 @@ export function EnergyPanel({
               <div className="font-bold">{t(`modulo.${k}`)}</div>
               <div className="text-xs text-muted-foreground">{t(`ui.energia.rende.${k}`, NUMEROS_ENERGIA)}</div>
             </div>
+            {/* tutorial: a seta e o brilho marcam o − e o + juntos (o + pode estar travado sem energia) */}
+            <div className="flex items-center gap-2" data-tut={k === "ar" ? "mais" : undefined}>
             <Button
               variant="chunkySand"
               size="tap"
@@ -102,7 +104,6 @@ export function EnergyPanel({
               variant="chunky"
               size="tap"
               className="w-12 text-xl"
-              data-tut={k === "ar" ? "mais" : undefined}
               disabled={!podeMais(k)}
               onClick={() => {
                 muda(k, 1);
@@ -113,6 +114,7 @@ export function EnergyPanel({
             >
               +
             </Button>
+            </div>
           </div>
         ))}
         <p className="font-bold">{t("ui.energia.pede", { n: total })}</p>
