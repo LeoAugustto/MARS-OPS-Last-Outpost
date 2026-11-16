@@ -32,7 +32,12 @@ export const Route = createFileRoute("/")({
         content: "Mantenha sua base em Marte viva! Jogo educativo com dados reais da NASA.",
       },
       { property: "og:type", content: "website" },
+      // prévia ao compartilhar (WhatsApp, redes): a base de Marte do jogo
+      { property: "og:image", content: "https://mars-ops-last-outpost.vercel.app/og-image.jpg" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://mars-ops-last-outpost.vercel.app/og-image.jpg" },
     ],
   }),
   component: Home,

@@ -17,7 +17,7 @@ export interface PrefsSom {
 }
 
 const CHAVE = "marsops:som";
-const PADRAO: PrefsSom = { ligado: true, musica: 0.1, efeitos: 0.8, ambiente: 0.7, voz: 0.9, letras: true };
+const PADRAO: PrefsSom = { ligado: true, musica: 0.3, efeitos: 0.9, ambiente: 1, voz: 0.9, letras: true };
 
 function lerPrefs(): PrefsSom {
   try {
@@ -110,6 +110,8 @@ export function tocarMusica(nome: string | null, opts: { loop?: boolean } = {}) 
   if (nome === musica.nome && musica.el) return;
   const velho = musica.el;
   if (velho) {
+    // no iPhone o volume não muda pelo código: sem isso a música antiga nunca chegava a 0 e não parava
+    setTimeout(() => velho.pause(), 450);
     const passo = velho.volume / 8;
     const t = setInterval(() => {
       velho.volume = Math.max(0, velho.volume - passo);
