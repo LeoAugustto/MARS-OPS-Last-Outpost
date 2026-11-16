@@ -43,7 +43,7 @@ import { PlayerProvider, loadPlayer, savePlayer, type Player } from "./player";
 import { collectStickers } from "./stickers";
 import { ART, type Periodo } from "./art";
 import { ComoJogar } from "./ComoJogar";
-import { falar, pararTudo, tocarEfeito, tocarMusica } from "./audio";
+import { falar, pararTudo, tocarAmbiente, tocarEfeito, tocarMusica } from "./audio";
 import { SomPanel } from "./SomPanel";
 import { AvisoTelaCheia } from "./AvisoTelaCheia";
 
@@ -314,6 +314,7 @@ function GameInner({
         return;
       }
       setInside(pl);
+      tocarEfeito("porta_abre");
       tutFeito("porta");
     },
     [game, card, overlay, tutFeito],
@@ -397,10 +398,28 @@ function GameInner({
   useEffect(() => () => pararTudo(), []);
 
   // efeitos 8-bit nos momentos do jogo (public/audio/sfx)
-  const cartaUrgente = !!card && !!game?.alerts.find((a) => a.id === card)?.urgent;
+  const alertaAberto = card ? game?.alerts.find((a) => a.id === card) : undefined;
+  const cartaUrgente = !!alertaAberto?.urgent;
+  const cadeiaCarta = alertaAberto ? findEvent(alertaAberto.eventId).chain : "";
+  const cartaRadio = !!alertaAberto && (alertaAberto.place === "antena" || !!findEvent(alertaAberto.eventId).donki);
   useEffect(() => {
-    if (card) tocarEfeito(cartaUrgente ? "urgente" : "abrir_carta");
-  }, [card, cartaUrgente]);
+    if (!card) return;
+    tocarEfeito(cartaUrgente ? "urgente" : "abrir_carta");
+    // mensagem de rádio (Controle/DONKI) e tempestade chegando: sons do ElevenLabs
+    if (cadeiaCarta === "sol-nuvem" || cadeiaCarta === "sol-chuva") setTimeout(() => tocarEfeito("tempestade_chegando"), 250);
+    else if (cartaRadio) setTimeout(() => tocarEfeito("radio_chiado"), 200);
+  }, [card, cartaUrgente, cadeiaCarta, cartaRadio]);
+
+  // som ambiente: vento lá fora, zumbido dentro dos prédios, noite calma, motor na cena do rover
+  useEffect(() => {
+    if (phase !== "mapa") return tocarAmbiente(null);
+    if (cena) tocarAmbiente(cena === "la" ? null : "rover");
+    else if (inside) tocarAmbiente("base_dentro");
+    else tocarAmbiente(periodo === "noite" ? "noite_base" : "vento_marte");
+  }, [phase, cena, inside, periodo]);
+  useEffect(() => {
+    if (cena === "la") tocarEfeito("estacao_bipe");
+  }, [cena]);
   useEffect(() => {
     const astro = player?.gender === "m" ? "astronauta_menino" : "astronauta_menina";
     if (phase === "manha") {
@@ -724,6 +743,7 @@ function GameInner({
             onExit={() => {
               setSaiuDe(inside);
               setInside(null);
+              tocarEfeito("porta_fecha");
             }}
           />
         ) : (
