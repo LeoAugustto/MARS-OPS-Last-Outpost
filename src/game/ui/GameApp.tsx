@@ -414,7 +414,7 @@ function GameInner({
   useEffect(() => {
     if (phase !== "mapa") return tocarAmbiente(null);
     if (cena) tocarAmbiente(cena === "la" ? null : "rover");
-    else if (inside) tocarAmbiente("base_dentro");
+    else if (inside) tocarAmbiente(`lugar_${inside}`);
     else tocarAmbiente(periodo === "noite" ? "noite_base" : "vento_marte");
   }, [phase, cena, inside, periodo]);
   useEffect(() => {

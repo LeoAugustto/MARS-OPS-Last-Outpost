@@ -134,6 +134,15 @@ export function tocarAmbiente(nome: string | null) {
   tocar(ambiente.el);
 }
 
+/** volume relativo de alguns efeitos (os do ElevenLabs vêm mais altos que os 8-bit) */
+const GANHO: Record<string, number> = {
+  porta_abre: 0.35,
+  porta_fecha: 0.35,
+  radio_chiado: 0.4,
+  tempestade_chegando: 0.6,
+  estacao_bipe: 0.5,
+};
+
 /** Efeito curto (public/audio/sfx). Pode tocar vários ao mesmo tempo. */
 export function tocarEfeito(nome: string, opts: { tom?: number } = {}) {
   if (!ok() || !liberado || !prefs.ligado || prefs.efeitos <= 0) return;
@@ -148,7 +157,7 @@ export function tocarEfeito(nome: string, opts: { tom?: number } = {}) {
     cacheEfeitos.set(nome, base);
   }
   const a = base.cloneNode(true) as HTMLAudioElement;
-  a.volume = vol("efeitos");
+  a.volume = vol("efeitos") * (GANHO[nome] ?? 1);
   if (opts.tom) a.playbackRate = opts.tom;
   a.play().catch(() => {});
 }
