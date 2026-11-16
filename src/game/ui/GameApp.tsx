@@ -308,6 +308,8 @@ function GameInner({
       // rover com alerta: em vez da garagem, o rover sai em expedição (cena) e o alerta abre lá
       if (pl === "rover" && game.alerts.some((a) => a.place === "rover" && !a.done)) {
         stopSpeaking();
+        // a volta da expedição termina ao lado do rover (e não na porta do último prédio)
+        setSaiuDe("rover");
         setCena("ida");
         return;
       }
@@ -726,7 +728,8 @@ function GameInner({
           />
         ) : (
           <BaseMap
-            key={"mapa-" + game.sol}
+            // muda de onde saiu → o mapa recomeça na porta certa (o astronauta não "teleporta")
+            key={`mapa-${game.sol}-${saiuDe ?? "inicio"}`}
             saiuDe={saiuDe}
             onWalk={andou}
             alerts={game.alerts}
