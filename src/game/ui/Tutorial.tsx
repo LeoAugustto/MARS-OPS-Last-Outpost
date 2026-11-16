@@ -175,7 +175,7 @@ function Balao({
         }`}
         role="status"
       >
-        <DialogBox speaker="rovi" text={t(texto)} voz={texto} compact />
+        <DialogBox speaker="rovi" text={t(texto)} voz={texto} esperaVoz compact />
         <div className="flex items-center gap-2">
           {!espera && (
             <Button variant="chunky" size="tap" className="h-12 min-w-0 flex-1 text-lg" onClick={onOk}>

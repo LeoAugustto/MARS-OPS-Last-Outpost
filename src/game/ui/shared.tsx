@@ -1,5 +1,5 @@
 // Peças compartilhadas das telas do jogo: tradução, voz, chips de efeito, modal.
-import { falar, getPrefs, pararVoz, tocarEfeito } from "./audio";
+import { cancelarFila, falando, falar, getPrefs, pararVoz, tocarEfeito } from "./audio";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { useLang } from "@/i18n";
 import { t as translate, LOCALES } from "@/content/i18n";
@@ -345,13 +345,16 @@ export function DialogBox({
     if (!voz) return;
     const quem = speaker === "astronauta" ? (gender === "m" ? "astronauta_menino" : "astronauta_menina") : speaker;
     const el = falar(lang, quem, voz, { espera: esperaVoz });
-    return () => pararVoz(el);
+    return () => {
+      if (el) pararVoz(el);
+      else cancelarFila(voz);
+    };
   }, [voz, speaker, gender, lang, esperaVoz]);
   const { shown, done, skip } = useTypewriter(text);
   // "tic" baixinho a cada 3 letras quando o Rovi fala (dá para desligar no menu de som)
   const letrasVistas = shown.length;
   useEffect(() => {
-    if (speaker === "rovi" && !done && letrasVistas > 0 && letrasVistas % 3 === 0 && getPrefs().letras)
+    if (speaker === "rovi" && !done && letrasVistas > 0 && letrasVistas % 3 === 0 && getPrefs().letras && !falando())
       tocarEfeito("rovi_fala");
   }, [letrasVistas, done, speaker]);
   const retrato =

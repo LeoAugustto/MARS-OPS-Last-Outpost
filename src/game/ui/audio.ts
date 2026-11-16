@@ -181,10 +181,16 @@ export function falar(
   if (!ok()) return null;
   const src = `/audio/voz/${lang}/${personagem}/${chave}.mp3`;
   if (opts.espera && voz && !voz.paused && !voz.ended) {
+    // fila de um lugar só: a última fala que pediu para esperar é a que entra depois
+    fila = { lang, personagem, chave };
     const atual = voz;
-    atual.addEventListener("ended", () => {
-      if (voz === atual) falar(lang, personagem, chave);
-    });
+    const depois = () => {
+      const f = fila;
+      fila = null;
+      if (f && (voz === atual || voz === null)) falar(f.lang, f.personagem, f.chave);
+    };
+    atual.addEventListener("ended", depois, { once: true });
+    atual.addEventListener("pause", depois, { once: true });
     return null;
   }
   pararVoz();
@@ -206,6 +212,18 @@ export function falar(
 }
 
 /** Para a voz. Com `so`, só para se ainda for aquela fala (uma caixa que fecha não corta a de outra). */
+let fila: { lang: string; personagem: string; chave: string } | null = null;
+
+/** Uma caixa que esperava a vez fechou antes de falar: tira a fala dela da fila. */
+export function cancelarFila(chave: string) {
+  if (fila?.chave === chave) fila = null;
+}
+
+/** Alguém está falando agora? (o "tic" das letrinhas fica quieto durante a voz) */
+export function falando(): boolean {
+  return !!voz && !voz.paused && !voz.ended;
+}
+
 export function pararVoz(so?: HTMLAudioElement | null) {
   if (so !== undefined && so !== voz) return;
   if (voz) {
