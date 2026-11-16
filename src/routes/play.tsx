@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useDocumentTitle } from "@/i18n";
 import { GameApp } from "@/game/ui/GameApp";
@@ -25,13 +25,18 @@ function Play() {
   useDocumentTitle("titlePlay");
   const { mode } = Route.useSearch();
   const navigate = useNavigate();
-  // link direto para /play (aba nova, link compartilhado) vai para a tela inicial;
-  // quem veio da tela inicial nesta aba (ou recarregou no meio do jogo) continua
+  // só entra no jogo vindo da tela inicial: link direto, aba nova ou F5 em /play voltam para o
+  // menu principal (o "Continuar missão" de lá retoma a partida salva)
   const [liberado, setLiberado] = useState(false);
+  const conferiu = useRef(false);
   useEffect(() => {
+    if (conferiu.current) return; // o React em modo de desenvolvimento roda o efeito duas vezes
+    conferiu.current = true;
     let veio = false;
     try {
       veio = sessionStorage.getItem("marsops:veio_do_inicio") === "1";
+      // vale uma vez: recarregar a página já não tem a marca
+      sessionStorage.removeItem("marsops:veio_do_inicio");
     } catch {
       veio = true;
     }
