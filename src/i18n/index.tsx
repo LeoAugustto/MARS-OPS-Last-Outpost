@@ -39,14 +39,15 @@ function detectLang(): Lang {
     const short = l?.slice(0, 2).toLowerCase();
     if (isLang(short)) return short;
   }
-  return "pt";
+  // navegador sem nenhum dos 5 idiomas do jogo: inglês
+  return "en";
 }
 
 type Ctx = { lang: Lang; setLang: (l: Lang) => void };
-const I18nContext = createContext<Ctx>({ lang: "pt", setLang: () => {} });
+const I18nContext = createContext<Ctx>({ lang: "en", setLang: () => {} });
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("pt");
+  const [lang, setLangState] = useState<Lang>("en");
   useEffect(() => setLangState(detectLang()), []);
   useEffect(() => {
     document.documentElement.lang = HTML_LANG[lang];
