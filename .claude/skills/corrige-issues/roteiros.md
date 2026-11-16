@@ -41,7 +41,7 @@ O save fica no `localStorage`, numa chave que começa com `marsops:save`. Mexa n
 ["js", "const k=Object.keys(localStorage).find(k=>k.startsWith('marsops:save')); const s=JSON.parse(localStorage.getItem(k)); const g=s.state.game; /* MEXA AQUI */ localStorage.setItem(k, JSON.stringify(s)); return 'ok';"]
 ```
 Exemplos do que pôr em `/* MEXA AQUI */`:
-- Noite: `s.state.relogio=0.75; s.state.phase='mapa';` (relógio: 0 = 07:00, 1 = 24:00; noite a partir de 18h30)
+- Noite: `s.state.relogio=0.75; s.state.phase='mapa';` (relógio: 0 = 07:00, 1 = 24:00; fim de tarde 16h00, noite a partir de 19h00 (relogio 0.71))
 - Todos os alertas resolvidos: `g.alerts.forEach(a=>a.done=true);`
 - Último sol com a meta batida (para ver o fim vencendo): `g.sol=g.totalSols; g.ciencia=g.metaCiencia; s.state.relogio=0.9; s.state.phase='mapa';`
 - Saúde baixa (para ver o fim perdendo): `g.resources.saude=3;`

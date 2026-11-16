@@ -31,7 +31,7 @@ The game requires no account or download and contains no ads. The mission save, 
 ## AI-generated content (Super Intelligence)
 - **Voices:** all recorded character lines (Rovi, Mission Control, astronauts) were generated with AI text-to-speech (ElevenLabs, Eleven v3), in `public/audio/voz/`.
 - **Music:** the 8-bit soundtrack in `public/audio/musica/` was generated with AI (Suno).
-- **Sound effects:** the 8-bit effects in `public/audio/sfx/` were synthesized by code (`scripts/gerar-efeitos-8bit.py`), written with AI assistance.
+- **Sound effects:** the 8-bit interface effects in `public/audio/sfx/` were synthesized by code (`scripts/gerar-efeitos-8bit.py`), written with AI assistance. Ambience loops and realistic effects (wind, doors, radio, rover, footsteps) in `public/audio/ambiente/` and `public/audio/sfx/` were generated with AI (ElevenLabs Sound Effects).
 - **Art:** pixel art was created with AI image tools and edited by the team. No NASA logos or branding are used.
 - **Code and text:** written by the team with AI coding assistants (Claude, ChatGPT/Codex, Lovable). The game rules, data use and decisions are the team's.
 
@@ -58,6 +58,8 @@ The public build runs on Vercel with `NITRO_PRESET=vercel`. This repository’s 
 - [Sound, music, and voices](docs/SONS-E-VOZES.md)
 - [Testing report](docs/QA_REPORT.md)
 - [Team and Git workflow](docs/TEAM.md)
+
+Some working notes from the hackathon stay in Portuguese (`docs/EVENTOS-BRUNO.md`, `docs/PENDENCIAS-PIXEL.md`, `docs/HANDOFF.md`, `docs/QA-2026-11-14.md`, `docs/RELATORIO-TESTES-CHATGPT.md`, `docs/PROMPT-TESTES-CHATGPT.md`, `roadmap.md`). The English documents above are the current reference.
 
 ## Team
 

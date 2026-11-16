@@ -1,6 +1,17 @@
 # Sound, music, and voices
 
-The repository includes background tracks and 8-bit interface effects. The browser unlocks audio after the first click, tap, or key press. Music and ambient playback pause when the tab is hidden, and only one voice recording plays at a time. Sound preferences are stored locally. [Audio manager](../src/game/ui/audio.ts)
+The game ships with music, interface effects, ambience and recorded voices.
+
+- **Music (Suno, AI-generated):** menu, day map, sunset, night, solar storm, rover trip, victory, rescue and the stars jingle.
+- **Interface effects:** 8-bit cues synthesized by [the 8-bit sound script](../scripts/gerar-efeitos-8bit.py) (clicks, alerts, cards, energy, warnings, morning, bedtime, stickers).
+- **Realistic effects and ambience (ElevenLabs Sound Effects, AI-generated):** Mars wind, a soft night loop, one ambience per building, doors, radio static, solar storm, rover motor, station beeps and footsteps on soil and on floors.
+- **Voices (ElevenLabs Eleven v3, AI-generated):** Rovi (intro, tutorial, warnings and tips), Mission Control (mission end) and the two astronauts (morning and bedtime lines) in all five languages. Card reactions are voiced in Portuguese and English only; Spanish, French and Italian show the same text without voice, so no language has a half-voiced set.
+- **Defaults:** music 30%, effects 90%, ambience 100%, voices 90%, adjustable in the in-game **Sounds and music** menu. On iPhone (iOS Safari) the page cannot change audio volume, so the per-channel sliders have no effect there; the on/off switch works everywhere.
+- **No overlap:** a short astronaut line or a queued Rovi line waits for the current voice to finish, a closing dialog only stops its own voice, music is lowered while someone speaks, and Rovi's typing ticks stay silent during recorded speech.
+
+[`scripts/elevenlabs-historico.mjs`](../scripts/elevenlabs-historico.mjs) downloads generated lines from the ElevenLabs history and names each file by matching its text to the line sheets.
+
+The browser unlocks audio after the first click, tap, or key press. The browser unlocks audio after the first click, tap, or key press. Music and ambient playback pause when the tab is hidden, and only one voice recording plays at a time. Sound preferences are stored locally. [Audio manager](../src/game/ui/audio.ts)
 
 | Channel | Runtime path under `public/audio/` | Use |
 | --- | --- | --- |

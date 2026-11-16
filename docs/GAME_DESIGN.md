@@ -41,7 +41,7 @@ Clean solar panels produce 11 units of energy. The daily budget also includes st
 
 1. The morning shows available power and the base’s alerts. The first sol targets two alerts. Later sols usually target three, with an extra alert when all three crew resources exceed 45 and one fewer when a resource falls below 20.
 2. The player chooses which alerts to investigate. Cards show choices and their costs. An hourglass marks a deferred cost. The outcome describes what changed, and **Why?** explains the science.
-3. The clock starts at 07:00. Walking and actions spend in-game time, and reading an open card or menu pauses the free-running clock. Dusk begins at 16:30 and night at 18:30. Staying awake when night begins costs four health once per sol.
+3. The clock starts at 07:00. Walking and actions spend in-game time, and reading an open card or menu pauses the free-running clock. Dusk begins at 16:00, night at 19:00, and the sol's clock ends at 24:00. Staying awake when night begins costs four health once per sol.
 4. The crew sleeps in the habitat bed. During the day, the bed waits for the player to resolve the alerts. At night, the crew can sleep with alerts pending. Each unresolved alert costs two health, and an unattended problem can also worsen.
 5. The overnight report shows consumption, production, and resource changes. The next sol starts with the same power plan.
 

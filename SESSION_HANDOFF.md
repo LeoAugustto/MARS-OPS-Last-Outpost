@@ -1,5 +1,12 @@
 # Passagem de bastão
 
+## 2026-11-15 · Claude Code · final audio and documentation pass
+
+- **Audio shipped:** Suno music; 8-bit effects; ElevenLabs ambience per building, night loop, doors, radio, storm, rover, station and footsteps; ElevenLabs voices (fixed lines in 5 languages, card reactions in PT and EN). Defaults: music 30%, effects 90%, ambience 100%, voices 90%. Voices queue instead of overlapping.
+- **Behaviour changes:** dusk 16:00, night 19:00; `/play` opened directly or reloaded goes back to the home screen; share preview uses `public/og-image.jpg`; rover cutscene sounds follow the scene; energy tutorial highlights − and +.
+- **Known limits:** iOS Safari ignores per-channel volume (on/off works). Card body text has no voice in any language.
+- **Docs:** README (EN/PT) with LinkedIn links and AI-content declaration, TEAM.md simplified, GAME_DESIGN and SONS-E-VOZES updated.
+
 ## 2026-11-15 · Codex · English submission documentation
 
 - **Branch and scope** — `feat/docs-ingles-submissao` from `d0cfe41`. Documentation only. The separate language task is on `feat/i18n-ingles-fallback` at `c85c1c5`.
