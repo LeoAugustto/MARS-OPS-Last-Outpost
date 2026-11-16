@@ -1,0 +1,119 @@
+# Fontes de dados — o que é real e o que é jogo
+
+Este é o registro histórico da pesquisa e das conferências das cartas. Para os dados usados pela versão atual, consulte [o guia em inglês](DATA_SOURCES.md).
+
+> Os jurados vão olhar isto. Tudo que aparece no jogo como "real" precisa estar aqui, com link e status de verificação.
+> Status: ✅ conferido na fonte · ⚠️ a conferir (escrito de memória para o esqueleto) · 🎮 número de jogo (não é dado real)
+
+## Conjuntos de dados da NASA usados
+| Fonte | Para quê no jogo | Como entra | Status |
+|---|---|---|---|
+| **DONKI** — https://ccmc.gsfc.nasa.gov/tools/DONKI/ · API `https://api.nasa.gov` `/DONKI/FLR` | Força e data das tempestades solares (`sol_agitado` → `tempestade_chega`) | 1º alerta da missão: flare M/X mais forte dos últimos 7 dias, **ao vivo** (`src/data/donki-live.ts`, sem chave, CORS liberado). Demais alertas: 16 flares conferidos com ID e link do DONKI (`src/data/donki.ts`, gerado por `scripts/fetch-donki.mjs`) | ✅ conferido em 14/11/2026 |
+| **OSDR** — https://osdr.nasa.gov | Evento `exercicio`: ossos/músculos enfraquecem com pouca gravidade | Lição da carta + link de um estudo na página /fontes | ⚠️ escolher 1 estudo e linkar |
+| **RadLab (OSDR)** — https://visualization.osdr.nasa.gov/radlab/gui/data-api/ | Comparar a dose do jogo com a dose real medida na ISS | Fato no relatório / página /fontes | ⚠️ a fazer |
+| **Mars Trek** — https://trek.nasa.gov/mars/ | Foto/mapa real do local de pouso (carta `chegada`) | Imagem em `public/assets/` com crédito | ⚠️ a fazer |
+| **CSA — Food production** — https://www.asc-csa.gc.ca/eng/youth-educators/toolkits/food-production/ | Cadeia da estufa (luz, crescimento, colheita) | Lições das cartas `broto`/colheitas | ⚠️ conferir textos |
+
+## Fatos usados nos textos (conferir antes da submissão)
+| Fato no jogo | Onde | Fonte a citar | Status |
+|---|---|---|---|
+| Sol = 24 h 40 min (24h 39min 35s) | glossário | NASA Mars facts | ⚠️ |
+| Gravidade de Marte ≈ 38% da Terra ("pouco mais de um terço") | `exercicio` | NASA Mars facts | ⚠️ |
+| Ar de Marte é quase todo CO₂ (~95%) | `chegada` | NASA Mars facts | ⚠️ |
+| Mensagem Marte↔Terra leva ~4 a 24 min | `contato_terra` | NASA/JPL | ⚠️ (há fontes que dizem 3–22 min; usar a da NASA) |
+| Janela de lançamento Terra→Marte a cada ~26 meses | relatório | NASA | ⚠️ |
+| Tempestade de poeira de 2018 encerrou o Opportunity | `poeira_vem` | NASA/JPL | ⚠️ |
+| Vento limpou painéis do Spirit/Opportunity ("cleaning events") | `painel_sujo` | NASA/JPL | ⚠️ |
+| Astronautas da ISS se exercitam ~2 h/dia | `exercicio` | NASA | ⚠️ |
+| Na ISS, tripulação se abriga em área mais protegida em eventos solares | `sol_agitado` | NASA | ⚠️ |
+| Radiação na superfície de Marte ~0,64 mSv/dia (RAD/Curiosity, Hassler et al. 2014) | `balance.ts` | Science 2014 / NASA | ⚠️ |
+| Set/2017: tempestade solar gerou auroras em Marte e aumentou radiação medida pelo Curiosity | `fato.marte_2017` | NASA (MAVEN/Curiosity) | ⚠️ |
+| Mai/2024 (20/05): evento solar chegou a Marte; Curiosity mediu ~8.100 µGy ≈ 30 raios-X de tórax. **Não está no DONKI** (foi no lado oculto do Sol), então não ligar a nenhum flare da lista | `fato.marte_2024` | NASA, jun/2024 | ⚠️ |
+| Perseverance coleta rochas com sinais de água antiga (Jezero) | `laboratorio` | NASA | ⚠️ |
+
+### Fatos dos eventos por lugar da base (`src/content/events.ts`, bloco "EVENTOS POR LUGAR")
+
+Referências para as lições das cartas. As linhas com ⚠️ ainda precisam de conferência.
+
+| Fato no jogo                                                                                                         | Evento                   | Fonte a citar                                                                                 | Status |
+| -------------------------------------------------------------------------------------------------------------------- | ------------------------ | --------------------------------------------------------------------------------------------- | ------ |
+| Mar/2005: um redemoinho de poeira limpou os painéis do Spirit e a energia subiu muito                                | `redemoinho`             | NASA/JPL, status do Spirit (mar/2005); PIA03608 "Solar-Panel Dust Accumulation and Cleanings" | ✅     |
+| A sonda InSight detectou pelo sismógrafo impactos de meteoroides em Marte (2020–2021, crateras confirmadas pelo MRO) | `painel_rachado` | [NASA/JPL: impactos detectados pelo InSight](https://www.jpl.nasa.gov/news/nasas-insight-hears-its-first-meteoroid-impacts-on-mars/) | ✅ |
+| No inverno, o Opportunity estacionava em ladeiras viradas para o Sol para pegar mais luz                             | `inverno`                | NASA/JPL, Opportunity (Greeley Haven, 2012)                                                   | ✅     |
+| Marte tem estações porque o eixo é inclinado, como o da Terra; no inverno o dia tem menos horas de sol | `inverno` | [NASA Science: estações em Marte](https://science.nasa.gov/helio-and-you-seasons-on-earth-mars-and-beyond/) | ⚠️ |
+| 2020: tripulação da ISS soltou folhas de chá para achar um vazamento no módulo Zvezda e tapou com remendo provisório | `vazamento`              | NASA, blog da ISS (out/2020)                                                                  | ✅     |
+| O MOXIE (Perseverance) produziu oxigênio a partir do CO₂ de Marte (2021–2023) | `gerador_barulho` | [NASA: resultados do MOXIE](https://www.nasa.gov/solar-system/nasas-oxygen-generating-experiment-moxie-completes-mars-mission/) | ✅ |
+| A ISS recupera cerca de 98% da água, incluindo umidade do ar (respiração e suor) | `agua_do_ar` | [NASA: reciclagem de água na ISS](https://www.nasa.gov/missions/station/iss-research/nasa-achieves-water-recovery-milestone-on-international-space-station/) | ✅ |
+| 2015: zínias do Veggie pegaram mofo; Scott Kelly cortou partes doentes; ventiladores secaram demais as plantas | `mofo` | [NASA: zínias cultivadas no espaço](https://www.nasa.gov/humans-in-space/zinnias-from-space-nasa-studies-the-multiple-benefits-of-gardening/) | ✅ |
+| Rabanetes do Plant Habitat-02 ficaram prontos em 27 dias (colheita em 30/11/2020) | `rabanete` | [NASA: colheita de rabanetes](https://www.nasa.gov/missions/station/astronauts-harvest-radish-crop-on-international-space-station/) | ✅ |
+| Ago/2015: tripulação da ISS comeu alface plantada a bordo (Veggie) | `sementes_terra` | [NASA: primeira degustação de alface na ISS](https://blogs.nasa.gov/commercialcrew/2015/08/10/lettuce-feast-previews-research-potential-of-station/) | ✅ |
+| A viagem Terra→Marte leva muitos meses (texto não usa número)                                                        | `sementes_terra`         | NASA                                                                                          | ⚠️     |
+| 2014: NASA enviou por mensagem o desenho de uma chave e ela foi impressa na impressora 3D da ISS | `microscopio` | [NASA: impressão de uma ferramenta na ISS](https://www.nasa.gov/missions/station/space-station-3-d-printer-builds-ratchet-wrench-to-complete-first-phase-of-operations/) | ✅ |
+| 2008: a Phoenix confirmou gelo de água no subsolo de Marte | `gelo` | [NASA/JPL: gelo confirmado pela Phoenix](https://www.jpl.nasa.gov/news/nasa-phoenix-mars-lander-confirms-frozen-water/) | ✅ |
+| Usar recursos de Marte (como gelo) é plano para bases futuras                                                        | `gelo`                   | NASA, ISRU                                                                                    | ⚠️     |
+| A ISS tem uma caixa fechada com luvas para experimentos (Microgravity Science Glovebox) | `bacterias` | [NASA: caixa de luvas para experimentos](https://www.nasa.gov/glenn/glenn-expertise-space-exploration/physical-sciences-program/science-facilities-on-the-iss/microgravity-science-glovebox-msg/) | ✅ |
+| Proteção planetária: naves são limpas para não levar micróbios da Terra a Marte | `bacterias` | [NASA: proteção planetária](https://sma.nasa.gov/sma-disciplines/planetary-protection/) | ⚠️ |
+| Cobrir habitats com solo de Marte para blindar radiação é ideia em estudo (não algo já feito)                        | `rachadura`              | NASA, estudos de habitats                                                                     | ⚠️     |
+| Tripulações da ISS treinam emergências como fogo e despressurização | `treino` | [NASA: treinamento de emergência na ISS](https://www.nasa.gov/blogs/spacestation/2022/11/03/crewmates-train-for-emergency-and-await-cygnus-cargo-mission/) | ✅ |
+| Mensagem Marte↔Terra leva de ~4 a ~24 minutos | `aniversario` | [NASA: comunicação espacial](https://www.nasa.gov/missions/tech-demonstration/space-communications-7-things-you-need-to-know/) | ✅ |
+| Isolamento e confinamento é um dos 5 riscos do Programa de Pesquisa Humana da NASA | `aniversario`, `saudade` | [NASA: riscos das missões tripuladas](https://www.nasa.gov/hrp/hazards/) | ✅ |
+| ARISS: astronautas da ISS falam com escolas por rádio; mais de 1.100 escolas desde 2000 | `escola` | [NASA: radioamadorismo na ISS](https://www.nasa.gov/stem-content/amateur-radio-on-the-international-space-station/) | ✅ |
+| A NASA ouve as naves com antenas gigantes em três lugares do mundo (Deep Space Network)                              | `antena_torta`           | NASA DSN                                                                                      | ⚠️     |
+| Sol = 24 h 39 min; equipes de rovers viveram no horário de Marte e usavam cortinas escuras | `sem_sono` | [NASA/JPL: duração do sol](https://www.jpl.nasa.gov/news/press_kits/insight/launch/facts/mars-at-a-glance/) · [NASA: trabalho no horário marciano](https://science.nasa.gov/resource/living-on-mars-time/) | ✅ |
+| A NASA estuda se cuidar de plantas ajuda astronautas isolados (pesquisa em andamento) | `saudade` | [NASA: estudo sobre plantas e isolamento](https://www.nasa.gov/humans-in-space/can-space-gardening-help-astronauts-cope-with-isolation/) | ✅ |
+| Rodas do Curiosity furadas por pedras pontudas; equipe passou a escolher caminhos mais lisos | `pneu` | [NASA/JPL: danos às rodas do Curiosity](https://robotics.jpl.nasa.gov/media/documents/fmwi-rankin-2022-0225-final.pdf) | ✅ |
+| 2009: o Spirit afundou em areia fofa sob uma crosta dura ("Troy") e não saiu mais                                    | `dunas`                  | NASA/JPL, Spirit                                                                              | ✅     |
+| Até hoje nenhum fóssil foi encontrado em Marte                                                                       | `fossil`                 | NASA                                                                                          | ⚠️     |
+| O Perseverance guarda amostras de rocha em tubos para um dia serem estudadas na Terra | `fossil` | [NASA: amostras de rocha do Perseverance](https://science.nasa.gov/mission/mars-2020-perseverance/mars-rock-samples/) | ⚠️ |
+
+### Fatos do lote 2 de eventos por lugar (conferidos em 14/11/2026)
+| Fato no jogo | Evento | Fonte a citar | Status |
+|---|---|---|---|
+| Mai/1979: a Viking 2 fotografou uma camada fininha de gelo no chão de Marte (Utopia Planitia) | `geada` | [NASA/JPL PIA00571](https://photojournal.jpl.nasa.gov/catalog/PIA00571) | ✅ |
+| Abr/2022: o Perseverance filmou Fobos passando na frente do Sol (eclipse de ~40 s); Marte tem 2 luas | `eclipse_fobos` | [NASA/JPL PIA25179](https://www.jpl.nasa.gov/images/pia25179-perseverances-mastcam-z-captures-a-phobos-solar-eclipse) | ✅ |
+| Mai/2021: a InSight soltou areia no vento perto dos painéis e ganhou energia | `truque_areia` | [NASA/JPL: InSight gets a power boost](https://www.jpl.nasa.gov/news/nasas-insight-mars-lander-gets-a-power-boost) | ✅ |
+| A ISS tem máquinas que tiram o gás carbônico do ar | `filtro_co2` | NASA, ECLSS | ⚠️ |
+| 1970: a tripulação da Apolo 13 montou um filtro improvisado com fita adesiva | `filtro_co2` | NASA, Apollo 13 | ⚠️ |
+| A ISS faz oxigênio separando a água com eletricidade (eletrólise) | `eletrolise` | NASA, ECLSS (Oxygen Generation System) | ⚠️ |
+| Astronautas da Apolo disseram que a poeira da Lua grudava em tudo e cheirava a pólvora | `poeira_dentro` | NASA, Apollo | ⚠️ |
+| A poeira de Marte é muito fina e tem sais (percloratos) que fazem mal ao corpo | `poeira_dentro` | NASA (Phoenix, 2008) | ⚠️ |
+| As plantas da ISS crescem com LEDs vermelhos e azuis (estufa cor-de-rosa) | `luz_rosa` | NASA, Veggie | ⚠️ |
+| 2021: pimentas colhidas na ISS (Plant Habitat-04), astronautas fizeram tacos; o experimento durou 137 dias | `pimentas` | [NASA: Plant Habitat-04](https://www.nasa.gov/humans-in-space/peppers-grown-in-space/) · NPR (02/11/2021) | ✅ |
+| A Agência Espacial Europeia estuda reciclar restos para produzir comida e ar (MELiSSA) | `adubo` | ESA, MELiSSA | ⚠️ |
+| 2005: o Opportunity achou um meteorito em Marte (o primeiro achado em outro planeta) | `meteorito` | NASA/JPL, "Heat Shield Rock" | ⚠️ |
+| Ago/2021: o 1º tubo de amostra do Perseverance voltou vazio, a rocha virou pó | `tubo_amostra` | NASA/JPL (ago/2021) · Space.com | ✅ |
+| 2021: o Curiosity fotografou nuvens brilhando após o pôr do sol, feitas de gelo seco; a maioria das nuvens é de gelo de água | `nuvens` | NASA/JPL (mai/2021) · Astronomy | ✅ |
+| A NASA fez um concurso de casas impressas em 3D com materiais locais (3D-Printed Habitat Challenge) | `tijolos` | NASA Centennial Challenges | ⚠️ |
+| A InSight detectou 1.319 tremores em Marte; o maior (magnitude 4,7) foi em 04/05/2022 | `tremor` | NASA/JPL · AGU (GRL, 2023) | ✅ |
+| ~A cada 2 anos o Sol fica entre a Terra e Marte (conjunção) e a NASA para de mandar comandos por ~2 semanas | `conjuncao` | NASA, Mars solar conjunction | ⚠️ |
+| A maior parte dos dados dos robôs em Marte vem por satélites em órbita (ex.: MRO) | `satelite` | NASA/JPL, Mars Relay Network | ⚠️ |
+| No tempo dos ônibus espaciais, o Controle de Missão acordava a tripulação com músicas | `musica` | NASA, wake-up calls | ⚠️ |
+| "Cansaço do cardápio": a NASA estuda como manter a comida gostosa em viagens longas | `cardapio` | NASA HRP (food) | ⚠️ |
+| Astronautas da ISS escreveram diários para um estudo da NASA sobre isolamento (Journals) | `diario` | NASA, ISS "Journals" | ⚠️ |
+| Antes de ir ao espaço, astronautas ficam uns dias em quarentena | `resfriado` | NASA, Health Stabilization Program | ⚠️ |
+| Robôs em Marte usam aquecedores para proteger peças e baterias nas noites geladas | `noite_gelada` | NASA/JPL | ⚠️ |
+| O Ingenuity voou 72 vezes (2021–2024); foi feito para 5 voos | `drone` | NASA/JPL (jan/2024) | ✅ |
+| A NASA estuda equipes isoladas por meses para aprender a conviver bem (HERA) | `briga` | NASA HRP, HERA | ⚠️ |
+| Na ISS, ar com muito CO₂ está ligado a dor de cabeça; a ventilação ajuda | `dor_cabeca` | NASA HRP (CO₂ e sintomas na ISS) | ⚠️ |
+| Gravidade de Marte ≈ 38% da Terra; na ISS os astronautas se exercitam ~2 h por dia para proteger ossos e músculos | `esteira` | NASA (Mars Fact Sheet) · NASA, exercício na ISS | ⚠️ |
+| Janelas de naves têm várias camadas de vidro (ex.: Cupola da ISS) | `janela` | NASA, ISS Cupola | ⚠️ |
+| 2019–2020: a tripulação da ISS passou dias procurando um vazamento pequeno de ar | `janela` | NASA Space Station blog (2020) | ⚠️ |
+| A ISS é barulhenta por causa dos ventiladores; muitos astronautas dormem com protetor de ouvido | `barulho` | NASA, acústica e sono na ISS | ⚠️ |
+
+Simplificações do lote 2 (🎮): "meteorito de ferro" é história do jogo; a água para fazer ar sai da comida (a estufa), porque o jogo não tem barra de água; os prazos (pimentas, adubo) e os estragos das continuações são regras da simulação.
+
+Simplificações dos eventos por lugar (🎮): os custos e ganhos (energia, ar, comida, saúde, ciência, luz dos painéis) são de jogo; "praga" virou mofo (o caso real da ISS); a água recuperada entra como comida (água para a estufa), porque o jogo não tem barra de água. Os prazos das colheitas, a perda de 2 de energia na limpeza da mesa e o rendimento do laboratório pela metade são regras da simulação.
+
+## Números de jogo (🎮 — simplificados, não são dados da NASA)
+Todos em `src/game/engine/balance.ts`: produção dos painéis (10 ⚡), consumo diário, rendimento por energia, força das tempestades, redução do escudo (15%/nível), fator do abrigo (30%).
+A página `/fontes` deve dizer isso com clareza: *"Os números de energia e comida foram simplificados para o jogo. As tempestades, datas e fatos são reais."*
+
+## Observações técnicas do DONKI
+- `api.nasa.gov/DONKI/FLR` devolvia **404** em 14/11/2026; o serviço do próprio DONKI (`https://ccmc.gsfc.nasa.gov/DONKI/WS/get/FLR`) funcionava, sem chave e com CORS liberado.
+- Intervalos muito longos (ex.: 1 ano) às vezes voltam vazios: busque mês a mês.
+- A chave da api.nasa.gov do time **não vai para o repositório**. Se precisar, use `NASA_API_KEY` só no seu terminal.
+
+## Regra de honestidade
+- Lista selecionada → selo **"📚 Evento real de <data>"**.
+- Chamada de API feita agora → selo **"📡 Dado ao vivo da NASA"**.
+- Nunca o contrário.
