@@ -84,6 +84,7 @@ interface Props {
   noite: boolean;
   onTerminal: () => void;
   onEnergy: () => void;
+  onSleepPrompt: () => void;
   onSleep: () => void;
   onExit: () => void;
   /** andou (% da sala): o relógio do sol anda junto */
@@ -97,6 +98,7 @@ export function Interior({
   noite,
   onTerminal,
   onEnergy,
+  onSleepPrompt,
   onSleep,
   onExit,
   onWalk,
@@ -122,7 +124,10 @@ export function Interior({
     else if (o === "energia") onEnergy();
     else if (o === "cama") {
       if (pendentes > 0 && !noite) onSleep();
-      else setConfirmaDormir(true);
+      else {
+        onSleepPrompt();
+        setConfirmaDormir(true);
+      }
     } else onExit();
   };
   const parado = paused || confirmaDormir;

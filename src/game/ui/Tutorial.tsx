@@ -178,7 +178,7 @@ function Balao({
         <DialogBox speaker="rovi" text={t(texto)} voz={texto} esperaVoz compact />
         <div className="flex items-center gap-2">
           {!espera && (
-            <Button variant="chunky" size="tap" className="h-12 min-w-0 flex-1 text-lg" onClick={onOk}>
+            <Button variant="chunky" size="tap" className="h-12 min-w-0 flex-1 whitespace-normal px-2 text-sm leading-tight sm:text-lg" onClick={onOk}>
               {t(okKey)}
             </Button>
           )}

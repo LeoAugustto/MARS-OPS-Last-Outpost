@@ -202,7 +202,7 @@ export function ProfileScreen({
       <div className={`${MOLDURA_HUB} my-auto flex w-full max-w-xl 2xl:max-w-2xl flex-col gap-[clamp(0.4rem,1.8dvh,1rem)] bg-[#2a0508]/80 p-[clamp(0.6rem,2.4dvh,1.5rem)]`}>
         <div className="flex items-center justify-between gap-2">
           <button type="button" onClick={onBack} className={`${BOTAO_ESCURO} min-w-0 text-[clamp(0.7rem,3.2vw,0.95rem)]`}>
-            ← <span className="truncate">{t("ui.nivel.titulo")}</span>
+            ← <span className="min-w-0 whitespace-normal break-words text-left leading-tight">{t("ui.nivel.titulo")}</span>
           </button>
           <div className="flex shrink-0 items-center gap-2">
             <FullscreenButton />

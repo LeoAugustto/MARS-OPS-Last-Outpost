@@ -736,6 +736,7 @@ function GameInner({
             noite={noite}
             onTerminal={() => abrirTerminal(inside)}
             onEnergy={abrirEnergia}
+            onSleepPrompt={() => tutFeito("casa")}
             onSleep={sleep}
             onWalk={andou}
             onExit={() => {

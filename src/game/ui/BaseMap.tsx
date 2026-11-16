@@ -278,7 +278,12 @@ export function BaseMap({
         e.preventDefault();
         keys.current.add(k);
       }
-      if ((k === "Enter" || k === " ") && !paused && perto.current) onPlace(perto.current);
+      if ((k === "Enter" || k === " ") && !paused && perto.current && !e.defaultPrevented) {
+        // Enter e Espaço já ativam o controle em foco. Não reabra a porta ao lado.
+        const controle = e.target instanceof Element &&
+          e.target.closest('button, a[href], input, select, textarea, [role="button"], [contenteditable="true"]');
+        if (!controle) onPlace(perto.current);
+      }
     };
     const up = (e: KeyboardEvent) => {
       const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;

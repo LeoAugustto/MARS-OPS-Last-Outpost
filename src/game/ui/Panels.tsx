@@ -97,7 +97,7 @@ export function EnergyPanel({
             >
               −
             </Button>
-            <span className="w-10 text-center text-2xl font-black" aria-live="polite">
+            <span className="w-6 text-center text-2xl font-black min-[400px]:w-10" aria-live="polite">
               {a[k]}
             </span>
             <Button
@@ -420,7 +420,11 @@ export function GameMenu({
           </BotaoHub>
 
           {opcoes.map((o) => (
-            <BotaoHub key={o.texto} onClick={o.onClick}>
+            <BotaoHub
+              key={o.texto}
+              className="max-sm:[&>span]:text-[clamp(0.62rem,5cqw,1.1rem)]"
+              onClick={o.onClick}
+            >
               {o.icone} {o.texto}
             </BotaoHub>
           ))}

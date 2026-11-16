@@ -626,7 +626,8 @@ export function RoverCena({
     let raf = 0;
     const ini = performance.now();
     const passo = (now: number) => {
-      const dt = now - ini;
+      // O timestamp do primeiro quadro pode anteceder a montagem da animação.
+      const dt = Math.max(0, now - ini);
       setAgora(dt);
       if (dt >= dur) fim.current();
       else raf = requestAnimationFrame(passo);
