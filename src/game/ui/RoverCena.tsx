@@ -10,6 +10,7 @@ import { ART, type Dir8, type Periodo } from "./art";
 import { horaDoSol } from "./Hud";
 import { PixelIcon } from "./PixelIcon";
 import { usePlayer } from "./player";
+import { tocarAmbiente, tocarEfeito } from "./audio";
 import { useGT } from "./shared";
 
 const DIRS: Dir8[] = ["e", "se", "s", "sw", "w", "nw", "n", "ne"]; // de 45 em 45 graus (0 = direita)
@@ -635,6 +636,27 @@ export function RoverCena({
   }, [pronto, dur]);
 
   const q = quadroEm(r, Math.min(agora, dur));
+
+  // sons da cena, quadro a quadro: motor só quando o rover anda; porta, passos e bipe da estação
+  const ant = useRef({ roda: q.roda, porta: q.porta, passo: -1, legenda: q.legenda, mexeu: 0 });
+  const a0 = ant.current;
+  if (q.roda !== a0.roda) a0.mexeu = performance.now();
+  const motor = q.rover && performance.now() - a0.mexeu < 250;
+  useEffect(() => {
+    tocarAmbiente(motor ? "rover" : "vento_marte");
+  }, [motor]);
+  useEffect(() => {
+    const a = ant.current;
+    if (a.porta < 0 && q.porta >= 0) tocarEfeito("porta_abre");
+    if (a.porta >= 0 && q.porta < 0) tocarEfeito("porta_fecha");
+    const p = q.astro ? Math.floor(q.astro.passo) : -1;
+    if (p >= 0 && p !== a.passo && p % 2 === 0) tocarEfeito(q.cena === "estacao" ? "passo_terra_1" : "passo_terra_2");
+    if (q.legenda === "trabalhando" && a.legenda !== "trabalhando") tocarEfeito("estacao_bipe");
+    a.roda = q.roda;
+    a.porta = q.porta;
+    a.passo = p;
+    a.legenda = q.legenda;
+  });
   const hora = relogio ? horaDoSol(relogio.de + (relogio.ate - relogio.de) * q.relogio) : null;
   return (
     <div

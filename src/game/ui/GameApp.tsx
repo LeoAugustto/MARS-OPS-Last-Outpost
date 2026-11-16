@@ -413,13 +413,11 @@ function GameInner({
   // som ambiente: vento lá fora, zumbido dentro dos prédios, noite calma, motor na cena do rover
   useEffect(() => {
     if (phase !== "mapa") return tocarAmbiente(null);
-    if (cena) tocarAmbiente(cena === "la" ? null : "rover");
-    else if (inside) tocarAmbiente(`lugar_${inside}`);
+    if (cena) return; // a cena do rover cuida dos próprios sons (RoverCena)
+    if (inside) tocarAmbiente(`lugar_${inside}`);
     else tocarAmbiente(periodo === "noite" ? "noite_base" : "vento_marte");
   }, [phase, cena, inside, periodo]);
-  useEffect(() => {
-    if (cena === "la") tocarEfeito("estacao_bipe");
-  }, [cena]);
+
   useEffect(() => {
     const astro = player?.gender === "m" ? "astronauta_menino" : "astronauta_menina";
     if (phase === "manha") {
