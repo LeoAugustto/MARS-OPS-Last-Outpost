@@ -17,7 +17,7 @@ export interface PrefsSom {
 }
 
 const CHAVE = "marsops:som";
-const PADRAO: PrefsSom = { ligado: true, musica: 0.45, efeitos: 0.8, ambiente: 0.5, voz: 0.9, letras: true };
+const PADRAO: PrefsSom = { ligado: true, musica: 0.1, efeitos: 0.8, ambiente: 0.7, voz: 0.9, letras: true };
 
 function lerPrefs(): PrefsSom {
   try {
