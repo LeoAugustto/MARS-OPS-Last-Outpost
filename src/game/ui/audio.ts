@@ -153,12 +153,21 @@ export function tocarEfeito(nome: string, opts: { tom?: number } = {}) {
   a.play().catch(() => {});
 }
 
-/** Fala gravada (public/audio/voz/<idioma>/<personagem>/<chave>.mp3). Só uma voz por vez. */
-export function falar(lang: string, personagem: string, chave: string) {
+/** Fala gravada (public/audio/voz/<idioma>/<personagem>/<chave>.mp3). Só uma voz por vez.
+ * `espera`: se alguém já está falando, entra depois (não corta o Rovi no meio da frase). */
+export function falar(lang: string, personagem: string, chave: string, opts: { espera?: boolean } = {}) {
   if (!ok()) return;
+  const src = `/audio/voz/${lang}/${personagem}/${chave}.mp3`;
+  if (opts.espera && voz && !voz.paused && !voz.ended) {
+    const atual = voz;
+    atual.addEventListener("ended", () => {
+      if (voz === atual) falar(lang, personagem, chave);
+    });
+    return;
+  }
   pararVoz();
   if (!liberado || !prefs.ligado || prefs.voz <= 0) return;
-  voz = novo(`/audio/voz/${lang}/${personagem}/${chave}.mp3`, false, vol("voz"));
+  voz = novo(src, false, vol("voz"));
   tocar(voz);
 }
 

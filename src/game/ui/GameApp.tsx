@@ -424,10 +424,10 @@ function GameInner({
     const astro = player?.gender === "m" ? "astronauta_menino" : "astronauta_menina";
     if (phase === "manha") {
       tocarEfeito("bom_dia");
-      setTimeout(() => falar(lang, astro, "astro.bomdia"), 900);
+      setTimeout(() => falar(lang, astro, "astro.bomdia", { espera: true }), 900);
     } else if (phase === "noite") {
       tocarEfeito("dormir");
-      setTimeout(() => falar(lang, astro, "astro.dormir"), 1100);
+      setTimeout(() => falar(lang, astro, "astro.dormir", { espera: true }), 1100);
     }
     else if (phase === "mapa" && game?.alerts.some((a) => !a.done)) tocarEfeito("alerta");
     // eslint-disable-next-line react-hooks/exhaustive-deps
