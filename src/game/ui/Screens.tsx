@@ -277,8 +277,8 @@ export function Intro({ level, onDone }: { level: Level; onDone: () => void }) {
   const [i, setI] = useState(0);
   // o Rovi fala cada quadro da abertura (voz gravada)
   useEffect(() => {
-    falar(lang, "rovi", `ui.abertura.${i + 1}`);
-    return () => pararVoz();
+    const el = falar(lang, "rovi", `ui.abertura.${i + 1}`);
+    return () => pararVoz(el);
   }, [i, lang]);
   const cfg = BALANCE.LEVELS[level];
   const quadros = [

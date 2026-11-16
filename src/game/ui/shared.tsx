@@ -328,12 +328,15 @@ export function DialogBox({
   text,
   compact = false,
   voz,
+  esperaVoz = false,
 }: {
   speaker: Speaker;
   text: string;
   compact?: boolean;
   /** chave da fala gravada (public/audio/voz/<idioma>/<personagem>/<chave>.mp3); sem arquivo = silêncio */
   voz?: string | undefined;
+  /** se alguém já está falando, esta fala entra depois em vez de cortar */
+  esperaVoz?: boolean;
 }) {
   const { t, lang } = useGT();
   const { gender, name } = usePlayer();
@@ -341,9 +344,9 @@ export function DialogBox({
   useEffect(() => {
     if (!voz) return;
     const quem = speaker === "astronauta" ? (gender === "m" ? "astronauta_menino" : "astronauta_menina") : speaker;
-    falar(lang, quem, voz);
-    return () => pararVoz();
-  }, [voz, speaker, gender, lang]);
+    const el = falar(lang, quem, voz, { espera: esperaVoz });
+    return () => pararVoz(el);
+  }, [voz, speaker, gender, lang, esperaVoz]);
   const { shown, done, skip } = useTypewriter(text);
   // "tic" baixinho a cada 3 letras quando o Rovi fala (dá para desligar no menu de som)
   const letrasVistas = shown.length;

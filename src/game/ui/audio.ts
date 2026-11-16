@@ -155,23 +155,42 @@ export function tocarEfeito(nome: string, opts: { tom?: number } = {}) {
 
 /** Fala gravada (public/audio/voz/<idioma>/<personagem>/<chave>.mp3). Só uma voz por vez.
  * `espera`: se alguém já está falando, entra depois (não corta o Rovi no meio da frase). */
-export function falar(lang: string, personagem: string, chave: string, opts: { espera?: boolean } = {}) {
-  if (!ok()) return;
+export function falar(
+  lang: string,
+  personagem: string,
+  chave: string,
+  opts: { espera?: boolean } = {},
+): HTMLAudioElement | null {
+  if (!ok()) return null;
   const src = `/audio/voz/${lang}/${personagem}/${chave}.mp3`;
   if (opts.espera && voz && !voz.paused && !voz.ended) {
     const atual = voz;
     atual.addEventListener("ended", () => {
       if (voz === atual) falar(lang, personagem, chave);
     });
-    return;
+    return null;
   }
   pararVoz();
-  if (!liberado || !prefs.ligado || prefs.voz <= 0) return;
-  voz = novo(src, false, vol("voz"));
-  tocar(voz);
+  if (!liberado || !prefs.ligado || prefs.voz <= 0) return null;
+  const el = novo(src, false, vol("voz"));
+  voz = el;
+  // música mais baixa enquanto alguém fala
+  const volta = () => {
+    if (musica.el) musica.el.volume = vol("musica");
+  };
+  el.addEventListener("play", () => {
+    if (musica.el) musica.el.volume = vol("musica") * 0.4;
+  });
+  el.addEventListener("ended", volta);
+  el.addEventListener("pause", volta);
+  el.addEventListener("error", volta);
+  tocar(el);
+  return el;
 }
 
-export function pararVoz() {
+/** Para a voz. Com `so`, só para se ainda for aquela fala (uma caixa que fecha não corta a de outra). */
+export function pararVoz(so?: HTMLAudioElement | null) {
+  if (so !== undefined && so !== voz) return;
   if (voz) {
     voz.pause();
     voz = null;
