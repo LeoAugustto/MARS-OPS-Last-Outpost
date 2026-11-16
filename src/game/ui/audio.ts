@@ -144,8 +144,8 @@ const GANHO: Record<string, number> = {
   // passos baixinhos para não cansar
   passo_terra_1: 0.4,
   passo_terra_2: 0.4,
-  passo_piso_1: 0.4,
-  passo_piso_2: 0.4,
+  passo_piso_1: 0.6,
+  passo_piso_2: 0.6,
 };
 
 /** Efeito curto (public/audio/sfx). Pode tocar vários ao mesmo tempo. */
