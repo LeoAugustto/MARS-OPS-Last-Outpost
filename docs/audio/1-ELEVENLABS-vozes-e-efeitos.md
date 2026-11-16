@@ -1,90 +1,49 @@
-# Pedido para o ElevenLabs: vozes e efeitos realistas
+# ElevenLabs production brief
 
-Jogo: **Operação Marte: Última Base**, um jogo de navegador em pixel art para crianças de 7 a 12 anos. A criança comanda uma base em Marte, com a ajuda de um robô chamado **Rovi** e de mensagens do **Controle de Missão** na Terra.
+MARS OPS: Last Outpost is a pixel-art browser game for ages 7–12. This brief specifies voice and ambience assets. See [Sound, music, and voices](../SONS-E-VOZES.md) for the runtime paths and current asset status.
 
-Obrigado por ajudar! Tudo o que precisa está aqui e nos arquivos `vozes/`.
+## Voice lines
 
-## Parte A: vozes
+- `vozes/falas_<language>.csv` contains the first batch of 68 lines per language, about 23,000 characters in total.
+- `vozes/fase2_cartas_<language>.csv` contains the optional card responses, 115 per language, with separate recordings for the two astronaut voices.
 
-### Arquivos com as falas
-- `vozes/falas_pt.csv`, `falas_en.csv`, `falas_es.csv`, `falas_fr.csv`, `falas_it.csv`: **fase 1 (obrigatória).** São 68 falas por idioma, cerca de 4.500 caracteres por idioma (~23 mil no total).
-- `vozes/fase2_cartas_<idioma>.csv`: **fase 2 (opcional, só se sobrar crédito).** São as falas do astronauta ao fazer uma escolha. 115 por idioma (~8 mil caracteres) e **vezes 2**, porque cada uma é gravada com a voz de menina e a de menino.
+The CSVs use a semicolon delimiter. `arquivo` is the exact output path, `personagem` is the character, and `emocao` is the delivery. Copy `texto_para_colar_v3` for Eleven v3 or use `texto_sem_tags` for models that take plain text. Keep tags in English and keep each character’s voice consistent across Brazilian Portuguese, English, Spanish, French, and Italian.
 
-Abra no Excel ou no Google Sheets (separador **;**). Colunas:
-- `arquivo`: o nome exato do arquivo para salvar, já com a pasta. Exemplo: `pt/rovi/tut.andar.mp3`.
-- `personagem`: qual voz usar.
-- `emocao`: a emoção da fala.
-- `texto_para_colar_v3`: o texto **com as tags de emoção**, para colar direto no modelo **Eleven v3**.
-- `texto_sem_tags`: o mesmo texto sem tags, para modelos que não entendem tags (Multilingual v2). Nesse caso, ajuste a emoção pelos controles da voz.
+Aim for clear speech at about 0.9× normal speed. Keep the tone calm when resources run low and reassuring during a rescue. Use short pauses. Read negative numbers naturally in the target language. Export mono MP3 at 44.1 kHz and 128 kbps, trim leading and trailing silence, and normalize voices to a consistent loudness. The production target is −16 LUFS.
 
-### Modelo e configuração
-- **Modelo:** **Eleven v3** (entende tags como `[excited]`, `[sighs]`, `[yawns]`). As tags ficam em inglês em todos os idiomas, e é assim mesmo.
-- **Idiomas:** português do Brasil, inglês, espanhol, francês e italiano. Use **a mesma voz** de cada personagem nos 5 idiomas, para a criança reconhecer o personagem.
-- **Pausas:** use reticências (`...`) ou `[pause]`. Em v2, use `<break time="0.5s" />`.
-- **Velocidade:** um pouco mais lenta que o normal (0,9×). Crianças pequenas estão aprendendo a ler.
-- **Exportar:** MP3, 44,1 kHz, 128 kbps, mono. Corte o silêncio do começo e do fim (no máximo 0,1 s).
-- **Volume:** todas as falas no mesmo volume (normalizar em −16 LUFS, ou "normalize" no Audacity).
-- **Números:** quando aparecer "-4 de saúde", deve ser lido como "menos quatro de saúde" (no idioma da fala).
+| Character | Folder | Voice prompt |
+| --- | --- | --- |
+| Rovi | `rovi/` | A warm, upbeat little robot. Slightly high-pitched, playful, and easy to understand. |
+| Mission Control | `controle/` | A calm adult mission controller. Clear and reassuring, with a gentle radio texture. |
+| Female astronaut | `astronauta_menina/` | A cheerful, confident young adult. Clear, friendly delivery. |
+| Male astronaut | `astronauta_menino/` | A cheerful, confident young adult. Clear, friendly delivery. |
 
-### As vozes (use o Voice Design ou escolha da biblioteca)
-| Personagem | Pasta | Como deve soar | Prompt para o Voice Design |
-|---|---|---|---|
-| **Rovi** (robô ajudante) | `rovi/` | Animado, simpático, um pouco agudo, claro. É o "amigo-professor" da criança. Depois de gerar, um leve efeito metálico (opcional). | "A friendly, upbeat small robot companion for a kids' space game, slightly high-pitched, clear and warm, playful but easy to understand, speaks slowly and clearly" |
-| **Controle de Missão** (Terra) | `controle/` | Adulto, calmo, confiante, acolhedor. Fala pelo rádio. Depois, filtro de rádio (opcional). | "A calm, warm adult mission controller speaking over the radio, reassuring and clear, gentle authority, kids' educational game" |
-| **Astronauta menina** | `astronauta_menina/` | Jovem adulta, corajosa, alegre. | "A young adult female astronaut, cheerful and brave, friendly, clear, kids' game" |
-| **Astronauta menino** | `astronauta_menino/` | Jovem adulto, corajoso, alegre. | "A young adult male astronaut, cheerful and brave, friendly, clear, kids' game" |
+Export both astronaut versions when `astronauta_X` appears in a card file path. Common delivery tags include `[friendly]` for tutorial prompts, `[thoughtful]` for explanations, `[urgent]` for time-sensitive alerts, `[sleepy]` at bedtime, and `[reassuring]` for a rescue. Match the original wording of each language.
 
-Na fase 2, `astronauta_X` no nome do arquivo quer dizer: grave duas vezes e salve uma em `astronauta_menina/` e outra em `astronauta_menino/`.
-
-### Guia de emoções usadas
-| Tag | Quando | Como soar |
-|---|---|---|
-| `[excited]` / `[very excited]` | abertura, estrelas, vitória | energia alta, sorrindo |
-| `[cheerful]` / `[happy]` / `[pleased]` | ajuda, bom dia, figurinha | alegre, leve |
-| `[friendly]` / `[helpful]` / `[warm]` | tutorial e dicas | gentil, paciente, explicando |
-| `[thoughtful]` / `[curious]` | custos, curiosidades | pensativo, intrigado |
-| `[serious]` | regra importante | firme, mas sem medo |
-| `[worried]` / `[concerned]` | ar ou comida acabando | preocupado, mas calmo; **nunca assustar a criança** |
-| `[urgent]` / `[slightly urgent]` | tempestade, entardecer | rápido e firme, sem gritar |
-| `[sighs] [tired]` | cansaço da noite | suspiro, cansado |
-| `[yawns] [sleepy]` | hora de dormir | bocejo, sonolento |
-| `[calm] [soft]` / `[calm] [reassuring]` | noite, resgate | baixo, tranquilo, acolhedor |
-| `[sighs] [relieved]` | "ufa" | alívio |
-| `[proud]` | missão cumprida | orgulhoso e caloroso |
-| `[encouraging]` | dicas depois de perder | motivador, "você consegue" |
-
-Importante: é para crianças. Nada de tom assustador, triste demais ou irônico. O resgate é **calmo e positivo** ("ninguém se machucou").
-
-### Como entregar
-Uma pasta `voz/` com as subpastas exatamente como na coluna `arquivo`:
-```
+```text
 voz/pt/rovi/tut.andar.mp3
 voz/pt/controle/fim.vitoria.body.mp3
 voz/en/astronauta_menina/astro.vamos.mp3
-...
 ```
-Zipe e mande para o Leo. Os nomes têm que ser **iguais**, porque o jogo procura o arquivo pelo nome.
 
-## Parte B: efeitos realistas e ambientes (ElevenLabs Sound Effects)
+Keep paths and filenames unchanged when sending the audio bundle to Leonardo.
 
-Os sons "de verdade" (máquinas, vento, rádio). Os bipes 8-bit ficam com o Leo. Estilo geral: **um pouco lo-fi, para combinar com pixel art**, nada assustador.
+## Ambience and realistic effects
 
-| Arquivo | Prompt | Duração | Loop? |
-|---|---|---|---|
-| `ambiente/vento_marte.mp3` | "soft thin wind on Mars, quiet and calm, no gusts, lo-fi, seamless loop" | 20 s | sim |
-| `ambiente/base_dentro.mp3` | "quiet hum of a small space base interior, gentle air vents, soft electronic hum, seamless loop" | 20 s | sim |
-| `ambiente/noite_base.mp3` | "very quiet night on a Mars base, soft electronic hum, faint wind, peaceful, seamless loop" | 20 s | sim |
-| `sfx/porta_abre.mp3` | "short sci-fi pneumatic door opening hiss, lo-fi, friendly" | 0,6 s | não |
-| `sfx/porta_fecha.mp3` | "short sci-fi pneumatic door closing hiss, lo-fi" | 0,6 s | não |
-| `sfx/passo_areia_1.mp3` e `_2` | "single soft footstep on dusty sand, light, lo-fi" | 0,2 s | não |
-| `sfx/radio_chiado.mp3` | "short retro radio static burst ending with a beep, lo-fi" | 0,8 s | não |
-| `sfx/tempestade_chegando.mp3` | "low rumbling solar storm with crackling static, ominous but not scary, kids game" | 2 s | não |
-| `sfx/rover_liga.mp3` | "small electric rover motor starting up, cute, lo-fi" | 1,5 s | não |
-| `sfx/rover_andando.mp3` | "small electric rover driving on gravel, steady, seamless loop, lo-fi" | 4 s | sim |
-| `sfx/rover_freia.mp3` | "small electric rover slowing down and stopping on gravel" | 1,5 s | não |
-| `sfx/estacao_bipe.mp3` | "remote science station beeping and whirring as it receives data, lo-fi" | 1,5 s | não |
-| `sfx/painel_limpo.mp3` | "brushing dust off solar panels, soft swipes, lo-fi" | 1 s | não |
-| `sfx/estufa_agua.mp3` | "small water sprinkler in a greenhouse, gentle, lo-fi" | 1 s | não |
-| `sfx/fabrica_ar.mp3` | "air machine humming and puffing, gentle, lo-fi" | 1,5 s | não |
+Use a gentle, slightly lo-fi sound that fits the pixel art. Export MP3 at 44.1 kHz with consistent volume.
 
-Entregar em `ambiente/` e `sfx/` com esses nomes, MP3 44,1 kHz, volume normalizado.
+| File | Direction | Duration |
+| --- | --- | --- |
+| `ambiente/vento_marte.mp3` | Quiet Mars wind without gusts, seamless loop | 20 s |
+| `ambiente/base_dentro.mp3` | Small base interior with gentle vents and a soft hum, seamless loop | 20 s |
+| `ambiente/noite_base.mp3` | Very quiet base at night with a faint wind, seamless loop | 20 s |
+| `sfx/porta_abre.mp3`, `sfx/porta_fecha.mp3` | Short pneumatic opening and closing hisses | 0.6 s |
+| `sfx/passo_areia_1.mp3`, `sfx/passo_areia_2.mp3` | Two soft footsteps on dusty sand | 0.2 s |
+| `sfx/radio_chiado.mp3` | Radio static ending with a beep | 0.8 s |
+| `sfx/tempestade_chegando.mp3` | Low storm rumble, with gentle static | 2 s |
+| `sfx/rover_liga.mp3`, `sfx/rover_freia.mp3` | Small electric rover starts or brakes on gravel | 1.5 s |
+| `sfx/rover_andando.mp3` | Electric rover on gravel, seamless loop | 4 s |
+| `sfx/estacao_bipe.mp3` | A remote station beeps as it receives data | 1.5 s |
+| `sfx/painel_limpo.mp3` | Soft swipes brushing dust from panels | 1 s |
+| `sfx/estufa_agua.mp3` | A gentle greenhouse sprinkler | 1 s |
+| `sfx/fabrica_ar.mp3` | A soft mechanical hum with puffs of air | 1.5 s |

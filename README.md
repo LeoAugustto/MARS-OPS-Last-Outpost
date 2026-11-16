@@ -1,56 +1,64 @@
-# Operação Marte: Última Base · MARS OPS: Last Outpost 🚀🔴
+# MARS OPS: Last Outpost
 
-Jogo de navegador para crianças de **7 a 12 anos**: comande uma base em Marte, um **sol** (dia marciano) de cada vez.
-Divida a energia entre **ar, comida, ciência e escudo**, e enfrente **tempestades solares reais** registradas pela NASA (DONKI).
-Nenhuma escolha é de graça e, quando algo dá errado, o Controle de Missão explica por quê.
+[Leia em português](README.pt-BR.md)
 
-**NASA Space Apps Challenge 2026** · Desafio: *Build a Junior Astronaut Mission Trainer*
+**MARS OPS: Last Outpost** is a browser game for ages 7–12. Players command a Mars outpost and keep its crew supplied with air, food, and shelter. They split a limited energy budget between four systems, investigate alerts, and learn what each decision costs.
 
-**Jogar agora:** https://mars-ops-last-outpost.vercel.app
+Built by **cavalodetroia.exe** for the **2026 NASA Space Apps Challenge**, *Build a Junior Astronaut Mission Trainer*.
 
-> Projeto independente feito para o hackathon. Usa dados públicos da NASA como fonte; não tem apoio nem endosso oficial da NASA.
+[**Play MARS OPS**](https://mars-ops-last-outpost.vercel.app/)
 
-- 🎮 Sem cadastro, sem download: abre e joga (celular ou PC)
-- 🌍 5 idiomas: Português, English, Español, Français, Italiano
-- 🔁 Histórias aleatórias, mas sempre encadeadas: cada missão é diferente
-- 📚 Dados reais da NASA citados dentro do jogo ([docs/DATA_SOURCES.md](docs/DATA_SOURCES.md))
+## Play a mission
 
-## Rodar localmente
+1. Choose **Cadet** (7 sols), **Pilot** (10 sols), or **Commander** (10 sols). A sol is a Martian day.
+2. Follow the alert markers. Walk into a building and use its terminal to see what happened. The choices show their costs, and **Why?** explains the science behind the outcome.
+3. Share power between the air maker, greenhouse, lab, and sand shield. The plan carries over to the next sol.
+4. Go to the habitat bed to end the sol. At night, unresolved alerts can carry consequences.
+5. Survive until the final sol and earn up to three stars based on science collected. If Earth rescues the crew, the mission report explains what happened and can let you replay an earlier sol.
+
+Use touch on mobile or a mouse, arrow keys, or WASD on desktop. The game supports Brazilian Portuguese, English, Spanish, French, and Italian. On the first visit it checks the browser’s preferred languages. You can change the language in the game, and the browser remembers your choice.
+
+## NASA data in the game
+
+The game reads solar flares, coronal mass ejections, solar energetic particle events, and geomagnetic storms from NASA’s DONKI database. Those records provide dates and details for the alerts. If the connection fails, the game can use archived DONKI records included in the repository. The source links and dates are visible on event cards.
+
+The Earth–Mars radio delay is an estimate from NASA/JPL orbital elements. Resource costs, radiation damage, and the timing of events in a mission are simulation rules. [Data sources and how they are used](docs/DATA_SOURCES.md)
+
+## Privacy
+
+The game requires no account or download and contains no ads. The mission save, optional player name, stickers, and preferences stay in the browser’s local storage. Clearing site data removes them. DONKI requests contain date ranges and query filters. The game keeps the player’s name and progress on the device.
+
+## Run locally
+
 ```bash
 npm install
-npm run dev     # abre o site
-npm test        # testes do motor, validador de eventos/traduções e telas
-npm run build   # confere se publica
+npm run dev
+npm test
+npx tsc --noEmit -p .
+npm run build
 ```
 
-## Como jogar (resumo)
-- Escolha o nível: **Cadete** (7 sóis), **Piloto** (10) ou **Comandante** (10).
-- Ande pela base, entre nos prédios com alerta e use o computador. Toda escolha custa algo; não escolher também custa.
-- Divida a energia em **Energia**: ar, estufa (comida), laboratório (ciência) e escudo.
-- Resolva os alertas e durma na cama da Casa antes da noite.
-- Sobreviveu até o último sol? Vitória, com **1 a 3 estrelas** de ciência. Se algo acabar, a Terra resgata a tripulação e o relatório mostra o que mudar.
+The project uses TanStack Start, React, TypeScript, Vite, Tailwind CSS, and Vitest. The TypeScript engine is in [src/game/engine](src/game/engine). The event catalog and five sets of game translations are in [src/content](src/content).
 
-## Privacidade
-- Sem conta, sem login, sem coleta de dados de crianças, sem anúncios e sem rastreadores.
-- O progresso fica só no navegador (`localStorage`: save da missão, figurinhas, nome escolhido e eventos recentes). Apagar os dados do site apaga tudo.
-- O jogo busca eventos do Sol direto no DONKI (CCMC/NASA), sem chave e sem enviar dados pessoais.
-- O nome digitado pela criança fica só no aparelho e nunca é enviado.
+The public build runs on Vercel with `NITRO_PRESET=vercel`. This repository’s `main` branch syncs with Lovable. Preserve the shared Git history when working on published commits. [Lovable project](https://lovable.dev/projects/bedd89e3-d75e-4d30-aca6-0a37da005e2e) · [Contribution rules](AGENTS.md)
 
-## Publicação
-Vercel, com deploy automático a cada envio para a `main` (variável `NITRO_PRESET=vercel` no projeto).
+## Documentation
 
-## Lovable
-As telas do site são feitas no [editor do Lovable](https://lovable.dev/projects/bedd89e3-d75e-4d30-aca6-0a37da005e2e), que sincroniza com este repositório (branch `main`) nos dois sentidos.
-Nunca force push / rebase / amend em commits já enviados. Regras completas no [AGENTS.md](AGENTS.md).
+- [Game design](docs/GAME_DESIGN.md)
+- [NASA data and science references](docs/DATA_SOURCES.md)
+- [Writing and localization guide](docs/STYLE_GUIDE.md)
+- [Art and asset guide](docs/ART.md)
+- [Sound, music, and voices](docs/SONS-E-VOZES.md)
+- [Testing report](docs/QA_REPORT.md)
+- [Team and Git workflow](docs/TEAM.md)
 
-## Documentação
-- [AGENTS.md](AGENTS.md): regras do projeto (para pessoas e IAs)
-- [docs/GAME_DESIGN.md](docs/GAME_DESIGN.md): como o jogo funciona
-- [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md): o que é dado real e o que é simplificação
-- [docs/STYLE_GUIDE.md](docs/STYLE_GUIDE.md): como escrever para crianças
-- [docs/TEAM.md](docs/TEAM.md): time, tarefas e fluxo de Git
-- [docs/SONS-E-VOZES.md](docs/SONS-E-VOZES.md): plano de música, efeitos e vozes
-- [docs/RELATORIO-TESTES-CHATGPT.md](docs/RELATORIO-TESTES-CHATGPT.md): bateria de testes
+## Team
 
-## Time
-Leo · Vinicius · Yckler · Felipe · Bruno · (6º integrante)
+- Leonardo Augusto de Oliveira Santos
+- Bruno Assis Oliveira
+- Vinicius da Silva Lima
+- Felipe Souza Siqueira
+- Bernardo Galvao Alvarenga Morais e Silva
+- Yckler Ryan Duarte Tomicki
+
+MARS OPS is an independent hackathon project. NASA is credited as a data source.

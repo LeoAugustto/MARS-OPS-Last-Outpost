@@ -1,17 +1,18 @@
-# CLAUDE.md
+# Claude Code project instructions
 
-As regras do projeto ficam no AGENTS.md (compartilhado com ChatGPT/Codex e Lovable). Siga-as sempre:
+The shared project rules apply to Claude Code, Codex, and Lovable.
 
 @AGENTS.md
 
-## Específico do Claude Code
-- Responda ao time em **português**.
-- Antes de editar, confira em `AGENTS.md` → "Mapa de pastas e DONOS" se a pasta é da pessoa que está pedindo. Se não for, avise.
-- Depois de mexer em `src/game/` ou `src/content/`, rode `npm test`. Depois de mexer em UI, rode `npm run build`.
-- Para adicionar evento, siga o checklist do AGENTS.md e escreva os textos nos 5 idiomas na mesma tarefa.
-- Não faça commit/push sem o pedido de quem está usando. Commits terminam com a linha de co-autoria padrão.
-- Bugs do GitHub: use a skill `/corrige-issues` (ou o agente `dev-bugs` para uma issue por vez). Ela confirma o bug com fotos no PC e no celular (`.claude/ferramentas/fotos.mjs`) antes de corrigir.
+## Claude Code
 
-## Retomada de trabalho
+- Reply to the team in Portuguese.
+- Check area ownership in [AGENTS.md](AGENTS.md) before editing and flag changes outside the requester's area.
+- Run `npm test` after editing `src/game/` or `src/content/`. Run `npm run build` after UI changes.
+- Follow the event checklist and update the five languages together.
+- Commit and push only with authorization. Use the standard co-author trailer on Claude Code commits.
+- For GitHub bugs, use `/corrige-issues` or the `dev-bugs` agent one issue at a time. Confirm the bug on desktop and mobile with `.claude/ferramentas/fotos.mjs` before fixing it.
 
-O bloco **Continuidade entre Codex e Claude Code** de `AGENTS.md`, importado acima, também vale para o Claude Code. Leia `PROJECT_CONTEXT.md` e `SESSION_HANDOFF.md`, confira o Git na raiz do checkout e atualize o handoff antes de transferir a tarefa.
+## Resuming work
+
+Follow the continuity section in [AGENTS.md](AGENTS.md). Read [Project context](PROJECT_CONTEXT.md) and [Session handoff](SESSION_HANDOFF.md), check Git at the repository root, and update the handoff before transferring an ongoing task.

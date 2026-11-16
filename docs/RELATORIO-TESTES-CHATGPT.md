@@ -1,5 +1,7 @@
 # Bateria de testes — Operação Marte: Última Base
 
+[English testing report](QA_REPORT.md)
+
 15/11/2026 · Base `8c1f82d` · Alterações locais em `feat/qa-bateria-missoes`
 
 > Atualização após o commit local b6f5507. A seção 8 complementa a primeira rodada e usa uma amostra maior para as decisões de equilíbrio.

@@ -29,84 +29,69 @@ use the editor.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
 
-# AGENTS.md — regras para QUALQUER IA (Claude Code, ChatGPT/Codex, Lovable, Cursor…)
+# Project instructions
 
-> Fonte única de verdade. O `CLAUDE.md` importa este arquivo. Se mudar uma regra, mude AQUI.
-> Leia também: `docs/GAME_DESIGN.md` (regras do jogo), `docs/STYLE_GUIDE.md` (como escrever para crianças), `docs/TEAM.md` (quem faz o quê).
+`CLAUDE.md` imports this file. Keep project rules here and use the design, writing, and team documents for details. [Game design](docs/GAME_DESIGN.md) · [Writing guide](docs/STYLE_GUIDE.md) · [Team](docs/TEAM.md)
 
-## O projeto em 30 segundos
-**Operação Marte: Última Base** (EN: *MARS OPS: Last Outpost*) — jogo de navegador para crianças de **7 a 12 anos** (NASA Space Apps 2026, desafio *Build a Junior Astronaut Mission Trainer*).
-A criança comanda uma base em Marte, **um sol (dia marciano) por vez**, andando num **mapa 2D da base** (sempre o mesmo). A cada sol surgem **2 a 4 alertas** nos lugares da base (cartas com escolhas que custam algo) e ela divide a energia entre **ar, estufa, laboratório e escudo** (a divisão continua de um dia pro outro). Desenho completo: `docs/GAME_DESIGN.md` (v2). Eventos reais da NASA (tempestades solares do **DONKI**) disparam histórias encadeadas. Quando dá errado, **não tem game over**: o Controle de Missão explica por quê e a criança pode voltar a um sol anterior.
+**MARS OPS: Last Outpost** (*Operação Marte: Última Base*) is a browser game for ages 7–12, built for the 2026 NASA Space Apps challenge *Build a Junior Astronaut Mission Trainer*. Players explore one Mars outpost, respond to alerts over successive sols, and allocate power to air, food, research, and shielding. NASA DONKI records can trigger solar event chains. When Earth rescues the crew, the report explains what happened and can offer a retry from an earlier sol.
 
-Prazo: submissão até **15/11/2026 23:59** (horário local). Simples e funcionando > bonito e quebrado.
+The submission deadline is 15 November 2026 at 23:59 local time.
 
-## Regras do desafio que NUNCA podem ser quebradas
-1. **Sem conta, sem login, sem download.** Entrou no site, jogou. Save só no `localStorage` via `src/lib/saves.ts` (sempre com try/catch).
-2. **Nenhuma escolha de graça.** Toda escolha tem custo agora ou depois (`deferredCost` + `schedule`). O teste `validateCatalog` reprova escolha sem custo.
-3. **Poucos recursos na tela:** 3 barras (Ar, Comida, Saúde) + Energia (moeda do dia). Não adicione barra nova sem falar com o time.
-4. **Dado real é honesto:** dado selecionado aparece como "📚 Evento real de <data>", nunca como "ao vivo". Só mostre "📡 ao vivo" se veio de uma chamada de API agora. Número inventado para jogabilidade nunca é apresentado como dado da NASA.
-5. **Toda fonte citada dentro do jogo** (selo na carta + página `/fontes`).
-6. **Linguagem de criança:** frases curtas, sem jargão; termo científico inevitável (sol, radiação, tempestade solar) vem explicado na mesma frase. Ver `docs/STYLE_GUIDE.md`.
-7. **5 idiomas sempre completos: PT (padrão), EN, ES, FR, IT.** Nenhum texto visível hardcoded em componente. Adicionou chave? Adicione nos 5 arquivos. Seletor de idioma = bandeiras em SVG (emoji de bandeira não aparece no Windows).
-8. **Mobile first:** tem que funcionar em celular (toque, botões ≥ 48px) e PC.
+## Project rules
 
-## Stack
-- App: **TanStack Start** (React 19 + TypeScript + Vite) + Tailwind 4 + shadcn/ui, gerado e publicado pelo **Lovable**. Rotas em `src/routes/` (`index`, `play`, `fontes`, `sobre`).
-- Repositório sincronizado com o Lovable nos 2 sentidos (branch `main`). **Nunca** force push, rebase, amend ou squash de commits já enviados (apaga o histórico do Lovable). Tudo que vai pra `main` aparece no Lovable: mantenha a `main` funcionando.
-- i18n da UI do site: `src/i18n/locales/*.ts` + `useT()` (feito pelo Lovable). i18n do jogo: `src/content/locales/*.ts` + `t()`. Mesmo tipo `Lang`.
-- Supabase aparece no projeto (Lovable Cloud), mas **não é usado**: sem conta, sem banco. Não adicione migrations; mudança de banco só pelo Lovable.
-- Motor do jogo: **TypeScript puro** em `src/game/engine/` (sem React, sem DOM, sem `Math.random`).
-- Telas do jogo: **React puro** em `src/game/ui/` (mapa andável em HTML/CSS, sem Phaser — mais leve no celular e sem brigar com o SSR do TanStack). A rota `src/routes/play.tsx` só monta `<GameApp />`.
-- Arte: **pixel art**. Lista de arquivos e tamanhos em `src/game/ui/art.ts` (mapa, astronauta em 8 direções, retratos da caixa de diálogo, cena de cada lugar). Sem arte pronta, o jogo usa formas + emoji.
-- **Nada de logo da NASA** (nem "meatball" nem "worm") em arte, retrato ou tela: as regras de marca da NASA proíbem uso que pareça apoio oficial. Citar a NASA como **fonte dos dados** pode e deve.
-- Testes: Vitest (`npm test`, ambiente jsdom, `vitest.config.ts`).
-- Sem backend. Eventos do Sol buscados **ao vivo** no DONKI pelo navegador (`src/data/donki-live.ts`, sem chave), com reserva conferida em `src/data/donki.ts`.
+1. Keep the game playable without accounts, sign-in, downloads, or collection of children’s personal data. Store the mission locally through `src/lib/saves.ts` and handle storage errors.
+2. Give every choice an immediate or deferred cost. Use `deferredCost` with the relevant scheduled event or state effect. `validateCatalog` checks the catalog.
+3. Keep the main resources simple. The HUD uses air, food, and health bars plus the day's energy budget. Discuss new bars with the team.
+4. Label records accurately. Archived DONKI records show a real event date. Only recent records fetched from the live feed receive the live badge. Keep simulated costs and effects distinct from source data.
+5. Cite the source of real data on the event card and on [the data sources page](https://mars-ops-last-outpost.vercel.app/fontes).
+6. Write for children. Use short sentences and explain terms such as sol and radiation when they first appear. [Writing guide](docs/STYLE_GUIDE.md)
+7. Keep Brazilian Portuguese, English, Spanish, French, and Italian complete. Preserve the priority of a saved choice and the browser’s preferred languages. Add new visible text to all five dictionaries. Use SVG flags in the language selector.
+8. Design for mobile and desktop. Keep touch targets at least 48 px and verify keyboard controls on desktop.
+9. Use original art and avoid NASA logos and branding. Credit NASA for the data.
 
-## Mapa de pastas e DONOS (não edite pasta de outro sem combinar)
-| Pasta | O que é | Quem mexe |
-|---|---|---|
-| `src/routes`, `src/components`, `src/i18n`, `src/lib`, `src/assets` | Telas do site, HUD, i18n da UI, save local | **Lovable** + Leo |
-| `src/game/engine/` | Regras, simulação, diretor de eventos, relatório | Vinicius (Claude/ChatGPT) — **Lovable NÃO edita** |
-| `src/game/ui/` | Telas do jogo: mapa, cartas, energia, noite, relatório, tutorial | Leo/Yckler — **Lovable NÃO edita** |
-| `public/assets/` | Arte pixel art (nomes em `src/game/ui/art.ts`) | Yckler + time de arte |
-| `src/content/` | Catálogo de eventos + textos nos 5 idiomas | Bruno — **Lovable NÃO edita** |
-| `src/data/`, `scripts/` | Dados reais da NASA + scripts de coleta | Felipe — **Lovable NÃO edita** |
-| `docs/` | Design, fontes, time, guia de texto | todos |
+## Code ownership
 
-## Arquitetura do motor (leia antes de mexer)
-- Estado único `GameState` (serializável em JSON → vai direto pro save).
-- Funções puras: `newMission`, `choose`, `endSol`, `rewindTo`, `debrief` — recebem estado, devolvem **novo** estado.
-- Aleatório só via `rngFor(state)` (semente). Mesma semente = mesma missão. Isso sustenta o "voltar ao sol" e os testes.
-- Eventos em `src/content/events.ts`: cada um tem `chain` (história), `canHappen` (coerência), `weight`, `cooldown`, `choices` com `effects`, `setFlags`, `schedule` (continuação). O **diretor** nunca abre uma história que já está em andamento.
-- Textos NÃO ficam no motor: chaves por convenção `ev.<id>.title|body` e `ev.<id>.<choice>.label|outcome|lesson` em `src/content/locales/<lang>.ts`. Use `t(key, lang, vars)`.
-- Números de balanceamento só em `src/game/engine/balance.ts`, com comentário dizendo se é real (fonte) ou "jogo".
+| Area | Responsibility | Owner |
+| --- | --- | --- |
+| `src/routes`, `src/components`, `src/i18n`, `src/lib`, `src/assets` | Site pages, site localization, and saves | Leonardo and Lovable |
+| `src/game/engine` | Deterministic simulation, events, and mission report | Vinicius |
+| `src/game/ui` | Map, cards, HUD, panels, and tutorial | Leonardo and Yckler |
+| `public/assets`, `art-source` | Game art and source files | Yckler and the art team |
+| `src/content` | Event catalog and game translations | Bruno |
+| `src/data`, `scripts` | Source data and collection scripts | Felipe |
+| `docs` | Design, sources, writing, and team documentation | Everyone |
 
-## Como trabalhar (humano ou IA)
-1. `git pull` antes de começar. Branch por tarefa: `feat/<area>-<coisa>` (ex.: `feat/engine-ventania`).
-2. Mudanças pequenas e focadas. Não reformate arquivos inteiros. Não renomeie/mova pastas de outro dono.
-3. Antes de commitar: `npm test` e `npm run build` passando.
-4. Commit em português, curto, no imperativo: `adiciona evento de ventania`, `corrige save no Safari`.
-5. PR para `main`; Leo revisa e faz merge. O Lovable commita direto na `main` — por isso ele só mexe nas pastas dele.
-6. Nunca commitar chaves/segredos (ex.: `NASA_API_KEY`). Use variável de ambiente.
+Coordinate edits with the area owner. Lovable handles the site UI. Keep it out of the game engine, game UI, event content, data code, and art.
 
-## Checklist para adicionar um EVENTO novo
-- [ ] Entrada em `src/content/events.ts` com `chain`, `canHappen` coerente e custo em toda escolha.
-- [ ] Se for continuação: `onlyScheduled: true` e alguém agenda via `schedule`.
-- [ ] Textos `ev.<id>.*` nos **5** arquivos de `src/content/locales/`.
-- [ ] Lição ("Por quê?") verdadeira e simples; se for fato da NASA, fonte anotada em `docs/DATA_SOURCES.md`.
-- [ ] `npm test` verde (o validador confere tudo isso).
+## Architecture
 
-## O que NÃO fazer
-- Não adicionar login, cadastro, analytics com dados pessoais ou coleta de dados de crianças.
-- Não usar `Math.random()` no motor nem guardar funções no `GameState`.
-- Não apresentar dado selecionado como "ao vivo".
-- Não copiar arte/nome/personagens de jogos existentes (inspiração de gênero tudo bem).
-- Não adicionar dependência pesada sem combinar (o jogo tem que abrir rápido no celular).
+- TanStack Start with React 19, TypeScript, Vite, Tailwind CSS, and shadcn/ui. `src/routes/play.tsx` mounts `GameApp`. The map runs in HTML and CSS.
+- Site translations use `src/i18n/locales` and `useT()`. Game translations use `src/content/locales` and `t()`. Both share the `Lang` type.
+- The engine uses serializable `GameState` and pure functions such as `newMission`, `choose`, `endSol`, `rewindTo`, and `debrief`. Use `rngFor(state)` for deterministic randomness. Keep React, the DOM, and `Math.random` out of the engine.
+- Events in `src/content/events.ts` use `chain`, `canHappen`, `weight`, and `cooldown`. Choices can have effects, flags, and scheduled follow-ups. The scheduler avoids starting another event in an active chain.
+- Keep balance values in `src/game/engine/balance.ts`. Cite source data and mark simulation values as game rules.
+- `src/game/ui/art.ts` maps pixel art and sprites. The browser reads DONKI through `src/data/donki-live.ts` and can use the archive in `src/data/donki.ts`. The game uses no account or database. Supabase scaffolding is present under Lovable management.
 
-## Continuidade entre Codex e Claude Code
+## Changes and review
 
-1. No início de cada etapa ou retomada, leia `PROJECT_CONTEXT.md` e `SESSION_HANDOFF.md`. Na raiz do checkout, confira `git status --short --branch`, `git branch --show-current` e `git log -5 --oneline`. Use `git diff` e `git diff --cached` para entender o trabalho existente antes de editar.
-2. Ao assumir uma tarefa em andamento, continue no mesmo checkout e na mesma branch. A regra de pull e branch por tarefa acima se aplica a trabalho novo. Se o fluxo de integração for necessário durante uma retomada, combine antes. Preserve as mudanças existentes e confirme no código o que ainda falta.
-3. Ao concluir uma etapa importante, ou antes de trocar de agente, atualize `SESSION_HANDOFF.md` com agente, objetivo, arquivos, decisões, testes realmente executados, pendências e próximo passo. Atualize `PROJECT_CONTEXT.md` quando a arquitetura ou as funcionalidades mudarem.
-4. No Orca, use **Resume** no histórico para continuar uma conversa do mesmo agente e confira o diretório registrado. Para trocar de agente, use **Hand Off to Another Agent** no terminal e confira se o destino está no mesmo checkout. A transferência leva um resumo limitado. Se o agente de origem estiver sem cota, abra o outro agente na mesma branch e peça que continue pelos dois arquivos de contexto e pelo diff.
-5. Faça commit ou push só com autorização. Preserve os históricos dos agentes, mantenha credenciais fora dos documentos e use permissões Auto quando disponíveis.
+1. Update from the remote before starting new work. Create a task branch such as `feat/engine-dust-devil`.
+2. Keep the diff focused and coordinate changes to shared areas. Never commit secrets, including `NASA_API_KEY`.
+3. Run `npm test` and `npm run build` before committing. Use a short, imperative commit message in Portuguese.
+4. Open a PR to `main` for Leonardo’s review when authorized. Lovable syncs with `main` in both directions. Preserve published commits and avoid force-push, rebase, amend, or squash of commits already sent.
+5. Commit and push only with authorization.
+
+### Adding an event
+
+- Register the event in `src/content/events.ts` and give each choice a cost.
+- Make follow-ups `onlyScheduled: true` and schedule them in the correct chain.
+- Add `ev.<id>.title`, `ev.<id>.body`, and the `label`, `outcome`, and `lesson` keys for each choice in all five languages.
+- Make the **Why?** lesson short and accurate. Record its source in [Data sources](docs/DATA_SOURCES.md).
+- Run `npm test` to validate event costs, scheduling, and translations.
+
+## Continuity between Codex and Claude Code
+
+1. Read [Project context](PROJECT_CONTEXT.md) and [Session handoff](SESSION_HANDOFF.md) when starting or resuming. At the repository root, check `git status --short --branch`, the current branch, the last five commits, and both staged and unstaged diffs.
+2. Resume ongoing work in the same checkout and branch. Preserve existing changes and coordinate integration when needed. Use a fresh task branch for new work.
+3. At a significant milestone or before handing work off, record the agent, goal, files, decisions, checks, open issues, and next step in `SESSION_HANDOFF.md`. Update `PROJECT_CONTEXT.md` if architecture or features change.
+4. In Orca, use **Resume** and confirm the checkout shown in the history. When handing off, verify the destination checkout and branch and ask the recipient to read the context and diff.
+5. Preserve agent history, keep credentials out of documentation, and use automatic permissions where available.

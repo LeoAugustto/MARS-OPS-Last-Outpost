@@ -1,5 +1,7 @@
 # Passagem de bastão (Claude → Codex) — 14/11/2026
 
+> Historical handoff from 14 November 2026. Use the [English game design](GAME_DESIGN.md) and [session handoff](../SESSION_HANDOFF.md) for the current rules and work state.
+
 Leia primeiro: `AGENTS.md` (regras), `docs/GAME_DESIGN.md` (v2), `docs/ART.md`, `docs/DATA_SOURCES.md`.
 
 ## Estado atual (tudo na `main`, sincronizada com o Lovable)

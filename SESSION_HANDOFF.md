@@ -1,5 +1,12 @@
 # Passagem de bastão
 
+## 2026-11-15 · Codex · English submission documentation
+
+- **Branch and scope** — `feat/docs-ingles-submissao` from `d0cfe41`. Documentation only. The separate language task is on `feat/i18n-ingles-fallback` at `c85c1c5`.
+- **Documentation** — The main README is in English, with a Brazilian Portuguese version and all six team names in both. The English game design follows the implemented difficulty settings, sol clock, and resource rules. The data guide distinguishes runtime DONKI records, the approximate radio delay, supporting references, and simulated values.
+- **QA and production** — The English QA report summarizes the recorded runs. The original test matrices, research log, and audio plan are linked in Portuguese. Review the documentation branch for integration after authorization.
+- **Verification** — Checked relative links across the changed Markdown files, the six full names, and the unchanged Lovable-managed block. The public home URL returned HTTP 200. `git diff --check` passed.
+
 ## 2026-11-15 · Codex · baterias complementares para lançamento
 
 - **Entrega anterior** — O usuário autorizou o commit local. As correções e a rodada inicial estão em b6f5507 (corrige interface e registra bateria de testes), branch feat/qa-bateria-missoes. 45 testes, TypeScript e build padrão passaram antes do commit.
