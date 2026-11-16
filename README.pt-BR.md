@@ -61,11 +61,11 @@ O jogo está hospedado na Vercel com `NITRO_PRESET=vercel`. A branch `main` sinc
 
 ## Equipe
 
-- Leonardo Augusto de Oliveira Santos
-- Bruno Assis Oliveira
-- Vinicius da Silva Lima
-- Felipe Souza Siqueira
-- Bernardo Galvao Alvarenga Morais e Silva
-- Yckler Ryan Duarte Tomicki
+- [Leonardo Augusto de Oliveira Santos](https://www.linkedin.com/in/leoaugustto/)
+- [Bruno Assis Oliveira](https://www.linkedin.com/in/bruno-assis-oliveira)
+- [Vinicius da Silva Lima](https://www.linkedin.com/in/viniciusdasilvalima123)
+- [Felipe Souza Siqueira](https://www.linkedin.com/in/felipe-souza-siqueira/)
+- [Bernardo Galvao Alvarenga Morais e Silva](https://www.linkedin.com/in/bernardo-morais-ti)
+- [Yckler Ryan Duarte Tomicki](https://www.linkedin.com/in/ycklertomicki)
 
 Operação Marte é um projeto independente do hackathon. A NASA é creditada como fonte de dados.

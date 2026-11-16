@@ -102,9 +102,10 @@ export const SEGUNDOS_POR_SOL: Record<Level, number> = {
 };
 /** duração do sol no relógio do jogo: 07:00 → 24:00 (meia-noite: o relógio para e espera a cama) (jogo) */
 export const HORAS_DO_SOL = 17;
-/** fração do sol em que começa o entardecer (16h30) e a noite (18h30) (0 = 07:00, 1 = 24:00) (jogo) */
-export const ENTARDECER_EM = 9.5 / HORAS_DO_SOL;
-export const NOITE_EM = 11.5 / HORAS_DO_SOL;
+/** fração do sol em que começa o entardecer (16h00) e a noite (19h00) (0 = 07:00, 1 = 24:00) (jogo)
+ * 3 horas de fim de tarde: dá tempo de ver o aviso, resolver o que falta e ir para a cama */
+export const ENTARDECER_EM = 9 / HORAS_DO_SOL;
+export const NOITE_EM = 12 / HORAS_DO_SOL;
 /** a noite chegou e a tripulação ainda está acordada: cansaço, uma vez por sol (jogo) */
 export const SAUDE_AO_ANOITECER = 4;
 /** dormir com alerta sem resposta: a tripulação dorme preocupada, por alerta (jogo) */

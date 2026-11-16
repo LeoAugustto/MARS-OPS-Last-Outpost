@@ -61,11 +61,11 @@ The public build runs on Vercel with `NITRO_PRESET=vercel`. This repository’s 
 
 ## Team
 
-- Leonardo Augusto de Oliveira Santos
-- Bruno Assis Oliveira
-- Vinicius da Silva Lima
-- Felipe Souza Siqueira
-- Bernardo Galvao Alvarenga Morais e Silva
-- Yckler Ryan Duarte Tomicki
+- [Leonardo Augusto de Oliveira Santos](https://www.linkedin.com/in/leoaugustto/)
+- [Bruno Assis Oliveira](https://www.linkedin.com/in/bruno-assis-oliveira)
+- [Vinicius da Silva Lima](https://www.linkedin.com/in/viniciusdasilvalima123)
+- [Felipe Souza Siqueira](https://www.linkedin.com/in/felipe-souza-siqueira/)
+- [Bernardo Galvao Alvarenga Morais e Silva](https://www.linkedin.com/in/bernardo-morais-ti)
+- [Yckler Ryan Duarte Tomicki](https://www.linkedin.com/in/ycklertomicki)
 
 MARS OPS is an independent hackathon project. NASA is credited as a data source.
